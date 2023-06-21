@@ -5,6 +5,7 @@
 }: {
   imports = [
     ../services/networkmanager.nix
+    #../services/systemd-networkd.nix
   ];
 
   # Exclude the Epiphany browser

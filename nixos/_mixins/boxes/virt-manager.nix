@@ -1,5 +1,9 @@
 {pkgs, ...}: {
-  environment.systemPackages = with pkgs; [virt-manager spice-gtk swtpm];
+  environment.systemPackages = with pkgs; [
+    virt-manager
+    spice-gtk
+    swtpm
+  ];
   security.polkit.enable = true;
   virtualisation = {
     libvirtd = {

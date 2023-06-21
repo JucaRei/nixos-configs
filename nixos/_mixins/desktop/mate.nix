@@ -5,6 +5,7 @@
 }: {
   imports = [
     ../services/networkmanager.nix
+    #../services/systemd-networkd.nix
   ];
 
   # Exclude MATE themes. Yaru will be used instead.

@@ -84,7 +84,7 @@ home-manager switch -b backup --flake $HOME/Zero/nix-config
 
 A `rebuild-iso` alias is provided, that does the following:
 
-```bash=
+```bash
 pushd $HOME/Zero/nix-config
 nix build .#nixosConfigurations.iso.config.system.build.isoImage
 popd
@@ -102,7 +102,7 @@ sh <(curl -L https://nixos.org/nix/install) --no-daemon
 
 ### Activate nix profile (and add it to the **.profile**)
 
-```shell=
+```shell
 . ~/.nix-profile/etc/profile.d/nix.sh
  
 echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.profile
@@ -126,12 +126,12 @@ usermod -s ~/.nix-profile/bin/zsh $USER
 
 Install for **multi** user:
 
-```shell=
+```shell
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
 nix **environment** :
-```shell=
+```nix
 nix-shell (legacy)
 
 nix develop (new)
@@ -143,7 +143,7 @@ nix-env -e nix
 ```
 
 **Other** :
-```shell=
+```shell
 # All as root
 HOST=...  # set host variable to use proper configuration
 

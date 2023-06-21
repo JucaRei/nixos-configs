@@ -7,10 +7,11 @@
     ../services/cups.nix
     ../services/flatpak.nix
     ../services/sane.nix
+    ../services/dynamic-timezone.nix
     (./. + "/${desktop}.nix")
   ];
 
-  boot.kernelParams = ["quiet" "net.ifnames=0"];
+  boot.kernelParams = ["quiet" "net.ifnames=0" "mem_sleep_default=deep"];
   boot.plymouth.enable = true;
 
   fonts = {

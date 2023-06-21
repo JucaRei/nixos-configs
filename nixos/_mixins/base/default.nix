@@ -9,9 +9,12 @@
     ./locale.nix
     ./nano.nix
     ../services/fwupd.nix
+    ../services/ntp.nix
     ../services/openssh.nix
+    ../services/optimizations.nix
     ../services/tailscale.nix
     ../services/zerotier.nix
+    ../hardware/gfx-intel.nix
   ];
 
   environment.systemPackages = with pkgs; [

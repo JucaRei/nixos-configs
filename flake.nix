@@ -196,7 +196,7 @@
       oldmac = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs stateVersion;
-          desktop = bspwm;
+          desktop = "bspwm";
           hostid = "be4cb578";
           hostname = "oldmac";
           username = "juca";
