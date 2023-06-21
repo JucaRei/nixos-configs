@@ -3,6 +3,7 @@
     ./fish.nix
     ./git.nix
     ./neofetch.nix
+    ./broot.nix
     ./xdg.nix
   ];
 

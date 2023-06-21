@@ -46,6 +46,10 @@
     ];
     # Configure your nixpkgs instance
     config = {
+      # Allow unsupported packages to be built
+      allowUnsupportedSystem = false;
+      # Disable broken package
+      allowBroken = false;
       # Disable if you don't want unfree packages
       allowUnfree = true;
     };
@@ -54,8 +58,23 @@
   nix = {
     gc = {
       automatic = true;
-      options = "--delete-older-than 14d";
+      options = "--delete-older-than 5d";
+      dates = "00:00";
     };
+
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      log-lines = 15
+
+      # Free up to 4GiB whenever there is less than 1GiB left.
+      #min-free = ${toString (1024 * 1024 * 1024)}
+      # Free up to 4GiB whenever there is less than 512MiB left.
+      #min-free = ${toString (512 * 1024 * 1024)}
+      max-free = ${toString (4096 * 1024 * 1024)}
+      #min-free = 1073741824 # 1GiB
+      #max-free = 4294967296 # 4GiB
+      #builders-use-substitutes = true
+    '';
 
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
@@ -68,10 +87,14 @@
     optimise.automatic = true;
     package = pkgs.unstable.nix;
     settings = {
+      sandbox = true;
       auto-optimise-store = true;
+      warn-dirty = false;
       experimental-features = [
         "nix-command"
         "flakes"
+        "repl-flake"
+        "recursive-nix"
       ];
     };
   };

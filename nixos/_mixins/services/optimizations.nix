@@ -5,34 +5,31 @@
 }: {
   ### Some optimizations services
 
-  # Automatic CPU speed and power optimizer for Linux
-  auto-cpufreq = {
-    enable = true;
-  };
+  services = {
+    # Automatic CPU speed and power optimizer for Linux
+    auto-cpufreq = {
+      enable = true;
+    };
 
-  # Temperature management daemon
-  thermald = {
-    enable = true;
-  };
+    # Auto Nice Daemon
+    ananicy = {
+      enable = true;
+    };
 
-  # Auto Nice Daemon
-  ananicy = {
-    enable = true;
-  };
+    # Provide Power Management Support
+    upower = {
+      enable = true;
+      usePercentageForPolicy = true;
+      percentageLow = 40;
+      percentageCritical = 20;
+      percentageAction = 5;
+      criticalPowerAction = "Hibernate";
+    };
 
-  # Provide Power Management Support
-  upower = {
-    enable = true;
-    usePercentageForPolicy = true;
-    percentageLow = 40;
-    percentageCritical = 20;
-    percentageAction = 5;
-    criticalPowerAction = "Hibernate";
-  };
-
-  # Virtual Filesystem Support Library
-  gvfs = {
-    enable = true;
+    # Virtual Filesystem Support Library
+    gvfs = {
+      enable = true;
+    };
   };
 
   # Fix clock issue with Windows dual boot
@@ -58,19 +55,19 @@
     };
   };
 
-  services = {
-    tlp.enable = true;
-    udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", RUN+="${pkgs.ethtool}/bin/ethtool -s %k wol d"
-      ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*", RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"
-      ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
-      ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="min_power"
-    '';
-    ## this leads to non-responsive input devices
-    # ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
-    # i2p.enable = pkgs.lib.mkForce false;
-    # tor.enable = pkgs.lib.mkForce false;
-  };
+  #services = {
+  # tlp.enable = true;
+  #udev.extraRules = ''
+  # ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", RUN+="${pkgs.ethtool}/bin/ethtool -s %k wol d"
+  #ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*", RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"
+  #ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"
+  #ACTION=="add", SUBSYSTEM=="scsi_host", KERNEL=="host*", ATTR{link_power_management_policy}="min_power"
+  #'';
+  ## this leads to non-responsive input devices
+  # ACTION=="add", SUBSYSTEM=="usb", TEST=="power/control", ATTR{power/control}="auto"
+  # i2p.enable = pkgs.lib.mkForce false;
+  # tor.enable = pkgs.lib.mkForce false;
+  #};
 
   powerManagement.powertop.enable = true;
 }

@@ -4,6 +4,7 @@
     settings = {
       PasswordAuthentication = false;
       PermitRootLogin = lib.mkDefault "no";
+      X11Forwarding = true; # enable X11 forwarding
     };
   };
   programs.ssh.startAgent = true;

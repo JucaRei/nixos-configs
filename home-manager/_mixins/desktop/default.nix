@@ -11,6 +11,7 @@
     ./gitkraken.nix
     ./meld.nix
     ./tilix.nix
+    ./samba.nix
     (./. + "/${desktop}.nix")
   ];
 
@@ -74,5 +75,13 @@ StartupNotify=false";
     "XTerm.termName" = "xterm-256color";
     "XTerm*locale" = false;
     "XTerm*utf8" = true;
+
+    # set cursor size and dpi for 4k monitor
+    #"Xcursor.size" = 16;
+    #"Xft.dpi" = 172;
+
+    # set for 1080p
+    "Xcursor.size" = 16;
+    "Xft.dpi" = 96;
   };
 }
