@@ -1,0 +1,45 @@
+diff -Nru a/iso-image.nix b/iso-image.nix
+--- a/iso-image.nix	2016-09-22 21:55:43.876193129 +0300
++++ b/iso-image.nix	2016-09-22 21:55:07.186183295 +0300
+@@ -61,10 +61,22 @@
+ 
+   isolinuxCfg = baseIsolinuxCfg + (optionalString config.boot.loader.grub.memtest86.enable isolinuxMemtest86Entry);
+ 
++  PreLoader = pkgs.fetchurl {
++    url = "http://blog.hansenpartnership.com/wp-uploads/2013/PreLoader.efi";
++    md5 = "4f7a4f566781869d252a09dc84923a82";
++  };
++
++  HashTool = pkgs.fetchurl {
++    url = "http://blog.hansenpartnership.com/wp-uploads/2013/HashTool.efi";
++    md5 = "45639d23aa5f2a394b03a65fc732acf2";
++  };
++
+   # The EFI boot image.
+   efiDir = pkgs.runCommand "efi-directory" {} ''
+     mkdir -p $out/EFI/boot
+-    cp -v ${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${targetArch}.efi $out/EFI/boot/boot${targetArch}.efi
++    cp -v ${HashTool} $out/EFI/boot/HashTool.efi
++    cp -v ${PreLoader} $out/EFI/boot/boot${targetArch}.efi
++    cp -v ${pkgs.systemd}/lib/systemd/boot/efi/systemd-boot${targetArch}.efi $out/EFI/boot/loader.efi
+     mkdir -p $out/loader/entries
+ 
+     echo "title NixOS Live CD" > $out/loader/entries/nixos-livecd.conf
+@@ -296,7 +308,7 @@
+         config.system.build.toplevel.drvPath;
+ 
+     # Create the squashfs image that contains the Nix store.
+-    system.build.squashfsStore = import ../../../lib/make-squashfs.nix {
++    system.build.squashfsStore = import <nixpkgs/nixos/lib/make-squashfs.nix> {
+       inherit (pkgs) stdenv squashfsTools perl pathsFromGraph;
+       storeContents = config.isoImage.storeContents;
+     };
+@@ -345,7 +357,7 @@
+     boot.loader.timeout = 10;
+ 
+     # Create the ISO image.
+-    system.build.isoImage = import ../../../lib/make-iso9660-image.nix ({
++    system.build.isoImage = import <nixpkgs/nixos/lib/make-iso9660-image.nix> ({
+       inherit (pkgs) stdenv perl pathsFromGraph xorriso syslinux;
+ 
+       inherit (config.isoImage) isoName compressImage volumeID contents;

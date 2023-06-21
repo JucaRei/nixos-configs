@@ -1,0 +1,253 @@
+<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+  <name>win11</name>
+  <uuid>191944a0-7cc4-43ba-a097-8ec64a2bca23</uuid>
+  <metadata>
+    <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
+      <libosinfo:os id="http://microsoft.com/win/10"/>
+    </libosinfo:libosinfo>
+  </metadata>
+  <memory unit='KiB'>16777216</memory>
+  <currentMemory unit='KiB'>16777216</currentMemory>
+  <vcpu placement='static'>8</vcpu>
+  <cputune>
+    <vcpupin vcpu='0' cpuset='2'/>
+    <vcpupin vcpu='1' cpuset='8'/>
+    <vcpupin vcpu='2' cpuset='3'/>
+    <vcpupin vcpu='3' cpuset='9'/>
+    <vcpupin vcpu='4' cpuset='4'/>
+    <vcpupin vcpu='5' cpuset='10'/>
+    <vcpupin vcpu='6' cpuset='5'/>
+    <vcpupin vcpu='7' cpuset='11'/>
+    <emulatorpin cpuset='0-1,6-7'/>
+  </cputune>
+  <os>
+    <type arch='x86_64' machine='pc-i440fx-7.2'>hvm</type>
+    <loader readonly='yes' type='pflash'>/run/libvirt/nix-ovmf/OVMF_CODE.fd</loader>
+    <nvram>/var/lib/libvirt/qemu/nvram/win11_VARS.fd</nvram>
+    <bootmenu enable='no'/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <hyperv mode='custom'>
+      <relaxed state='on'/>
+      <vapic state='on'/>
+      <spinlocks state='on' retries='8191'/>
+      <vpindex state='on'/>
+      <synic state='on'/>
+      <stimer state='on'>
+        <direct state='on'/>
+      </stimer>
+      <reset state='on'/>
+      <frequencies state='on'/>
+      <reenlightenment state='on'/>
+      <tlbflush state='on'/>
+      <ipi state='on'/>
+    </hyperv>
+    <vmport state='off'/>
+  </features>
+  <cpu mode='host-passthrough' check='none' migratable='on'>
+    <topology sockets='1' dies='1' cores='4' threads='2'/>
+  </cpu>
+  <clock offset='localtime'>
+    <timer name='rtc' present='no' tickpolicy='catchup'/>
+    <timer name='pit' present='no' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+    <timer name='kvmclock' present='no'/>
+    <timer name='hypervclock' present='yes'/>
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>destroy</on_crash>
+  <pm>
+    <suspend-to-mem enabled='no'/>
+    <suspend-to-disk enabled='no'/>
+  </pm>
+  <devices>
+    <emulator>/run/libvirt/nix-emulators/qemu-system-x86_64</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='qcow2' discard='unmap'/>
+      <source file='/var/lib/libvirt/images/win11.qcow2'/>
+      <target dev='vda' bus='virtio'/>
+      <boot order='1'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/>
+    </disk>
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none' io='native' discard='unmap'/>
+      <source dev='/dev/disk/by-id/ata-Samsung_SSD_870_QVO_2TB_S6R4NJ0R614116X'/>
+      <backingStore/>
+      <target dev='sdd' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='3'/>
+    </disk>
+    <controller type='usb' index='0' model='qemu-xhci' ports='15'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
+    </controller>
+    <controller type='pci' index='0' model='pci-root'/>
+    <controller type='pci' index='1' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='1'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0f' function='0x0'/>
+    </controller>
+    <controller type='pci' index='2' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='2'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x10' function='0x0'/>
+    </controller>
+    <controller type='pci' index='3' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='3'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x11' function='0x0'/>
+    </controller>
+    <controller type='pci' index='4' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='4'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x12' function='0x0'/>
+    </controller>
+    <controller type='pci' index='5' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='5'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x13' function='0x0'/>
+    </controller>
+    <controller type='pci' index='6' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='6'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x14' function='0x0'/>
+    </controller>
+    <controller type='pci' index='7' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='7'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x15' function='0x0'/>
+    </controller>
+    <controller type='pci' index='8' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='8'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x16' function='0x0'/>
+    </controller>
+    <controller type='pci' index='9' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='9'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x17' function='0x0'/>
+    </controller>
+    <controller type='pci' index='10' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='10'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x18' function='0x0'/>
+    </controller>
+    <controller type='pci' index='11' model='pci-bridge'>
+      <model name='pci-bridge'/>
+      <target chassisNr='11'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x19' function='0x0'/>
+    </controller>
+    <controller type='sata' index='0'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
+    </controller>
+    <controller type='virtio-serial' index='0'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x07' function='0x0'/>
+    </controller>
+    <controller type='scsi' index='0' model='lsilogic'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0c' function='0x0'/>
+    </controller>
+    <interface type='network'>
+      <mac address='52:54:00:f2:fc:9a'/>
+      <source network='default'/>
+      <model type='e1000e'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+    </interface>
+    <serial type='pty'>
+      <target type='isa-serial' port='0'>
+        <model name='isa-serial'/>
+      </target>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+    <channel type='spicevmc'>
+      <target type='virtio' name='com.redhat.spice.0'/>
+      <address type='virtio-serial' controller='0' bus='0' port='1'/>
+    </channel>
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
+    <tpm model='tpm-crb'>
+      <backend type='emulator' version='2.0'/>
+    </tpm>
+    <graphics type='spice' autoport='yes'>
+      <listen type='address'/>
+      <image compression='off'/>
+    </graphics>
+    <sound model='ich9'>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/>
+    </sound>
+    <audio id='1' type='spice'/>
+    <video>
+      <model type='vga' vram='16384' heads='1' primary='yes'/>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
+    </video>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <source>
+        <address domain='0x0000' bus='0x33' slot='0x00' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <source>
+        <address domain='0x0000' bus='0x33' slot='0x00' function='0x1'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0b' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <source>
+        <address domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0d' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <source>
+        <address domain='0x0000' bus='0x32' slot='0x00' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0e' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='usb' managed='yes'>
+      <source>
+        <vendor id='0x8087'/>
+        <product id='0x0029'/>
+      </source>
+      <address type='usb' bus='0' port='1'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='usb' managed='yes'>
+      <source>
+        <vendor id='0x0fd9'/>
+        <product id='0x0080'/>
+      </source>
+      <address type='usb' bus='0' port='5'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='usb' managed='yes'>
+      <source>
+        <vendor id='0x0fd9'/>
+        <product id='0x0070'/>
+      </source>
+      <address type='usb' bus='0' port='6'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <source>
+        <address domain='0x0000' bus='0x08' slot='0x00' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x1a' function='0x0'/>
+    </hostdev>
+    <redirdev bus='usb' type='spicevmc'>
+      <address type='usb' bus='0' port='2'/>
+    </redirdev>
+    <redirdev bus='usb' type='spicevmc'>
+      <address type='usb' bus='0' port='3'/>
+    </redirdev>
+    <memballoon model='none'/>
+    <shmem name='looking-glass'>
+      <model type='ivshmem-plain'/>
+      <size unit='M'>128</size>
+      <address type='pci' domain='0x0000' bus='0x00' slot='0x0a' function='0x0'/>
+    </shmem>
+    <shmem name='scream'>
+      <model type='ivshmem-plain'/>
+      <size unit='M'>2</size>
+      <address type='pci' domain='0x0000' bus='0x0b' slot='0x02' function='0x0'/>
+    </shmem>
+  </devices>

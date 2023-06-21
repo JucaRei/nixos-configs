@@ -1,0 +1,1 @@
+Stay using nftables in combination with Docker, and set up separate network namespace to make it happy.

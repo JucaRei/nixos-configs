@@ -1,38 +1,15 @@
-# Wimpy's [NixOS]  & [Home Manager] Configurations
+# Juca's [NixOS]  & [Home Manager] Configurations
 
 [NixOS]: https://nixos.org/
 [Home Manager]: https://github.com/nix-community/home-manager
 
 This repository contains a [Nix Flake](https://nixos.wiki/wiki/Flakes) for configuring my computers and home environment. These are the computers this configuration currently manages:
-
 |    Hostname    |       OEM      |        Model        |       OS      |   Role   |  Status  |
 | :------------: | :------------: | :-----------------: | :-----------: | :----------: | :------- |
-| `designare`    | DIY            | i9-9900K            | NixOS         | Desktop      | Done     |
-| `noname`       | DIY            | AMD 5900X, 6900 XT  | NixOS         | Gamestation  | Done     |
-| `node202`      | DIY            | AMD 5700G, 5700 XT  | ChimeraOS     | Gamestation  | Done     |
-| `phony`        | VM             | n/a                 | NixOS         | Desktop      | WIP      |
-| `ripper`       | DIY            | AMD 3970X           | elementary OS | Desktop      | WIP      |
-| `skull`        | Intel          | NUC6i7KYK           | NixOS         | Server       | WIP      |
-| `brix`         | Gigabyte       | BRIX                | NixOS         | Server       | tbd      |
-| `trooper`      | DIY            | AMD 5950X           | elementary OS | Desktop      | tbd      |
-| `zed`          | Lenovo         | ThinkPad Z13 Gen 1  | NixOS         | Laptop       | WIP      |
-| `p1`           | Lenovo         | ThinkPad P1 Gen 1   | NixOS         | Laptop       | WIP      |
-| `pi4`          | Raspberry Pi   | Raspberry Pi 4      | NixOS         | Desktop      | tbd      |
-| `pinebook`     | Pine64         | Pinebook            | NixOS         | Laptop       | tbd      |
-| `pinebook-pro` | Pine64         | Pinebook Pro        | NixOS         | Laptop       | tbd      |
-| `c630`         | Lenovo         | Yoga C630           | NixOS         | Laptop       | tbd      |
-| `pocket`       | GPD            | Pocket              | NixOS         | Laptop       | tbd      |
-| `pocket2`      | GPD            | Pocket 2            | NixOS         | Laptop       | tbd      |
-| `pocket3`      | GPD            | Pocket 3            | NixOS         | Laptop       | tbd      |
-| `p2`           | GPD            | P2 Max              | NixOS         | Laptop       | tbd      |
-| `micropc`      | GPD            | Micro PC            | NixOS         | Laptop       | tbd      |
-| `win`          | GPD            | WIN                 | NixOS         | Laptop       | tbd      |
-| `win-max`      | GPD            | WIN Max             | NixOS         | Laptop       | tbd      |
-| `falcon`       | TopJoy         | Falcon              | NixOS         | Laptop       | tbd      |
-| `macbookpro`   | Apple          | Macbook Pro 2015    | macOS         | Laptop       | tbd      |
-| `xps`          | Dell           | XPS 13              | NixOS         | Laptop       | tbd      |
-| `spectre`      | HP             | Spectre             | NixOS         | Laptop       | tbd      |
-| `?`            | Entroware      | ?                   | NixOS         | Laptop       | tbd      |
+| `nitro`        | Acer            | Nitro i5-8300H            | Nixos         | Desktop      | WIP      |
+| `pi3`          | Raspberry Pi   | Raspberry Pi 3b     | Dietpi         | Server      | tbd      |
+| `MacbookPro`   | Apple          | Macbook Pro 2008    | Debian        | Laptop       | tbd      |
+| `MacbookAir`   | Apple          | Macbook Air 2011    | NixOS        | Laptop       | tbd      |
 
 ## Structure
 
@@ -41,6 +18,7 @@ This repository contains a [Nix Flake](https://nixos.wiki/wiki/Flakes) for confi
 - [nixos]: NixOS configurations
   - Includes discrete hardware configurations which leverage the [NixOS Hardware modules](https://github.com/NixOS/nixos-hardware) via [flake.nix].
 - [scripts]: Helper scripts
+- [examples_helper]: Scripts and docs
 
 The [nixos/_mixins] and [home-manager/_mixins] are a collection of generic configurations that are composited based on the arguments defined in [flake.nix].
 
@@ -50,6 +28,7 @@ The [nixos/_mixins] and [home-manager/_mixins] are a collection of generic confi
 [home-manager/_mixins]: ./home-manager/_mixins
 [flake.nix]: ./flake.nix
 [scripts]: ./scripts
+[examples_helper]: ./examples_helper
 
 ## Installing 💾
 
@@ -61,7 +40,7 @@ This is a work in progress 😅 I'm working towards making the installation enti
 - Clone my nix-config
 
 ```bash
-git clone https://github.com/wimpysworld/nix-config.git
+git clone https://github.com/JucaRei/nixos-configs.git
 ```
 
 - Run the install script 📜
@@ -82,7 +61,7 @@ scripts/install.sh <hostname> <username>
 I clone this repo to `~/Zero/nix-config`. Home Manager and NixOS changes can be applied separately because I am planning to add support for some non-NixOS hosts.
 
 ```bash
-gh repo clone wimpysworld/nix-config ~/Zero/nix-config
+gh repo clone JucaRei/nixos-configs ~/Zero/nix-config
 ```
 
 ### NixOS ❄️
@@ -105,13 +84,78 @@ home-manager switch -b backup --flake $HOME/Zero/nix-config
 
 A `rebuild-iso` alias is provided, that does the following:
 
-```bash
+```bash=
 pushd $HOME/Zero/nix-config
 nix build .#nixosConfigurations.iso.config.system.build.isoImage
 popd
 ```
 
 A live image will be left in `~/$HOME/Zero/nix-config/result/iso/`
+
+## More Cheatsheets
+
+Install for **single** user:
+
+```bash
+sh <(curl -L https://nixos.org/nix/install) --no-daemon
+```
+
+### Activate nix profile (and add it to the **.profile**)
+
+```shell=
+. ~/.nix-profile/etc/profile.d/nix.sh
+ 
+echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.profile
+echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.bashrc
+echo ". $HOME/.nix-profile/etc/profile.d/nix.sh" >> ~/.zprofile
+
+# Open tempoary shell with nix and home-manager
+nix-shell
+
+# Remove nix (this is necessary, so home-manager can install nix)
+nix-env -e nix
+
+# Exit temporary shell
+exit
+
+# Set zsh (installed by nix) as default shell
+echo ~/.nix-profile/bin/zsh | sudo tee -a /etc/shells
+usermod -s ~/.nix-profile/bin/zsh $USER
+
+```
+
+Install for **multi** user:
+
+```shell=
+sh <(curl -L https://nixos.org/nix/install) --daemon
+```
+
+nix **environment** :
+```shell=
+nix-shell (legacy)
+
+nix develop (new)
+
+nix develop --extra-experimental-features nix-command --extra-experimental-features flakes
+
+# Remove nix (this is necessary, so home-manager can install nix)
+nix-env -e nix
+```
+
+**Other** :
+```shell=
+# All as root
+HOST=...  # set host variable to use proper configuration
+
+
+nix-shell
+git clone https://this.repo.url/ /etc/nixos # or $HOME/.setup
+cd /etc/nixos # or cd $HOME/.setup 
+nixos-install -v --root /mnt --impure --flake .#$HOST
+nixos-install -v --root /mnt --impure --flake .#$HOST
+
+# Reboot
+```
 
 ## What's in the box? 🎁
 
@@ -135,10 +179,10 @@ This is the directory structure I'm using.
 │   │   ├── desktop
 │   │   ├── services
 │   │   └── users
-│   ├── designare
-│   ├── generic
-│   ├── skull
-│   ├── z13
+│   ├── nitro
+│   ├── raspberry
+│   ├── oldmac
+│   ├── mcbair
 │   └── default.nix
 ├── overlays
 ├── pkgs
