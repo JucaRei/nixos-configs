@@ -59,6 +59,7 @@ in {
     # Configure your nixpkgs instance
     config = {
       allowUnsupportedSystem = true;
+      #allowBroken = true;
       # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
@@ -69,8 +70,17 @@ in {
   nix = {
     package = lib.mkDefault pkgs.unstable.nix;
     settings = {
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
       warn-dirty = false;
+      max-jobs = "auto";
     };
+    extraOptions = ''
+      keep-outputs          = true
+      keep-derivations      = false
+
+      # Free up to 1GiB whenever there is less than 100MiB left.
+      min-free = ${toString (100 * 1024 * 1024)}
+      max-free = ${toString (1024 * 1024 * 1024)}
+    '';
   };
 }
