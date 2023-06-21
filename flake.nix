@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -53,7 +53,6 @@
     inherit (self) outputs;
     forAllSystems = nixpkgs.lib.genAttrs [
       "aarch64-linux"
-      "aarch64-unknown-linux-gnu"
       "i686-linux"
       "x86_64-linux"
       "aarch64-darwin"
@@ -188,7 +187,7 @@
           inherit inputs outputs stateVersion;
           desktop = null;
           hostid = "445778b2";
-          hostname = "rpi3b";
+          hostname = "raspberry";
           username = "juca";
         };
         modules = [./nixos];
@@ -197,7 +196,7 @@
       oldmac = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs stateVersion;
-          desktop = "bspwm";
+          desktop = "mate";
           hostid = "be4cb578";
           hostname = "oldmac";
           username = "juca";
@@ -208,7 +207,7 @@
       mcbair = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs stateVersion;
-          desktop = "xfce";
+          desktop = "mate";
           hostid = "b28460d8";
           hostname = "mcbair";
           username = "juca";
@@ -216,16 +215,16 @@
         modules = [./nixos];
       };
 
-      note8 = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs outputs stateVersion;
-          desktop = "pantheon";
-          hostid = "37f0bf56";
-          hostname = "note8";
-          username = "juca";
-        };
-        modules = [./nixos];
-      };
+      #note8 = nixpkgs.lib.nixosSystem {
+      #  specialArgs = {
+      #    inherit inputs outputs stateVersion;
+      #    desktop = "pantheon";
+      #    hostid = "37f0bf56";
+      #    hostname = "note8";
+      #    username = "juca";
+      #  };
+      #  modules = [./nixos];
+      #};
     };
   };
 }

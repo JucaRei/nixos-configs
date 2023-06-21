@@ -24,7 +24,7 @@
       |_|      |_|  \__,_| |_|\_\  \___| |___/
           "
       PATH=${pkgs.writeShellScriptBin "nix" ''
-        ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes repl-flake" "$@"
+        ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes repl-flake recursive-nix" "$@"
       ''}/bin:$PATH
     '';
   };

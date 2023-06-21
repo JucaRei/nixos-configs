@@ -37,7 +37,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    nvtop-amd
+    #nvtop-amd
   ];
 
   hardware = {
@@ -47,12 +47,12 @@
         Enable = "Source,Sink,Media,Socket";
       };
     };
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
+    #opengl = {
+    #enable = true;
+    #driSupport = true;
+    #driSupport32Bit = true;
+    #};
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
 }

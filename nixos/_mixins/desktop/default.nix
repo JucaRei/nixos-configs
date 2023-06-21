@@ -1,6 +1,7 @@
 {
   desktop,
   pkgs,
+  username,
   ...
 }: {
   imports = [
@@ -11,7 +12,7 @@
     (./. + "/${desktop}.nix")
   ];
 
-  boot.kernelParams = ["quiet" "net.ifnames=0" "mem_sleep_default=deep"];
+  boot.kernelParams = ["quiet" "splash" "net.ifnames=0" "mem_sleep_default=deep"];
   boot.plymouth.enable = true;
 
   fonts = {
@@ -51,4 +52,18 @@
 
   # Accept the joypixels license
   nixpkgs.config.joypixels.acceptLicense = true;
+
+  security.sudo = {
+    enable = false;
+    extraConfig = ''
+      ${username} ALL=(ALL) NOPASSWD:ALL
+    '';
+  };
+
+  security.doas = {
+    enable = true;
+    extraConfig = ''
+      permit nopass :wheel
+    '';
+  };
 }
