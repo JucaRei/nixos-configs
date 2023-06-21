@@ -1,16 +1,30 @@
-{ config, desktop, hostname, inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ...}: {
+{
+  config,
+  desktop,
+  hostname,
+  inputs,
+  lib,
+  modulesPath,
+  outputs,
+  pkgs,
+  stateVersion,
+  username,
+  ...
+}: {
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
-  imports = [
-    (./. + "/${hostname}/boot.nix")
-    (./. + "/${hostname}/hardware.nix")
-    (modulesPath + "/installer/scan/not-detected.nix")
-    ./_mixins/base
-    ./_mixins/boxes
-    ./_mixins/users/root
-    ./_mixins/users/${username}
-  ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
+  imports =
+    [
+      (./. + "/${hostname}/boot.nix")
+      (./. + "/${hostname}/hardware.nix")
+      (modulesPath + "/installer/scan/not-detected.nix")
+      ./_mixins/base
+      ./_mixins/boxes
+      ./_mixins/users/root
+      ./_mixins/users/${username}
+    ]
+    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   nixpkgs = {
     # You can add overlays here
@@ -45,7 +59,7 @@
 
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!

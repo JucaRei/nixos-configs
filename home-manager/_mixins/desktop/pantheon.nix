@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib.hm.gvariant;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "desktop/ibus/panel" = {
       show-icon-on-systray = false;
@@ -80,7 +84,7 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/input-sources" = {
-      xkb-options = [ "grp:alt_shift_toggle" "caps:none" ];
+      xkb-options = ["grp:alt_shift_toggle" "caps:none"];
     };
 
     "org/gnome/desktop/interface" = {
@@ -106,8 +110,8 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/desktop/wm/keybindings" = {
-      switch-to-workspace-left = [ "<Primary><Alt>Left" ];
-      switch-to-workspace-right = [ "<Primary><Alt>Right" ];
+      switch-to-workspace-left = ["<Primary><Alt>Left"];
+      switch-to-workspace-right = ["<Primary><Alt>Right"];
     };
 
     "org/gnome/desktop/wm/preferences" = {
@@ -121,13 +125,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/mutter/keybindings" = {
-      toggle-tiled-left = [ "<Super>Left" ];
-      toggle-tiled-right = [ "<Super>Right" ];
+      toggle-tiled-left = ["<Super>Left"];
+      toggle-tiled-right = ["<Super>Right"];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/" ];
-      terminal = [ "" ];
+      custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"];
+      terminal = [""];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -201,13 +205,13 @@ with lib.hm.gvariant;
 
     gtk3 = {
       extraConfig = {
-        gtk-application-prefer-dark-theme=1;
+        gtk-application-prefer-dark-theme = 1;
       };
     };
 
     gtk4 = {
       extraConfig = {
-        gtk-application-prefer-dark-theme=1;
+        gtk-application-prefer-dark-theme = 1;
       };
     };
 

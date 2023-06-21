@@ -1,4 +1,8 @@
-{ inputs, pkgs, ... }: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ../services/networkmanager.nix
   ];
@@ -64,21 +68,21 @@
           ];
           # https://github.com/Xubuntu/lightdm-gtk-greeter/blob/master/data/lightdm-gtk-greeter.conf
           extraConfig = ''
-# background = Background file to use, either an image path or a color (e.g. #772953)
-font-name = Work Sans 12
-xft-antialias = true
-xft-dpi = 96
-xft-hintstyle = slight
-xft-rgba = rgb
+            # background = Background file to use, either an image path or a color (e.g. #772953)
+            font-name = Work Sans 12
+            xft-antialias = true
+            xft-dpi = 96
+            xft-hintstyle = slight
+            xft-rgba = rgb
 
-active-monitor = #cursor
-# position = x y ("50% 50%" by default)  Login window position
-# default-user-image = Image used as default user icon, path or #icon-name
-hide-user-image = false
-round-user-image = false
-highlight-logged-user = true
-panel-position = top
-clock-format = %a, %b %d  %H:%M
+            active-monitor = #cursor
+            # position = x y ("50% 50%" by default)  Login window position
+            # default-user-image = Image used as default user icon, path or #icon-name
+            hide-user-image = false
+            round-user-image = false
+            highlight-logged-user = true
+            panel-position = top
+            clock-format = %a, %b %d  %H:%M
           '';
         };
       };
@@ -88,5 +92,5 @@ clock-format = %a, %b %d  %H:%M
       };
     };
   };
-  xdg.portal.extraPortals = [ xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = [xdg-desktop-portal-gtk];
 }

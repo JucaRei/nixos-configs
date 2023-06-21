@@ -1,19 +1,23 @@
-{ ... }: {
-  console.keyMap = "uk";
+{...}: {
+  console.keyMap = "us";
   i18n = {
-    defaultLocale = "en_GB.utf8";
+    defaultLocale = "en_US.utf8";
     extraLocaleSettings = {
-      LC_ADDRESS = "en_GB.utf8";
-      LC_IDENTIFICATION = "en_GB.utf8";
-      LC_MEASUREMENT = "en_GB.utf8";
-      LC_MONETARY = "en_GB.utf8";
-      LC_NAME = "en_GB.utf8";
-      LC_NUMERIC = "en_GB.utf8";
-      LC_PAPER = "en_GB.utf8";
-      LC_TELEPHONE = "en_GB.utf8";
-      LC_TIME = "en_GB.utf8";
+      LC_ADDRESS = "pt_BR.utf8";
+      LC_IDENTIFICATION = "pt_BR.utf8";
+      LC_MEASUREMENT = "pt_BR.utf8";
+      LC_MONETARY = "pt_BR.utf8";
+      LC_NAME = "pt_BR.utf8";
+      LC_NUMERIC = "pt_BR.utf8";
+      LC_PAPER = "pt_BR.utf8";
+      LC_TELEPHONE = "pt_BR.utf8";
+      LC_TIME = "pt_BR.utf8";
     };
   };
   services.xserver.layout = "gb";
-  time.timeZone = "Europe/London";
+  time.timeZone = "America/Sao_Paulo";
+  location = {
+    latitude = -23.539380;
+    longitude = -46.652530;
+  };
 }

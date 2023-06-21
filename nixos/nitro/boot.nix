@@ -1,11 +1,16 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   boot = {
-    blacklistedKernelModules = lib.mkDefault [ "nouveau" ];
+    blacklistedKernelModules = lib.mkDefault ["nouveau"];
     consoleLogLevel = 3;
-    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
     extraModprobeConfig = lib.mkDefault ''
-    blacklist nouveau
-    options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
+      blacklist nouveau
+      options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
     '';
     initrd = {
       availableKernelModules = [
@@ -32,7 +37,7 @@
     # - https://github.com/NixOS/nixpkgs/pull/221209
     kernelPackages = pkgs.linuxPackages_5_15;
 
-    kernelParams = [ "mitigations=off" ];
+    kernelParams = ["mitigations=off"];
     kernel.sysctl = {
       "kernel.sysrq" = 1;
       "kernel.printk" = "3 3 3 3";

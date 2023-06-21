@@ -19,6 +19,7 @@
       url = "github:kamadorueda/alejandra/3.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     #nur = {
     ## NUR Packages
     #url = "github:nix-community/NUR"; # Add "nur.nixosModules.nur" to the host modules

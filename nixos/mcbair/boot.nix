@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   boot = {
-    blacklistedKernelModules = [ ];
+    blacklistedKernelModules = [];
     consoleLogLevel = 3;
-    extraModulePackages = with config.boot.kernelPackages; [ ];
-    extraModprobeConfig = lib.mkDefault ''
-    '';
+    extraModulePackages = with config.boot.kernelPackages; [];
+    extraModprobeConfig =
+      lib.mkDefault ''
+      '';
     initrd = {
       availableKernelModules = [
         "ahci"
@@ -17,7 +23,7 @@
         "usb_storage"
         "xhci_pci"
       ];
-      kernelModules = [ ];
+      kernelModules = [];
       verbose = false;
     };
 
@@ -25,7 +31,7 @@
       "kvm-intel"
       "vhost_vsock"
     ];
-    kernelParams = [ "mitigations=off" ];
+    kernelParams = ["mitigations=off"];
     kernel.sysctl = {
       "kernel.sysrq" = 1;
       "kernel.printk" = "3 3 3 3";

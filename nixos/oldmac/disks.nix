@@ -1,4 +1,4 @@
-{ disks ? [ "/dev/vda" ], ... }: {
+{disks ? ["/dev/vda"], ...}: {
   disko.devices = {
     disk = {
       vda0 = {
@@ -12,7 +12,7 @@
               name = "boot";
               start = "0%";
               end = "1M";
-              flags = [ "bios_grub" ];
+              flags = ["bios_grub"];
             }
             {
               name = "ESP";
@@ -33,7 +33,7 @@
               content = {
                 type = "filesystem";
                 # Overwirte the existing filesystem
-                extraArgs = [ "-f" ];
+                extraArgs = ["-f"];
                 format = "xfs";
                 mountpoint = "/";
               };

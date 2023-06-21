@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.nano.syntaxHighlight = true;
   programs.nano.nanorc = ''
     set autoindent   # Auto indent
@@ -17,5 +17,5 @@
     set statuscolor black,yellow
     set titlecolor black,magenta
     include "${pkgs.nano}/share/nano/extra/*.nanorc"
-    '';
+  '';
 }

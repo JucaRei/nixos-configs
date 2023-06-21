@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   # Desktop application momentum follows the unstable channel.
   programs = {
     firefox = {

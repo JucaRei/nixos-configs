@@ -1,6 +1,10 @@
-{ config, lib, pkgs, ... }:
-with lib.hm.gvariant;
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/charmap" = {
       font = "Work Sans 22";
@@ -103,7 +107,7 @@ with lib.hm.gvariant;
     };
 
     "org/mate/desktop/peripherals/keyboard/kbd" = {
-      options = [ "terminate\tterminate:ctrl_alt_bksp" "caps\tcaps:none" ];
+      options = ["terminate\tterminate:ctrl_alt_bksp" "caps\tcaps:none"];
     };
 
     "org/mate/desktop/peripherals/mouse" = {
@@ -214,7 +218,7 @@ with lib.hm.gvariant;
     };
 
     "org/mate/media-handling" = {
-      autorun-x-content-start-app = [ "x-content/software" "x-content/video-bluray.xml" "x-content/video-dvd.xml" "x-content/video-hddvd.xml" "x-content/video-svcd.xml" "x-content/video-vcd.xml" ];
+      autorun-x-content-start-app = ["x-content/software" "x-content/video-bluray.xml" "x-content/video-dvd.xml" "x-content/video-hddvd.xml" "x-content/video-svcd.xml" "x-content/video-vcd.xml"];
     };
 
     "org/mate/panel" = {
@@ -254,7 +258,7 @@ with lib.hm.gvariant;
     "org/mate/screensaver" = {
       lock-delay = 1;
       mode = "single";
-      themes = [ "screensavers-footlogo-floaters" ];
+      themes = ["screensavers-footlogo-floaters"];
     };
 
     "org/mate/settings-daemon/plugins/media-keys" = {
@@ -332,13 +336,13 @@ with lib.hm.gvariant;
 
     gtk3 = {
       extraConfig = {
-        gtk-application-prefer-dark-theme=1;
+        gtk-application-prefer-dark-theme = 1;
       };
     };
 
     gtk4 = {
       extraConfig = {
-        gtk-application-prefer-dark-theme=1;
+        gtk-application-prefer-dark-theme = 1;
       };
     };
 

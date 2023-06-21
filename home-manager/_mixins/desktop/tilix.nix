@@ -1,9 +1,6 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
-{ lib, ... }:
-
-with lib.hm.gvariant;
-
-{
+{lib, ...}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "com/gexperts/Tilix" = {
       app-title = "\${appName}: \${directory}";
@@ -24,7 +21,7 @@ with lib.hm.gvariant;
 
     "com/gexperts/Tilix/profiles" = {
       default = "d1def387-a465-4497-81bc-b8b2de782b2d";
-      list = [ "d1def387-a465-4497-81bc-b8b2de782b2d" ];
+      list = ["d1def387-a465-4497-81bc-b8b2de782b2d"];
     };
 
     "com/gexperts/Tilix/profiles/d1def387-a465-4497-81bc-b8b2de782b2d" = {
@@ -51,7 +48,7 @@ with lib.hm.gvariant;
       highlight-background-color = "#1E1E1E1E2020";
       highlight-colors-set = true;
       highlight-foreground-color = "#C8C8C8C8C8C8";
-      palette = [ "#121212121414" "#D6D62B2B2B2B" "#4141DDDD7575" "#FFFFB6B63838" "#2828A9A9FFFF" "#E6E66D6DFFFF" "#1414E5E5D3D3" "#C8C8C8C8C8C8" "#434343434545" "#DEDE56565656" "#A1A1EEEEBBBB" "#FFFFC5C56060" "#9494D4D4FFFF" "#F2F2B6B6FFFF" "#A0A0F5F5EDED" "#E9E9E9E9E9E9" ];
+      palette = ["#121212121414" "#D6D62B2B2B2B" "#4141DDDD7575" "#FFFFB6B63838" "#2828A9A9FFFF" "#E6E66D6DFFFF" "#1414E5E5D3D3" "#C8C8C8C8C8C8" "#434343434545" "#DEDE56565656" "#A1A1EEEEBBBB" "#FFFFC5C56060" "#9494D4D4FFFF" "#F2F2B6B6FFFF" "#A0A0F5F5EDED" "#E9E9E9E9E9E9"];
       scrollback-unlimited = true;
       terminal-title = "";
       use-system-font = true;

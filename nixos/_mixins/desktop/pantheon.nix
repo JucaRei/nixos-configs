@@ -1,4 +1,8 @@
-{ inputs, pkgs, ... }: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ../services/networkmanager.nix
   ];
@@ -11,21 +15,21 @@
 
     # Add some elementary additional apps and include Yaru for syntax highlighting
     systemPackages = with pkgs; [
-      appeditor                   # elementary OS menu editor
-      cipher                      # elementary OS text encoding/decoding
+      appeditor # elementary OS menu editor
+      cipher # elementary OS text encoding/decoding
       #elementary-planner         # UNSTABLE: elementary OS planner with Todoist support
-      formatter                   # elementary OS filesystem formatter
+      formatter # elementary OS filesystem formatter
       gnome.simple-scan
       indicator-application-gtk3
       inputs.nix-software-center.packages.${system}.nix-software-center
-      minder                      # elementary OS mind-mapping
-      monitor                     # elementary OS system monitor
+      minder # elementary OS mind-mapping
+      monitor # elementary OS system monitor
       #nasc                       # UNSTABLE: elementary OS maths notebook
-      notes-up                    # elementary OS Markdown editor
-      pantheon.sideload           # elementary OS Flatpak installer
-      tilix                       # Tiling terminal emulator
-      tootle                      # elementary OS Mastodon client
-      torrential                  # elementary OS torrent client
+      notes-up # elementary OS Markdown editor
+      pantheon.sideload # elementary OS Flatpak installer
+      tilix # Tiling terminal emulator
+      tootle # elementary OS Mastodon client
+      torrential # elementary OS torrent client
       yaru-theme
     ];
   };
@@ -68,21 +72,21 @@
           ];
           # https://github.com/Xubuntu/lightdm-gtk-greeter/blob/master/data/lightdm-gtk-greeter.conf
           extraConfig = ''
-# background = Background file to use, either an image path or a color (e.g. #772953)
-font-name = Work Sans 12
-xft-antialias = true
-xft-dpi = 96
-xft-hintstyle = slight
-xft-rgba = rgb
+            # background = Background file to use, either an image path or a color (e.g. #772953)
+            font-name = Work Sans 12
+            xft-antialias = true
+            xft-dpi = 96
+            xft-hintstyle = slight
+            xft-rgba = rgb
 
-active-monitor = #cursor
-# position = x y ("50% 50%" by default)  Login window position
-# default-user-image = Image used as default user icon, path or #icon-name
-hide-user-image = false
-round-user-image = false
-highlight-logged-user = true
-panel-position = top
-clock-format = %a, %b %d  %H:%M
+            active-monitor = #cursor
+            # position = x y ("50% 50%" by default)  Login window position
+            # default-user-image = Image used as default user icon, path or #icon-name
+            hide-user-image = false
+            round-user-image = false
+            highlight-logged-user = true
+            panel-position = top
+            clock-format = %a, %b %d  %H:%M
           '';
         };
       };

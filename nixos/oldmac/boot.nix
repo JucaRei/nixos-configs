@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   boot = {
-    blacklistedKernelModules = lib.mkDefault [ ];
+    blacklistedKernelModules = lib.mkDefault [];
     consoleLogLevel = 3;
-    extraModulePackages = with config.boot.kernelPackages; [ ];
-    extraModprobeConfig = lib.mkDefault ''
-    '';
+    extraModulePackages = with config.boot.kernelPackages; [];
+    extraModprobeConfig =
+      lib.mkDefault ''
+      '';
     initrd = {
       availableKernelModules = [
         "ahci"
@@ -16,7 +22,7 @@
         "virtio_pci"
         "xhci_pci"
       ];
-      kernelModules = [ ];
+      kernelModules = [];
       verbose = false;
     };
 
@@ -26,7 +32,7 @@
 
     kernelPackages = pkgs.linuxPackages_latest;
 
-    kernelParams = [ "mitigations=off" ];
+    kernelParams = ["mitigations=off"];
     kernel.sysctl = {
       "kernel.sysrq" = 1;
       "kernel.printk" = "3 3 3 3";

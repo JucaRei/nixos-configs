@@ -1,4 +1,10 @@
-{ hostid, hostname, lib, pkgs, ...}: {
+{
+  hostid,
+  hostname,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./locale.nix
     ./nano.nix

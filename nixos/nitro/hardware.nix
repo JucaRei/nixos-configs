@@ -9,9 +9,14 @@
 # Storage:     Sedna PCIe Dual 2.5 Inch SATA III (6G) SSD Adapter
 # SATA:        1TB SanDisk SSD Plus
 # SATA:        1TB SanDisk SSD Plus
-
-{ config, inputs, lib, pkgs, username, ... }:
 {
+  config,
+  inputs,
+  lib,
+  pkgs,
+  username,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-gpu-amd
@@ -27,7 +32,7 @@
     # Pixel sizes of the font: 12, 14, 16, 18, 20, 22, 24, 28, 32
     # Followed by 'n' (normal) or 'b' (bold)
     font = "ter-powerline-v28n";
-    packages = [ pkgs.terminus_font pkgs.powerline-fonts ];
+    packages = [pkgs.terminus_font pkgs.powerline-fonts];
   };
 
   # TODO: Replace this with disko
@@ -46,10 +51,12 @@
     fsType = "xfs";
   };
 
-  swapDevices = [{
-    device = "/swap";
-    size = 2048;
-  }];
+  swapDevices = [
+    {
+      device = "/swap";
+      size = 2048;
+    }
+  ];
 
   environment.systemPackages = with pkgs; [
     nvtop
@@ -83,7 +90,7 @@
       keyStatistics = true;
       mouseBatteryNotifier = true;
       syncEffectsEnabled = true;
-      users = [ "${username}" ];
+      users = ["${username}"];
     };
     xone.enable = true;
   };
