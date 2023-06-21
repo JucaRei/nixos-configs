@@ -85,6 +85,9 @@
       ydotool # Terminal *all-the-things* automation
       yq-go # Terminal `jq` for YAML
       zsync # Terminal file sync
+      ansible # Automation
+      sshpass # Ansible Dependency
+      mkvtoolnix # Matroska Tools
     ];
 
     sessionVariables = {
@@ -100,6 +103,7 @@
     atuin = {
       enableBashIntegration = true;
       enableFishIntegration = true;
+      #enableZshIntegration = true;
     };
     bat = {
       enable = true;

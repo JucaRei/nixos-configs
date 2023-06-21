@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   ### Some optimizations services
 
   # Automatic CPU speed and power optimizer for Linux

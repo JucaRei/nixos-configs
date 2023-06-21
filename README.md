@@ -141,6 +141,28 @@ nix develop --extra-experimental-features nix-command --extra-experimental-featu
 # Remove nix (this is necessary, so home-manager can install nix)
 nix-env -e nix
 ```
+**Nix file**:
+```nix
+mkdir -pv ~/.config/nix
+touch ~/.config/nix/nix.conf
+
+echo "experimental-features = nix-command flakes repl-flake" >> ~/.config/nix/nix.conf
+```
+
+Create flake file
+```nix
+nix flake init
+```
+
+Check info
+```nix
+nix flake metadata
+```
+
+Update nix flake lock file
+```nix
+nix flake update --recreate-lock-file
+```
 
 **Other** :
 ```shell
