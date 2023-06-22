@@ -16,8 +16,8 @@ sgdisk -t 1:ef00 /dev/$DRIVE
 sgdisk -t 2:8200 /dev/$DRIVE
 sgdisk -t 3:8300 /dev/$DRIVE
 sgdisk -c 1:EFI /dev/$DRIVE
-sgdisk -c 4:SWAP /dev/$DRIVE
-sgdisk -c 5:NIXOS /dev/$DRIVE
+sgdisk -c 2:SWAP /dev/$DRIVE
+sgdisk -c 3:NIXOS /dev/$DRIVE
 parted /dev/$BOOT_PARTITION -- set 1 esp on
 sgdisk -p /dev/$DRIVE
 

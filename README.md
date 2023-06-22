@@ -168,6 +168,8 @@ nix flake metadata
 Update nix flake lock file
 ```nix
 nix flake update --recreate-lock-file
+
+nix flake lock --update-input nixpkgs
 ```
 
 **Other** :
