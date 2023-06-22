@@ -4,12 +4,12 @@
 [Home Manager]: https://github.com/nix-community/home-manager
 
 This repository contains a [Nix Flake](https://nixos.wiki/wiki/Flakes) for configuring my computers and home environment. These are the computers this configuration currently manages:
-|    Hostname    |       OEM      |        Model        |       OS      |   Role   |  Status  |
-| :------------: | :------------: | :-----------------: | :-----------: | :----------: | :------- |
-| `nitro`        | Acer            | Nitro i5-8300H            | Nixos         | Desktop      | WIP      |
-| `pi3`          | Raspberry Pi   | Raspberry Pi 3b     | Dietpi         | Server      | tbd      |
-| `MacbookPro`   | Apple          | Macbook Pro 2008    | Debian        | Laptop       | tbd      |
-| `MacbookAir`   | Apple          | Macbook Air 2011    | NixOS        | Laptop       | tbd      |
+|   Hostname   |     OEM      |      Model       |   OS   |  Role   | Status |
+| :----------: | :----------: | :--------------: | :----: | :-----: | :----- |
+|   `nitro`    |     Acer     |  Nitro i5-8300H  | Nixos  | Desktop | WIP    |
+|    `pi3`     | Raspberry Pi | Raspberry Pi 3b  | Dietpi | Server  | tbd    |
+| `MacbookPro` |    Apple     | Macbook Pro 2008 | Debian | Laptop  | tbd    |
+| `MacbookAir` |    Apple     | Macbook Air 2011 | NixOS  | Laptop  | tbd    |
 
 ## Structure
 
@@ -149,6 +149,12 @@ touch ~/.config/nix/nix.conf
 echo "experimental-features = nix-command flakes repl-flake" >> ~/.config/nix/nix.conf
 ```
 
+Technical Details
+
+```nix
+nix-shell -p nix-info --run "nix-info -m"
+```
+
 Create flake file
 ```nix
 nix flake init
@@ -236,10 +242,10 @@ MATE Desktop 🧉 and Pantheon 🏛️ are the two desktop options available. Th
 [SANE]: ./nixos/_mixins/services/sane.nix
 [NetworkManager]: ./nixos/_mixins/services/networkmanager.nix
 
-|  Desktop  |       System       |       Configuration       |             Theme            |
-| :-------: | :----------------: | :-----------------------: | :--------------------------: |
-| MATE      | [MATE Install]     | [MATE Configuration]      | Yaru Magenta (Dark)          |
-| Pantheon  | [Pantheon Install] | [Pantheon Configuration]  | elementary Bubble Gum (Dark) |
+| Desktop  |       System       |      Configuration       |            Theme             |
+| :------: | :----------------: | :----------------------: | :--------------------------: |
+|   MATE   |   [MATE Install]   |   [MATE Configuration]   |     Yaru Magenta (Dark)      |
+| Pantheon | [Pantheon Install] | [Pantheon Configuration] | elementary Bubble Gum (Dark) |
 
 [MATE Install]: ./nixos/_mixins/desktop/mate.nix
 [Pantheon Install]: ./nixos/_mixins/desktop/pantheon.nix
