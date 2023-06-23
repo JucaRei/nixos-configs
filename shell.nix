@@ -13,10 +13,10 @@
       htop
       #speedtest-cli
       nil
-      direnv
-      nix-direnv
+      #direnv
+      #nix-direnv
       neofetch
-      nitch
+      #nitch
     ];
     shellHook = ''
       echo "

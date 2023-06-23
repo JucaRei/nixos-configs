@@ -89,7 +89,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs stateVersion;
-          desktop = "null";
+          desktop = null;
           hostname = "nitro";
           username = "juca";
         };
