@@ -1,7 +1,5 @@
-{ pkgs }:
-
-{
+{pkgs}: {
   name = "go";
   fhs = false;
-  targetPkgs = with pkgs; [ go ];
+  targetPkgs = with pkgs; [go];
 }

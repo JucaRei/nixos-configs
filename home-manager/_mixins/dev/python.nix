@@ -2,7 +2,7 @@
   python-packages = p:
     with p; [
       tox
-      black
+      #black
       virtualenv
       requests
     ];

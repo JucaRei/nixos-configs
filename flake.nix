@@ -89,11 +89,22 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs stateVersion;
-          desktop = "pantheon";
+          desktop = "null";
           hostname = "nitro";
           username = "juca";
         };
-        modules = [./home];
+        modules = [./home-manager];
+      };
+
+      "juca@nitrovoid" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs stateVersion;
+          desktop = null;
+          hostname = "nitro";
+          username = "juca";
+        };
+        modules = [./home-manager];
       };
 
       "juca@DietPi" = home-manager.lib.homeManagerConfiguration {

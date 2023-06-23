@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     deadnix
-    libnurl
+    #libnurl
     #rnix-lsp
     nil
     alejandra

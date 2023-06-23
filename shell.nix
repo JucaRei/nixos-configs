@@ -11,8 +11,12 @@
       duf
       alejandra
       htop
-      speedtest-cli
+      #speedtest-cli
       nil
+      direnv
+      nix-direnv
+      neofetch
+      nitch
     ];
     shellHook = ''
       echo "
