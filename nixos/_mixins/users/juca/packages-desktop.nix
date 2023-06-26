@@ -37,8 +37,8 @@
     #ungoogled-chromium
     #unigine-heaven # Test gpu
     #unigine-superposition # Test gpu
-    vivaldi
-    vivaldi-ffmpeg-codecs
+    #vivaldi
+    #vivaldi-ffmpeg-codecs
     vscode-fhs
     #zoom-us
   ];

@@ -13,7 +13,10 @@
   ];
 
   boot.kernelParams = ["quiet" "splash" "net.ifnames=0" "mem_sleep_default=deep"];
-  boot.plymouth.enable = true;
+  boot.plymouth = {
+    enable = true;
+    theme = "breeze";
+  };
 
   fonts = {
     fontDir.enable = true;
@@ -55,9 +58,12 @@
 
   security.sudo = {
     enable = false;
+    # Stops sudo from timing out.
     extraConfig = ''
       ${username} ALL=(ALL) NOPASSWD:ALL
+      Defaults env_reset,timestamp_timeout=-1
     '';
+    execWheelOnly = true;
   };
 
   security.doas = {

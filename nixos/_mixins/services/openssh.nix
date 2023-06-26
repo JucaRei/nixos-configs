@@ -8,5 +8,8 @@
     };
   };
   programs.ssh.startAgent = true;
-  networking.firewall.allowedTCPPorts = [22];
+  networking.firewall = {
+    allowedTCPPorts = [22];
+    allowPing = true;
+  };
 }

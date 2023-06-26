@@ -2,7 +2,9 @@
   programs = {
     gh = {
       enable = true;
-      extensions = with pkgs.unstable; [gh-markdown-preview];
+      extensions = with pkgs.unstable; [
+        gh-markdown-preview
+      ];
       settings = {
         git_protocol = "ssh";
         prompt = "enabled";
@@ -34,6 +36,22 @@
         init = {
           defaultBranch = "main";
         };
+        core = {
+          editor = "nvim";
+          whitespace = "trailing-space,space-before-tab";
+        };
+        merge = {
+          conflictstyle = "diff3";
+        };
+        commit = {
+          verbose = true;
+        };
+        url = {
+          "https://github.com/".insteadOf = "gh:";
+          "git@github.com:".pushInsteadOf = "gh:";
+          "https://gitlab.com/".insteadOf = "gl:";
+          "git@gitlab.com:".pushInsteadOf = "gl:";
+        };
       };
 
       ignores = [
@@ -43,6 +61,13 @@
         "bin/"
         "dist/"
         "result"
+        ".cache/"
+        ".DS_Store"
+        ".direnv/"
+        "*.swp"
+        ".vscode/"
+        "npm-debug.log"
+        "dumb.rdb"
       ];
     };
   };

@@ -11,8 +11,11 @@
       duf
       alejandra
       htop
-      #speedtest-cli
+      speedtest-cli
       nil
+      jq
+      rnix-lsp
+      nixpkgs-fmt
       #direnv
       #nix-direnv
       neofetch

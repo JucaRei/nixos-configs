@@ -12,6 +12,7 @@
       lib.mkDefault ''
       '';
     initrd = {
+      systemd.enable = true; # This is needed to show the plymouth login screen to unlock luks
       availableKernelModules = [
         "ahci"
         "nvme"

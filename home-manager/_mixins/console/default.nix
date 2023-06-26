@@ -28,7 +28,7 @@
       #debootstrap # Terminal Debian installer
       #diffr # Modern Unix `diff`
       #difftastic # Modern Unix `diff`
-      distrobox # Terminal container manager
+      #distrobox # Terminal container manager
       #dive # Container analyzer
       #dogdns # Modern Unix `dig`
       duf # Modern Unix `df`
@@ -47,9 +47,9 @@
       #hyperfine # Terminal benchmarking
       #iperf3 # Terminal network benchmarking
       #jpegoptim # Terminal JPEG optimizer
-      jiq # Modern Unix `jq`
+      jiq # Modern Unix `jq` json fiddling
       #lazygit # Terminal Git client
-      libva-utils # Terminal VAAPI info
+      #libva-utils # Terminal VAAPI info
       lurk # Modern Unix `strace`
       #maestral # Terminal Dropbox client
       #mdp # Terminal Markdown presenter
@@ -67,28 +67,39 @@
       #playerctl # Terminal media controller
       procs # Modern Unix `ps`
       #pulsemixer # Terminal PulseAudio mixer
-      python310Packages.gpustat # Terminal GPU info
+      #python310Packages.gpustat # Terminal GPU info
       #quilt # Terminal patch manager
-      rclone # Terminal cloud storage client
+      #rclone # Terminal cloud storage client
       ripgrep # Modern Unix `grep`
-      rustfmt # Code format Rust
+      #rustfmt # Code format Rust
       #s3cmd # Terminal cloud storage client
       shellcheck # Code lint Shell
       shfmt # Code format Shell
       #syft # Container SBOM generator
       tldr # Modern Unix `man`
       tokei # Modern Unix `wc` for code
-      vdpauinfo # Terminal VDPAU info
+      #vdpauinfo # Terminal VDPAU info
       #wavemon # Terminal WiFi monitor
-      wmctrl # Terminal X11 automation
-      xdotool # Terminal X11 automation
-      yadm # Terminal dot file manager
-      ydotool # Terminal *all-the-things* automation
+      #wmctrl # Terminal X11 automation
+      #xdotool # Terminal X11 automation
+      #yadm # Terminal dot file manager
+      #ydotool # Terminal *all-the-things* automation
       yq-go # Terminal `jq` for YAML
       zsync # Terminal file sync
       ansible # Automation
       sshpass # Ansible Dependency
       mkvtoolnix # Matroska Tools
+
+      # Archive Tools
+      unzip
+      unrar
+      zip
+      p7zip
+      xar
+
+      nix-index # nix-locate
+      nixpkgs-fmt # the better formatter
+      nix-top # see what's building
     ];
 
     sessionVariables = {
@@ -104,7 +115,7 @@
     atuin = {
       enableBashIntegration = true;
       enableFishIntegration = true;
-      #enableZshIntegration = true;
+      enableZshIntegration = true;
     };
     bat = {
       enable = true;

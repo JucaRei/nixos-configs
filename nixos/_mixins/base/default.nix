@@ -29,13 +29,15 @@
     mergerfs
     mergerfs-tools
     nano
+    exfat
     pciutils
+    usbutils
     rsync
     unzip
-    usbutils
-    v4l-utils
+    #v4l-utils
     wget
     xdg-utils
+    lm_sensors
   ];
 
   # Use passed in hostid and hostname to configure basic networking
@@ -53,4 +55,10 @@
   };
 
   security.rtkit.enable = true;
+
+  services = {
+    udisks2.enable = true;
+    earlyoom.enable = true;
+    fstrim.enable = true;
+  };
 }
