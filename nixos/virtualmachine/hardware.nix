@@ -82,103 +82,104 @@
         Enable = "Source,Sink,Media,Socket";
       };
     };
-    #mwProCapture.enable = true;
+  };
 
-    ##############
-    ### Nvidia ###
-    ##############
+  #mwProCapture.enable = true;
 
-    #nvidia = {
-    #  prime = {
-    #    #amdgpuBusId = "PCI:3:0:0";
-    #    #nvidiaBusId = "PCI:4:0:0";
-    #    sync.enable = true; # Enable NVIDIA Optimus support using the NVIDIA proprietary driver via PRIME. GPU will be always on and used for all rendering
-    # Make the Radeon RX6800 default. The NVIDIA T600 is on for CUDA/NVENC
-    #    reverseSync.enable = true;
-    #    offload = {
-    #      ## Enable render offload support using the NVIDIA proprietary driver via PRIME.
-    #      enableOffloadCmd = true; ## Adds a nvidia-offload convenience script to environment.systemPackages for offloading programs to an nvidia device
-    #      enable = true;
-    #    };
-    #  };
-    #  powerManagement = {
-    #    enable = true;
-    #    finegrained = true;
-    #  };
-    #  modesetting.enable = true; # Enabling this fixes screen tearing when using Optimus via PRIME
-    #  package = config.boot.kernelPackages.nvidiaPackages.stable; # nvidiaPackages.legacy_340
-    #  nvidiaSettings = false;
-    #};
+  ##############
+  ### Nvidia ###
+  ##############
 
-    ######################
-    ### OpenGL drivers ###
-    ######################
+  #nvidia = {
+  #  prime = {
+  #    #amdgpuBusId = "PCI:3:0:0";
+  #    #nvidiaBusId = "PCI:4:0:0";
+  #    sync.enable = true; # Enable NVIDIA Optimus support using the NVIDIA proprietary driver via PRIME. GPU will be always on and used for all rendering
+  # Make the Radeon RX6800 default. The NVIDIA T600 is on for CUDA/NVENC
+  #    reverseSync.enable = true;
+  #    offload = {
+  #      ## Enable render offload support using the NVIDIA proprietary driver via PRIME.
+  #      enableOffloadCmd = true; ## Adds a nvidia-offload convenience script to environment.systemPackages for offloading programs to an nvidia device
+  #      enable = true;
+  #    };
+  #  };
+  #  powerManagement = {
+  #    enable = true;
+  #    finegrained = true;
+  #  };
+  #  modesetting.enable = true; # Enabling this fixes screen tearing when using Optimus via PRIME
+  #  package = config.boot.kernelPackages.nvidiaPackages.stable; # nvidiaPackages.legacy_340
+  #  nvidiaSettings = false;
+  #};
 
-    # opengl = {
-    #   enable = true;
-    #   driSupport = true;
-    #   driSupport32Bit = true;
-    #   extraPackages = with pkgs; [intel-media-driver intel-ocl vaapiIntel];
-    # };
-    #openrazer = {
+  ######################
+  ### OpenGL drivers ###
+  ######################
+
+  # opengl = {
+  #   enable = true;
+  #   driSupport = true;
+  #   driSupport32Bit = true;
+  #   extraPackages = with pkgs; [intel-media-driver intel-ocl vaapiIntel];
+  # };
+  #openrazer = {
+  #  enable = true;
+  #  devicesOffOnScreensaver = false;
+  #  keyStatistics = true;
+  #  mouseBatteryNotifier = true;
+  #  syncEffectsEnabled = true;
+  #  users = ["${username}"];
+  #};
+  #xone.enable = true;
+  # };
+
+  ###############################
+  ### High-resolution display ###
+  ###############################
+  #video.hidpi.enable = lib.mkDefault true;
+
+  ###########
+  ### CPU ###
+  ###########
+  #cpu = {
+  #  intel = {
+  #    updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  #    # updateMicrocode = true;
+  #  };
+  #};
+  # virtualisation.virtualbox.guest.enable = true;     #currently disabled because package is broken
+
+  services = {
+    #hardware.openrgb = {
     #  enable = true;
-    #  devicesOffOnScreensaver = false;
-    #  keyStatistics = true;
-    #  mouseBatteryNotifier = true;
-    #  syncEffectsEnabled = true;
-    #  users = ["${username}"];
+    #  motherboard = "intel";
+    #  package = pkgs.openrgb-with-all-plugins;
     #};
-    #xone.enable = true;
-    # };
-
-    ###############################
-    ### High-resolution display ###
-    ###############################
-    #video.hidpi.enable = lib.mkDefault true;
-
-    ###########
-    ### CPU ###
-    ###########
-    #cpu = {
-    #  intel = {
-    #    updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-    #    # updateMicrocode = true;
+    #############
+    ### BTRFS ###
+    #############
+    #btrfs = {
+    #  autoScrub = {
+    #    enable = true;
+    #    interval = "weekly";
     #  };
     #};
-    # virtualisation.virtualbox.guest.enable = true;     #currently disabled because package is broken
-
-    services = {
-      #hardware.openrgb = {
-      #  enable = true;
-      #  motherboard = "intel";
-      #  package = pkgs.openrgb-with-all-plugins;
-      #};
-      #############
-      ### BTRFS ###
-      #############
-      #btrfs = {
-      #  autoScrub = {
-      #    enable = true;
-      #    interval = "weekly";
-      #  };
-      #};
-      #logind.lidSwitch = "suspend";
-      #thermald.enable = true;
-      #upower.enable = true;
-      xserver = {
-        resolutions = [
-          {
-            x = 1920;
-            y = 1080;
-          }
-          # { x = 1600; y = 900; }
-          # { x = 3840; y = 2160; }
-        ];
-        #videoDrivers = [
-        #  "amdgpu"
-        #  "nvidia"
-        #];
-      };
+    #logind.lidSwitch = "suspend";
+    #thermald.enable = true;
+    #upower.enable = true;
+    xserver = {
+      resolutions = [
+        {
+          x = 1920;
+          y = 1080;
+        }
+        # { x = 1600; y = 900; }
+        # { x = 3840; y = 2160; }
+      ];
+      #videoDrivers = [
+      #  "amdgpu"
+      #  "nvidia"
+      #];
     };
   };
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

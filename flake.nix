@@ -231,7 +231,7 @@
           inherit inputs outputs stateVersion;
           desktop = "pantheon";
           hostid = "8c0b93a0";
-          hostname = "vmlab";
+          hostname = "virtualmachine";
           username = "juca";
         };
         modules = [./nixos];
