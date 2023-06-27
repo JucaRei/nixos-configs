@@ -124,7 +124,7 @@
     };
     neovim = {
       enable = true;
-      enableLSP = true;
+      #enableLSP = true;
     };
     bat = {
       enable = true;
