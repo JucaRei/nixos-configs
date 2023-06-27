@@ -45,7 +45,7 @@
     #vivaldi
     #vivaldi-ffmpeg-codecs
     vscode-fhs
-    wavebox
+    #wavebox
     #zoom-us
   ];
 }
