@@ -1,6 +1,12 @@
 # Shell for bootstrapping flake-enabled nix and home-manager
 # Enter it through 'nix develop' or (legacy) 'nix-shell'
-{pkgs ? (import ./nixpkgs.nix) {}}: {
+{
+  pkgs ?
+    (import ./nixpkgs.nix) {
+      #system = builtins.forAllSystems;
+      #overlays = []; # Explicit blank overlay to avoid interference
+    },
+}: {
   default = pkgs.mkShell {
     # Enable experimental features without having to specify the argument
     NIX_CONFIG = "experimental-features = nix-command flakes repl-flake recursive-nix";

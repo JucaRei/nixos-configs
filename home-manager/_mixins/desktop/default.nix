@@ -5,11 +5,12 @@
   ...
 }: {
   imports = [
-    #./celluloid.nix
+    ./celluloid.nix
     ./dconf-editor.nix
     ./emote.nix
     ./gitkraken.nix
     ./meld.nix
+    ./rhythmbox.nix
     ./tilix.nix
     ./samba.nix
     (./. + "/${desktop}.nix")

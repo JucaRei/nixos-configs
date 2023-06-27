@@ -122,6 +122,10 @@
       enableFishIntegration = true;
       enableZshIntegration = true;
     };
+    neovim = {
+      enable = true;
+      enableLSP = true;
+    };
     bat = {
       enable = true;
       extraPackages = with pkgs.bat-extras; [
@@ -164,6 +168,8 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
       nix-direnv = {
         enable = true;
       };
@@ -202,6 +208,7 @@
       enable = true;
       enableBashIntegration = true;
       enableFishIntegration = true;
+      enableZshIntegration = true;
     };
   };
 

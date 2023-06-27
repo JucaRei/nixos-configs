@@ -69,8 +69,10 @@ in {
 
   nix = {
     package = lib.mkDefault pkgs.unstable.nix;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
     settings = {
       experimental-features = ["nix-command" "flakes" "repl-flake" "recursive-nix"];
+      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
       sandbox = true;

@@ -60,6 +60,7 @@
 
     # kernelPackages = pkgs.linuxPackages_latest;
     kernelPackages = pkgs.linuxPackages_lqx; # Liquorix kernel
+    binfmt.emulatedSystems = ["aarch64-linux"];
     # kernelPackages = pkgs.linuxPackages_xanmod_stable;        # Xanmod kernel
     # Temporary workaround until mwprocapture 4328 patch is merged
     # - https://github.com/NixOS/nixpkgs/pull/221209

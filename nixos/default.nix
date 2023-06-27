@@ -87,7 +87,7 @@
     optimise.automatic = true;
     package = pkgs.unstable.nix;
     settings = {
-      sandbox = true;
+      #sandbox = true;
       auto-optimise-store = true;
       warn-dirty = false;
       experimental-features = [

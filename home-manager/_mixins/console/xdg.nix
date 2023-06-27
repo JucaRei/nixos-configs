@@ -63,22 +63,22 @@ in {
       defaultApplications = associations;
     };
     userDirs = {
-      enable = true;
+      enable = lib.mkDefault true;
       createDirectories = lib.mkDefault true;
-      desktop = "${config.home.homeDirectory}/desktop";
-      documents = "${config.home.homeDirectory}/documents";
-      download = "${config.home.homeDirectory}/downloads";
-      music = "${config.home.homeDirectory}/music";
-      pictures = "${config.home.homeDirectory}/pictures";
-      wallpapers = "${config.home.homeDirectory}/wallpapers";
-      publicShare = "${config.home.homeDirectory}/public";
-      templates = "${config.home.homeDirectory}/templates";
-      videos = "${config.home.homeDirectory}/videos";
+      desktop = lib.mkDefault "${config.home.homeDirectory}/desktop";
+      documents = lib.mkDefault "${config.home.homeDirectory}/documents";
+      download = lib.mkDefault "${config.home.homeDirectory}/downloads";
+      music = lib.mkDefault "${config.home.homeDirectory}/music";
+      pictures = lib.mkDefault "${config.home.homeDirectory}/pictures";
+      wallpapers = lib.mkDefault "${config.home.homeDirectory}/wallpapers";
+      publicShare = lib.mkDefault "${config.home.homeDirectory}/public";
+      templates = lib.mkDefault "${config.home.homeDirectory}/templates";
+      videos = lib.mkDefault "${config.home.homeDirectory}/videos";
       extraConfig = {
-        XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/pictures/screenshots";
-        XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/wallpapers";
-        XDG_CONTAINERS_DIR = "${config.home.homeDirectory}/containers-data";
-        XDG_WORKSPACE_DIR = "${config.home.homeDirectory}/workspace";
+        XDG_SCREENSHOTS_DIR = lib.mkDefault "${config.home.homeDirectory}/pictures/screenshots";
+        XDG_WALLPAPERS_DIR = lib.mkDefault "${config.home.homeDirectory}/wallpapers";
+        XDG_CONTAINERS_DIR = lib.mkDefault "${config.home.homeDirectory}/containers-data";
+        XDG_WORKSPACE_DIR = lib.mkDefault "${config.home.homeDirectory}/workspace";
       };
     };
   };

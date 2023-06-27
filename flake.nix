@@ -4,6 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     # You can access packages and modules from different nixpkgs revs at the
     # same time. See 'unstable-packages' overlay in 'overlays/default.nix'.
+    nixpkgs-prev.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     disko = {
@@ -25,11 +26,11 @@
     #url = "github:nix-community/NUR"; # Add "nur.nixosModules.nur" to the host modules
     #};
 
-    #nixgl = {
-    ## OpenGL
-    #url = "github:guibou/nixGL";
-    #inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    nixgl = {
+      # OpenGL
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     #nixos-generators = {
     #  url = "github:nix-community/nixos-generators";
