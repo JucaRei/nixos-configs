@@ -70,11 +70,13 @@ in {
       download = "${config.home.homeDirectory}/downloads";
       music = "${config.home.homeDirectory}/musics";
       pictures = "${config.home.homeDirectory}/pictures";
+      wallpapers = "${config.home.homeDirectory}/wallpapers";
       publicShare = "${config.home.homeDirectory}/public";
       templates = "${config.home.homeDirectory}/templates";
       videos = "${config.home.homeDirectory}/videos";
       extraConfig = {
         XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/pictures/screenshots";
+        XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/wallpapers";
         XDG_CONTAINERS_DIR = "${config.home.homeDirectory}/containers-data";
         XDG_WORKSPACE_DIR = "${config.home.homeDirectory}/workspace";
       };

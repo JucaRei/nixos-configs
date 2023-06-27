@@ -11,11 +11,6 @@
       enable = true;
     };
 
-    # Auto Nice Daemon
-    ananicy = {
-      enable = true;
-    };
-
     # Provide Power Management Support
     upower = {
       enable = true;
@@ -46,7 +41,7 @@
       options snd_hda_intel power_save=1
       options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0
       options iwldvm force_cam=0
-      options i915 enable_guc=2 enable_fbc=1 enable_psr=1 enable_rc6=1
+      options i915 enable_guc=2 enable_fbc=1 enable_psr=1 enable_rc6=1 fastboot=1
     '';
     kernel.sysctl = {
       "kernel.nmi_watchdog" = 0;

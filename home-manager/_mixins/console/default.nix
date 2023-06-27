@@ -11,10 +11,9 @@
     # A Modern Unix experience
     # https://jvns.ca/blog/2022/04/12/a-list-of-new-ish--command-line-tools/
     packages = with pkgs; [
-      alejandra # Code format Nix
       #asciinema # Terminal recorder
-      black # Code format Python
-      bmon # Modern Unix `iftop`
+      #black # Code format Python
+      #bmon # Modern Unix `iftop`
       #breezy # Terminal bzr client
       btop # Modern Unix `top`
       #butler # Terminal Itch.io API client
@@ -23,8 +22,6 @@
       #clinfo # Terminal OpenCL info
       #croc # Terminal file transfer
       curlie # Terminal HTTP client
-      dconf2nix # Nix code from Dconf files
-      deadnix # Code lint Nix
       #debootstrap # Terminal Debian installer
       #diffr # Modern Unix `diff`
       #difftastic # Modern Unix `diff`
@@ -55,11 +52,9 @@
       #mdp # Terminal Markdown presenter
       #mktorrent # Terminal torrent creator
       moar # Modern Unix `less`
-      mtr # Modern Unix `traceroute`
+      #mtr # Modern Unix `traceroute`
       netdiscover # Modern Unix `arp`
       nethogs # Modern Unix `iftop`
-      nixpkgs-fmt # Code format Nix
-      nixpkgs-review # Nix code review
       nodePackages.prettier # Code format
       #nyancat # Terminal rainbow spewing feline
       ookla-speedtest # Terminal speedtest
@@ -86,9 +81,11 @@
       #ydotool # Terminal *all-the-things* automation
       yq-go # Terminal `jq` for YAML
       zsync # Terminal file sync
+      #mkvtoolnix # Matroska Tools
+
+      # Ansible
       ansible # Automation
       sshpass # Ansible Dependency
-      mkvtoolnix # Matroska Tools
 
       # Archive Tools
       unzip
@@ -97,17 +94,25 @@
       p7zip
       xar
 
+      # Nix
+      alejandra # Code format Nix
       nix-index # nix-locate
-      nixpkgs-fmt # the better formatter
       nix-top # see what's building
+      nixpkgs-fmt # Code format Nix
+      nixpkgs-review # Nix code review
+      dconf2nix # Nix code from Dconf files
+      deadnix # Code lint Nix
     ];
 
     sessionVariables = {
-      EDITOR = "micro";
+      #EDITOR = "micro";
+      EDITOR = "nvim";
       MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
       PAGER = "moar";
-      SYSTEMD_EDITOR = "micro";
-      VISUAL = "micro";
+      #SYSTEMD_EDITOR = "micro";
+      SYSTEMD_EDITOR = "nvim";
+      #VISUAL = "micro";
+      VISUAL = "nvim";
     };
   };
 
@@ -154,6 +159,7 @@
       enable = true;
       enableBashIntegration = true;
       enableFishIntegration = true;
+      enableZshIntegration = true;
     };
     direnv = {
       enable = true;
@@ -172,7 +178,8 @@
     info.enable = true;
     jq.enable = true;
     micro = {
-      enable = true;
+      enable = false;
+      #enable = true;
       settings = {
         colorcolumn = 80;
         colorscheme = "simple";
@@ -200,15 +207,18 @@
 
   services = {
     gpg-agent = {
-      enable = true;
+      #enable = true;
+      enable = false;
       enableSshSupport = true;
       pinentryFlavor = "curses";
     };
     kbfs = {
-      enable = true;
+      #enable = true;
+      enable = false;
       mountPoint = "Keybase";
     };
-    keybase.enable = true;
+    #keybase.enable = true;
+    keybase.enable = false;
   };
 
   # Nicely reload system units when changing configs

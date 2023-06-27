@@ -7,9 +7,9 @@
   };
 
   environment.systemPackages = with pkgs; [
-    libreoffice
-    vivaldi
-    vivaldi-ffmpeg-codecs
+    #libreoffice
+    #vivaldi
+    #vivaldi-ffmpeg-codecs
     vscode-fhs
   ];
 }
