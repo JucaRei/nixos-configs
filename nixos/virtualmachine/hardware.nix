@@ -60,7 +60,7 @@
   swapDevices = [
     {
       device = "/dev/disk/by-label/SWAP";
-      size = 4 GiB;
+      #size = 2 GiB;
     }
   ];
 
@@ -134,7 +134,7 @@
     ###############################
     ### High-resolution display ###
     ###############################
-    video.hidpi.enable = lib.mkDefault true;
+    #video.hidpi.enable = lib.mkDefault true;
 
     ###########
     ### CPU ###

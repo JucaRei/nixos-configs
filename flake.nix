@@ -226,6 +226,17 @@
         modules = [./nixos];
       };
 
+      virtualmachine = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs stateVersion;
+          desktop = "pantheon";
+          hostid = "8c0b93a0";
+          hostname = "vmlab";
+          username = "juca";
+        };
+        modules = [./nixos];
+      };
+
       #note8 = nixpkgs.lib.nixosSystem {
       #  specialArgs = {
       #    inherit inputs outputs stateVersion;

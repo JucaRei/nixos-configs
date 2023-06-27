@@ -89,10 +89,10 @@
     ### Enable plymouth ###
     #######################
 
-    plymouth = {
-      theme = "breeze";
-      enable = true;
-    };
+    #plymouth = {
+    #  theme = "breeze";
+    #  enable = true;
+    #};
 
     loader = {
       ######################

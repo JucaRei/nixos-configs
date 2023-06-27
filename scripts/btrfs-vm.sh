@@ -3,7 +3,7 @@
 export DRIVE="vda"
 sgdisk -Z $DRIVE
 sgdisk -n 0:0:200MiB /dev/vda
-sgdisk -n 0:0:4GiB /dev/vda
+sgdisk -n 0:0:2GiB /dev/vda
 sgdisk -n 0:0:0 /dev/vda
 
 export BOOT_PARTITION="${DRIVE}1"
