@@ -79,6 +79,9 @@
         "VoiceInteractionHotwordEnabled" = false;
       };
     };
+    firefox = {
+      enable = false;
+    };
   };
 
   # Accept the joypixels license

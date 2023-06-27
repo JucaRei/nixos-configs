@@ -4,14 +4,14 @@
   ...
 }: {
   environment.systemPackages = with pkgs.unstable; [
-    brave
-    google-chrome
-    microsoft-edge
-    netflix
-    opera
-    vivaldi
-    vivaldi-ffmpeg-codecs
-    wavebox
+    #brave
+    #google-chrome
+    #microsoft-edge
+    #netflix
+    #opera
+    #vivaldi
+    #vivaldi-ffmpeg-codecs
+    #wavebox
   ];
 
   programs = {
@@ -26,7 +26,7 @@
       ];
     };
     firefox = {
-      enable = lib.mkDefault true;
+      enable = lib.mkForce true;
       languagePacks = ["en-GB"];
       package = pkgs.unstable.firefox;
     };

@@ -1,12 +1,11 @@
 {
   inputs,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
     ../services/networkmanager.nix
-    #../services/systemd-networkd.nix
   ];
 
   # Exclude MATE themes. Yaru will be used instead.
@@ -30,7 +29,6 @@
       gnome.simple-scan
       gthumb
       libsForQt5.qtstyleplugins # Qt5 style plugins
-      inputs.nix-software-center.packages.${system}.nix-software-center
       networkmanagerapplet
       tilix
     ];
@@ -110,7 +108,5 @@
       };
     };
   };
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-gtk
-  ];
+  xdg.portal.extraPortals = [xdg-desktop-portal-gtk];
 }

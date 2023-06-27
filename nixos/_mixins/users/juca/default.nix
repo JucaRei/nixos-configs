@@ -10,9 +10,9 @@ in {
   # Only include desktop components if one is supplied.
   imports =
     [
-      ./packages-console.nix
+      ./console.nix
     ]
-    ++ lib.optional (builtins.isString desktop) ./packages-desktop.nix;
+    ++ lib.optional (builtins.isString desktop) ./desktop.nix;
 
   users.users.juca = {
     description = "Reinaldo P JR";
