@@ -6,15 +6,16 @@
 }: {
   imports = [
     ../services/networkmanager.nix
+    #../services/systemd-networkd.nix
   ];
 
-  # Exclude the elementary apps I don't use
+  # Exclude the Epiphany browser
   environment = {
     pantheon.excludePackages = with pkgs.pantheon; [
+      epiphany
       elementary-music
       elementary-photos
       elementary-videos
-      epiphany
     ];
 
     # App indicator
@@ -22,19 +23,27 @@
     # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
     pathsToLink = ["/libexec"];
 
-    # Add additional apps and include Yaru for syntax highlighting
+    # Add some elementary additional apps and include Yaru for syntax highlighting
     systemPackages = with pkgs; [
       appeditor # elementary OS menu editor
-      celluloid # Video Player
+      #cipher # elementary OS text encoding/decoding
+      #elementary-planner         # UNSTABLE: elementary OS planner with Todoist support
       evolutionWithPlugins # Email client
       formatter # elementary OS filesystem formatter
       gthumb # Image Viewer
-      gnome.simple-scan # Scanning
+      gnome.simple-scan
+      monitor # elementary OS system monitor
       indicator-application-gtk3 # App Indicator
       libsForQt5.qtstyleplugins # Qt5 style plugins
+      #inputs.nix-software-center.packages.${system}.nix-software-center
+      #minder # elementary OS mind-mapping
+      #monitor # elementary OS system monitor
+      #nasc                       # UNSTABLE: elementary OS maths notebook
+      #notes-up # elementary OS Markdown editor
       pantheon.sideload # elementary OS Flatpak installer
       tilix # Tiling terminal emulator
-      torrential # elementary OS torrent client
+      #tootle # elementary OS Mastodon client
+      #torrential # elementary OS torrent client
       yaru-theme
     ];
 
@@ -46,7 +55,7 @@
     };
   };
 
-  # Add GNOME Disks, Pantheon Tweaks and Seahorse
+  # Add GNOME Disks and Pantheon Tweaks
   programs = {
     evolution.enable = true;
     gnome-disks.enable = true;
@@ -56,8 +65,9 @@
 
   qt = {
     enable = true;
+    platformTheme = "gnome";
+    style = "adwaita";
   };
-
   services = {
     flatpak = {
       enable = true;
@@ -69,7 +79,45 @@
       enable = true;
       displayManager = {
         lightdm.enable = true;
+        # Use GTK greeter as the Pantheon greeter is not working
+        #lightdm.greeters.pantheon.enable = false;
         lightdm.greeters.pantheon.enable = true;
+        #lightdm.greeters.gtk = {
+        #  enable = true;
+        #  cursorTheme.name = "elementary";
+        #  cursorTheme.package = pkgs.pantheon.elementary-icon-theme;
+        #  cursorTheme.size = 32;
+        #  iconTheme.name = "Yaru-magenta-dark";
+        #  iconTheme.package = pkgs.yaru-theme;
+        #  theme.name = "Yaru-magenta-dark";
+        #  theme.package = pkgs.yaru-theme;
+        #  indicators = [
+        #    "~session"
+        #    "~host"
+        #    "~spacer"
+        #    "~clock"
+        #    "~spacer"
+        #    "~a11y"
+        #    "~power"
+        #  ];
+        #  # https://github.com/Xubuntu/lightdm-gtk-greeter/blob/master/data/lightdm-gtk-greeter.conf
+        #  extraConfig = ''
+        #    # background = Background file to use, either an image path or a color (e.g. #772953)
+        #    font-name = Work Sans 12
+        #    xft-antialias = true
+        #    xft-dpi = 96
+        #    xft-hintstyle = slight
+        #    xft-rgba = rgb
+        #
+        #    active-monitor = #cursor
+        #    # position = x y ("50% 50%" by default)  Login window position
+        #    # default-user-image = Image used as default user icon, path or #icon-name
+        #    hide-user-image = false
+        #    round-user-image = false
+        #    highlight-logged-user = true
+        #    panel-position = top
+        #    clock-format = %a, %b %d  %H:%M
+        #  '';
       };
 
       desktopManager = {

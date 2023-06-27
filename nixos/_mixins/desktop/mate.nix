@@ -52,6 +52,8 @@
 
   qt = {
     enable = true;
+    platformTheme = "gnome";
+    style = "adwaita";
   };
 
   # Enable services to round out the desktop
@@ -108,5 +110,7 @@
       };
     };
   };
-  xdg.portal.extraPortals = [xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk
+  ];
 }
