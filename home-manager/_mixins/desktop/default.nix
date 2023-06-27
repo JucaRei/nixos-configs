@@ -12,7 +12,7 @@
     ./meld.nix
     ./rhythmbox.nix
     ./tilix.nix
-    ./samba.nix
+    #./samba.nix
     (./. + "/${desktop}.nix")
   ];
 
