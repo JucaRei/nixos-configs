@@ -33,7 +33,7 @@
     #obs-studio-plugins.obs-pipewire-audio-capture
     #opera
     pavucontrol
-    pods
+    #pods
     #tdesktop # Telegram
     #shotcut
     #slack
@@ -45,6 +45,7 @@
     #vivaldi
     #vivaldi-ffmpeg-codecs
     unstable.vscode-fhs
+    unstable.wavebox
     #zoom-us
   ];
 }

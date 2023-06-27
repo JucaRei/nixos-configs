@@ -170,6 +170,8 @@ Update nix flake lock file
 nix flake update --recreate-lock-file
 
 nix flake lock --update-input nixpkgs
+
+nix flake update --commit-lock-file
 ```
 
 **Other** :
