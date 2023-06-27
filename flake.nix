@@ -152,7 +152,7 @@
         modules = [./home-manager];
       };
 
-      "juca@zed" = home-manager.lib.homeManagerConfiguration {
+      "juca@virtualmachine" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs outputs stateVersion;
