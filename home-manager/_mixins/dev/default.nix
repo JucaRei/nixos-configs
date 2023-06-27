@@ -9,7 +9,7 @@
     #./cloud.nix
     #./containers.nix
     #./go.nix
-    ./nix.nix
+    # ./nix.nix
     ./node.nix
     ./python.nix
     ./go.nix

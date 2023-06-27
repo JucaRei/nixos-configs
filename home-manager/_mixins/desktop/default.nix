@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./celluloid.nix
+    #./celluloid.nix
     ./dconf-editor.nix
     ./emote.nix
     ./gitkraken.nix
