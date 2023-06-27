@@ -68,7 +68,7 @@ in {
       desktop = "${config.home.homeDirectory}/desktop";
       documents = "${config.home.homeDirectory}/documents";
       download = "${config.home.homeDirectory}/downloads";
-      music = "${config.home.homeDirectory}/musics";
+      music = "${config.home.homeDirectory}/music";
       pictures = "${config.home.homeDirectory}/pictures";
       wallpapers = "${config.home.homeDirectory}/wallpapers";
       publicShare = "${config.home.homeDirectory}/public";

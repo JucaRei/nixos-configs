@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -12,7 +13,15 @@
   environment = {
     pantheon.excludePackages = with pkgs.pantheon; [
       epiphany
+      elementary-music
+      elementary-photos
+      elementary-videos
     ];
+
+    # App indicator
+    # - https://discourse.nixos.org/t/anyone-with-pantheon-de/28422
+    # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
+    pathsToLink = ["/libexec"];
 
     # Add some elementary additional apps and include Yaru for syntax highlighting
     systemPackages = with pkgs; [
@@ -24,7 +33,7 @@
       indicator-application-gtk3
       inputs.nix-software-center.packages.${system}.nix-software-center
       minder # elementary OS mind-mapping
-      monitor # elementary OS system monitor
+      #monitor # elementary OS system monitor
       #nasc                       # UNSTABLE: elementary OS maths notebook
       notes-up # elementary OS Markdown editor
       pantheon.sideload # elementary OS Flatpak installer
@@ -33,12 +42,25 @@
       torrential # elementary OS torrent client
       yaru-theme
     ];
+
+    # Required to coerce dark theme that works with Yaru
+    # TODO: Set this in the user-session
+    variables = lib.mkForce {
+      QT_QPA_PLATFORMTHEME = "gnome";
+      QT_STYLE_OVERRIDE = "Adwaita-Dark";
+    };
   };
 
   # Add GNOME Disks and Pantheon Tweaks
   programs = {
+    evolution.enable = true;
     gnome-disks.enable = true;
     pantheon-tweaks.enable = true;
+    seahorse.enable = true;
+  };
+
+  qt = {
+    enable = true;
   };
 
   services = {
@@ -96,10 +118,21 @@
         pantheon = {
           enable = true;
           extraWingpanelIndicators = with pkgs; [
+            monitor
             wingpanel-indicator-ayatana
           ];
         };
       };
+    };
+  };
+  # App indicator
+  # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
+  systemd.user.services.indicatorapp = {
+    description = "indicator-application-gtk3";
+    wantedBy = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    serviceConfig = {
+      ExecStart = "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
     };
   };
 }

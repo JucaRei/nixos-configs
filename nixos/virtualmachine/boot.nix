@@ -8,8 +8,12 @@
     # Boot options
     isContainer = false;
 
-    cleanTmpDir = true;
-    tmpOnTmpfs = lib.mkDefault true;
+    #cleanTmpDir = true;
+    #tmpOnTmpfs = lib.mkDefault true;
+    tmp = {
+      useTmpfs = true;
+      cleanOnBoot = true;
+    };
 
     #blacklistedKernelModules = lib.mkDefault ["nouveau"];
     #extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
@@ -32,7 +36,7 @@
         "sr_mod"
         "virtio_blk"
       ];
-      kernelModules = ["z3fold" "crc32c-intel" "lz4hc" "lz4hc_compress" "kvm-intel"];
+      kernelModules = ["z3fold" "crc32c-intel" "lz4hc" "lz4hc_compress" "kvm-intel" "vhost_vsock"];
       checkJournalingFS = false; # for vm
 
       ##########################
@@ -134,7 +138,7 @@
         #####################
 
         enable = true;
-        version = 2;
+        #version = 2;
         # default = 0;                              # "saved";
         # devices = [ "nodev" ];                    # device = "/dev/sda"; or "nodev" for efi only
         device = "nodev"; # uefi

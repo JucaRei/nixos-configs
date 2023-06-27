@@ -1,4 +1,5 @@
 {...}: {
+  #home.file.".face".source = ./face;
   programs = {
     git = {
       userEmail = "reinaldo800@gmail.com";

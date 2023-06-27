@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -26,10 +27,19 @@
       gnome.gucharmap
       gnome-firmware
       gnome.simple-scan
+      gthumb
+      libsForQt5.qtstyleplugins # Qt5 style plugins
       inputs.nix-software-center.packages.${system}.nix-software-center
       networkmanagerapplet
       tilix
     ];
+
+    # Required to coerce dark theme that works with Yaru
+    # TODO: Set this in the user-session
+    variables = lib.mkForce {
+      QT_QPA_PLATFORMTHEME = "gnome";
+      QT_STYLE_OVERRIDE = "Adwaita-Dark";
+    };
   };
 
   # Enable some programs to provide a complete desktop
@@ -38,6 +48,10 @@
     gnome-disks.enable = true;
     nm-applet.enable = true;
     system-config-printer.enable = true;
+  };
+
+  qt = {
+    enable = true;
   };
 
   # Enable services to round out the desktop

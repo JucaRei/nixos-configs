@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  imports = [
+    #./browsers.nix
+    #./obs-studio.nix
+  ];
   # Desktop application momentum follows the unstable channel.
   programs = {
     firefox = {
@@ -37,9 +41,10 @@
     #ungoogled-chromium
     #unigine-heaven # Test gpu
     #unigine-superposition # Test gpu
+    #### Fast moving apps use the unstable branch
     #vivaldi
     #vivaldi-ffmpeg-codecs
-    vscode-fhs
+    unstable.vscode-fhs
     #zoom-us
   ];
 }
