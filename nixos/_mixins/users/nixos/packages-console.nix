@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
   ];
-  programs = {
-    fish.enable = true;
-  };
+  #programs = {
+  #  fish.enable = true;
+  #};
 }

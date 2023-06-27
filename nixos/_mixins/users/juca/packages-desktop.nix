@@ -44,8 +44,8 @@
     #### Fast moving apps use the unstable branch
     #vivaldi
     #vivaldi-ffmpeg-codecs
-    unstable.vscode-fhs
-    unstable.wavebox
+    vscode-fhs
+    wavebox
     #zoom-us
   ];
 }
