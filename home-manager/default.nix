@@ -75,7 +75,7 @@ in {
       nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
-      sandbox = true;
+      #sandbox = true;
     };
     extraOptions = ''
       keep-outputs          = true
