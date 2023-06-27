@@ -56,6 +56,10 @@
   # Accept the joypixels license
   nixpkgs.config.joypixels.acceptLicense = true;
 
+  # Disable xterm
+  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.desktopManager.xterm.enable = false;
+
   security.sudo = {
     enable = false;
     # Stops sudo from timing out.
