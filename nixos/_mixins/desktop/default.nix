@@ -5,13 +5,19 @@
   lib,
   ...
 }: {
-  imports = [
-    #../services/cups.nix
-    ../services/flatpak.nix
-    ../services/sane.nix
-    ../services/dynamic-timezone.nix
-    (./. + "/${desktop}.nix")
-  ];
+  imports =
+    [
+      ../services/cups.nix
+      ../services/flatpak.nix
+      #./obs-studio.nix
+      #./firefox.nix
+      ../services/sane.nix
+      ../services/dynamic-timezone.nix
+      # (./. + "/${desktop}.nix")
+    ]
+    ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
+  #++ lib.optional (builtins.pathExists (./. + "./desktops/${desktop}.nix")) "./desktops/${desktop}.nix";
+  #++ lib.optional (builtins.pathExists "./windowmanagers/${desktop}.nix") ./windowmanagers/${desktop}.nix;
 
   boot.kernelParams = ["quiet" "splash" "net.ifnames=0" "mem_sleep_default=deep"];
   boot.plymouth = {
@@ -54,10 +60,6 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    unstable.chromium
-  ];
-
   # Accept the joypixels license
   nixpkgs.config.joypixels.acceptLicense = true;
 
@@ -66,7 +68,7 @@
   services.xserver.desktopManager.xterm.enable = false;
 
   security.sudo = {
-    enable = false;
+    enable = true;
     # Stops sudo from timing out.
     extraConfig = ''
       ${username} ALL=(ALL) NOPASSWD:ALL
@@ -76,7 +78,7 @@
   };
 
   security.doas = {
-    enable = true;
+    enable = false;
     extraConfig = ''
       permit nopass :wheel
     '';

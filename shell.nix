@@ -9,7 +9,7 @@
 }: {
   default = pkgs.mkShell {
     # Enable experimental features without having to specify the argument
-    NIX_CONFIG = "experimental-features = nix-command flakes repl-flake recursive-nix";
+    NIX_CONFIG = "experimental-features = nix-command flakes repl-flake";
     nativeBuildInputs = with pkgs; [
       nix
       home-manager
@@ -19,6 +19,7 @@
       htop
       #speedtest-cli
       nil
+      tree
       jq
       rnix-lsp
       nixpkgs-fmt
@@ -37,7 +38,7 @@
       |_|      |_|  \__,_| |_|\_\  \___| |___/
           "
       PATH=${pkgs.writeShellScriptBin "nix" ''
-        ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes repl-flake recursive-nix" "$@"
+        ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes repl-flake" "$@"
       ''}/bin:$PATH
     '';
   };

@@ -1,28 +1,19 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs.unstable; [
-    #brave
-    #google-chrome
-    #microsoft-edge
-    #netflix
-    #opera
-    #vivaldi
-    #vivaldi-ffmpeg-codecs
-    #wavebox
+    chromium
   ];
 
   programs = {
     chromium = {
-      enable = false;
+      enable = true;
       extensions = [
+        "hdokiejnpimakedhajhdlcegeplioahd" # LastPass
+        "kbfnbcaeplbcioakkpcpgfkobkghlhen" # Grammarly
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
         "mdjildafknihdffpkfmmpnpoiajfjnjd" # Consent-O-Matic
         "mnjggcdmjocbbbhaepdhchncahnbgone" # SponsorBlock for YouTube
         "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
-        "edlifbnjlicfpckhgjhflgkeeibhhcii" # Screenshot Tool
+        # "edlifbnjlicfpckhgjhflgkeeibhhcii" # Screenshot Tool
       ];
       extraOpts = {
         "AutofillAddressEnabled" = false;
@@ -39,11 +30,6 @@
         ];
         "VoiceInteractionHotwordEnabled" = false;
       };
-    };
-    firefox = {
-      enable = lib.mkForce true;
-      languagePacks = ["en-GB" "pt-BR"];
-      package = pkgs.unstable.firefox;
     };
   };
 }

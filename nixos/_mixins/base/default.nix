@@ -37,13 +37,11 @@
     man-pages
     #mergerfs
     #mergerfs-tools
-    nano
     exfat
     pciutils
     usbutils
     rsync
     unzip
-    #v4l-utils
     wget
     xdg-utils
     lm_sensors

@@ -1,7 +1,8 @@
 {pkgs, ...}: {
   imports = [
-    ./browsers.nix
-    #./obs-studio.nix
+    # ../../desktop/apps/obs-studio.nix
+    ../../boxes/quickemu.nix
+    ../../boxes/virt-manager.nix
   ];
 
   environment.systemPackages = with pkgs; [
@@ -9,19 +10,22 @@
     #cider
     #gimp-with-plugins
     gnome.dconf-editor
-    inkscape
+    #inkscape
     libreoffice
     #maestral-gui
-    meld
+    #netflix
+    #meld
     pavucontrol
     rhythmbox
-    shotcut
+    #shotcut
     #slack
+
     # Fast moving apps use the unstable branch
     #unstable.discord
-    unstable.gitkraken
+    #unstable.gitkraken
     #unstable.tdesktop
     unstable.vscode-fhs
     #unstable.zoom-us
+    #unstable.wavebox
   ];
 }

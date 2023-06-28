@@ -3,6 +3,9 @@
     neovim
     duf
     neofetch
-    speedtest-cli
+    ookla-speedtest
+    bat
+    du-dust
+    htop
   ];
 }
