@@ -9,8 +9,10 @@
     [
       ../services/cups.nix
       ../services/flatpak.nix
+      #./chromium.nix
+      ./firefox.nix
+      #./tilix.nix
       #./obs-studio.nix
-      #./firefox.nix
       ../services/sane.nix
       ../services/dynamic-timezone.nix
       # (./. + "/${desktop}.nix")
@@ -19,7 +21,20 @@
   #++ lib.optional (builtins.pathExists (./. + "./desktops/${desktop}.nix")) "./desktops/${desktop}.nix";
   #++ lib.optional (builtins.pathExists "./windowmanagers/${desktop}.nix") ./windowmanagers/${desktop}.nix;
 
-  boot.kernelParams = ["quiet" "splash" "net.ifnames=0" "mem_sleep_default=deep"];
+  boot.kernelParams = [
+    # The 'splash' arg is included by the plymouth option
+    "quiet"
+    "loglevel=3"
+    "rd.udev.log_priority=3"
+    "vt.global_cursor_default=0"
+    "mitigations=off"
+    "zswap.enabled=1"
+    "zswap.compressor=lz4hc"
+    "zswap.max_pool_percent=20"
+    "zswap.zpool=z3fold"
+    "net.ifnames=0"
+    "mem_sleep_default=deep"
+  ];
   boot.plymouth = {
     enable = true;
     theme = "breeze";

@@ -318,6 +318,9 @@ Before preparing my NixOS and Home Manager configurations I took a look at what 
 While learning Nix I watched some talks/interviews with [Matthew Croughan](https://github.com/MatthewCroughan) and [Will Taylor's Nix tutorials on Youtube](https://www.youtube.com/playlist?list=PL-saUBvIJzOkjAw_vOac75v-x6EzNzZq-). [Will Taylor's dotfiles] are worth a look, as are his videos, and [Matthew Croughan's nixcfg] is also a useful reference. **After I created my initial flake I found [nix-starter-configs](https://github.com/Misterio77/nix-starter-configs) by [Gabriel Fontes](https://m7.rs) which is an excellent starting point**. I'll be incorporating many of the techniques it demonstrates in my nix-config.
 
 I like the directory hierarchy in [Jon Seager's nixos-config] and the mixin pattern used in [Matthew Croughan's nixcfg], so my initial Nix configuration is heavily influenced by both of those. Ana's excellent [Declarative GNOME configuration with NixOS] blog post was essential to get a personalised desktop. That said, there's plenty to learn from browsing other people's Nix configurations, not least for discovering cool software. I recommend a search of [GitHub nixos configuration] from time to time to see what interesting techniques you pick up and new tools you might discover.
+The [disko] implementation and automated installation is chasing the ideas outlined in these blog posts:
+  - [Setting up my new laptop: nix style](https://bmcgee.ie/posts/2022/12/setting-up-my-new-laptop-nix-style/)
+  - [Setting up my machines: nix style](https://aldoborrero.com/posts/2023/01/15/setting-up-my-machines-nix-style/)
 
 [nome from Luc Perkins]: https://github.com/the-nix-way/nome
 [nixos-config from Cole Helbling]: https://github.com/cole-h/nixos-config
@@ -328,3 +331,4 @@ I like the directory hierarchy in [Jon Seager's nixos-config] and the mixin patt
 [Matthew Croughan's nixcfg]: https://github.com/MatthewCroughan/nixcfg
 [Will Taylor's dotfiles]: https://github.com/wiltaylor/dotfiles
 [GitHub nixos configuration]: https://github.com/search?q=nixos+configuration
+[disko]: https://github.com/nix-community/disko

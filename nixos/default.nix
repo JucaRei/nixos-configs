@@ -16,7 +16,9 @@
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
   imports =
     [
+      inputs.disko.nixosModules.disko
       (./. + "/${hostname}/boot.nix")
+      #(./. + "/${hostname}/disks.nix")
       (./. + "/${hostname}/hardware.nix")
       (modulesPath + "/installer/scan/not-detected.nix")
       ./_mixins/base
@@ -24,6 +26,8 @@
       ./_mixins/users/root
       ./_mixins/users/${username}
     ]
+    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
+    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix {})
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   nixpkgs = {
@@ -63,7 +67,6 @@
     };
 
     extraOptions = ''
-      experimental-features = nix-command flakes
       log-lines = 15
 
       # Free up to 4GiB whenever there is less than 1GiB left.
@@ -94,7 +97,6 @@
         "nix-command"
         "flakes"
         "repl-flake"
-        "recursive-nix"
       ];
     };
   };

@@ -5,6 +5,7 @@
   ...
 }: {
   imports = [
+    #./qt-style.nix
     ../services/networkmanager.nix
     #../services/systemd-networkd.nix
   ];
@@ -27,32 +28,23 @@
     systemPackages = with pkgs; [
       appeditor # elementary OS menu editor
       #cipher # elementary OS text encoding/decoding
+      celluloid # Video Player
       #elementary-planner         # UNSTABLE: elementary OS planner with Todoist support
       evolutionWithPlugins # Email client
       formatter # elementary OS filesystem formatter
       gthumb # Image Viewer
       gnome.simple-scan
-      monitor # elementary OS system monitor
       indicator-application-gtk3 # App Indicator
-      libsForQt5.qtstyleplugins # Qt5 style plugins
       #inputs.nix-software-center.packages.${system}.nix-software-center
       #minder # elementary OS mind-mapping
       #monitor # elementary OS system monitor
       #nasc                       # UNSTABLE: elementary OS maths notebook
       #notes-up # elementary OS Markdown editor
       pantheon.sideload # elementary OS Flatpak installer
-      tilix # Tiling terminal emulator
       #tootle # elementary OS Mastodon client
       #torrential # elementary OS torrent client
       yaru-theme
     ];
-
-    # Required to coerce dark theme that works with Yaru
-    # TODO: Set this in the user-session
-    variables = lib.mkForce {
-      QT_QPA_PLATFORMTHEME = "gnome";
-      QT_STYLE_OVERRIDE = "Adwaita-Dark";
-    };
   };
 
   # Add GNOME Disks and Pantheon Tweaks
@@ -63,11 +55,6 @@
     seahorse.enable = true;
   };
 
-  qt = {
-    enable = true;
-    platformTheme = "gnome";
-    style = "adwaita";
-  };
   services = {
     flatpak = {
       enable = true;

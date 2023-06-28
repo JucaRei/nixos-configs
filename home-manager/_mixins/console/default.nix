@@ -28,8 +28,9 @@
       #distrobox # Terminal container manager
       #dive # Container analyzer
       #dogdns # Modern Unix `dig`
+      dua # Modern Unix `du`
       duf # Modern Unix `df`
-      du-dust # Modern Unix `du`
+      #du-dust # Modern Unix `du`
       #entr # Modern Unix `watch`
       fd # Modern Unix `find`
       ffmpeg-headless # Terminal video encoder
@@ -56,6 +57,7 @@
       netdiscover # Modern Unix `arp`
       nethogs # Modern Unix `iftop`
       nodePackages.prettier # Code format
+      nurl # Nix URL fetcher
       #nyancat # Terminal rainbow spewing feline
       ookla-speedtest # Terminal speedtest
       #optipng # Terminal PNG optimizer

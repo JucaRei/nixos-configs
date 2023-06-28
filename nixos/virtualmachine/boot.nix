@@ -69,15 +69,17 @@
     ###################################
     ### Boot Systemd or grub params ###
     ###################################
-    kernelParams = ["quiet" "splash" "mitigations=off" "zswap.enabled=1" "zswap.compressor=lz4hc" "zswap.max_pool_percent=20" "zswap.zpool=z3fold" "intel_idle.max_cstate=1" "net.ifnames=0" "mem_sleep_default=deep"];
-    consoleLogLevel = 3;
+
+    ### Already set on desktop.nix
+    #kernelParams = [];
+    #consoleLogLevel = 3;
 
     ###################
     ### Sysctl.conf ###
     ###################
     kernel.sysctl = {
-      "kernel.sysrq" = 1;
-      "kernel.printk" = "3 3 3 3";
+      #"kernel.sysrq" = 1;
+      #"kernel.printk" = "3 3 3 3";
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
       "vm.vfs_cache_pressure" = 300;
