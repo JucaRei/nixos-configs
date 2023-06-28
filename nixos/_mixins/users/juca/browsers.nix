@@ -16,7 +16,7 @@
 
   programs = {
     chromium = {
-      enable = true;
+      enable = false;
       extensions = [
         "cjpalhdlnbpafiamejdnhcphjbkeiagm" # uBlock Origin
         "mdjildafknihdffpkfmmpnpoiajfjnjd" # Consent-O-Matic
@@ -24,10 +24,25 @@
         "gebbhagfogifgggkldgodflihgfeippi" # Return YouTube Dislike
         "edlifbnjlicfpckhgjhflgkeeibhhcii" # Screenshot Tool
       ];
+      extraOpts = {
+        "AutofillAddressEnabled" = false;
+        "AutofillCreditCardEnabled" = false;
+        "BuiltInDnsClientEnabled" = false;
+        "​DeviceMetricsReportingEnabled" = true;
+        "​ReportDeviceCrashReportInfo" = false;
+        "PasswordManagerEnabled" = false;
+        "​SpellcheckEnabled" = true;
+        "SpellcheckLanguage" = [
+          "pt-BR"
+          "en-GB"
+          "en-US"
+        ];
+        "VoiceInteractionHotwordEnabled" = false;
+      };
     };
     firefox = {
       enable = lib.mkForce true;
-      languagePacks = ["en-GB"];
+      languagePacks = ["en-GB" "pt-BR"];
       package = pkgs.unstable.firefox;
     };
   };

@@ -1,22 +1,17 @@
 {
   desktop,
   pkgs,
-  username,
   ...
 }: {
   imports = [
-    #../services/cups.nix
+    ../services/cups.nix
     ../services/flatpak.nix
     ../services/sane.nix
-    ../services/dynamic-timezone.nix
     (./. + "/${desktop}.nix")
   ];
 
-  boot.kernelParams = ["quiet" "splash" "net.ifnames=0" "mem_sleep_default=deep"];
-  boot.plymouth = {
-    enable = true;
-    theme = "breeze";
-  };
+  boot.kernelParams = ["quiet"];
+  boot.plymouth.enable = true;
 
   fonts = {
     fontDir.enable = true;
@@ -72,7 +67,6 @@
         "PasswordManagerEnabled" = false;
         "​SpellcheckEnabled" = true;
         "SpellcheckLanguage" = [
-          "pt_BR"
           "en-GB"
           "en-US"
         ];
@@ -90,21 +84,4 @@
   # Disable xterm
   services.xserver.excludePackages = [pkgs.xterm];
   services.xserver.desktopManager.xterm.enable = false;
-
-  security.sudo = {
-    enable = false;
-    # Stops sudo from timing out.
-    extraConfig = ''
-      ${username} ALL=(ALL) NOPASSWD:ALL
-      Defaults env_reset,timestamp_timeout=-1
-    '';
-    execWheelOnly = true;
-  };
-
-  security.doas = {
-    enable = true;
-    extraConfig = ''
-      permit nopass :wheel
-    '';
-  };
 }
