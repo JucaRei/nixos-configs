@@ -15,7 +15,7 @@
     ../services/optimizations.nix
     #../services/tailscale.nix
     #../services/zerotier.nix
-    ../hardware/gfx-intel.nix
+    #../hardware/gfx-intel.nix
   ];
 
   # don't install documentation i don't use

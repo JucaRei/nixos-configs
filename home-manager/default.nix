@@ -38,6 +38,9 @@ in {
     stateVersion = stateVersion;
   };
 
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
   nixpkgs = {
     # You can add overlays here
     overlays = [
