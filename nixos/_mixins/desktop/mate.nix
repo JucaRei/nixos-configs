@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    #./qt-style.nix
+    ./qt-style.nix
     ../services/networkmanager.nix
   ];
 
@@ -25,7 +25,6 @@
     # Add some packages to complete the MATE desktop
     systemPackages = with pkgs; [
       celluloid
-      evolutionWithPlugins
       gnome.gucharmap
       gnome-firmware
       gnome.simple-scan
@@ -36,7 +35,6 @@
 
   # Enable some programs to provide a complete desktop
   programs = {
-    evolution.enable = true;
     gnome-disks.enable = true;
     nm-applet.enable = true;
     seahorse.enable = true;
@@ -46,7 +44,6 @@
   # Enable services to round out the desktop
   services = {
     blueman.enable = true;
-    gnome.evolution-data-server.enable = true;
     gnome.gnome-keyring.enable = true;
     system-config-printer.enable = true;
     xserver = {

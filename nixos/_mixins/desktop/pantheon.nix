@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    #./qt-style.nix
+    ./qt-style.nix
     ../services/networkmanager.nix
     #../services/systemd-networkd.nix
   ];
@@ -49,7 +49,6 @@
 
   # Add GNOME Disks and Pantheon Tweaks
   programs = {
-    evolution.enable = true;
     gnome-disks.enable = true;
     pantheon-tweaks.enable = true;
     seahorse.enable = true;
@@ -59,7 +58,6 @@
     flatpak = {
       enable = true;
     };
-    gnome.evolution-data-server.enable = true;
     pantheon.apps.enable = true;
 
     xserver = {

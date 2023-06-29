@@ -37,6 +37,7 @@
     man-pages
     #mergerfs
     #mergerfs-tools
+    micro
     exfat
     pciutils
     usbutils
@@ -78,9 +79,13 @@
     };
   };
 
-  security.rtkit.enable = true;
+  # Create dirs for home-manager
+  systemd.tmpfiles.rules = [
+    "d /nix/var/nix/profiles/per-user/${username} 755 ${username} root"
+  ];
 
   ## Some optimizations services as default
+  security.rtkit.enable = true;
   services = {
     udisks2.enable = true;
     ananicy = {

@@ -227,12 +227,12 @@
         modules = [./nixos];
       };
 
-      virtualmachine = nixpkgs.lib.nixosSystem {
+      vm = nixpkgs.lib.nixosSystem {
         specialArgs = {
           inherit inputs outputs stateVersion;
           desktop = "pantheon";
           hostid = "8c0b93a0";
-          hostname = "virtualmachine";
+          hostname = "nixvirt";
           username = "juca";
         };
         modules = [./nixos];

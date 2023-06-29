@@ -1,10 +1,11 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: {
   hardware = {
-    pulseaudio.enable = false;
+    pulseaudio.enable = lib.mkForce false;
   };
   services = {
     pipewire = {
