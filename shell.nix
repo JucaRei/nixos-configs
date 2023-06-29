@@ -10,7 +10,6 @@
     # Enable experimental features without having to specify the argument
     NIX_CONFIG = "experimental-features = nix-command flakes repl-flake";
     nativeBuildInputs = with pkgs; [
-      
       home-manager
       git
       duf

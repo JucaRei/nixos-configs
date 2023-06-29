@@ -93,6 +93,7 @@
       alejandra                     # Code format Nix
       nurl                          # Nix URL fetcher
       nix-index                     # nix-locate
+      rnix-hashes                   # Quick utility for converting hashes.
       nix-top                       # see what's building
       nixpkgs-fmt                   # Code format Nix
       nixpkgs-review                # Nix code review
