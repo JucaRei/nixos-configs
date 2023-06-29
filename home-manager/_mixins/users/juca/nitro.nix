@@ -1,0 +1,1 @@
+{ ... }: { imports = [ ../../services/syncthing.nix ]; }

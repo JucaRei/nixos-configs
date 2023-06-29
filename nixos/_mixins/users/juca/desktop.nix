@@ -1,8 +1,18 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   imports = [
     # ../../desktop/apps/obs-studio.nix
-    ../../boxes/quickemu.nix
-    ../../boxes/virt-manager.nix
+    ../../virt/quickemu.nix
+    #../../virt/virt-manager.nix
+    #../../desktop/brave.nix
+    ../../desktop/firefox.nix
+    #../../desktop/evolution.nix
+    #../../desktop/google-chrome.nix
+    #../../desktop/microsoft-edge.nix
+    #../../desktop/obs-studio.nix
+    #../../desktop/opera.nix
+    #../../desktop/tilix.nix
+    #../../desktop/vivaldi.nix
+
   ];
 
   environment.systemPackages = with pkgs; [
