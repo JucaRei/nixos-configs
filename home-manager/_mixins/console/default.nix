@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    #./fish.nix
+    ./fish.nix
     ./git.nix
     ./neofetch.nix
     ./broot.nix
@@ -48,7 +48,7 @@
       jiq # Modern Unix `jq` json fiddling
       #lazygit # Terminal Git client
       #libva-utils # Terminal VAAPI info
-      lurk # Modern Unix `strace`
+      #lurk # Modern Unix `strace`
       #maestral # Terminal Dropbox client
       #mdp # Terminal Markdown presenter
       #mktorrent # Terminal torrent creator
