@@ -1,5 +1,3 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [];
 {pkgs, ...}: let
   install-system = pkgs.writeScriptBin "install-system" ''
     #!${pkgs.stdenv.shell}
@@ -7,7 +5,7 @@
     set -euo pipefail
 
     TARGET_HOST="''${1:-}"
-    TARGET_USER="''${2:-martin}"
+    TARGET_USER="''${2:-juca}"
 
     if [ "$(id -u)" -eq 0 ]; then
       echo "ERROR! $(basename "$0") should be run as a regular user"
@@ -15,7 +13,7 @@
     fi
 
     if [ ! -d "$HOME/Zero/nix-config/.git" ]; then
-      git clone https://github.com/wimpysworld/nix-config.git "$HOME/Zero/nix-config"
+      git clone https://github.com/JucaRei/nixos-configs.git "$HOME/Zero/nix-config"
     fi
 
     pushd "$HOME/Zero/nix-config"
@@ -69,7 +67,7 @@
       # Rsync nix-config to the target install and set the remote origin to SSH.
       rsync -a --delete "$HOME/Zero/" "/mnt/home/$TARGET_USER/Zero/"
       pushd "/mnt/home/$TARGET_USER/Zero/nix-config"
-      git remote set-url origin git@github.com:wimpysworld/nix-config.git
+      git remote set-url origin git@github.com:JucaRei/nixos-configs.git
       popd
 
       # If there is a keyfile for a data disk, put copy it to the root partition and
@@ -83,4 +81,3 @@
 in {
   environment.systemPackages = [install-system];
 }
-
