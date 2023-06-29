@@ -126,7 +126,6 @@
     };
     neovim = {
       enable = true;
-      #enableLSP = true;
     };
     bat = {
       enable = true;
@@ -171,7 +170,6 @@
       enable = true;
       enableBashIntegration = true;
       enableFishIntegration = true;
-      enableZshIntegration = true;
       #nix-direnv = {
       #  enable = true;
       #};
@@ -186,7 +184,7 @@
     info.enable = true;
     jq.enable = true;
     micro = {
-      enable = false;
+      enable = true;
       #enable = true;
       settings = {
         #colorcolumn = 80;
