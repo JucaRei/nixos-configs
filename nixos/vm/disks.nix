@@ -1,7 +1,7 @@
-{disks ? ["/dev/nvme0n1" "/dev/nvme1n1"], ...}: {
+{disks ? ["/dev/vda"], ...}: {
   disko.devices = {
     disk = {
-      nvme0 = {
+      vda = {
         type = "disk";
         device = builtins.elemAt disks 0;
         content = {

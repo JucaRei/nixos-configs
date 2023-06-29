@@ -1,11 +1,10 @@
 # Shell for bootstrapping flake-enabled nix and home-manager
 # Enter it through 'nix develop' or (legacy) 'nix-shell'
-{
-  pkgs ?
-    (import ./nixpkgs.nix) {
-      #system = builtins.forAllSystems;
-      #overlays = []; # Explicit blank overlay to avoid interference
-    },
+{ pkgs ? (import ./nixpkgs.nix) {
+    #system = builtins.forAllSystems;
+    #overlays = []; # Explicit blank overlay to avoid interference
+  }
+,
 }: {
   default = pkgs.mkShell {
     # Enable experimental features without having to specify the argument
@@ -15,7 +14,7 @@
       home-manager
       git
       duf
-      alejandra
+      #alejandra
       htop
       #speedtest-cli
       nil
@@ -23,7 +22,8 @@
       jq
       rnix-lsp
       nixpkgs-fmt
-      direnv
+      nixfmt
+      #direnv
       nix-direnv
       neofetch
       #nitch
@@ -37,9 +37,11 @@
       | |      | | | (_| | |   <  |  __/ \\__ \\
       |_|      |_|  \__,_| |_|\_\  \___| |___/
           "
-      PATH=${pkgs.writeShellScriptBin "nix" ''
-        ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes repl-flake" "$@"
-      ''}/bin:$PATH
+      PATH=${
+        pkgs.writeShellScriptBin "nix" ''
+          ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes repl-flake" "$@"
+        ''
+      }/bin:$PATH
     '';
   };
 }
