@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./fish.nix
+    #./fish.nix
     ./git.nix
     ./neofetch.nix
     ./broot.nix
@@ -169,10 +169,9 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      enableFishIntegration = true;
-      #nix-direnv = {
-      #  enable = true;
-      #};
+      nix-direnv = {
+        enable = true;
+      };
     };
     exa = {
       enable = true;

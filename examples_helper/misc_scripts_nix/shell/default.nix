@@ -12,5 +12,5 @@
 [
   ./git.nix
   ./zsh.nix
-  ./direnv.nix
+  #./direnv.nix
 ]
