@@ -63,20 +63,19 @@ in {
       defaultApplications = associations;
     };
     userDirs = {
-      enable = lib.mkDefault true;
+      enable = true;
       createDirectories = lib.mkDefault true;
       desktop = lib.mkDefault "${config.home.homeDirectory}/desktop";
       documents = lib.mkDefault "${config.home.homeDirectory}/documents";
       download = lib.mkDefault "${config.home.homeDirectory}/downloads";
       music = lib.mkDefault "${config.home.homeDirectory}/music";
       pictures = lib.mkDefault "${config.home.homeDirectory}/pictures";
-      wallpapers = lib.mkDefault "${config.home.homeDirectory}/wallpapers";
       publicShare = lib.mkDefault "${config.home.homeDirectory}/public";
       templates = lib.mkDefault "${config.home.homeDirectory}/templates";
       videos = lib.mkDefault "${config.home.homeDirectory}/videos";
       extraConfig = {
         XDG_SCREENSHOTS_DIR = lib.mkDefault "${config.home.homeDirectory}/pictures/screenshots";
-        XDG_WALLPAPERS_DIR = lib.mkDefault "${config.home.homeDirectory}/wallpapers";
+        XDG_WALLPAPERS_DIR = lib.mkDefault "${config.home.homeDirectory}/pictures/wallpapers";
         XDG_CONTAINERS_DIR = lib.mkDefault "${config.home.homeDirectory}/containers-data";
         XDG_WORKSPACE_DIR = lib.mkDefault "${config.home.homeDirectory}/workspace";
       };

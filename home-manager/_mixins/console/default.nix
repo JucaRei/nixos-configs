@@ -107,14 +107,14 @@
     ];
 
     sessionVariables = {
-      #EDITOR = "micro";
-      EDITOR = "nvim";
+      EDITOR = "micro";
+      #EDITOR = "nvim";
       MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
       PAGER = "moar";
-      #SYSTEMD_EDITOR = "micro";
-      SYSTEMD_EDITOR = "nvim";
-      #VISUAL = "micro";
-      VISUAL = "nvim";
+      SYSTEMD_EDITOR = "micro";
+      #SYSTEMD_EDITOR = "nvim";
+      VISUAL = "micro";
+      #VISUAL = "nvim";
     };
   };
 
@@ -189,7 +189,7 @@
       enable = false;
       #enable = true;
       settings = {
-        colorcolumn = 80;
+        #colorcolumn = 80;
         colorscheme = "simple";
         diffgutter = true;
         rmtrailingws = true;
