@@ -1,0 +1,163 @@
+"juca@nitro" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = null;
+            hostname = "nitro";
+            username = "juca";
+          };
+          modules = [ ./home-manager ];
+        };
+
+        "juca@nitrovoid" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = null;
+            hostname = "nitro";
+            username = "juca";
+          };
+          modules = [ ./home-manager ];
+        };
+
+        "juca@DietPi" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = null;
+            hostname = "DietPi";
+            username = "juca";
+          };
+          modules = [ ./home-manager ];
+        };
+
+        "juca@oldmac" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "pantheon";
+            hostname = "oldmac";
+            username = "juca";
+          };
+          modules = [ ./home-manager ];
+        };
+
+        "juca@mcbair" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "pantheon";
+            hostname = "mcbair";
+            username = "juca";
+          };
+          modules = [ ./home-manager ];
+        };
+
+        "juca@note8" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = null;
+            hostname = "note8";
+            username = "juca";
+          };
+          modules = [ ./home-manager ];
+        };
+
+        "juca@virtualmachine" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "pantheon";
+            hostname = "zed";
+            username = "juca";
+          };
+          modules = [ ./home-manager ];
+        };
+      };
+
+      # hostids are generated using `mkhostid` alias
+      nixosConfigurations = {
+        # nix build .#nixosConfigurations.iso.config.system.build.isoImage
+        iso = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "pantheon";
+            hostid = "09ac7fbb";
+            hostname = "live";
+            username = "nixos";
+          };
+          system = "x86_64-linux";
+          modules = [
+            (nixpkgs
+              + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix")
+            ./nixos
+          ];
+        };
+
+        nitro = nixpkgs.lib.nixosSystem {
+          # sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
+          specialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "pantheon";
+            hostid = "0145d776";
+            hostname = "nitro";
+            username = "juca";
+          };
+          modules = [ ./nixos ];
+        };
+
+        raspberry = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = null;
+            hostid = "445778b2";
+            hostname = "raspberry";
+            username = "juca";
+          };
+          modules = [ ./nixos ];
+        };
+
+        oldmac = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "mate";
+            hostid = "be4cb578";
+            hostname = "oldmac";
+            username = "juca";
+          };
+          modules = [ ./nixos ];
+        };
+
+        mcbair = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "mate";
+            hostid = "b28460d8";
+            hostname = "mcbair";
+            username = "juca";
+          };
+          modules = [ ./nixos ];
+        };
+
+        vm = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs stateVersion;
+            desktop = "pantheon";
+            hostid = "8c0b93a0";
+            hostname = "nixvirt";
+            username = "juca";
+          };
+          modules = [ ./nixos ];
+        };
+
+        #note8 = nixpkgs.lib.nixosSystem {
+        #  specialArgs = {
+        #    inherit inputs outputs stateVersion;
+        #    desktop = "pantheon";
+        #    hostid = "37f0bf56";
+        #    hostname = "note8";
+        #    username = "juca";
+        #  };
+        #  modules = [./nixos];
+        #};
