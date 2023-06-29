@@ -57,7 +57,6 @@
       netdiscover # Modern Unix `arp`
       nethogs # Modern Unix `iftop`
       nodePackages.prettier # Code format
-      nurl # Nix URL fetcher
       #nyancat # Terminal rainbow spewing feline
       ookla-speedtest # Terminal speedtest
       #optipng # Terminal PNG optimizer
@@ -98,6 +97,7 @@
 
       # Nix
       alejandra # Code format Nix
+      nurl # Nix URL fetcher
       nix-index # nix-locate
       nix-top # see what's building
       nixpkgs-fmt # Code format Nix

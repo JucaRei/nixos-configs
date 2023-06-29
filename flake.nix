@@ -41,16 +41,8 @@
     nix-software-center.url = "github:vlinkz/nix-software-center";
   };
 
-  outputs =
-    { self
-    , nixpkgs
-    , disko
-    , home-manager
-    , nixos-hardware
-    , alejandra
-    , nix-software-center
-    , ...
-    }@inputs:
+  outputs = { self, nixpkgs, disko, home-manager, nixos-hardware, alejandra
+    , nix-software-center, ... }@inputs:
     let
       inherit (self) outputs;
       forAllSystems = nixpkgs.lib.genAttrs [
@@ -63,8 +55,7 @@
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
       stateVersion = "23.05";
       libx = import ./lib { inherit inputs outputs stateVersion; };
-    in
-    rec {
+    in rec {
       # Custom packages; acessible via 'nix build', 'nix shell', etc
       packages = forAllSystems (system:
         let pkgs = nixpkgs.legacyPackages.${system};
