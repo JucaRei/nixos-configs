@@ -48,7 +48,7 @@
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
       stateVersion = "23.05";
       libx = import ./lib { inherit inputs outputs stateVersion; };
-    in rec {
+    in {
 
       # Custom packages; acessible via 'nix build', 'nix shell', etc
       packages = libx.forAllSystems (system:

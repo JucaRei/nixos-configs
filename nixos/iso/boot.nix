@@ -1,11 +1,9 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   boot = {
     blacklistedKernelModules = lib.mkDefault [ ];
     consoleLogLevel = 3;
-    extraModulePackages = with config.boot.kernelPackages; [
-      linuxPackages_5_4
-      linuxPackages_xanmod_latest
-    ];
+    kernelPackages = pkgs.linuxPackages_5_4;
+    extraModulePackages = with config.boot.kernelPackages; [ nvidia_x11 ];
     extraModprobeConfig = lib.mkDefault "";
     initrd = {
       availableKernelModules = [ ];
