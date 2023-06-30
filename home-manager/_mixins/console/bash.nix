@@ -55,6 +55,6 @@
             fi
     '';
 
-    shellOptions = options.programs.bash.shellOptions.default ++ [ "pipefail" ];
+    #shellOptions = options.programs.bash.shellOptions.default ++ [ "pipefail" ];
   };
 }
