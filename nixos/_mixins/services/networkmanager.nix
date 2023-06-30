@@ -1,15 +1,8 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{ pkgs, ... }: {
   networking = {
     networkmanager = {
       enable = true;
-      wifi = {
-        backend = "iwd";
-      };
+      wifi = { backend = "iwd"; };
       plugins = with pkgs; [
         networkmanager-openvpn
         networkmanager-openconnect

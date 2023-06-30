@@ -3,10 +3,12 @@
     ./avahi.nix
   ];
   services = {
-    printing.enable = true;
-    printing.drivers = with pkgs; [
-      gutenprint
-      hplipWithPlugin
-    ];
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        gutenprint
+        hplipWithPlugin
+      ];
+    };
   };
 }

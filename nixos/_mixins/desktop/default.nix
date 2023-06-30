@@ -9,17 +9,11 @@
     [
       ../services/cups.nix
       ../services/flatpak.nix
-      #./chromium.nix
-      ./firefox.nix
-      #./tilix.nix
-      #./obs-studio.nix
+      ./vivaldi.nix
       ../services/sane.nix
       ../services/dynamic-timezone.nix
-      # (./. + "/${desktop}.nix")
     ]
     ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
-  #++ lib.optional (builtins.pathExists (./. + "./desktops/${desktop}.nix")) "./desktops/${desktop}.nix";
-  #++ lib.optional (builtins.pathExists "./windowmanagers/${desktop}.nix") ./windowmanagers/${desktop}.nix;
 
   boot.kernelParams = [
     # The 'splash' arg is included by the plymouth option
@@ -75,11 +69,26 @@
     };
   };
 
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+    };
+  };
+
+  programs = {
+    dconf.enable = true;
+    # Chromium is enabled by default with sane defaults.
+    firefox = {
+      enable = false;
+    };
+  };
+
   # Accept the joypixels license
   nixpkgs.config.joypixels.acceptLicense = true;
 
   # Disable xterm
-  services.xserver.excludePackages = [pkgs.xterm];
+  services.xserver.excludePackages = [ pkgs.xterm ];
   services.xserver.desktopManager.xterm.enable = false;
 
   security.sudo = {

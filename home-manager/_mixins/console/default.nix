@@ -12,72 +12,71 @@
     # A Modern Unix experience
     # https://jvns.ca/blog/2022/04/12/a-list-of-new-ish--command-line-tools/
     packages = with pkgs; [
-      asciinema                     # Terminal recorder
-      black                         # Code format Python
-      bmon                          # Modern Unix `iftop`
-      breezy                        # Terminal bzr client
-      butler                        # Terminal Itch.io API client
-      chafa                         # Terminal image viewer
-      chroma                        # Code syntax highlighter
-      clinfo                        # Terminal OpenCL info
-      croc                          # Terminal file transfer
-      curlie                        # Terminal HTTP client
-      debootstrap                   # Terminal Debian installer
+      #asciinema                     # Terminal recorder
+      #black                         # Code format Python
+      #bmon                          # Modern Unix `iftop`
+      #breezy                        # Terminal bzr client
+      #butler                        # Terminal Itch.io API client
+      #chafa                         # Terminal image viewer
+      #chroma                        # Code syntax highlighter
+      #clinfo                        # Terminal OpenCL info
+      #croc                          # Terminal file transfer
+      #curlie                        # Terminal HTTP client
+      #debootstrap                   # Terminal Debian installer
       diffr                         # Modern Unix `diff`
-      difftastic                    # Modern Unix `diff`
-      dogdns                        # Modern Unix `dig`
+      #difftastic                    # Modern Unix `diff`
+      #dogdns                        # Modern Unix `dig`
       dua                           # Modern Unix `du`
       duf                           # Modern Unix `df`
-      du-dust                       # Modern Unix `du`
-      entr                          # Modern Unix `watch`
+      #du-dust                       # Modern Unix `du`
+      #entr                          # Modern Unix `watch`
       fd                            # Modern Unix `find`
       ffmpeg-headless               # Terminal video encoder
-      glow                          # Terminal Markdown renderer
-      gping                         # Modern Unix `ping`
-      hexyl                         # Modern Unix `hexedit`
-      httpie                        # Terminal HTTP client
-      hueadm                        # Terminal Philips Hue client
-      hugo                          # Terminal static site generator
-      hyperfine                     # Terminal benchmarking
-      iperf3                        # Terminal network benchmarking
-      jpegoptim                     # Terminal JPEG optimizer
+      #glow                          # Terminal Markdown renderer
+      #gping                         # Modern Unix `ping`
+      #hexyl                         # Modern Unix `hexedit`
+      #httpie                        # Terminal HTTP client
+      #hueadm                        # Terminal Philips Hue client
+      #hugo                          # Terminal static site generator
+      #hyperfine                     # Terminal benchmarking
+      #iperf3                        # Terminal network benchmarking
+      #jpegoptim                     # Terminal JPEG optimizer
       jiq                           # Modern Unix `jq`
-      lazygit                       # Terminal Git client
-      libva-utils                   # Terminal VAAPI info
+      #lazygit                       # Terminal Git client
+      #libva-utils                   # Terminal VAAPI info
       #lurk                         # Modern Unix `strace`
-      maestral                      # Terminal Dropbox client
-      mdp                           # Terminal Markdown presenter
-      mktorrent                     # Terminal torrent creator
+      #maestral                      # Terminal Dropbox client
+      #mdp                           # Terminal Markdown presenter
+      #mktorrent                     # Terminal torrent creator
       moar                          # Modern Unix `less`
-      mtr                           # Modern Unix `traceroute`
-      netdiscover                   # Modern Unix `arp`
-      nethogs                       # Modern Unix `iftop`
-      nodePackages.prettier         # Code format
-      nurl                          # Nix URL fetcher
-      nyancat                       # Terminal rainbow spewing feline
+      #mtr                           # Modern Unix `traceroute`
+      #netdiscover                   # Modern Unix `arp`
+      #nethogs                       # Modern Unix `iftop`
+      #nodePackages.prettier         # Code format
+      #nyancat                       # Terminal rainbow spewing feline
       ookla-speedtest               # Terminal speedtest
-      optipng                       # Terminal PNG optimizer
-      playerctl                     # Terminal media controller
-      procs                         # Modern Unix `ps`
-      pulsemixer                    # Terminal PulseAudio mixer
+      #optipng                       # Terminal PNG optimizer
+      #playerctl                     # Terminal media controller
+      #procs                         # Modern Unix `ps`
+      #pulsemixer                    # Terminal PulseAudio mixer
       #python310Packages.gpustat     # Terminal GPU info
-      quilt                         # Terminal patch manager
-      rclone                        # Terminal cloud storage client
+      #quilt                         # Terminal patch manager
+      #rclone                        # Terminal cloud storage client
       ripgrep                       # Modern Unix `grep`
-      rustfmt                       # Code format Rust
-      s3cmd                         # Terminal cloud storage client
-      shellcheck                    # Code lint Shell
-      shfmt                         # Code format Shell
+      #rustfmt                       # Code format Rust
+      #s3cmd                         # Terminal cloud storage client
+      #shellcheck                    # Code lint Shell
+      #shfmt                         # Code format Shell
       tldr                          # Modern Unix `man`
-      tokei                         # Modern Unix `wc` for code
-      vdpauinfo                     # Terminal VDPAU info
-      wavemon                       # Terminal WiFi monitor
-      wmctrl                        # Terminal X11 automation
-      xdotool                       # Terminal X11 automation
-      yadm                          # Terminal dot file manager
-      ydotool                       # Terminal *all-the-things* automation
-      yq-go                         # Terminal `jq` for YAML
-      zsync                         # Terminal file sync
+      #tokei                         # Modern Unix `wc` for code
+      #vdpauinfo                     # Terminal VDPAU info
+      #wavemon                       # Terminal WiFi monitor
+      #wmctrl                        # Terminal X11 automation
+      #xdotool                       # Terminal X11 automation
+      #yadm                          # Terminal dot file manager
+      #ydotool                       # Terminal *all-the-things* automation
+      #yq-go                         # Terminal `jq` for YAML
+      #zsync                         # Terminal file sync
       
       ### Ansible
       ansible                       # Automation

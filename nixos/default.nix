@@ -22,12 +22,13 @@
       (./. + "/${hostname}/hardware.nix")
       (modulesPath + "/installer/scan/not-detected.nix")
       ./_mixins/base
-      ./_mixins/virt
+      #./_mixins/virt
       ./_mixins/users/root
       ./_mixins/users/${username}
     ]
     #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
     ++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix {})
+    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   nixpkgs = {

@@ -1,10 +1,4 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
-}: {
+{ ... }: {
   networking = {
     usePredictableInterfaceNames = true;
     useNetworkd = true;

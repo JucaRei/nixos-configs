@@ -1,9 +1,4 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  ...
-}: {
+{ pkgs, ... }: {
   imports = [
     ./qt-style.nix
     ../services/networkmanager.nix
@@ -22,28 +17,28 @@
     # App indicator
     # - https://discourse.nixos.org/t/anyone-with-pantheon-de/28422
     # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
-    pathsToLink = ["/libexec"];
+    pathsToLink = [ "/libexec" ];
 
     # Add some elementary additional apps and include Yaru for syntax highlighting
     systemPackages = with pkgs; [
-      appeditor # elementary OS menu editor
-      #cipher # elementary OS text encoding/decoding
-      celluloid # Video Player
-      #elementary-planner         # UNSTABLE: elementary OS planner with Todoist support
-      evolutionWithPlugins # Email client
-      formatter # elementary OS filesystem formatter
-      gthumb # Image Viewer
-      gnome.simple-scan
-      indicator-application-gtk3 # App Indicator
       #inputs.nix-software-center.packages.${system}.nix-software-center
-      #minder # elementary OS mind-mapping
-      #monitor # elementary OS system monitor
-      #nasc                       # UNSTABLE: elementary OS maths notebook
-      #notes-up # elementary OS Markdown editor
-      pantheon.sideload # elementary OS Flatpak installer
-      #tootle # elementary OS Mastodon client
-      #torrential # elementary OS torrent client
+      appeditor                       # elementary OS menu editor
+      celluloid                       # Video Player
+      formatter                       # elementary OS filesystem formatter
+      gthumb                          # Image Viewer
+      gnome.simple-scan
+      indicator-application-gtk3      # App Indicator
+      pantheon.sideload               # elementary OS Flatpak installer
       yaru-theme
+      #cipher                         # elementary OS text encoding/decoding
+      #elementary-planner             # UNSTABLE: elementary OS planner with Todoist support
+      #evolutionWithPlugins           # Email client
+      #minder                         # elementary OS mind-mapping
+      #monitor                        # elementary OS system monitor
+      #nasc                           # UNSTABLE: elementary OS maths notebook
+      #notes-up                       # elementary OS Markdown editor
+      #tootle                         # elementary OS Mastodon client
+      #torrential                     # elementary OS torrent client
     ];
   };
 
@@ -55,9 +50,7 @@
   };
 
   services = {
-    flatpak = {
-      enable = true;
-    };
+    flatpak = { enable = true; };
     pantheon.apps.enable = true;
 
     xserver = {
@@ -121,10 +114,11 @@
   # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
   systemd.user.services.indicatorapp = {
     description = "indicator-application-gtk3";
-    wantedBy = ["graphical-session.target"];
-    partOf = ["graphical-session.target"];
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
+      ExecStart =
+        "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
     };
   };
 }

@@ -1,13 +1,5 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  ...
-}: {
-  imports = [
-    ./qt-style.nix
-    ../services/networkmanager.nix
-  ];
+{ pkgs, ... }: {
+  imports = [ ./qt-style.nix ../services/networkmanager.nix ];
 
   # Exclude MATE themes. Yaru will be used instead.
   # Don't install mate-netbook or caja-dropbox
@@ -89,12 +81,8 @@
         };
       };
 
-      desktopManager = {
-        mate.enable = true;
-      };
+      desktopManager = { mate.enable = true; };
     };
   };
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal-gtk
-  ];
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
 }

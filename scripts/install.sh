@@ -18,12 +18,14 @@ pushd "$HOME/Zero/nix-config"
 
 if [[ -z "$TARGET_HOST" ]]; then
   echo "ERROR! $(basename "$0") requires a hostname as the first argument"
-  ls -1 nixos/*/boot.nix | cut -d'/' -f2 | grep -v live
+  echo "       The following hosts are available"
+  ls -1 nixos/*/boot.nix | cut -d'/' -f2 | grep -v iso
   exit 1
 fi
 
 if [[ -z "$TARGET_USER" ]]; then
   echo "ERROR! $(basename "$0") requires a username as the second argument"
+  echo "       The following users are available"
   ls -1 nixos/_mixins/users/ | grep -v -E "nixos|root"
   exit 1
 fi
@@ -56,11 +58,6 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     "nixos/$TARGET_HOST/disks.nix"
 
   sudo nixos-install --no-root-password --flake ".#$TARGET_HOST"
-
-  # Create dirs for home-manager
-  # FIXME: This should be done via nixos/_mixins/base/default.nix
-  #        But it only works in the live iso, not an installed system.
-  sudo mkdir -p "/mnt/nix/var/nix/profiles/per-user/$TARGET_USER"
 
   # Rsync nix-config to the target install and set the remote origin to SSH.
   rsync -a --delete "$HOME/Zero/" "/mnt/home/$TARGET_USER/Zero/"
