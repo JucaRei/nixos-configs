@@ -1,18 +1,13 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{ config, lib, ... }: {
   boot = {
-    blacklistedKernelModules = [];
+    blacklistedKernelModules = [ ];
     consoleLogLevel = 3;
-    extraModulePackages = with config.boot.kernelPackages; [];
-    extraModprobeConfig =
-      lib.mkDefault ''
-      '';
+    extraModulePackages = with config.boot.kernelPackages;
+      [ linuxPackages_zen ];
+    extraModprobeConfig = lib.mkDefault "";
     initrd = {
-      systemd.enable = true; # This is needed to show the plymouth login screen to unlock luks
+      systemd.enable =
+        true; # This is needed to show the plymouth login screen to unlock luks
       availableKernelModules = [
         "ahci"
         "nvme"
@@ -24,15 +19,12 @@
         "usb_storage"
         "xhci_pci"
       ];
-      kernelModules = [];
+      kernelModules = [ ];
       verbose = false;
     };
 
-    kernelModules = [
-      "kvm-intel"
-      "vhost_vsock"
-    ];
-    kernelParams = ["mitigations=off"];
+    kernelModules = [ "kvm-intel" "vhost_vsock" ];
+    kernelParams = [ "mitigations=off" ];
     kernel.sysctl = {
       "kernel.sysrq" = 1;
       "kernel.printk" = "3 3 3 3";

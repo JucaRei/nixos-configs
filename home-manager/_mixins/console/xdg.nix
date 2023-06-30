@@ -1,10 +1,7 @@
-{
-  config,
-  lib,
-  ...
-}: let
-  browser = ["firefox.desktop"];
-  archiveManager = ["org.gnome.FileRoller.desktop"];
+{ config, lib, ... }:
+let
+  browser = [ "firefox.desktop" ];
+  archiveManager = [ "org.gnome.FileRoller.desktop" ];
 
   # XDG MIME types
   associations = {
@@ -22,14 +19,14 @@
     "x-scheme-handler/https" = browser;
     "x-scheme-handler/unknown" = browser;
 
-    "audio/*" = ["mpv.desktop"];
-    "video/*" = ["mpv.dekstop"];
+    "audio/*" = [ "mpv.desktop" ];
+    "video/*" = [ "mpv.dekstop" ];
     #"image/*" = ["feh.desktop"];
-    "image/*" = ["imv.desktop"];
+    "image/*" = [ "imv.desktop" ];
 
     "application/json" = browser;
 
-    "application/pdf" = ["org.pwmt.zathura.desktop.desktop"];
+    "application/pdf" = [ "org.pwmt.zathura.desktop.desktop" ];
 
     # Archives / compressed files
     "application/x-7z-compressed" = archiveManager;
@@ -65,19 +62,20 @@ in {
     userDirs = {
       enable = true;
       createDirectories = lib.mkDefault true;
-      desktop = lib.mkDefault "${config.home.homeDirectory}/desktop";
-      documents = lib.mkDefault "${config.home.homeDirectory}/documents";
-      download = lib.mkDefault "${config.home.homeDirectory}/downloads";
-      music = lib.mkDefault "${config.home.homeDirectory}/music";
-      pictures = lib.mkDefault "${config.home.homeDirectory}/pictures";
-      publicShare = lib.mkDefault "${config.home.homeDirectory}/public";
-      templates = lib.mkDefault "${config.home.homeDirectory}/templates";
-      videos = lib.mkDefault "${config.home.homeDirectory}/videos";
+      desktop = "${config.home.homeDirectory}/desktop";
+      documents = "${config.home.homeDirectory}/documents";
+      download = "${config.home.homeDirectory}/downloads";
+      music = "${config.home.homeDirectory}/music";
+      pictures = "${config.home.homeDirectory}/pictures";
+      publicShare = "${config.home.homeDirectory}/public";
+      templates = "${config.home.homeDirectory}/templates";
+      videos = "${config.home.homeDirectory}/videos";
       extraConfig = {
-        XDG_SCREENSHOTS_DIR = lib.mkDefault "${config.home.homeDirectory}/pictures/screenshots";
-        XDG_WALLPAPERS_DIR = lib.mkDefault "${config.home.homeDirectory}/pictures/wallpapers";
-        XDG_CONTAINERS_DIR = lib.mkDefault "${config.home.homeDirectory}/containers-data";
-        XDG_WORKSPACE_DIR = lib.mkDefault "${config.home.homeDirectory}/workspace";
+        XDG_SCREENSHOTS_DIR =
+          "${config.home.homeDirectory}/pictures/screenshots";
+        XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/pictures/wallpapers";
+        XDG_CONTAINERS_DIR = "${config.home.homeDirectory}/containers-data";
+        XDG_WORKSPACE_DIR = "${config.home.homeDirectory}/workspace";
       };
     };
   };

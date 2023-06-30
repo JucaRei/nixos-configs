@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   imports = [
-    # ../../desktop/apps/obs-studio.nix
+    #../../desktop/obs-studio.nix
     ../../virt/quickemu.nix
     #../../virt/virt-manager.nix
     #../../desktop/brave.nix

@@ -1,8 +1,5 @@
-{ lib, modulesPath, pkgs, ... }:
-{
-  imports = [
-    ../_mixins/services/pipewire.nix
-  ];
+{ lib, pkgs, ... }: {
+  imports = [ ../_mixins/services/pipewire.nix ];
 
   console = {
     earlySetup = true;
@@ -14,15 +11,6 @@
 
   environment.systemPackages = with pkgs; [ ];
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-    };
-  };
-
-  services = {
-    xserver.videoDrivers = [ ];
-  };
+  services = { xserver.videoDrivers = [ ]; };
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   install-system = pkgs.writeScriptBin "install-system" ''
     #!${pkgs.stdenv.shell}
 
@@ -78,6 +79,4 @@
       fi
     fi
   '';
-in {
-  environment.systemPackages = [install-system];
-}
+in { environment.systemPackages = [ install-system ]; }

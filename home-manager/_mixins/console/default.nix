@@ -1,12 +1,6 @@
-{pkgs, ...}: {
-  imports = [
-    ./fish.nix
-    ./bash.nix
-    ./git.nix
-    ./neofetch.nix
-    ./broot.nix
-    ./xdg.nix
-  ];
+{ pkgs, ... }: {
+  imports =
+    [ ./fish.nix ./bash.nix ./git.nix ./neofetch.nix ./broot.nix ./xdg.nix ];
 
   home = {
     # A Modern Unix experience
@@ -23,15 +17,15 @@
       #croc                          # Terminal file transfer
       #curlie                        # Terminal HTTP client
       #debootstrap                   # Terminal Debian installer
-      diffr                         # Modern Unix `diff`
+      diffr # Modern Unix `diff`
       #difftastic                    # Modern Unix `diff`
       #dogdns                        # Modern Unix `dig`
-      dua                           # Modern Unix `du`
-      duf                           # Modern Unix `df`
+      dua # Modern Unix `du`
+      duf # Modern Unix `df`
       #du-dust                       # Modern Unix `du`
       #entr                          # Modern Unix `watch`
-      fd                            # Modern Unix `find`
-      ffmpeg-headless               # Terminal video encoder
+      fd # Modern Unix `find`
+      ffmpeg-headless # Terminal video encoder
       #glow                          # Terminal Markdown renderer
       #gping                         # Modern Unix `ping`
       #hexyl                         # Modern Unix `hexedit`
@@ -41,20 +35,20 @@
       #hyperfine                     # Terminal benchmarking
       #iperf3                        # Terminal network benchmarking
       #jpegoptim                     # Terminal JPEG optimizer
-      jiq                           # Modern Unix `jq`
+      jiq # Modern Unix `jq`
       #lazygit                       # Terminal Git client
       #libva-utils                   # Terminal VAAPI info
       #lurk                         # Modern Unix `strace`
       #maestral                      # Terminal Dropbox client
       #mdp                           # Terminal Markdown presenter
       #mktorrent                     # Terminal torrent creator
-      moar                          # Modern Unix `less`
+      moar # Modern Unix `less`
       #mtr                           # Modern Unix `traceroute`
       #netdiscover                   # Modern Unix `arp`
       #nethogs                       # Modern Unix `iftop`
       #nodePackages.prettier         # Code format
       #nyancat                       # Terminal rainbow spewing feline
-      ookla-speedtest               # Terminal speedtest
+      ookla-speedtest # Terminal speedtest
       #optipng                       # Terminal PNG optimizer
       #playerctl                     # Terminal media controller
       #procs                         # Modern Unix `ps`
@@ -62,12 +56,12 @@
       #python310Packages.gpustat     # Terminal GPU info
       #quilt                         # Terminal patch manager
       #rclone                        # Terminal cloud storage client
-      ripgrep                       # Modern Unix `grep`
+      ripgrep # Modern Unix `grep`
       #rustfmt                       # Code format Rust
       #s3cmd                         # Terminal cloud storage client
       #shellcheck                    # Code lint Shell
       #shfmt                         # Code format Shell
-      tldr                          # Modern Unix `man`
+      tldr # Modern Unix `man`
       #tokei                         # Modern Unix `wc` for code
       #vdpauinfo                     # Terminal VDPAU info
       #wavemon                       # Terminal WiFi monitor
@@ -77,10 +71,10 @@
       #ydotool                       # Terminal *all-the-things* automation
       #yq-go                         # Terminal `jq` for YAML
       #zsync                         # Terminal file sync
-      
+
       ### Ansible
-      ansible                       # Automation
-      sshpass                       # Ansible Dependency
+      ansible # Automation
+      sshpass # Ansible Dependency
 
       ### Archive Tools
       unzip
@@ -90,15 +84,15 @@
       xar
 
       ### Nix
-      alejandra                     # Code format Nix
-      nurl                          # Nix URL fetcher
-      nix-index                     # nix-locate
-      rnix-hashes                   # Quick utility for converting hashes.
-      nix-top                       # see what's building
-      nixpkgs-fmt                   # Code format Nix
-      nixpkgs-review                # Nix code review
-      dconf2nix                     # Nix code from Dconf files
-      deadnix                       # Code lint Nix
+      alejandra # Code format Nix
+      nurl # Nix URL fetcher
+      nix-index # nix-locate
+      rnix-hashes # Quick utility for converting hashes.
+      nix-top # see what's building
+      nixpkgs-fmt # Code format Nix
+      nixpkgs-review # Nix code review
+      dconf2nix # Nix code from Dconf files
+      deadnix # Code lint Nix
     ];
 
     sessionVariables = {
@@ -119,15 +113,10 @@
       enableFishIntegration = true;
       enableZshIntegration = true;
     };
-    neovim = {
-      enable = true;
-    };
+    neovim = { enable = true; };
     bat = {
       enable = true;
-      extraPackages = with pkgs.bat-extras; [
-        batwatch
-        prettybat
-      ];
+      extraPackages = with pkgs.bat-extras; [ batwatch prettybat ];
     };
     bottom = {
       enable = true;
@@ -139,7 +128,7 @@
         };
         disk_filter = {
           is_list_ignored = true;
-          list = ["/dev/loop"];
+          list = [ "/dev/loop" ];
           regex = true;
           case_sensitive = false;
           whole_word = false;
@@ -164,9 +153,7 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = {
-        enable = true;
-      };
+      nix-direnv = { enable = true; };
     };
     exa = {
       enable = true;
@@ -208,18 +195,18 @@
 
   services = {
     gpg-agent = {
-      #enable = true;
-      enable = false;
+      enable = true;
+      #enable = false;
       enableSshSupport = true;
       pinentryFlavor = "curses";
     };
     kbfs = {
-      #enable = true;
-      enable = false;
+      enable = true;
+      #enable = false;
       mountPoint = "Keybase";
     };
-    #keybase.enable = true;
-    keybase.enable = false;
+    keybase.enable = true;
+    #keybase.enable = false;
   };
 
   # Nicely reload system units when changing configs
