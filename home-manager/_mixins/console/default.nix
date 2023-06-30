@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./fish.nix
+    ./bash.nix
     ./git.nix
     ./neofetch.nix
     ./broot.nix
