@@ -44,7 +44,7 @@
       jiq                           # Modern Unix `jq`
       lazygit                       # Terminal Git client
       libva-utils                   # Terminal VAAPI info
-      lurk                          # Modern Unix `strace`
+      #lurk                         # Modern Unix `strace`
       maestral                      # Terminal Dropbox client
       mdp                           # Terminal Markdown presenter
       mktorrent                     # Terminal torrent creator
