@@ -1,14 +1,12 @@
 { inputs, outputs, stateVersion, ... }: {
   # Helper function for generating home-manager configs
-  mkHome = { hostname, username, desktop ? null }:
-    inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs =
-        inputs.nixpkgs-unstable.legacyPackages.aarch64-linux or inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
-      extraSpecialArgs = {
-        inherit inputs outputs desktop hostname username stateVersion;
-      };
-      modules = [ ../home-manager ];
+  mkHome = { hostname, username, desktop ? null, hostPlatform ? "x86_64-linux" ? "aarch64-linux" }: inputs.home-manager.lib.homeManagerConfiguration {
+    pkgs = inputs.nixpkgs.legacyPackages.${hostPlatform};
+    extraSpecialArgs = {
+      inherit inputs outputs desktop hostname hostPlatform username stateVersion;
     };
+    modules = [ ../home-manager ];
+  };
 
   # Helper function for generating host configs
   mkHost =
