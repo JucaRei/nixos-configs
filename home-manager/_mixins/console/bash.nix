@@ -4,9 +4,9 @@
   programs.bash = {
     enable = true;
 
-    historyControl = [ "erasedups" "ignorespace" "checkwinsize" ];
+    historyControl = [ "erasedups" "ignorespace" ];
 
-    historyFileSize = 1000;
+    historyFileSize = 5000;
 
     profileExtra = ''
             # if running bash
