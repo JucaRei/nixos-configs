@@ -92,7 +92,7 @@
       nixosConfigurations = {
       # .iso images
       #  - nix build .#nixosConfigurations.{iso|iso-mini}.config.system.build.isoImage
-      iso       = libx.mkHost { hostname = "iso";       username = "nixos";  desktop = "pantheon"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"; };
+      iso       = libx.mkHost { hostname = "iso";       username = "nixos";  desktop = "pantheon"; hostid = "0145d780"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"; };
       iso-mini  = libx.mkHost { hostname = "iso-mini";  username = "nixos";  installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"; };
       # Laptop
       #  - sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
