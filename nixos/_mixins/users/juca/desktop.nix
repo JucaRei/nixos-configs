@@ -20,8 +20,11 @@
     #cider
     #gimp-with-plugins
     gnome.dconf-editor
+    gnome.gnome-clocks
+    gnome.gnome-sound-recorder
     #inkscape
     libreoffice
+    keybase-gui
     #maestral-gui
     #netflix
     #meld

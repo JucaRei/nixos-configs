@@ -8,7 +8,15 @@
         X11Forwarding = true; # enable X11 forwarding
       };
     };
-    sshguard = { enable = true; };
+    sshguard = { 
+      enable = true;
+      whitelist = [
+        "192.168.1.230/24"
+        "192.168.1.45/24"
+        #"62.31.16.154"
+        #"80.209.186.67"
+      ]; 
+    };
   };
   programs.ssh.startAgent = true;
   networking.firewall = {
