@@ -24,6 +24,7 @@
     kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
+      "net.ipv4.ip_unprivileged_port_start" = 80; # Podman access port 80
     };
 
     loader = {
