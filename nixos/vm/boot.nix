@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{ config, lib, pkgs, ... }: {
   boot = {
     # Boot options
     isContainer = false;
@@ -39,14 +34,21 @@
         "sr_mod"
         "virtio_blk"
       ];
-      kernelModules = ["z3fold" "crc32c-intel" "lz4hc" "lz4hc_compress" "kvm-intel" "vhost_vsock"];
+      kernelModules = [
+        "z3fold"
+        "crc32c-intel"
+        "lz4hc"
+        "lz4hc_compress"
+        "kvm-intel"
+        "vhost_vsock"
+      ];
       checkJournalingFS = false; # for vm
 
       ##########################
       ### Enabled filesystem ###
       ##########################
       # supportedFilesystems = [ "vfat" "zfs" ];
-      supportedFilesystems = ["vfat" "btrfs"]; # fat 32 and btrfs
+      supportedFilesystems = [ "vfat" "btrfs" ]; # fat 32 and btrfs
       compressor = "zstd";
       verbose = false;
     };
@@ -62,8 +64,9 @@
     #######################
 
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackages_lqx; # Liquorix kernel
-    binfmt.emulatedSystems = ["aarch64-linux"];
+    #kernelPackages = pkgs.linuxPackages_lqx; # Liquorix kernel
+    kernelPackages = pkgs.linuxPackages_5_4;
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
     # kernelPackages = pkgs.linuxPackages_xanmod_stable;        # Xanmod kernel
     # Temporary workaround until mwprocapture 4328 patch is merged
     # - https://github.com/NixOS/nixpkgs/pull/221209

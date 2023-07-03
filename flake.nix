@@ -80,7 +80,7 @@
         "juca@macbair"        = libx.mkHome { hostname = "macbair";         username = "juca";  desktop = "pantheon"; };
         "juca@oldmac"         = libx.mkHome { hostname = "oldmac";          username = "juca";  desktop = "pantheon"; };
         # VM testing
-        "juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "pantheon"; };
+        "juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "xfce"; };
         "juca@vm-mini"        = libx.mkHome { hostname = "vm-mini";         username = "juca"; };
         # Servers
         "juca@raspberry"      = libx.mkHome { hostname = "raspberry";       username = "juca";  desktop = "pantheon"; };
