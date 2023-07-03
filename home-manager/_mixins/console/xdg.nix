@@ -76,7 +76,17 @@ in {
         XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/pictures/wallpapers";
         XDG_CONTAINERS_DIR = "${config.home.homeDirectory}/containers-data";
         XDG_WORKSPACE_DIR = "${config.home.homeDirectory}/workspace";
+        XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";
+        XDG_CONFIG_HOME = "${config.home.homeDirectory}/.config";
+        XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
+        XDG_BIN_HOME = "${config.home.homeDirectory}/.local/bin";
       };
+      extraInit = ''
+        export XAUTHORITY=/tmp/Xauthority
+        export xserverauthfile=/tmp/xserverauth
+        [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
+        [ -e ~/.serverauth.* ] && mv -f ~/.serverauth.* "$xserverauthfile"
+      '';
     };
   };
 }

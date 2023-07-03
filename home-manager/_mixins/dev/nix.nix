@@ -5,6 +5,7 @@
     #rnix-lsp
     nil
     alejandra
+    any-nix-shell
     #nixpkgs-fmt
     jq # It will use some JSON with its lockfile so better be ready to use this.
     nixfmt # Ideally, it would be nicer if the codebase has their preferred formatter but we'll go with the most common formatter(?).

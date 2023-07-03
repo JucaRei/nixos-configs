@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     virt-manager
     spice-gtk
@@ -12,7 +12,7 @@
         package = pkgs.qemu_kvm;
         ovmf = {
           enable = true;
-          packages = with pkgs; [OVMFFull.fd];
+          packages = with pkgs; [ OVMFFull.fd ];
         };
         swtpm.enable = true;
       };

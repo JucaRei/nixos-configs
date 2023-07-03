@@ -6,7 +6,11 @@
     extraModprobeConfig = lib.mkDefault ''
       blacklist nouveau
       options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
-    '';
+
+      options kvm_intel nested=1
+      options kvm_intel emulate_invalid_guest_state=0
+      options kvm ignore_nsrs=1
+    ''; # Needed to run OSX-KVM
     initrd = {
       availableKernelModules =
         [ "ahci" "nvme" "uas" "usbhid" "sd_mod" "xhci_pci" ];
