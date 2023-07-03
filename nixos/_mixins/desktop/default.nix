@@ -65,6 +65,13 @@
     opengl = {
       enable = true;
       driSupport = true;
+      extraPackages = [ ] ++ lib.optionals (pkgs.system == "x86_64-linux")
+        (with pkgs; [
+          intel-media-driver
+          vaapiIntel
+          vaapiVdpau
+          libvdpau-va-gl
+        ]);
     };
   };
 

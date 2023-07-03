@@ -47,11 +47,11 @@
         Enable = "Source,Sink,Media,Socket";
       };
     };
-    #opengl = {
-    #enable = true;
-    #driSupport = true;
-    #driSupport32Bit = true;
-    #};
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = false;
+    };
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-linux";
