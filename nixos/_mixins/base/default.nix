@@ -18,7 +18,8 @@
   documentation.nixos.enable = false; # nixos documentation
   documentation.man.enable = true; # manual pages and the man command
   documentation.info.enable = false; # info pages and the info command
-  documentation.doc.enable = false; # documentation distributed in packages' /share/doc
+  documentation.doc.enable =
+    false; # documentation distributed in packages' /share/doc
 
   environment.systemPackages = with pkgs; [
     binutils
@@ -41,6 +42,8 @@
     wget
     xdg-utils
     lm_sensors
+    duf
+    neofetch
   ];
 
   # Use passed in hostid and hostname to configure basic networking
@@ -61,12 +64,17 @@
       shellAbbrs = {
         mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
         # https://github.com/NixOS/nixpkgs/issues/191128#issuecomment-1246030417
-        nix-gc           = "sudo nix-collect-garbage --delete-older-than 14d";
-        rebuild-home     = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host     = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock     = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
-        rebuild-iso      = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
-        rebuild-iso-mini = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-mini.config.system.build.isoImage && popd";
+        nix-gc = "sudo nix-collect-garbage --delete-older-than 14d";
+        rebuild-home =
+          "home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-host =
+          "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+        rebuild-lock =
+          "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
+        rebuild-iso =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
+        rebuild-iso-mini =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-mini.config.system.build.isoImage && popd";
         nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
         #rebuild-home = "home-manager switch -b backup --flake $HOME/.setup";
         #rebuild-host = "sudo nixos-rebuild switch --flake $HOME/.setup";
@@ -77,7 +85,7 @@
   };
 
   # Create dirs for home-manager
-  systemd.tmpfiles.rules = [ 
+  systemd.tmpfiles.rules = [
     "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
     "d /mnt/snapshot/${username} 0755 ${username} users"
   ];
