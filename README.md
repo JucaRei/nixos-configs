@@ -179,6 +179,11 @@ nix flake lock --update-input nixpkgs
 nix flake update --commit-lock-file
 ```
 
+**Nix Repair**
+```nix
+sudo nix-store --repair --verify --check-contents
+```
+
 **Other** :
 ```shell
 # All as root

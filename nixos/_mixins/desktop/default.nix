@@ -1,19 +1,11 @@
-{
-  desktop,
-  pkgs,
-  username,
-  lib,
-  ...
-}: {
-  imports =
-    [
-      ../services/cups.nix
-      ../services/flatpak.nix
-      ./vivaldi.nix
-      ../services/sane.nix
-      ../services/dynamic-timezone.nix
-    ]
-    ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
+{ desktop, pkgs, username, lib, ... }: {
+  imports = [
+    ../services/cups.nix
+    ../services/flatpak.nix
+    ../services/sane.nix
+    ../services/dynamic-timezone.nix
+  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix"))
+    ./${desktop}.nix;
 
   boot.kernelParams = [
     # The 'splash' arg is included by the plymouth option
@@ -37,7 +29,7 @@
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [
-      (nerdfonts.override {fonts = ["FiraCode" "UbuntuMono"];})
+      (nerdfonts.override { fonts = [ "FiraCode" "UbuntuMono" ]; })
       joypixels
       liberation_ttf
       ubuntu_font_family
@@ -51,10 +43,10 @@
       antialias = true;
       cache32Bit = true;
       defaultFonts = {
-        serif = ["Work Sans" "Joypixels"];
-        sansSerif = ["Work Sans" "Joypixels"];
-        monospace = ["FiraCode Nerd Font Mono"];
-        emoji = ["Joypixels"];
+        serif = [ "Work Sans" "Joypixels" ];
+        sansSerif = [ "Work Sans" "Joypixels" ];
+        monospace = [ "FiraCode Nerd Font Mono" ];
+        emoji = [ "Joypixels" ];
       };
       enable = true;
       hinting = {
@@ -79,9 +71,7 @@
   programs = {
     dconf.enable = true;
     # Chromium is enabled by default with sane defaults.
-    firefox = {
-      enable = false;
-    };
+    firefox = { enable = false; };
   };
 
   # Accept the joypixels license

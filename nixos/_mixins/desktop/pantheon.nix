@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    #./apps/style/qt-style.nix
     ./qt-style.nix
     ../services/networkmanager.nix
     #../services/systemd-networkd.nix
@@ -22,13 +23,13 @@
     # Add some elementary additional apps and include Yaru for syntax highlighting
     systemPackages = with pkgs; [
       #inputs.nix-software-center.packages.${system}.nix-software-center
-      appeditor                       # elementary OS menu editor
-      celluloid                       # Video Player
-      formatter                       # elementary OS filesystem formatter
-      gthumb                          # Image Viewer
+      appeditor # elementary OS menu editor
+      celluloid # Video Player
+      formatter # elementary OS filesystem formatter
+      gthumb # Image Viewer
       gnome.simple-scan
-      indicator-application-gtk3      # App Indicator
-      pantheon.sideload               # elementary OS Flatpak installer
+      indicator-application-gtk3 # App Indicator
+      pantheon.sideload # elementary OS Flatpak installer
       yaru-theme
       #cipher                         # elementary OS text encoding/decoding
       #elementary-planner             # UNSTABLE: elementary OS planner with Todoist support

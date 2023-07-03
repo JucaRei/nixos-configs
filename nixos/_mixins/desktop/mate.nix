@@ -1,5 +1,10 @@
 { pkgs, ... }: {
-  imports = [ ./qt-style.nix ../services/networkmanager.nix ];
+  imports = [
+    #./apps/style/qt-style.nix
+    ./qt-style.nix
+    ./apps/browsers/firefox.nix
+    ../services/networkmanager.nix
+  ];
 
   # Exclude MATE themes. Yaru will be used instead.
   # Don't install mate-netbook or caja-dropbox

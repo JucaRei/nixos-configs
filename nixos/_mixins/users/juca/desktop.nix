@@ -4,7 +4,7 @@
     ../../virt/quickemu.nix
     #../../virt/virt-manager.nix
     #../../desktop/brave.nix
-    ../../desktop/firefox.nix
+    ../../desktop/apps/browsers/firefox.nix
     #../../desktop/evolution.nix
     #../../desktop/google-chrome.nix
     #../../desktop/microsoft-edge.nix
