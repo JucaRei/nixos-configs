@@ -18,7 +18,7 @@
 
     ### additional packages supplying kernel modules ###
     #extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback nvidia_x11 ];  
-    
+
     ### additional configuration to be appended to the generated modprobe.conf ###
     #extraModprobeConfig = lib.mkDefault ''
     #  options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
@@ -107,6 +107,9 @@
       ### Improve networking
       "net.ipv4.tcp_congestion_control" = "bbr";
       "net.core.default_qdisc" = "fq";
+
+      # Bypass hotspot restrictions for certain ISPs
+      "net.ipv4.ip_default_ttl" = 65;
     };
 
     #######################

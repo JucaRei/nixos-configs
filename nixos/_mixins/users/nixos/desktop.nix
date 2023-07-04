@@ -17,5 +17,27 @@
   '';
 
   config.isoImage.edition = lib.mkForce "${desktop}";
-  config.services.xserver.displayManager.autoLogin.user = "${username}";
+  config.services.xserver = {
+    displayManager.autoLogin.user = "${username}";
+    libinput.enable = true;
+    libinput.touchpad = {
+      horizontalScrolling = true;
+      naturalScrolling = true;
+      tapping = true;
+      tappingDragLock = false;
+    };
+  };
+
+  #environment.variables = {
+  #  # Firefox fixes
+  #  MOZ_X11_EGL = "1";
+  #  MOZ_USE_XINPUT2 = "1";
+  #  MOZ_DISABLE_RDD_SANDBOX = "1";
+
+  #  # SDL Soundfont
+  #  SDL_SOUNDFONTS = LT.constants.soundfontPath pkgs;
+
+  #  # Webkit2gtk fixes
+  #  WEBKIT_DISABLE_COMPOSITING_MODE = "1";
+  #};
 }
