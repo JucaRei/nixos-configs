@@ -1,19 +1,26 @@
 { config, lib, pkgs, ... }: {
+
+  ####################
+  ### Boot options ###
+  ####################
+
   boot = {
-    # Boot options
     isContainer = false;
 
     #cleanTmpDir = true;
     #tmpOnTmpfs = lib.mkDefault true;
     tmp = {
-      useTmpfs = true;
+      useTmpfs = lib.mkDefault true;
       cleanOnBoot = true;
     };
 
-    #blacklistedKernelModules = lib.mkDefault ["nouveau"];
-    #extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
+    #blacklistedKernelModules = lib.mkDefault [ "nouveau" ];
+
+    ### additional packages supplying kernel modules ###
+    #extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback nvidia_x11 ];  
+    
+    ### additional configuration to be appended to the generated modprobe.conf ###
     #extraModprobeConfig = lib.mkDefault ''
-    #  blacklist nouveau
     #  options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
     #'';
 
@@ -22,6 +29,7 @@
     ##############
 
     initrd = {
+      ###  kernel modules in the initial ramdisk used during the boot process ###
       availableKernelModules = [
         "ata_piix"
         "ahci"
@@ -34,11 +42,13 @@
         "sr_mod"
         "virtio_blk"
       ];
+
+      ### kernel modules to be loaded in the second stage, that are needed to mount the root file system ###
       kernelModules = [
-        "z3fold"
+        #"z3fold"
         "crc32c-intel"
-        "lz4hc"
-        "lz4hc_compress"
+        #"lz4hc"
+        #"lz4hc_compress"
         "kvm-intel"
         "vhost_vsock"
       ];
@@ -50,6 +60,7 @@
       # supportedFilesystems = [ "vfat" "zfs" ];
       supportedFilesystems = [ "vfat" "btrfs" ]; # fat 32 and btrfs
       compressor = "zstd";
+      # compressorArgs = ["-19" "-T0"];
       verbose = false;
     };
 

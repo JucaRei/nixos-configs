@@ -1,12 +1,11 @@
-{ config, desktop, hostname, inputs, lib, modulesPath, outputs, pkgs
-, stateVersion, username, ... }: {
+{ config, desktop, hostname, inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ... }: {
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
   imports = [
+    #(./. + "/${hostname}/disks.nix")
     inputs.disko.nixosModules.disko
     (./. + "/${hostname}/boot.nix")
-    #(./. + "/${hostname}/disks.nix")
     (./. + "/${hostname}/hardware.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
     ./_mixins/base
@@ -59,7 +58,7 @@
       log-lines = 15
 
       # Free up to 4GiB whenever there is less than 1GiB left.
-      #min-free = ${toString (1024 * 1024 * 1024)}
+      min-free = ${toString (1024 * 1024 * 1024)}
       # Free up to 4GiB whenever there is less than 512MiB left.
       #min-free = ${toString (512 * 1024 * 1024)}
       max-free = ${toString (4096 * 1024 * 1024)}
@@ -74,13 +73,11 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
-      config.nix.registry;
-
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
     optimise.automatic = true;
     package = pkgs.unstable.nix;
     settings = {
-      #sandbox = true;
+      sandbox = "relaxed";
       auto-optimise-store = true;
       warn-dirty = false;
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
