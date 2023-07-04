@@ -4,8 +4,7 @@
     ../services/flatpak.nix
     ../services/sane.nix
     ../services/dynamic-timezone.nix
-  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix"))
-    ./${desktop}.nix;
+  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
 
   boot.kernelParams = [
     # The 'splash' arg is included by the plymouth option
