@@ -22,6 +22,7 @@
     gnome.dconf-editor
     gnome.gnome-clocks
     gnome.gnome-sound-recorder
+    irccloud
     #inkscape
     libreoffice
     keybase-gui
@@ -38,6 +39,7 @@
     #unstable.gitkraken
     #unstable.tdesktop
     unstable.vscode-fhs
+    #unstable.fluffychat
     #unstable.zoom-us
     #unstable.wavebox
   ];
