@@ -58,6 +58,11 @@
   };
 
   services = {
+    ### Disable suspend on lid close ###
+    #upower.ignoreLid = true;
+    #logind.lidSwitch = "ignore";
+    #logind.lidSwitchDocked = "ignore";
+
     hardware.openrgb = {
       enable = true;
       motherboard = "intel";
@@ -68,5 +73,4 @@
     thermald = { enable = true; };
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
