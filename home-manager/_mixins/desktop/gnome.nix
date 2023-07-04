@@ -1,14 +1,8 @@
-#
 # Gnome Home-Manager Configuration
 #
 # Dconf settings can be found by running "$ dconf watch /"
 #
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+{ config, lib, pkgs, ... }: {
   dconf.settings = {
     "org/gnome/shell" = {
       favorite-apps = [
@@ -58,12 +52,8 @@
     # "org/gnome/desktop/session" = {                 # Doesn't seem to work
     #   idle-delay = "uint32 900";
     # };
-    "org/gnome/desktop/privacy" = {
-      report-technical-problems = "false";
-    };
-    "org/gnome/desktop/calendar" = {
-      show-weekdate = true;
-    };
+    "org/gnome/desktop/privacy" = { report-technical-problems = "false"; };
+    "org/gnome/desktop/calendar" = { show-weekdate = true; };
     "org/gnome/desktop/wm/preferences" = {
       action-left-click-titlebar = "toggle-maximize";
       action-middle-click-titlebar = "minimize";
@@ -75,26 +65,26 @@
     "org/gnome/desktop/wm/keybindings" = {
       # maximize = ["<Super>Up"];                     # For floating
       # unmaximize = ["<Super>Down"];
-      maximize = ["@as []"]; # For tilers
-      unmaximize = ["@as []"];
-      switch-to-workspace-left = ["<Alt>Left"];
-      switch-to-workspace-right = ["<Alt>Right"];
-      switch-to-workspace-1 = ["<Alt>1"];
-      switch-to-workspace-2 = ["<Alt>2"];
-      switch-to-workspace-3 = ["<Alt>3"];
-      switch-to-workspace-4 = ["<Alt>4"];
-      switch-to-workspace-5 = ["<Alt>5"];
-      move-to-workspace-left = ["<Shift><Alt>Left"];
-      move-to-workspace-right = ["<Shift><Alt>Right"];
-      move-to-workspace-1 = ["<Shift><Alt>1"];
-      move-to-workspace-2 = ["<Shift><Alt>2"];
-      move-to-workspace-3 = ["<Shift><Alt>3"];
-      move-to-workspace-4 = ["<Shift><Alt>4"];
-      move-to-workspace-5 = ["<Shift><Alt>5"];
-      move-to-monitor-left = ["<Super><Alt>Left"];
-      move-to-monitor-right = ["<Super><Alt>Right"];
-      close = ["<Super>q" "<Alt>F4"];
-      toggle-fullscreen = ["<Super>f"];
+      maximize = [ "@as []" ]; # For tilers
+      unmaximize = [ "@as []" ];
+      switch-to-workspace-left = [ "<Alt>Left" ];
+      switch-to-workspace-right = [ "<Alt>Right" ];
+      switch-to-workspace-1 = [ "<Alt>1" ];
+      switch-to-workspace-2 = [ "<Alt>2" ];
+      switch-to-workspace-3 = [ "<Alt>3" ];
+      switch-to-workspace-4 = [ "<Alt>4" ];
+      switch-to-workspace-5 = [ "<Alt>5" ];
+      move-to-workspace-left = [ "<Shift><Alt>Left" ];
+      move-to-workspace-right = [ "<Shift><Alt>Right" ];
+      move-to-workspace-1 = [ "<Shift><Alt>1" ];
+      move-to-workspace-2 = [ "<Shift><Alt>2" ];
+      move-to-workspace-3 = [ "<Shift><Alt>3" ];
+      move-to-workspace-4 = [ "<Shift><Alt>4" ];
+      move-to-workspace-5 = [ "<Shift><Alt>5" ];
+      move-to-monitor-left = [ "<Super><Alt>Left" ];
+      move-to-monitor-right = [ "<Super><Alt>Right" ];
+      close = [ "<Super>q" "<Alt>F4" ];
+      toggle-fullscreen = [ "<Super>f" ];
     };
 
     "org/gnome/mutter" = {
@@ -105,8 +95,8 @@
     "org/gnome/mutter/keybindings" = {
       #toggle-tiled-left = ["<Super>Left"];           # For floating
       #toggle-tiled-right = ["<Super>Right"];
-      toggle-tiled-left = ["@as []"]; # For tilers
-      toggle-tiled-right = ["@as []"];
+      toggle-tiled-left = [ "@as []" ]; # For tilers
+      toggle-tiled-right = [ "@as []" ];
     };
 
     "org/gnome/settings-daemon/plugins/power" = {
@@ -119,21 +109,24 @@
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
       ];
     };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super>Return";
-      command = "alacritty";
-      name = "open-terminal";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      binding = "<Super>t";
-      command = "emacs";
-      name = "open-editor";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-      binding = "<Super>e";
-      command = "nautilus";
-      name = "open-file-browser";
-    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+      {
+        binding = "<Super>Return";
+        command = "alacritty";
+        name = "open-terminal";
+      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
+      {
+        binding = "<Super>t";
+        command = "emacs";
+        name = "open-editor";
+      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
+      {
+        binding = "<Super>e";
+        command = "nautilus";
+        name = "open-file-browser";
+      };
 
     "org/gnome/shell/extension/dash-to-panel" = {
       # Possibly need to set this manually
@@ -146,7 +139,8 @@
       dot-style-focused = "SOLID";
       dot-style-unfocused = "DOTS";
       animate-appicon-hover = true;
-      animate-appicon-hover-animation-travel = "{'SIMPLE': 0.14999999999999999, 'RIPPLE': 0.40000000000000002, 'PLANK': 0.0}";
+      animate-appicon-hover-animation-travel =
+        "{'SIMPLE': 0.14999999999999999, 'RIPPLE': 0.40000000000000002, 'PLANK': 0.0}";
       isolate-monitors = true;
     };
     "org/gnome/shell/extensions/just-perfection" = {
@@ -162,9 +156,7 @@
       show-indicator = true;
       show-notification = false;
     };
-    "org/gnome/shell/extensions/blur-my-shell" = {
-      brightness = 0.9;
-    };
+    "org/gnome/shell/extensions/blur-my-shell" = { brightness = 0.9; };
     "org/gnome/shell/extensions/blur-my-shell/panel" = {
       customize = true;
       sigma = 0;
@@ -183,9 +175,7 @@
       show-battery-icon-on = true;
       show-battery-value-on = true;
     };
-    "org/gnome/shell/extensions/pip-on-top" = {
-      stick = true;
-    };
+    "org/gnome/shell/extensions/pip-on-top" = { stick = true; };
     "org/gnome/shell/extensions/forge" = {
       window-gap-size = 8;
       dnd-center-layout = "stacked";
@@ -194,20 +184,20 @@
       # Set active colors manually
       focus-border-toggle = true;
       float-always-on-top-enabled = true;
-      window-focus-up = ["<Super>Up"];
-      window-focus-down = ["<Super>Down"];
-      window-focus-left = ["<Super>Left"];
-      window-focus-right = ["<Super>Right"];
+      window-focus-up = [ "<Super>Up" ];
+      window-focus-down = [ "<Super>Down" ];
+      window-focus-left = [ "<Super>Left" ];
+      window-focus-right = [ "<Super>Right" ];
       # window-swap-up = ["<Shift><Super>Up"];
       # window-swap-down = ["<Shift><Super>Down"];
       # window-swap-left = ["<Shift><Super>Left"];
       # window-swap-right = ["<Shift><Super>Right"];
-      window-move-up = ["<Shift><Super>Up"];
-      window-move-down = ["<Shift><Super>Down"];
-      window-move-left = ["<Shift><Super>Left"];
-      window-move-right = ["<Shift><Super>Right"];
-      window-swap-last-active = ["@as []"];
-      window-toggle-float = ["<Shift><Super>f"];
+      window-move-up = [ "<Shift><Super>Up" ];
+      window-move-down = [ "<Shift><Super>Down" ];
+      window-move-left = [ "<Shift><Super>Left" ];
+      window-move-right = [ "<Shift><Super>Right" ];
+      window-swap-last-active = [ "@as []" ];
+      window-toggle-float = [ "<Shift><Super>f" ];
     };
     # "org/gnome/shell/extensions/dash-to-dock" = {   # If dock if preferred
     #   multi-monitor = true;

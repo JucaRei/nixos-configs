@@ -1,45 +1,30 @@
-{
-  config,
-  desktop,
-  inputs,
-  lib,
-  outputs,
-  pkgs,
-  stateVersion,
-  username,
-  ...
-}: let
-  inherit (pkgs.stdenv) isDarwin isLinux;
+{ config, desktop, inputs, lib, outputs, pkgs, stateVersion, username, ... }:
+let inherit (pkgs.stdenv) isDarwin isLinux;
 in {
   # Only import desktop configuration if the host is desktop enabled
   # Only import user specific configuration if they have bespoke settings
-  imports =
-    [
-      # If you want to use modules your own flake exports (from modules/home-manager):
-      # outputs.homeManagerModules.example
+  imports = [
+    # If you want to use modules your own flake exports (from modules/home-manager):
+    # outputs.homeManagerModules.example
 
-      # Or modules exported from other flakes (such as nix-colors):
-      # inputs.nix-colors.homeManagerModules.default
+    # Or modules exported from other flakes (such as nix-colors):
+    # inputs.nix-colors.homeManagerModules.default
 
-      # You can also split up your configuration and import pieces of it here:
-      ./_mixins/console
-      ./_mixins/dev
-    ]
-    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
+    # You can also split up your configuration and import pieces of it here:
+    ./_mixins/console
+    ./_mixins/dev
+  ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
     ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
 
   home = {
     username = username;
-    homeDirectory =
-      if isDarwin
-      then "/Users/${username}"
-      else "/home/${username}";
-    sessionPath = ["$HOME/.local/bin"];
+    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+    sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = stateVersion;
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  #programs.home-manager.enable = true;
 
   nixpkgs = {
     # You can add overlays here
@@ -66,16 +51,17 @@ in {
       # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = _: true;
+      allowUnfreePredicate = (_: true);
     };
   };
 
   nix = {
     package = lib.mkDefault pkgs.unstable.nix;
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
-      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+        config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
       #sandbox = true;
