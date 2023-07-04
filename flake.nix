@@ -115,7 +115,13 @@
           installer = nixpkgs
             + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix";
         };
-        #iso-mini  = libx.mkHost { hostname = "iso-mini";  username = "nixos"; hostid = "0145d783"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"; };
+        iso-mini = libx.mkHost {
+          hostname = "iso-mini";
+          username = "nixos";
+          hostid = "0145d783";
+          installer = nixpkgs
+            + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix";
+        };
         # Laptop
         #  - sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
         #  - nix build .#nixosConfigurations.vm.config.system.build.toplevel
@@ -144,14 +150,22 @@
           hostid = "8c0b93a0";
         };
         # Servers
-        #vm-mini          = libx.mkHost { hostname = "vm-mini";          username = "juca"; hostid = "8c0b93a9"; };
+        vm-mini = libx.mkHost {
+          hostname = "vm-mini";
+          username = "juca";
+          hostid = "8c0b93a9";
+        };
         raspberry = libx.mkHost {
           hostname = "raspberry";
           username = "juca";
           desktop = "pantheon";
           hostid = "8c0b93a2";
         };
-        #raspberry-mini   = libx.mkHost { hostname = "raspberry-mini";   username = "juca"; hostid = "8c0b93a5"; };
+        raspberry-mini = libx.mkHost {
+          hostname = "raspberry-mini";
+          username = "juca";
+          hostid = "8c0b93a5";
+        };
       };
 
       # Devshell for bootstrapping; acessible via 'nix develop' or 'nix-shell' (legacy)
