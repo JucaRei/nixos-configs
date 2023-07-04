@@ -1,4 +1,5 @@
-{ config, desktop, hostname, inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ... }: {
+{ config, desktop, hostname, inputs, lib, modulesPath, outputs, pkgs
+, stateVersion, username, ... }: {
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
@@ -14,8 +15,10 @@
     ./_mixins/users/${username}
   ]
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
-    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
-    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
+    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix"))
+    (import ./${hostname}/disks.nix { })
+    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix"))
+    (import ./${hostname}/extra.nix { })
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   nixpkgs = {
@@ -73,7 +76,8 @@
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
     optimise.automatic = true;
     package = pkgs.unstable.nix;
     settings = {
@@ -81,6 +85,23 @@
       auto-optimise-store = true;
       warn-dirty = false;
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+    };
+  };
+
+  systemd = {
+    # Change build dir to /var/tmp
+    services.nix-daemon = { environment.TMPDIR = "/var/tmp"; };
+
+    # Reduce default service stop timeouts for faster shutdown
+    extraConfig = ''
+      DefaultTimeoutStopSec=15s
+      DefaultTimeoutAbortSec=5s
+    '';
+    # systemd's out-of-memory daemon
+    oomd = {
+      enable = lib.mkDefault true;
+      enableSystemSlice = true;
+      enableUserServices = true;
     };
   };
 

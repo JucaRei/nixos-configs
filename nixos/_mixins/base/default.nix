@@ -101,5 +101,22 @@
     earlyoom.enable = true;
     irqbalance.enable = true;
     fstrim.enable = true;
+
+    dbus.implementation = "broker";
+
+    # For battery status reporting
+    #upower = { enable = true; };
+
+    # Only suspend on lid closed when laptop is disconnected
+    #logind = {
+    #  lidSwitch = "suspend-then-hibernate";
+    #  lidSwitchDocked = lib.mkDefault "ignore";
+    #  lidSwitchExternalPower = lib.mkDefault "lock";
+    #};
+
+    # Suspend when power key is pressed
+    logind.extraConfig = ''
+      HandlePowerKey=suspend-then-hibernate
+    '';
   };
 }

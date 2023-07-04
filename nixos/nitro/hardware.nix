@@ -47,13 +47,35 @@
     };
     # mwProCapture.enable = true;
     nvidia = {
+      open = true;
+      modesetting.enable = true;
       prime = {
-        #amdgpuBusId = "PCI:3:0:0";
+        offload.enable = false;
+        sync.enable = true;
+
+        # Bus ID of the Intel GPU. You can find it using lspci, either under 3D or VGA
+        intelBusId = "PCI:0:2:0";
+
+        # Bus ID of the NVIDIA GPU. You can find it using lspci, either under 3D or VGA
         nvidiaBusId = "PCI:1:0:0";
-        # Make the Radeon RX6800 default. The NVIDIA T600 is on for CUDA/NVENC
-        #reverseSync.enable = true;
+
       };
       nvidiaSettings = false;
+    };
+  };
+
+  # This allows you to dynamically switch between NVIDIA<->Intel using
+  # nvidia-offload script
+  specialisation = {
+    nvidia-offload.configuration = {
+      hardware.nvidia = {
+        prime = {
+          offload.enable = lib.mkForce true;
+          sync.enable = lib.mkForce false;
+        };
+        modesetting.enable = lib.mkForce false;
+      };
+      system.nixos.tags = [ "nvidia-offload" ];
     };
   };
 
@@ -72,5 +94,15 @@
     # Temperature management daemon
     thermald = { enable = true; };
   };
+
+  networking.hostName = "nixtro";
+
+  #time = {
+  #  # For Windows interop
+  #  hardwareClockInLocalTime = true;
+  #  timeZone = "America/Sao_Paulo";
+  #};
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  #powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }

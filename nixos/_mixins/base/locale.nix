@@ -1,11 +1,11 @@
-{...}: {
+{ lib, ... }: {
   #console.keyMap = "us";
   #console.keyMap = "br-abnt2";
   #console.keyMap = "mac-us";
   i18n = {
     defaultLocale = "en_US.utf8";
     extraLocaleSettings = {
-      LC_CTYPE = "pt_BR.utf8";
+      LC_CTYPE = lib.mkDefault "pt_BR.UTF-8"; # Fix ç in us-intl.
       LC_ADDRESS = "pt_BR.utf8";
       LC_IDENTIFICATION = "pt_BR.utf8";
       LC_MEASUREMENT = "pt_BR.utf8";
@@ -26,7 +26,7 @@
   #  xkbVariant = "mac";
   #  xkbModel = "pc105";
   #};
-  time.timeZone = "America/Sao_Paulo";
+  time.timeZone = lib.mkDefault "America/Sao_Paulo";
   #location = {
   #  latitude = -23.539380;
   #  longitude = -46.652530;

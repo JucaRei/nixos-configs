@@ -77,7 +77,11 @@
     # kernelPackages = pkgs.linuxPackages_latest;
     #kernelPackages = pkgs.linuxPackages_lqx; # Liquorix kernel
     kernelPackages = pkgs.linuxPackages_5_4;
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+    # Allow compilation of packages ARM/ARM64 architectures via QEMU
+    # e.g. nix-build -A <pkg> --argstr system aarch64-linux
+    # https://nixos.wiki/wiki/NixOS_on_ARM#Compiling_through_QEMU
+    binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
     # kernelPackages = pkgs.linuxPackages_xanmod_stable;        # Xanmod kernel
     # Temporary workaround until mwprocapture 4328 patch is merged
     # - https://github.com/NixOS/nixpkgs/pull/221209

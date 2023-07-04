@@ -113,7 +113,11 @@
       enableFishIntegration = true;
       enableZshIntegration = true;
     };
-    neovim = { enable = true; };
+    neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+    };
     bat = {
       enable = true;
       extraPackages = with pkgs.bat-extras; [ batwatch prettybat ];
