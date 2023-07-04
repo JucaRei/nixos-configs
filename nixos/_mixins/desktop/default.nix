@@ -95,6 +95,7 @@
       Defaults env_reset,timestamp_timeout=-1
     '';
     execWheelOnly = true;
+    # wheelNeedsPassword = false;
   };
 
   security.doas = {

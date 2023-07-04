@@ -151,7 +151,8 @@
         #   enable = true;
         #   version = 2;
         #   device = "/dev/sda";                    # Name of hard drive (can also be vda)
-        #   gfxmodeBios = "1920x1080";
+        #   gfxmodeBios = "1920x1200,auto";
+        #   gfxmodeEfi = "1920x1200,auto";
         #   zfsSupport = true                       # enable for zfs
         # };
         # timeout = 5;                              # Grub auto select timeout
