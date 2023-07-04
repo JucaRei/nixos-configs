@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ config, lib, pkgs, ... }:
 with lib.hm.gvariant; {
   dconf.settings = {
     "desktop/ibus/panel" = {
@@ -12,13 +7,9 @@ with lib.hm.gvariant; {
       custom-font = "Work Sans 10";
     };
 
-    "desktop/ibus/panel/emoji" = {
-      font = "JoyPixels 16";
-    };
+    "desktop/ibus/panel/emoji" = { font = "JoyPixels 16"; };
 
-    "io/elementary/code/saved-state" = {
-      outline-visible = true;
-    };
+    "io/elementary/code/saved-state" = { outline-visible = true; };
 
     "io/elementary/code/settings" = {
       strip-trailing-on-save = true;
@@ -28,30 +19,20 @@ with lib.hm.gvariant; {
       prefer-dark-style = true;
     };
 
-    "io/elementary/desktop/agent-geoclue2" = {
-      location-enabled = true;
-    };
+    "io/elementary/desktop/agent-geoclue2" = { location-enabled = true; };
 
-    "io/elementary/desktop/wingpanel/datetime" = {
-      clock-format = "24h";
-    };
+    "io/elementary/desktop/wingpanel/datetime" = { clock-format = "24h"; };
 
-    "io/elementary/desktop/wingpanel/sound" = {
-      max-volume = 100.0;
-    };
+    "io/elementary/desktop/wingpanel/sound" = { max-volume = 100.0; };
 
-    "io/elementary/files/preferences" = {
-      singleclick-select = true;
-    };
+    "io/elementary/files/preferences" = { singleclick-select = true; };
 
     "io/elementary/notifications/applications/gala-other" = {
       remember = false;
       sounds = false;
     };
 
-    "io/elementary/settings-daemon/datetime" = {
-      show-weeks = true;
-    };
+    "io/elementary/settings-daemon/datetime" = { show-weeks = true; };
 
     "io/elementary/settings-daemon/housekeeping" = {
       cleanup-downloads-folder = false;
@@ -65,7 +46,8 @@ with lib.hm.gvariant; {
       font = "FiraCode Nerd Font Medium 13";
       foreground = "rgb(200,200,200)";
       natural-copy-paste = false;
-      palette = "rgb(20,20,23):rgb(214,43,43):rgb(65,221,117):rgb(255,182,56):rgb(40,169,255):rgb(230,109,255):rgb(20,229,211):rgb(200,200,200):rgb(67,67,69):rgb(222,86,86):rgb(161,238,187):rgb(255,219,156):rgb(148,212,255):rgb(243,182,255):rgb(161,245,238):rgb(233,233,233)";
+      palette =
+        "rgb(20,20,23):rgb(214,43,43):rgb(65,221,117):rgb(255,182,56):rgb(40,169,255):rgb(230,109,255):rgb(20,229,211):rgb(200,200,200):rgb(67,67,69):rgb(222,86,86):rgb(161,238,187):rgb(255,219,156):rgb(148,212,255):rgb(243,182,255):rgb(161,245,238):rgb(233,233,233)";
       theme = "custom";
       unsafe-paste-alert = false;
     };
@@ -79,12 +61,10 @@ with lib.hm.gvariant; {
       exec-arg = "-e";
     };
 
-    "org/gnome/desktop/datetime" = {
-      automatic-timezone = true;
-    };
+    "org/gnome/desktop/datetime" = { automatic-timezone = true; };
 
     "org/gnome/desktop/input-sources" = {
-      xkb-options = ["grp:alt_shift_toggle" "caps:none"];
+      xkb-options = [ "grp:alt_shift_toggle" "caps:none" ];
     };
 
     "org/gnome/desktop/interface" = {
@@ -105,52 +85,63 @@ with lib.hm.gvariant; {
       idle-delay = lib.hm.gvariant.mkUint32 7200;
     };
 
-    "org/gnome/desktop/sound" = {
-      theme-name = "elementary";
-    };
+    "org/gnome/desktop/sound" = { theme-name = "elementary"; };
 
     "org/gnome/desktop/wm/keybindings" = {
-      switch-to-workspace-left = ["<Primary><Alt>Left"];
-      switch-to-workspace-right = ["<Primary><Alt>Right"];
+      switch-to-workspace-left = [ "<Primary><Alt>Left" ];
+      switch-to-workspace-right = [ "<Primary><Alt>Right" ];
     };
 
     "org/gnome/desktop/wm/preferences" = {
-      button-layout = ":minimize,maximize,close";
       audible-bell = false;
+      button-layout = ":minimize,maximize,close";
+      num-workspaces = 8;
       titlebar-font = "Work Sans Semi-Bold 12";
+      workspace-names =
+        [ "Web" "Work" "Chat" "Code" "Virt" "Cast" "Fun" "Stuff" ];
     };
 
-    "org/gnome/GWeather" = {
-      temperature-unit = "centigrade";
+    "org/gnome/GWeather" = { temperature-unit = "centigrade"; };
+
+    "org/gnome/mutter" = {
+      workspaces-only-on-primary = false;
+      dynamic-workspaces = false;
     };
 
     "org/gnome/mutter/keybindings" = {
-      toggle-tiled-left = ["<Super>Left"];
-      toggle-tiled-right = ["<Super>Right"];
+      toggle-tiled-left = [ "<Super>Left" ];
+      toggle-tiled-right = [ "<Super>Right" ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = ["/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"];
-      terminal = [""];
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+      ];
+      terminal = [ "" ];
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super>t";
-      command = "tilix";
-      name = "tilix";
-    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+      {
+        binding = "<Super>t";
+        command = "tilix";
+        name = "tilix";
+      };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      binding = "<Primary><Alt>t";
-      command = "tilix";
-      name = "tilix";
-    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
+      {
+        binding = "<Primary><Alt>t";
+        command = "tilix";
+        name = "tilix";
+      };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-      binding = "<Super>e";
-      command = "io.elementary.files -n ~/";
-      name = "io.elementary.files -n ~/";
-    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
+      {
+        binding = "<Super>e";
+        command = "io.elementary.files -n ~/";
+        name = "io.elementary.files -n ~/";
+      };
 
     "org/gnome/settings-daemon/plugins/power" = {
       power-button-action = "interactive";
@@ -162,25 +153,21 @@ with lib.hm.gvariant; {
     #  overrides = "{\'Gtk/DialogsUseHeader\': <0>, \'Gtk/ShellShowsAppMenu\': <0>, \'Gtk/EnablePrimaryPaste\': <1>, \'Gtk/DecorationLayout\': <\':minimize,maximize,close,menu\'>, \'Gtk/ShowUnicodeMenu\': <0>}";
     #};
 
-    "org/gtk/gtk4/Settings/FileChooser" = {
-      clock-format = "24h";
-    };
+    "org/gtk/gtk4/Settings/FileChooser" = { clock-format = "24h"; };
 
-    "org/gtk/Settings/FileChooser" = {
-      clock-format = "24h";
-    };
+    "org/gtk/Settings/FileChooser" = { clock-format = "24h"; };
 
     "org/pantheon/desktop/gala/appearance" = {
       button-layout = ":minimize,maximize,close";
     };
 
     "org/pantheon/desktop/gala/behavior" = {
-      overlay-action = "io.elementary.wingpanel --toggle-indicator=app-launcher";
+      dynamic-workspaces = false;
+      overlay-action =
+        "io.elementary.wingpanel --toggle-indicator=app-launcher";
     };
 
-    "org/pantheon/desktop/gala/mask-corners" = {
-      enable = false;
-    };
+    "org/pantheon/desktop/gala/mask-corners" = { enable = false; };
   };
 
   gtk = {
@@ -203,17 +190,9 @@ with lib.hm.gvariant; {
       '';
     };
 
-    gtk3 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-    };
+    gtk3 = { extraConfig = { gtk-application-prefer-dark-theme = 1; }; };
 
-    gtk4 = {
-      extraConfig = {
-        gtk-application-prefer-dark-theme = 1;
-      };
-    };
+    gtk4 = { extraConfig = { gtk-application-prefer-dark-theme = 1; }; };
 
     iconTheme = {
       name = "elementary";
@@ -235,28 +214,30 @@ with lib.hm.gvariant; {
   };
 
   home.file = {
-    "${config.xdg.configHome}/autostart/enable-appcenter.desktop".text = "
-[Desktop Entry]
-Name=Enable AppCenter
-Comment=Enable AppCenter
-Type=Application
-Exec=flatpak remote-add --user --if-not-exists appcenter https://flatpak.elementary.io/repo.flatpakrepo
-Categories=
-Terminal=false
-NoDisplay=true
-StartupNotify=false";
+    "${config.xdg.configHome}/autostart/enable-appcenter.desktop".text = ''
+
+      [Desktop Entry]
+      Name=Enable AppCenter
+      Comment=Enable AppCenter
+      Type=Application
+      Exec=flatpak remote-add --user --if-not-exists appcenter https://flatpak.elementary.io/repo.flatpakrepo
+      Categories=
+      Terminal=false
+      NoDisplay=true
+      StartupNotify=false'';
   };
 
   home.file = {
-    "${config.xdg.configHome}/autostart/ibus-daemon.desktop".text = "
-[Desktop Entry]
-Name=IBus Daemon
-Comment=IBus Daemon
-Type=Application
-Exec=ibus-daemon --daemonize --desktop=pantheon
-Categories=
-Terminal=false
-NoDisplay=true
-StartupNotify=false";
+    "${config.xdg.configHome}/autostart/ibus-daemon.desktop".text = ''
+
+      [Desktop Entry]
+      Name=IBus Daemon
+      Comment=IBus Daemon
+      Type=Application
+      Exec=ibus-daemon --daemonize --desktop=pantheon
+      Categories=
+      Terminal=false
+      NoDisplay=true
+      StartupNotify=false'';
   };
 }
