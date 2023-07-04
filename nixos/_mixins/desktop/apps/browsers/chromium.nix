@@ -1,7 +1,5 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs.unstable; [
-    chromium
-  ];
+{ pkgs, ... }: {
+  environment.systemPackages = with pkgs.unstable; [ chromium ];
 
   programs = {
     chromium = {
@@ -19,15 +17,11 @@
         "AutofillAddressEnabled" = false;
         "AutofillCreditCardEnabled" = false;
         "BuiltInDnsClientEnabled" = false;
-        "​DeviceMetricsReportingEnabled" = true;
-        "​ReportDeviceCrashReportInfo" = false;
+        "DeviceMetricsReportingEnabled" = true;
+        "ReportDeviceCrashReportInfo" = false;
         "PasswordManagerEnabled" = false;
-        "​SpellcheckEnabled" = true;
-        "SpellcheckLanguage" = [
-          "pt-BR"
-          "en-GB"
-          "en-US"
-        ];
+        "SpellcheckEnabled" = true;
+        "SpellcheckLanguage" = [ "pt-BR" "en-GB" "en-US" ];
         "VoiceInteractionHotwordEnabled" = false;
       };
     };
