@@ -91,7 +91,12 @@
   ];
 
   ## Some optimizations services as default
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+
+    # required by podman to run containers in rootless mode when using linuxPackages_hardened
+    # unprivilegedUsernsClone = true;
+  };
   services = {
     udisks2.enable = true;
     ananicy = {
@@ -103,6 +108,13 @@
     fstrim.enable = true;
 
     dbus.implementation = "broker";
+
+    resolved = {
+      extraConfig = ''
+        # No need when using Avahi
+        MulticastDNS=no
+      '';
+    };
 
     # For battery status reporting
     #upower = { enable = true; };

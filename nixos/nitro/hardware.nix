@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, username, ... }: {
+{ inputs, lib, pkgs, config, ... }: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     #inputs.nixos-hardware.nixosModules.common-gpu-amd
@@ -90,7 +90,7 @@
       motherboard = "intel";
       package = pkgs.openrgb-with-all-plugins;
     };
-    xserver.videoDrivers = [ "nvidia" ];
+    #xserver.videoDrivers = [ "nvidia" ];
     # Temperature management daemon
     thermald = { enable = true; };
   };
@@ -105,4 +105,6 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   #powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
