@@ -1,20 +1,4 @@
-{ config, inputs, lib, pkgs, username, ... }:
-let
-  btrfs-opts = [
-    "subvol=@root"
-    "rw"
-    "noatime"
-    "nodiratime"
-    "ssd"
-    "nodatacow"
-    "compress-force=zstd:5"
-    "space_cache=v2"
-    "commit=120"
-    "autodefrag"
-    "discard=async"
-  ];
-  vfat-opts = [ "defaults" "noatime" "nodiratime" ];
-in {
+{ config, inputs, lib, pkgs, username, ... }: {
   imports = [
     #inputs.nixos-hardware.nixosModules.common-pc
     ../_mixins/services/pipewire.nix
@@ -24,37 +8,97 @@ in {
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = "${btrfs-opts}";
+    options = [
+      "subvol=@root"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:5"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
   };
 
   fileSystems."/home" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = "${btrfs-opts}";
+    options = [
+      "subvol=@root"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:5"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
   };
 
   fileSystems."/.snapshots" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = "${btrfs-opts}";
+    options = [
+      "subvol=@root"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:5"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
   };
 
   fileSystems."/var/tmp" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = "${btrfs-opts}";
+    options = [
+      "subvol=@root"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:5"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = "${btrfs-opts}";
+    options = [
+      "subvol=@root"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:5"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
-    options = "${vfat-opts}";
+    options = [ "defaults" "noatime" "nodiratime" ];
     noCheck = true;
   };
 
