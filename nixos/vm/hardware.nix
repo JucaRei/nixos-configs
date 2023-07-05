@@ -126,7 +126,7 @@
       #wantedBy = [ "swap-swapfile.swap" ];
       wantedBy = [ "swapfile.swap" ];
       script = ''
-        swapfile="/swap/swapfile"
+        swapfile="/mnt/swap/swapfile"
         if [[ -f "$swapfile" ]]; then
           echo "Swap file $swapfile already exists, taking no action"
         else
