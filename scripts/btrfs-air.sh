@@ -28,7 +28,7 @@ btrfs su cr /mnt/@home
 btrfs su cr /mnt/@nix
 btrfs su cr /mnt/@snapshots
 btrfs su cr /mnt/@tmp
-# btrfs su cr /mnt/@swap
+btrfs su cr /mnt/@swap
 umount -R /mnt
 
 # mount -o $BTRFS_OPTS,subvol=@root /dev/vda2 /mnt

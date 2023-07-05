@@ -103,7 +103,8 @@
   };
 
   swapDevices = [{
-    device = "/dev/disk/by-label/SWAP";
+    #device = "/dev/disk/by-label/SWAP";
+    device = "/swap/swapfile";
     #size = 2 GiB;
   }];
 
