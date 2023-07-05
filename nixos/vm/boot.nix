@@ -50,7 +50,7 @@
         #"lz4hc"
         #"lz4hc_compress"
         #"kvm-intel"
-        "vhost_vsock"
+        #"vhost_vsock"
       ];
       checkJournalingFS = false; # for vm
 
