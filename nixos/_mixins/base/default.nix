@@ -17,7 +17,7 @@
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
       "quiet"
-      #"loglevel=3"
+      "boot.shell_on_fail"
       "rd.systemd.show_status=false"
       "rd.udev.log_priority=3"
       "udev.log_priority=3"
@@ -42,7 +42,7 @@
 
   console = {
     earlySetup = true;
-    packages = [ pkgs.terminus_font pkgs.powerline-fonts ];
+    packages = with pkgs; [ terminus_font powerline-fonts ];
   };
 
   # don't install documentation i don't use
@@ -217,6 +217,7 @@
       extraConfig = ''
         font-name=FiraCode Nerd Font Mono, SauceCodePro Nerd Font Mono
         font-size=14
+        xkb-layout=us
       '';
     };
 
