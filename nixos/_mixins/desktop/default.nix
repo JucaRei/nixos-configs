@@ -4,7 +4,8 @@
     ../services/flatpak.nix
     ../services/sane.nix
     ../services/dynamic-timezone.nix
-  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
+  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix"))
+    ./${desktop}.nix;
 
   boot.kernelParams = [
     # The 'splash' arg is included by the plymouth option
@@ -28,9 +29,15 @@
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "UbuntuMono" ]; })
+      (nerdfonts.override {
+        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
+      })
+      fira
+      fira-go
       joypixels
       liberation_ttf
+      noto-fonts-emoji
+      source-serif
       ubuntu_font_family
       work-sans
     ];
@@ -42,10 +49,10 @@
       antialias = true;
       cache32Bit = true;
       defaultFonts = {
-        serif = [ "Work Sans" "Joypixels" ];
-        sansSerif = [ "Work Sans" "Joypixels" ];
+        serif = [ "Source Serif" ];
+        sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
         monospace = [ "FiraCode Nerd Font Mono" ];
-        emoji = [ "Joypixels" ];
+        emoji = [ "Joypixels" "Noto Color Emoji" ];
       };
       enable = true;
       hinting = {
