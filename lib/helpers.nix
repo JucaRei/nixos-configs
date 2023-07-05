@@ -8,7 +8,7 @@ systems = [
 ];
 in {
   # Helper function for generating home-manager configs
-  mkHome = { hostname, username, desktop ? null, platform ? builtins.listToAttrs (builtins.map(s: systems)) }: inputs.home-manager.lib.homeManagerConfiguration {
+  mkHome = { hostname, username, desktop ? null, platform ? builtins.listToAttrs (builtins.map(systems)) }: inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = inputs.nixpkgs.legacyPackages.${platform};
       extraSpecialArgs = {
         inherit inputs outputs desktop hostname platform username stateVersion;
