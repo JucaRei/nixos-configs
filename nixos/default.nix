@@ -5,7 +5,8 @@
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
   imports = [
     #(./. + "/${hostname}/disks.nix")
-    inputs.disko.nixosModules.disko
+
+    #inputs.disko.nixosModules.disko    
     (./. + "/${hostname}/boot.nix")
     (./. + "/${hostname}/hardware.nix")
     (modulesPath + "/installer/scan/not-detected.nix")
@@ -15,10 +16,9 @@
     ./_mixins/users/${username}
   ]
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
-    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix"))
-    (import ./${hostname}/disks.nix { })
-    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix"))
-    (import ./${hostname}/extra.nix { })
+  
+    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
+    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   nixpkgs = {
