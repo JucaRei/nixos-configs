@@ -7,47 +7,6 @@
   ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix"))
     ./${desktop}.nix;
 
-  fonts = {
-    fontDir.enable = true;
-    fonts = with pkgs; [
-      (nerdfonts.override {
-        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
-      })
-      fira
-      fira-go
-      joypixels
-      liberation_ttf
-      noto-fonts-emoji
-      source-serif
-      ubuntu_font_family
-      work-sans
-    ];
-
-    # use fonts specified by user rather than default ones
-    enableDefaultFonts = false;
-
-    fontconfig = {
-      antialias = true;
-      cache32Bit = true;
-      defaultFonts = {
-        serif = [ "Source Serif" ];
-        sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
-        monospace = [ "FiraCode Nerd Font Mono" ];
-        emoji = [ "Joypixels" "Noto Color Emoji" ];
-      };
-      enable = true;
-      hinting = {
-        autohint = false;
-        enable = true;
-        style = "hintslight";
-      };
-      subpixel = {
-        rgba = "rgb";
-        lcdfilter = "light";
-      };
-    };
-  };
-
   hardware = {
     opengl = {
       enable = true;
@@ -67,9 +26,6 @@
     # Chromium is enabled by default with sane defaults.
     firefox = { enable = false; };
   };
-
-  # Accept the joypixels license
-  nixpkgs.config.joypixels.acceptLicense = true;
 
   # Disable xterm
   services.xserver.excludePackages = [ pkgs.xterm ];

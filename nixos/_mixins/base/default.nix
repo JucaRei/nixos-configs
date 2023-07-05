@@ -78,6 +78,50 @@
     neofetch
   ];
 
+  fonts = {
+    fontDir.enable = true;
+    fonts = with pkgs; [
+      (nerdfonts.override {
+        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
+      })
+      fira
+      fira-go
+      joypixels
+      liberation_ttf
+      noto-fonts-emoji
+      source-serif
+      ubuntu_font_family
+      work-sans
+    ];
+
+    # use fonts specified by user rather than default ones
+    enableDefaultFonts = false;
+
+    fontconfig = {
+      antialias = true;
+      cache32Bit = true;
+      defaultFonts = {
+        serif = [ "Source Serif" ];
+        sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
+        monospace = [ "FiraCode Nerd Font Mono" ];
+        emoji = [ "Joypixels" "Noto Color Emoji" ];
+      };
+      enable = true;
+      hinting = {
+        autohint = false;
+        enable = true;
+        style = "hintslight";
+      };
+      subpixel = {
+        rgba = "rgb";
+        lcdfilter = "light";
+      };
+    };
+  };
+
+  # Accept the joypixels license
+  nixpkgs.config.joypixels.acceptLicense = true;
+
   # Use passed in hostid and hostname to configure basic networking
   networking = {
     hostName = hostname;
@@ -164,6 +208,15 @@
       extraConfig = ''
         # No need when using Avahi
         MulticastDNS=no
+      '';
+    };
+
+    kmscon = {
+      enable = true;
+      hwRender = true;
+      extraConfig = ''
+        font-name=FiraCode Nerd Font Mono, SauceCodePro Nerd Font Mono
+        font-size=14
       '';
     };
 
