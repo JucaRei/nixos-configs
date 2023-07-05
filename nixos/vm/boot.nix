@@ -49,7 +49,7 @@
         "crc32c-intel"
         #"lz4hc"
         #"lz4hc_compress"
-        "kvm-intel"
+        #"kvm-intel"
         "vhost_vsock"
       ];
       checkJournalingFS = false; # for vm
