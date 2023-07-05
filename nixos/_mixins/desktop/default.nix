@@ -1,4 +1,4 @@
-{ desktop, pkgs, username, lib, ... }: {
+{ desktop, pkgs, username, lib, hostname, ... }: {
   imports = [
     ../services/cups.nix
     ../services/flatpak.nix
@@ -11,7 +11,8 @@
     opengl = {
       enable = true;
       driSupport = true;
-      extraPackages = [ ] ++ lib.optionals (pkgs.system == "x86_64-linux")
+      extraPackages = [ ] ++ lib.optionals
+        (pkgs.system == "x86_64-linux" && hostname != "vm") # exclude vm
         (with pkgs; [
           intel-media-driver
           vaapiIntel

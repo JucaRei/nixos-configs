@@ -1,112 +1,60 @@
-{ config, inputs, lib, pkgs, username, ... }: {
+{ config, inputs, lib, pkgs, username, ... }:
+let
+  btrfs-opts = [
+    "subvol=@root"
+    "rw"
+    "noatime"
+    "nodiratime"
+    "ssd"
+    "nodatacow"
+    "compress-force=zstd:5"
+    "space_cache=v2"
+    "commit=120"
+    "autodefrag"
+    "discard=async"
+  ];
+  vfat-opts = [ "defaults" "noatime" "nodiratime" ];
+in {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-pc
+    #inputs.nixos-hardware.nixosModules.common-pc
     ../_mixins/services/pipewire.nix
   ];
-
-  console = {
-    earlySetup = true;
-    # Pixel sizes of the font: 12, 14, 16, 18, 20, 22, 24, 28, 32
-    # Followed by 'n' (normal) or 'b' (bold)
-    font = "ter-powerline-v28n";
-    packages = [ pkgs.terminus_font pkgs.powerline-fonts ];
-  };
 
   # TODO: Replace this with disko
   fileSystems."/" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = [
-      "subvol=@root"
-      "rw"
-      "noatime"
-      "nodiratime"
-      "ssd"
-      "nodatacow"
-      "compress-force=zstd:5"
-      "space_cache=v2"
-      "commit=120"
-      "autodefrag"
-      "discard=async"
-    ];
+    options = "${btrfs-opts}";
   };
 
   fileSystems."/home" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = [
-      "subvol=@home"
-      "rw"
-      "noatime"
-      "nodiratime"
-      "ssd"
-      "nodatacow"
-      "compress-force=zstd:5"
-      "space_cache=v2"
-      "commit=120"
-      "autodefrag"
-      "discard=async"
-    ];
+    options = "${btrfs-opts}";
   };
 
   fileSystems."/.snapshots" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = [
-      "subvol=@snapshots"
-      "rw"
-      "noatime"
-      "nodiratime"
-      "ssd"
-      "nodatacow"
-      "compress-force=zstd:5"
-      "space_cache=v2"
-      "commit=120"
-      "autodefrag"
-      "discard=async"
-    ];
+    options = "${btrfs-opts}";
   };
 
   fileSystems."/var/tmp" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = [
-      "subvol=@tmp"
-      "rw"
-      "noatime"
-      "nodiratime"
-      "ssd"
-      "nodatacow"
-      "compress-force=zstd:5"
-      "space_cache=v2"
-      "commit=120"
-      "autodefrag"
-      "discard=async"
-    ];
+    options = "${btrfs-opts}";
   };
 
   fileSystems."/nix" = {
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
-    options = [
-      "subvol=@nix"
-      "rw"
-      "noatime"
-      "nodiratime"
-      "ssd"
-      "nodatacow"
-      "compress-force=zstd:5"
-      "space_cache=v2"
-      "commit=120"
-      "autodefrag"
-      "discard=async"
-    ];
+    options = "${btrfs-opts}";
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
-    options = [ "defaults" "noatime" "nodiratime" ];
+    options = "${vfat-opts}";
     noCheck = true;
   };
 
@@ -207,24 +155,29 @@
     #############
     ### BTRFS ###
     #############
-    #btrfs = {
-    #  autoScrub = {
-    #    enable = true;
-    #    interval = "weekly";
-    #  };
-    #};
+    btrfs = {
+      autoScrub = {
+        enable = true;
+        interval = "weekly";
+      };
+    };
     #logind.lidSwitch = "suspend";
     #thermald.enable = true;
     #upower.enable = true;
     kmscon.extraOptions = lib.mkForce "--xkb-layout=br";
     xserver = {
-      resolutions = [{
-        x = 1920;
-        y = 1080;
-      }
-      # { x = 1600; y = 900; }
-      # { x = 3840; y = 2160; }
-        ];
+      resolutions = [
+        {
+          x = 1920;
+          y = 1080;
+        }
+        {
+          x = 1280;
+          y = 720;
+        }
+        # { x = 1600; y = 900; }
+        # { x = 3840; y = 2160; }
+      ];
       #videoDrivers = [
       #  "amdgpu"
       #  "nvidia"

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ lib, pkgs, ... }: {
 
   ####################
   ### Boot options ###
@@ -75,14 +75,15 @@
     #######################
 
     # kernelPackages = pkgs.linuxPackages_latest;
-    #kernelPackages = pkgs.linuxPackages_lqx; # Liquorix kernel
-    kernelPackages = pkgs.linuxPackages_5_4;
+    # kernelPackages = pkgs.linuxPackages_lqx; # Liquorix kernel
+    # kernelPackages = pkgs.linuxPackages_5_4;
+    # kernelPackages = pkgs.linuxPackages_xanmod_stable;        # Xanmod kernel
+    kernelPackages = pkgs.linuxPackages_zen;
 
     # Allow compilation of packages ARM/ARM64 architectures via QEMU
     # e.g. nix-build -A <pkg> --argstr system aarch64-linux
     # https://nixos.wiki/wiki/NixOS_on_ARM#Compiling_through_QEMU
     binfmt.emulatedSystems = [ "aarch64-linux" "armv7l-linux" ];
-    # kernelPackages = pkgs.linuxPackages_xanmod_stable;        # Xanmod kernel
     # Temporary workaround until mwprocapture 4328 patch is merged
     # - https://github.com/NixOS/nixpkgs/pull/221209
     # kernelPackages = pkgs.linuxPackages_5_15;
@@ -101,8 +102,6 @@
     kernel.sysctl = {
       #"kernel.sysrq" = 1;
       #"kernel.printk" = "3 3 3 3";
-      "net.ipv4.ip_forward" = 1;
-      "net.ipv6.conf.all.forwarding" = 1;
       "vm.vfs_cache_pressure" = 300;
       "vm.swappiness" = 25;
       "vm.dirty_background_ratio" = 1;
@@ -190,7 +189,7 @@
 
         useOSProber = false; # check for other systems
         fsIdentifier = "label"; # mount devices config using label
-        gfxmodeEfi = "1920x1080";
+        gfxmodeEfi = "1280x720,auto";
         fontSize = 20;
 
         configurationName = "NixOS VM test";

@@ -20,11 +20,11 @@
     };
   };
   services = {
-    xserver = {
-      #layout = "br";
-      xkbVariant = "pc105";
-      #xkbModel = "pc105";
-    };
+    #xserver = {
+    #layout = "br";
+    #xkbVariant = "pc105";
+    #xkbModel = "pc105";
+    #};
     kmscon.extraOptions = "--xkb-layout=br";
   };
   time.timeZone = lib.mkDefault "America/Sao_Paulo";
