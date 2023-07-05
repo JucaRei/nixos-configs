@@ -95,6 +95,16 @@
     ];
   };
 
+  fileSystems."/swap" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [
+      "subvol=swap"
+      "compress=lzo"
+      "noatime"
+    ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
@@ -104,9 +114,27 @@
 
   swapDevices = [{
     #device = "/dev/disk/by-label/SWAP";
-    device = "/swap/swapfile";
     #size = 2 GiB;
+    device = "/swap/swapfile";
+    size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
   }];
+
+  ### Swapfile
+  systemd.services = {
+    create-swapfile = {
+      serviceConfig.Type = "oneshot";
+      wantedBy = [ "swap-swapfile.swap" ];
+      script = ''
+        swapfile="/swap/swapfile"
+        if [[ -f "$swapfile" ]]; then
+          echo "Swap file $swapfile already exists, taking no action"
+        else
+          echo "Setting up swap file $swapfile"
+          ${pkgs.coreutils}/bin/truncate -s 0 /swap/swapfile
+          ${pkgs.e2fsprogs}/bin/chattr +C /swap/swapfile
+      '';
+    };
+  };
 
   ############
   ### Zram ###

@@ -7,6 +7,9 @@
   boot = {
     isContainer = false;
 
+    kernelParams = [ "resume_offset=140544" ];
+    resumeDevice = "/dev/disk/by-label/NIXOS";
+
     #cleanTmpDir = true;
     #tmpOnTmpfs = lib.mkDefault true;
     tmp = {
