@@ -1,6 +1,13 @@
 { pkgs, ... }: {
-  imports =
-    [ ./fish.nix ./bash.nix ./git.nix ./neofetch.nix ./broot.nix ./xdg.nix ];
+  imports = [
+    ./fish.nix
+    ./bat.nix
+    ./bash.nix
+    ./git.nix
+    ./neofetch.nix
+    ./broot.nix
+    ./xdg.nix
+  ];
 
   home = {
     # A Modern Unix experience
@@ -117,10 +124,6 @@
       enable = true;
       viAlias = true;
       vimAlias = true;
-    };
-    bat = {
-      enable = true;
-      extraPackages = with pkgs.bat-extras; [ batwatch prettybat ];
     };
     skim = rec {
       enable = true;
