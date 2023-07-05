@@ -84,11 +84,29 @@
     };
   };
 
-  # Create dirs for home-manager
-  systemd.tmpfiles.rules = [
-    "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
-    "d /mnt/snapshot/${username} 0755 ${username} users"
-  ];
+  systemd = {
+    # Create dirs for home-manager
+    tmpfiles.rules = [
+      "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
+      "d /mnt/snapshot/${username} 0755 ${username} users"
+    ];
+
+    # Change build dir to /var/tmp
+    services.nix-daemon = { environment.TMPDIR = "/var/tmp"; };
+
+    # Reduce default service stop timeouts for faster shutdown
+    extraConfig = ''
+      DefaultTimeoutStopSec=15s
+      DefaultTimeoutAbortSec=5s
+    '';
+
+    # systemd's out-of-memory daemon
+    oomd = {
+      enable = lib.mkDefault true;
+      enableSystemSlice = true;
+      enableUserServices = true;
+    };
+  };
 
   ## Some optimizations services as default
   security = {
@@ -97,6 +115,7 @@
     # required by podman to run containers in rootless mode when using linuxPackages_hardened
     # unprivilegedUsernsClone = true;
   };
+
   services = {
     udisks2.enable = true;
     ananicy = {

@@ -88,22 +88,5 @@
     };
   };
 
-  systemd = {
-    # Change build dir to /var/tmp
-    services.nix-daemon = { environment.TMPDIR = "/var/tmp"; };
-
-    # Reduce default service stop timeouts for faster shutdown
-    extraConfig = ''
-      DefaultTimeoutStopSec=15s
-      DefaultTimeoutAbortSec=5s
-    '';
-    # systemd's out-of-memory daemon
-    oomd = {
-      enable = lib.mkDefault true;
-      enableSystemSlice = true;
-      enableUserServices = true;
-    };
-  };
-
   system.stateVersion = stateVersion;
 }
