@@ -19,13 +19,14 @@
       LC_MESSAGES = "pt_BR.utf8";
     };
   };
-  #services.xserver = {
-  #  layout = "br";
-  #  layout = "us";
-  #  xkbVariant = "pc105";
-  #  xkbVariant = "mac";
-  #  xkbModel = "pc105";
-  #};
+  services = {
+    xserver = {
+      #layout = "br";
+      xkbVariant = "pc105";
+      #xkbModel = "pc105";
+    };
+    kmscon.extraOptions = "--xkb-layout=br";
+  };
   time.timeZone = lib.mkDefault "America/Sao_Paulo";
   #location = {
   #  latitude = -23.539380;
