@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ pkgs, username, ... }:
 let
   install-system = pkgs.writeScriptBin "install-system" ''
     #!${pkgs.stdenv.shell}
 
-    set -euo pipefail
+    #set -euo pipefail
 
     TARGET_HOST="''${1:-}"
     TARGET_USER="''${2:-juca}"
@@ -79,4 +79,7 @@ let
       fi
     fi
   '';
-in { environment.systemPackages = [ install-system ]; }
+in {
+  environment.systemPackages = [ install-system ];
+  services.kmscon.autologinUser = "${username}";
+}

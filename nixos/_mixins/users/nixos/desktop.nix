@@ -16,15 +16,18 @@
     }
   '';
 
-  config.isoImage.edition = lib.mkForce "${desktop}";
-  config.services.xserver = {
-    displayManager.autoLogin.user = "${username}";
-    libinput.enable = true;
-    libinput.touchpad = {
-      horizontalScrolling = true;
-      naturalScrolling = true;
-      tapping = true;
-      tappingDragLock = false;
+  config = {
+    services.kmscon.autologinUser = lib.mkForce null;
+    isoImage.edition = lib.mkForce "${desktop}";
+    services.xserver = {
+      displayManager.autoLogin.user = "${username}";
+      libinput.enable = true;
+      libinput.touchpad = {
+        horizontalScrolling = true;
+        naturalScrolling = true;
+        tapping = true;
+        tappingDragLock = false;
+      };
     };
   };
 

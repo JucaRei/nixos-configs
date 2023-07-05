@@ -42,6 +42,7 @@
 
   console = {
     earlySetup = true;
+    font = "ter-powerline-v18n";
     packages = with pkgs; [ terminus_font powerline-fonts ];
   };
 
