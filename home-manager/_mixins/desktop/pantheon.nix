@@ -1,6 +1,13 @@
 { config, lib, pkgs, ... }:
 with lib.hm.gvariant; {
   dconf.settings = {
+    "com/github/stsdc/monitor/settings" = {
+      background-state = true;
+      indicator-state = true;
+      indicator-network-download-state = true;
+      indicator-network-upload-state = true;
+    };
+
     "desktop/ibus/panel" = {
       show-icon-on-systray = false;
       use-custom-font = true;
@@ -20,6 +27,8 @@ with lib.hm.gvariant; {
     };
 
     "io/elementary/desktop/agent-geoclue2" = { location-enabled = true; };
+
+    "io/elementary/desktop/wingpanel" = { use-transparency = false; };
 
     "io/elementary/desktop/wingpanel/datetime" = { clock-format = "24h"; };
 
@@ -55,7 +64,7 @@ with lib.hm.gvariant; {
     "net/launchpad/plank/docks/dock1" = {
       alignment = "center";
       hide-mode = "window-dodge";
-      icon-size = 56;
+      icon-size = 48;
       pinned-only = false;
       position = "left";
       theme = "Transparent";
@@ -116,27 +125,10 @@ with lib.hm.gvariant; {
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
       ];
-      terminal = [ "" ];
     };
 
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
-      {
-        binding = "<Super>t";
-        command = "tilix";
-        name = "tilix";
-      };
-
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
-      {
-        binding = "<Primary><Alt>t";
-        command = "tilix";
-        name = "tilix";
-      };
-
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
       {
         binding = "<Super>e";
         command = "io.elementary.files -n ~/";
