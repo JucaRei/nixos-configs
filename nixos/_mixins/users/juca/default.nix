@@ -3,8 +3,7 @@ let
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
   # Only include desktop components if one is supplied.
-  imports = [ ./console.nix ]
-    ++ lib.optional (builtins.isString desktop) ./desktop.nix;
+  imports = [ ] ++ lib.optional (builtins.isString desktop) ./desktop.nix;
 
   users.users.juca = {
     description = "Reinaldo P JR";

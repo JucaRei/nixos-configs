@@ -34,6 +34,8 @@
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
     };
+    initrd.verbose = false;
+    consoleLogLevel = 0;
   };
 
   console = {
@@ -47,7 +49,8 @@
   documentation.nixos.enable = false; # nixos documentation
   documentation.man.enable = true; # manual pages and the man command
   documentation.info.enable = false; # info pages and the info command
-  documentation.doc.enable = false; # documentation distributed in packages' /share/doc
+  documentation.doc.enable =
+    false; # documentation distributed in packages' /share/doc
 
   environment.systemPackages = with pkgs; [
     binutils
@@ -71,7 +74,9 @@
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [
-      (nerdfonts.override { fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono"]; })
+      (nerdfonts.override {
+        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
+      })
       fira
       fira-go
       joypixels
@@ -112,10 +117,10 @@
   # Use passed in hostid and hostname to configure basic networking
   networking = {
     #extraHosts = ''
-      #192.168.192.59  trooper-zt
-      #192.168.192.181 zed-zt
-      #192.168.192.220 ripper-zt
-      #192.168.192.249 p2-max-zt
+    #192.168.192.59  trooper-zt
+    #192.168.192.181 zed-zt
+    #192.168.192.220 ripper-zt
+    #192.168.192.249 p2-max-zt
     #'';
     hostName = hostname;
     hostId = hostid;
@@ -129,12 +134,17 @@
       shellAbbrs = {
         mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
         # https://github.com/NixOS/nixpkgs/issues/191128#issuecomment-1246030417
-        nix-gc           = "sudo nix-collect-garbage --delete-older-than 5d";
-        rebuild-home     = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host     = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock     = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
-        rebuild-iso      = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
-        rebuild-iso-mini = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-mini.config.system.build.isoImage && popd";
+        nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
+        rebuild-home =
+          "home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-host =
+          "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+        rebuild-lock =
+          "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
+        rebuild-iso =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
+        rebuild-iso-mini =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-mini.config.system.build.isoImage && popd";
         nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
         #rebuild-home = "home-manager switch -b backup --flake $HOME/.setup";
         #rebuild-host = "sudo nixos-rebuild switch --flake $HOME/.setup";

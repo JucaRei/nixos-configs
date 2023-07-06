@@ -1,7 +1,7 @@
-{ lib, pkgs, ... }: {
+{ pkgs, ... }: {
   programs = {
     firefox = {
-      enable = lib.mkDefault true;
+      enable = true;
       languagePacks = [ "en-GB" "pt-BR" ];
       package = pkgs.unstable.firefox;
       policies = {

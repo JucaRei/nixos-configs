@@ -21,15 +21,15 @@
     #gimp-with-plugins
     gnome.dconf-editor
     gnome.gnome-clocks
-    gnome.gnome-sound-recorder
-    irccloud
+    #gnome.gnome-sound-recorder
+    #irccloud
     #inkscape
     libreoffice
     keybase-gui
     #maestral-gui
     #netflix
     #meld
-    pavucontrol
+    #pavucontrol
     rhythmbox
     #shotcut
     #slack

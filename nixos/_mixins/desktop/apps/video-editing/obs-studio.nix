@@ -1,4 +1,4 @@
-{pkgs, config, ...}: {
+{ pkgs, config, ... }: {
   boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
   boot.extraModprobeConfig = ''
     options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
@@ -17,7 +17,7 @@
         obs-move-transition
         obs-mute-filter
         obs-pipewire-audio-capture
-        #obs-rgb-levels-filter
+        obs-rgb-levels-filter
         obs-text-pthread
         obs-scale-to-sound
         advanced-scene-switcher
