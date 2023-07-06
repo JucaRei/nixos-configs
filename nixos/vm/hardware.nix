@@ -143,12 +143,48 @@
           echo "Swap file $swapfile already exists, taking no action"
         else
           echo "Setting up swap file $swapfile"
-          ${pkgs.coreutils}/bin/truncate -s 0 "$swapfile"
           ${pkgs.e2fsprogs}/bin/chattr +C "$swapfile"
+          ${pkgs.coreutils}/bin/truncate -s 0 "$swapfile"
+          ${pkgs.coreutils}/bin/chown root "$swapfile"
+          ${pkgs.coreutils}/bin/chmod 600 "$swapfile"
         fi
       '';
     };
   };
+
+  #systemd.services.power-tune = {
+  #  description = "Power Management tunings";
+  #  wantedBy = [ "multi-user.target" ];
+  #  script = ''
+  #    ${pkgs.powertop}/bin/powertop --auto-tune
+  #    ${pkgs.iw}/bin/iw dev wlp0s20f3 set power_save on
+  #    for cpu in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do
+  #      echo powersave > $cpu
+  #    done
+  #  '';
+  #  serviceConfig.Type = "oneshot";
+  #};
+
+  #services.tlp = {
+  #  enable = true;
+  #  settings = {
+  #    CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+  #    CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+  #    TLP_DEFAULT_MODE = "BAT";
+
+  #    # The following prevents the battery from charging fully to
+  #    # preserve lifetime. Run `tlp fullcharge` to temporarily force
+  #    # full charge.
+  #    # https://linrunner.de/tlp/faq/battery.html#how-to-choose-good-battery-charge-thresholds
+  #    START_CHARGE_THRESH_BAT0 = 85;
+  #    STOP_CHARGE_THRESH_BAT0 = 90;
+
+  #    # 100 being the maximum, limit the speed of my CPU to reduce
+  #    # heat and increase battery usage:
+  #    CPU_MAX_PERF_ON_AC = 90;
+  #    #CPU_MAX_PERF_ON_BAT = 30;
+  #  };
+  #};
 
   ############
   ### Zram ###

@@ -16,27 +16,23 @@
   boot = {
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
-      "quiet"
+      #"quiet"
       "boot.shell_on_fail"
       "rd.systemd.show_status=false"
       "rd.udev.log_priority=3"
       "udev.log_priority=3"
-      "vt.global_cursor_default=0"
-      "mitigations=off"
+      #"vt.global_cursor_default=0"
+      #"mitigations=off"
       #"zswap.enabled=1"
       #"zswap.compressor=lz4hc"
       #"zswap.max_pool_percent=20"
       #"zswap.zpool=z3fold"
       "net.ifnames=0"
-      "mem_sleep_default=deep"
+      #"mem_sleep_default=deep"
     ];
     kernel.sysctl = {
       "net.ipv4.ip_forward" = 1;
       "net.ipv6.conf.all.forwarding" = 1;
-    };
-    plymouth = {
-      enable = true;
-      theme = "breeze";
     };
   };
 
@@ -51,8 +47,7 @@
   documentation.nixos.enable = false; # nixos documentation
   documentation.man.enable = true; # manual pages and the man command
   documentation.info.enable = false; # info pages and the info command
-  documentation.doc.enable =
-    false; # documentation distributed in packages' /share/doc
+  documentation.doc.enable = false; # documentation distributed in packages' /share/doc
 
   environment.systemPackages = with pkgs; [
     binutils
@@ -82,9 +77,7 @@
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [
-      (nerdfonts.override {
-        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
-      })
+      (nerdfonts.override { fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono"]; })
       fira
       fira-go
       joypixels
@@ -104,7 +97,7 @@
       defaultFonts = {
         serif = [ "Source Serif" ];
         sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
-        monospace = [ "FiraCode Nerd Font Mono" ];
+        monospace = [ "FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono" ];
         emoji = [ "Joypixels" "Noto Color Emoji" ];
       };
       enable = true;
@@ -141,17 +134,12 @@
       shellAbbrs = {
         mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
         # https://github.com/NixOS/nixpkgs/issues/191128#issuecomment-1246030417
-        nix-gc = "sudo nix-collect-garbage --delete-older-than 14d";
-        rebuild-home =
-          "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host =
-          "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock =
-          "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
-        rebuild-iso =
-          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
-        rebuild-iso-mini =
-          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-mini.config.system.build.isoImage && popd";
+        nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
+        rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+        rebuild-lock = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
+        rebuild-iso = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
+        rebuild-iso-mini = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-mini.config.system.build.isoImage && popd";
         nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
         #rebuild-home = "home-manager switch -b backup --flake $HOME/.setup";
         #rebuild-host = "sudo nixos-rebuild switch --flake $HOME/.setup";
@@ -172,17 +160,17 @@
     services.nix-daemon = { environment.TMPDIR = "/var/tmp"; };
 
     # Reduce default service stop timeouts for faster shutdown
-    extraConfig = ''
-      DefaultTimeoutStopSec=15s
-      DefaultTimeoutAbortSec=5s
-    '';
+    #extraConfig = ''
+    #  DefaultTimeoutStopSec=15s
+    #  DefaultTimeoutAbortSec=5s
+    #'';
 
     # systemd's out-of-memory daemon
-    oomd = {
-      enable = lib.mkDefault true;
-      enableSystemSlice = true;
-      enableUserServices = true;
-    };
+    #oomd = {
+    #  enable = lib.mkDefault true;
+    #  enableSystemSlice = true;
+    #  enableUserServices = true;
+    #};
   };
 
   ## Some optimizations services as default
@@ -203,7 +191,7 @@
     irqbalance.enable = true;
     fstrim.enable = true;
 
-    dbus.implementation = "broker";
+    #dbus.implementation = "broker";
 
     resolved = {
       extraConfig = ''

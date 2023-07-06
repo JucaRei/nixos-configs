@@ -20,8 +20,8 @@
     #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
     ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
-
   nixpkgs = {
+    config.android_sdk.accept_license = true;
     # You can add overlays here
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):

@@ -1,5 +1,10 @@
 { lib, ... }: {
-  hardware = { pulseaudio.enable = lib.mkForce false; };
+  hardware = {
+    pulseaudio = {
+      enable = lib.mkForce false;
+      extraConfig = "\n    load-module module-switch-on-connect\n  ";
+    };
+  };
   services = {
     pipewire = {
       enable = true;

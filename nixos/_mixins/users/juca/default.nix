@@ -1,7 +1,6 @@
 { config, desktop, lib, pkgs, ... }:
 let
-  ifExists = groups:
-    builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+  ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in {
   # Only include desktop components if one is supplied.
   imports = [ ./console.nix ]
