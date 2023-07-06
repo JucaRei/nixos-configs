@@ -11,4 +11,4 @@ resume_offset=$((physical_offset / pagesize))
 rm -r "$tmp_dir"
 echo "resume_offset=$resume_offset"
 
-# nix-shell -p pkgconfig gcc openssl
+# nix-shell -p pkgconfig gcc openssl git duf htop

@@ -100,7 +100,8 @@
     fsType = "btrfs";
     options = [
       "subvol=@swap"
-      "compress=lz4"
+      #"compress=lz4"
+      "defaults"
       "noatime"
     ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
   };
@@ -113,10 +114,10 @@
   };
 
   swapDevices = [{
-    #device = "/dev/disk/by-label/SWAP";
+    device = "/dev/disk/by-label/SWAP/swapfile";
     #size = 2 GiB;
-    device = "/swap/swapfile";
-    size = (1024 * 2); # RAM size
+    #device = "/swap/swapfile";
+    #size = (1024 * 2); # RAM size
     #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
   }];
 
@@ -133,24 +134,24 @@
   #  };
   #};
 
-  systemd.services = {
-    create-swapfile = {
-      serviceConfig.Type = "oneshot";
-      wantedBy = [ "swap-swapfile.swap" ];
-      script = ''
-        swapfile="/swap/swapfile"
-        if [[ -f "$swapfile" ]]; then
-          echo "Swap file $swapfile already exists, taking no action"
-        else
-          echo "Setting up swap file $swapfile"
-          ${pkgs.e2fsprogs}/bin/chattr +C "$swapfile"
-          ${pkgs.coreutils}/bin/truncate -s 0 "$swapfile"
-          ${pkgs.coreutils}/bin/chown root "$swapfile"
-          ${pkgs.coreutils}/bin/chmod 600 "$swapfile"
-        fi
-      '';
-    };
-  };
+  #systemd.services = {
+  #  create-swapfile = {
+  #    serviceConfig.Type = "oneshot";
+  #    wantedBy = [ "swap-swapfile.swap" ];
+  #    script = ''
+  #      swapfile="/swap/swapfile"
+  #      if [[ -f "$swapfile" ]]; then
+  #        echo "Swap file $swapfile already exists, taking no action"
+  #      else
+  #        echo "Setting up swap file $swapfile"
+  #        ${pkgs.e2fsprogs}/bin/chattr +C "$swapfile"
+  #        ${pkgs.coreutils}/bin/truncate -s 0 "$swapfile"
+  #        ${pkgs.coreutils}/bin/chown root "$swapfile"
+  #        ${pkgs.coreutils}/bin/chmod 600 "$swapfile"
+  #      fi
+  #    '';
+  #  };
+  #};
 
   #systemd.services.power-tune = {
   #  description = "Power Management tunings";
@@ -294,10 +295,10 @@
           x = 1920;
           y = 1080;
         }
-        {
-          x = 1280;
-          y = 720;
-        }
+        #{
+        #  x = 1280;
+        #  y = 720;
+        #}
         # { x = 1600; y = 900; }
         # { x = 3840; y = 2160; }
       ];
