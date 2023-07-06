@@ -24,7 +24,10 @@
 
     ### additional configuration to be appended to the generated modprobe.conf ###
     #extraModprobeConfig = lib.mkDefault ''
-    #  options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
+    # exclusive_caps: Skype, Zoom, Teams etc. will only show device when actually streaming
+    # card_label: Name of virtual camera, how it'll show up in Skype, Zoom, Teams
+    # https://github.com/umlaeute/v4l2loopback
+    #options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
     #'';
 
     ##############
@@ -54,6 +57,9 @@
         #"lz4hc_compress"
         #"kvm-intel"
         #"vhost_vsock"
+        #"v4l2loopback" # Virtual Camera
+        #"snd-aloop" # Virtual Microphone, built-in
+
       ];
       checkJournalingFS = false; # for vm
 

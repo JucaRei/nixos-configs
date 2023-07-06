@@ -3,9 +3,11 @@
     firefox = {
       enable = lib.mkDefault true;
       languagePacks = [ "en-GB" "pt-BR" ];
-      package = pkgs.unstable.firefox;
+      package = pkgs.unstable.firefox-unwrapped;
       policies = {
         DisableTelemetry = true;
+        DisablePocket = true;
+        DisableFirefoxAccounts = false;
         DontCheckDefaultBrowser = true;
         SanitizeOnShutdown = {
           Cache = true;

@@ -43,14 +43,14 @@ mount -o $BTRFS_OPTS,subvol="@tmp" /dev/disk/by-label/NIXOS /mnt/var/tmp
 mount -o $BTRFS_OPTS,subvol="@nix" /dev/disk/by-label/NIXOS /mnt/nix
 # mount -o $BTRFS_OPTS,subvol="@nix" /dev/disk/by-partlabel/NIXOS /mnt/nix
 mount -o $SWAPFILE_OPTS,subvol="@swap" /dev/disk/by-label/NIXOS /mnt/swap
-truncate -s 0 /mnt/swap/swapfile
-chattr +C /mnt/swap/swapfile
-btrfs property set /mnt/swap/swapfile compression none
-dd if=/dev/zero of=/mnt/swap/swapfile bs=1M count=2048
-chmod 0600 /mnt/swap/swapfile
-mkswap /mnt/swap/swapfile
+#truncate -s 0 /mnt/swap/swapfile
+#chattr +C /mnt/swap/swapfile
+#btrfs property set /mnt/swap/swapfile compression none
+#dd if=/dev/zero of=/mnt/swap/swapfile bs=1M count=2048
+#chmod 0600 /mnt/swap/swapfile
+#mkswap /mnt/swap/swapfile
 
-mount -t vfat -o rw,defaults,noatime,nodiratime /dev/disk/by-label/EFI /mnt/boot
+mount -t vfat -o rw,defaults,noatime,nodiratime /dev/disk/by-label/EFI /mnt/boot/efi
 
 # for dir in dev proc sys run; do
 #    mount --rbind /$dir /mnt/$dir

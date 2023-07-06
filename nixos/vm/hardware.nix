@@ -99,8 +99,8 @@
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
     options = [
-      "subvol=swap"
-      "compress=lzo"
+      "subvol=@swap"
+      "compress=lz4"
       "noatime"
     ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
   };
@@ -116,28 +116,36 @@
     #device = "/dev/disk/by-label/SWAP";
     #size = 2 GiB;
     device = "/swap/swapfile";
-    size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
+    size = (1024 * 2); # RAM size
+    #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
   }];
 
   ### Swapfile
+  #systemd.services = {
+  #  create-swapfile = {
+  #    serviceConfig.Type = "oneshot";
+  #    wantedBy = [ "swap-swapfile.swap" ];
+  #    script = ''
+  #      ${pkgs.coreutils}/bin/truncate -s 0 /swap/swapfile
+  #      ${pkgs.e2fsprogs}/bin/chattr +C /swap/swapfile
+  #      ${pkgs.btrfs-progs}/bin/btrfs property set /swap/swapfile compression none
+  #    '';
+  #  };
+  #};
+
   systemd.services = {
     create-swapfile = {
       serviceConfig.Type = "oneshot";
       wantedBy = [ "swap-swapfile.swap" ];
-      #wantedBy = [ "swapfile.swap" ];
-      #script = ''
-      #  swapfile="/swap/swapfile"
-      #  if [[ -f "$swapfile" ]]; then
-      #    echo "Swap file $swapfile already exists, taking no action"
-      #  else
-      #    echo "Setting up swap file $swapfile"
-      #    ${pkgs.coreutils}/bin/truncate -s 0 /swap/swapfile
-      #    ${pkgs.e2fsprogs}/bin/chattr +C /swap/swapfile
-      #'';
       script = ''
-        ${pkgs.coreutils}/bin/truncate -s 0 /swap/swapfile
-        ${pkgs.e2fsprogs}/bin/chattr +C /swap/swapfile
-        ${pkgs.btrfs-progs}/bin/btrfs property set /swap/swapfile compression none
+        swapfile="/swap/swapfile"
+        if [[ -f "$swapfile" ]]; then
+          echo "Swap file $swapfile already exists, taking no action"
+        else
+          echo "Setting up swap file $swapfile"
+          ${pkgs.coreutils}/bin/truncate -s 0 "$swapfile"
+          ${pkgs.e2fsprogs}/bin/chattr +C "$swapfile"
+        fi
       '';
     };
   };
