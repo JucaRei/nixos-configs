@@ -5,7 +5,7 @@
   i18n = {
     defaultLocale = "en_US.utf8";
     extraLocaleSettings = {
-      LC_CTYPE = lib.mkDefault "pt_BR.UTF-8"; # Fix ç in us-intl.
+      #LC_CTYPE = lib.mkDefault "pt_BR.UTF-8"; # Fix ç in us-intl.
       LC_ADDRESS = "pt_BR.utf8";
       LC_IDENTIFICATION = "pt_BR.utf8";
       LC_MEASUREMENT = "pt_BR.utf8";
@@ -25,7 +25,7 @@
     #xkbVariant = "pc105";
     #xkbModel = "pc105";
     #};
-    kmscon.extraOptions = "--xkb-layout=br";
+    kmscon.extraOptions = "--xkb-layout=us";
   };
   time.timeZone = lib.mkDefault "America/Sao_Paulo";
   #location = {
