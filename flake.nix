@@ -77,7 +77,7 @@
         # .iso images
         #  - nix build .#nixosConfigurations.{iso|iso-mini}.config.system.build.isoImage
         iso             = libx.mkHost {  hostname = "iso";             username = "nixos"; hostid = "0145d780"; desktop = "pantheon"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"; };
-        iso-mini        = libx.mkHost {  hostname = "iso-mini";        username = "nixos"; hostid = "0145d783"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"; };
+        #iso-mini        = libx.mkHost {  hostname = "iso-mini";        username = "nixos"; hostid = "0145d783"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"; };
         
         # Laptop
         #  - sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
@@ -88,9 +88,9 @@
         vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
         
         # Servers
-        vm-mini         = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };
+        #vm-mini         = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };
         raspberry       = libx.mkHost {  hostname = "raspberry";       username = "juca";  hostid = "8c0b93a2"; desktop = "pantheon"; };
-        raspberry-mini  = libx.mkHost {  hostname = "raspberry-mini";  username = "juca";  hostid = "8c0b93a5"; };
+        #raspberry-mini  = libx.mkHost {  hostname = "raspberry-mini";  username = "juca";  hostid = "8c0b93a5"; };
       };
 
       # Devshell for bootstrapping; acessible via 'nix develop' or 'nix-shell' (legacy)

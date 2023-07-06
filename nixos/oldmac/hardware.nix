@@ -38,8 +38,10 @@
   };
 
   services = {
-    xserver.enable = true;
-    videoDrivers = [ "nvidia" ];
+    xserver = {
+      enable = true;
+      videoDrivers = [ "nvidia" ];
+    };
   };
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

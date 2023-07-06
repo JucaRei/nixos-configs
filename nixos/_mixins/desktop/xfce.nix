@@ -3,14 +3,6 @@
   imports = [ ./qt-style.nix ../services/networkmanager.nix ];
 
   environment = {
-    xfce.excludePackages = with pkgs.xfce; [
-      xfce4-mailwatch-plugin
-      xfce4-cpugraph-plugin
-      thunar-dropbox-plugin
-    ];
-  };
-
-  environment = {
     systemPackages = with pkgs; [
       drawing
       mpv

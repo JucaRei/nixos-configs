@@ -5,7 +5,7 @@
       enable = false; # enable if needed
       drivers = with pkgs; [ gutenprint hplipWithPlugin ];
       cups-pdf = { 
-        enable = true; 
+        enable = false; 
       };
     };
   };

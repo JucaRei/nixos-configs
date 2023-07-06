@@ -21,7 +21,7 @@
 
     kernelModules = [ "vhost_vsock" ];
 
-    kernelPackages = with pkgs; [ linuxPackages_5_4 linuxPackages_6_3 ];
+    kernelPackages = pkgs.linuxPackages_5_4;
 
     kernelParams = [ "mitigations=off" ];
     kernel.sysctl = {
