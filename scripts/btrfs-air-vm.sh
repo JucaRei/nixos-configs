@@ -1,7 +1,7 @@
 #!/bin/sh
-
+export FULL="/dev/vda"
 export DRIVE="vda"
-sgdisk -Z $DRIVE
+sgdisk -Z $FULL
 sgdisk -n 0:0:200MiB /dev/vda
 sgdisk -n 0:0:0 /dev/vda
 
