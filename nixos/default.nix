@@ -88,7 +88,8 @@
     # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
     optimise.automatic = true;
-    package = pkgs.unstable.nix;
+    #package = pkgs.unstable.nix;
+    package = pkgs.nixFlakes;
     settings = {
       sandbox = "relaxed";
       auto-optimise-store = true;
