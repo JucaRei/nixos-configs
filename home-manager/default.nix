@@ -58,8 +58,6 @@ in {
   };
 
   nix = {
-    # Used for impure `<nixpkgs>`.
-    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
     package = lib.mkDefault pkgs.unstable.nix;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
