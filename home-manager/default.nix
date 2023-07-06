@@ -59,6 +59,8 @@ in {
 
   nix = {
 
+    # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
+    settings.keep-going = true;
     package = lib.mkDefault pkgs.unstable.nix;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {

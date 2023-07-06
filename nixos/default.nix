@@ -56,6 +56,10 @@
   };
 
   nix = {
+
+    # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
+    settings.keep-going = true;
+
     gc = {
       automatic = true;
       options = "--delete-older-than 5d";
