@@ -1,24 +1,14 @@
 { desktop, lib, pkgs, username, ... }: {
-  config.system.activationScripts.installerDesktop = let
-    homeDir = "/home/${username}/";
-    desktopDir = homeDir + "Desktop/";
-  in ''
-    mkdir -p ${desktopDir}
-    chown ${username} ${homeDir} ${desktopDir}
-    ln -sfT ${pkgs.gparted}/share/applications/gparted.desktop ${
-      desktopDir + "gparted.desktop"
-    }
-    ln -sfT ${pkgs.pantheon.elementary-terminal}/share/applications/io.elementary.terminal.desktop ${
-      desktopDir + "io.elementary.terminal.desktop"
-    }
-    ln -sfT ${pkgs.calamares-nixos}/share/applications/io.calamares.calamares.desktop ${
-      desktopDir + "io.calamares.calamares.desktop"
-    }
-  '';
+  config.systemd.tmpfiles.rules = [
+    "d /home/${username}/Desktop 0755 ${username} users"
+    "L+ /home/${username}/Desktop/gparted.desktop - - - - ${pkgs.gparted}/share/applications/gparted.desktop"
+    "L+ /home/${username}/Desktop/io.elementary.terminal.desktop - - - - ${pkgs.pantheon.elementary-terminal}/share/applications/io.elementary.terminal.desktop"
+    "L+ /home/${username}/Desktop/io.calamares.calamares.desktop - - - - ${pkgs.calamares-nixos}/share/applications/io.calamares.calamares.desktop"
+  ];
 
   config = {
-    services.kmscon.autologinUser = lib.mkForce null;
     isoImage.edition = lib.mkForce "${desktop}";
+    services.kmscon.autologinUser = lib.mkForce null;
     services.xserver = {
       displayManager.autoLogin.user = "${username}";
       libinput.enable = true;

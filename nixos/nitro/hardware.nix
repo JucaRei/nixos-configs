@@ -86,7 +86,7 @@
     #logind.lidSwitchDocked = "ignore";
 
     hardware.openrgb = {
-      enable = true;
+      enable = false;
       motherboard = "intel";
       package = pkgs.openrgb-with-all-plugins;
     };
@@ -94,8 +94,6 @@
     # Temperature management daemon
     thermald = { enable = true; };
   };
-
-  networking.hostName = "nixtro";
 
   #time = {
   #  # For Windows interop

@@ -24,13 +24,13 @@
     # Add some elementary additional apps and include Yaru for syntax highlighting
     systemPackages = with pkgs; [
       #inputs.nix-software-center.packages.${system}.nix-software-center
-      appeditor # elementary OS menu editor
-      celluloid # Video Player
-      formatter # elementary OS filesystem formatter
-      gthumb # Image Viewer
+      appeditor                       # elementary OS menu editor
+      celluloid                       # Video Player
+      formatter                       # elementary OS filesystem formatter
+      gthumb                          # Image Viewer
       gnome.simple-scan
-      indicator-application-gtk3 # App Indicator
-      pantheon.sideload # elementary OS Flatpak installer
+      #indicator-application-gtk3     # App Indicator
+      #pantheon.sideload              # elementary OS Flatpak installer
       yaru-theme
       #cipher                         # elementary OS text encoding/decoding
       #elementary-planner             # UNSTABLE: elementary OS planner with Todoist support
@@ -52,8 +52,10 @@
   };
 
   services = {
-    flatpak = { enable = true; };
-    pantheon.apps.enable = true;
+    flatpak = { 
+      enable = true; 
+    };
+    #pantheon.apps.enable = true;
 
     xserver = {
       enable = true;
@@ -114,13 +116,12 @@
 
   # App indicator
   # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
-  systemd.user.services.indicatorapp = {
-    description = "indicator-application-gtk3";
+  systemd.user.services.indicator-application-service = {
+    description = "indicator-application-service";
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
     serviceConfig = {
-      ExecStart =
-        "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
+      ExecStart = "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
     };
   };
 }
