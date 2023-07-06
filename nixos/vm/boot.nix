@@ -52,11 +52,11 @@
       ### kernel modules to be loaded in the second stage, that are needed to mount the root file system ###
       kernelModules = [
         #"z3fold"
-        "crc32c-intel"
+        #"crc32c-intel"
         #"lz4hc"
         #"lz4hc_compress"
         #"kvm-intel"
-        #"vhost_vsock"
+        "vhost_vsock"
         #"v4l2loopback" # Virtual Camera
         #"snd-aloop" # Virtual Microphone, built-in
 
