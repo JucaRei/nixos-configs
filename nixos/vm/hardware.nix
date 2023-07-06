@@ -114,7 +114,7 @@
   };
 
   swapDevices = [{
-    device = "/swapfile";
+    device = "/swap/swapfile";
     #size = 2 GiB;
     #device = "/swap/swapfile";
     #size = (1024 * 2); # RAM size

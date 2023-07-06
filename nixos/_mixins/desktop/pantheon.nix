@@ -3,6 +3,7 @@
     #./apps/style/qt-style.nix
     ./qt-style.nix
     ../services/networkmanager.nix
+    ./apps/browsers/firefox.nix
     #../services/systemd-networkd.nix
   ];
 
