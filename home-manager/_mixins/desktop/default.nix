@@ -1,30 +1,17 @@
-{
-  config,
-  desktop,
-  pkgs,
-  ...
-}: {
+{ config, desktop, pkgs, ...}: {
   imports = [
+    #./audio-recorder.nix
     ./celluloid.nix
     ./dconf-editor.nix
     ./emote.nix
-    ./gitkraken.nix
-    ./meld.nix
+    #./gitkraken.nix
+    #./gnome-sound-recorder.nix
+    #./meld.nix
     ./rhythmbox.nix
-    ./tilix.nix
+    #./tilix.nix
     #./samba.nix
     (./. + "/${desktop}.nix")
   ];
-
-  fonts.fontconfig.enable = true;
-  home.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["FiraCode" "UbuntuMono"];})
-    work-sans
-    joypixels
-    ubuntu_font_family
-  ];
-  # Accept the joypixels license
-  nixpkgs.config.joypixels.acceptLicense = true;
 
   home.file = {
     "${config.xdg.configHome}/autostart/enable-flathub.desktop".text = "

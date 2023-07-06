@@ -83,8 +83,8 @@
       #zsync                         # Terminal file sync
 
       ### Ansible
-      ansible # Automation
-      sshpass # Ansible Dependency
+      #ansible # Automation
+      #sshpass # Ansible Dependency
 
       ### Archive Tools
       unzip
@@ -107,7 +107,7 @@
 
     sessionVariables = {
       EDITOR = "micro";
-      MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
+      MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man'";
       PAGER = "moar";
       SYSTEMD_EDITOR = "micro";
       VISUAL = "micro";
@@ -177,9 +177,7 @@
     jq.enable = true;
     micro = {
       enable = true;
-      #enable = true;
       settings = {
-        #colorcolumn = 80;
         colorscheme = "simple";
         diffgutter = true;
         rmtrailingws = true;
@@ -207,7 +205,6 @@
   services = {
     gpg-agent = {
       enable = true;
-      #enable = false;
       enableSshSupport = true;
       pinentryFlavor = "curses";
     };
