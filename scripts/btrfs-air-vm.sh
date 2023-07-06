@@ -49,6 +49,7 @@ btrfs property set /mnt/swap/swapfile compression none
 dd if=/dev/zero of=/mnt/swap/swapfile bs=1M count=2048
 chmod 0600 /mnt/swap/swapfile
 mkswap /mnt/swap/swapfile
+swapon /mnt/swap/swapfile
 
 mount -t vfat -o rw,defaults,noatime,nodiratime /dev/disk/by-label/EFI /mnt/boot/efi
 
