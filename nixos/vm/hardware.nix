@@ -27,7 +27,7 @@
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
     options = [
-      "subvol=@root"
+      "subvol=@home"
       "rw"
       "noatime"
       "nodiratime"
@@ -45,7 +45,7 @@
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
     options = [
-      "subvol=@root"
+      "subvol=@snapshots"
       "rw"
       "noatime"
       "nodiratime"
@@ -63,7 +63,7 @@
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
     options = [
-      "subvol=@root"
+      "subvol=@tmp"
       "rw"
       "noatime"
       "nodiratime"
@@ -81,7 +81,7 @@
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
     options = [
-      "subvol=@root"
+      "subvol=@nix"
       "rw"
       "noatime"
       "nodiratime"
