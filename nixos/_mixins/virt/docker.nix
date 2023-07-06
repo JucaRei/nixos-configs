@@ -1,13 +1,8 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
+{ pkgs, lib, config, ... }:
 with pkgs;
 with lib;
-with builtins; let
-  cfg = config.sys;
+with builtins;
+let cfg = config.sys;
 in {
   options.sys.virtualisation = {
     docker = {
@@ -26,6 +21,9 @@ in {
         default = false;
         description = "Prune all automatic";
       };
+
+      # https://docs.docker.com/build/buildkit/
+      daemon.settings = { "features" = { "buildkit" = true; }; };
     };
   };
 

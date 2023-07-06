@@ -5,6 +5,8 @@
       extraConfig = "\n    load-module module-switch-on-connect\n  ";
     };
   };
+
+  security.rtkit.enable = true;
   services = {
     pipewire = {
       enable = true;

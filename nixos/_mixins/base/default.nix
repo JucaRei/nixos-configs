@@ -52,26 +52,20 @@
   environment.systemPackages = with pkgs; [
     binutils
     curl
-    wget
     desktop-file-utils
     file
     git
     home-manager
     killall
     man-pages
-    #mergerfs
-    #mergerfs-tools
     micro
-    exfat
+    duf
     pciutils
-    usbutils
     rsync
     unzip
+    usbutils
     wget
     xdg-utils
-    lm_sensors
-    duf
-    neofetch
   ];
 
   fonts = {
@@ -88,12 +82,11 @@
       work-sans
     ];
 
-    # use fonts specified by user rather than default ones
+    # Enable a basic set of fonts providing several font styles and families and reasonable coverage of Unicode.
     enableDefaultFonts = false;
 
     fontconfig = {
       antialias = true;
-      cache32Bit = true;
       defaultFonts = {
         serif = [ "Source Serif" ];
         sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
@@ -118,13 +111,15 @@
 
   # Use passed in hostid and hostname to configure basic networking
   networking = {
+    #extraHosts = ''
+      #192.168.192.59  trooper-zt
+      #192.168.192.181 zed-zt
+      #192.168.192.220 ripper-zt
+      #192.168.192.249 p2-max-zt
+    #'';
     hostName = hostname;
     hostId = hostid;
     useDHCP = lib.mkDefault true;
-    #extraHosts = ''
-    #  192.168.192.59  trooper-zt
-    #  192.168.192.220 ripper-zt
-    #'';
   };
 
   programs = {
@@ -134,11 +129,11 @@
       shellAbbrs = {
         mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
         # https://github.com/NixOS/nixpkgs/issues/191128#issuecomment-1246030417
-        nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
-        rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
-        rebuild-iso = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
+        nix-gc           = "sudo nix-collect-garbage --delete-older-than 5d";
+        rebuild-home     = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-host     = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+        rebuild-lock     = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
+        rebuild-iso      = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
         rebuild-iso-mini = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-mini.config.system.build.isoImage && popd";
         nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
         #rebuild-home = "home-manager switch -b backup --flake $HOME/.setup";
@@ -149,39 +144,12 @@
     };
   };
 
-  systemd = {
-    # Create dirs for home-manager
-    tmpfiles.rules = [
-      "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
-      "d /mnt/snapshot/${username} 0755 ${username} users"
-    ];
-
-    # Change build dir to /var/tmp
-    services.nix-daemon = { environment.TMPDIR = "/var/tmp"; };
-
-    # Reduce default service stop timeouts for faster shutdown
-    #extraConfig = ''
-    #  DefaultTimeoutStopSec=15s
-    #  DefaultTimeoutAbortSec=5s
-    #'';
-
-    # systemd's out-of-memory daemon
-    #oomd = {
-    #  enable = lib.mkDefault true;
-    #  enableSystemSlice = true;
-    #  enableUserServices = true;
-    #};
-  };
-
   ## Some optimizations services as default
-  security = {
-    rtkit.enable = true;
-
-    # required by podman to run containers in rootless mode when using linuxPackages_hardened
-    # unprivilegedUsernsClone = true;
-  };
+  # required by podman to run containers in rootless mode when using linuxPackages_hardened
+  # security.unprivilegedUsernsClone = true;
 
   services = {
+
     udisks2.enable = true;
     ananicy = {
       package = pkgs.ananicy-cpp;
@@ -224,5 +192,26 @@
     logind.extraConfig = ''
       HandlePowerKey=suspend-then-hibernate
     '';
+  };
+
+  systemd = {
+    # Create dirs for home-manager
+    tmpfiles.rules = [
+      "d /nix/var/nix/profiles/per-user/${username} 0755 ${username} root"
+      "d /mnt/snapshot/${username} 0755 ${username} users"
+    ];
+
+    # Reduce default service stop timeouts for faster shutdown
+    #extraConfig = ''
+    #  DefaultTimeoutStopSec=15s
+    #  DefaultTimeoutAbortSec=5s
+    #'';
+
+    # systemd's out-of-memory daemon
+    #oomd = {
+    #  enable = lib.mkDefault true;
+    #  enableSystemSlice = true;
+    #  enableUserServices = true;
+    #};
   };
 }

@@ -14,11 +14,13 @@ in {
     ./_mixins/console
     ./_mixins/dev
   ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
-    ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
+    ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}"))
+    ./_mixins/users/${username};
 
   home = {
     username = username;
-    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+    homeDirectory =
+      if isDarwin then "/Users/${username}" else "/home/${username}";
     sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = stateVersion;
   };
@@ -56,6 +58,11 @@ in {
   };
 
   nix = {
+    # This will additionally add your inputs to the system's legacy channels
+    # Making legacy nix commands consistent as well, awesome!
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
+
     package = lib.mkDefault pkgs.unstable.nix;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {

@@ -13,11 +13,26 @@
     #syft             # Container SBOM generator
   ];
 
+  ### podman-shell.nix /examples_helper/shells/podman-shell.nix
+
   # podman-desktop; only if desktop defined.
   virtualisation = {
+
+    ### Run Podman containers as systemd services "https://nixos.wiki/wiki/Podman"
+    #oci-containers = {
+    #  backend = "podman";
+    #  containers = {
+    #    container-name = {
+    #      image = "container-image";
+    #      autoStart = true;
+    #      ports = [ "127.0.0.1:1234:1234" ];
+    #    };
+    #  };
+    #};
+
     podman = {
       defaultNetwork.settings = { dns_enabled = true; };
-      #extraPackages = [ pkgs.zfs ];
+      #extraPackages = [ pkgs.zfs ];  # Using podman with ZFS
       dockerCompat = true;
       enable = true;
       enableNvidia = lib.elem "nvidia" config.services.xserver.videoDrivers;
@@ -30,6 +45,12 @@
         # "registry.access.redhat.com"
         # "registry.centos.org"
       ];
+
+      # https://nixos.wiki/wiki/Podman
+      containersConf.settings = {
+        engine.helper_binaries_dir = [ "${pkgs.netavark}/bin" ];
+      };
+
       containersConf.settings = {
         containers.dns_servers = [ "8.8.8.8" "8.8.4.4" ];
       };
