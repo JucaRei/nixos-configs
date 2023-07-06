@@ -32,8 +32,6 @@
     ##############
 
     initrd = {
-      systemd.enable = true;
-
       ###  kernel modules in the initial ramdisk used during the boot process ###
       availableKernelModules = [
         "ata_piix"
