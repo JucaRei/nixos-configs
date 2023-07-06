@@ -24,7 +24,7 @@
   programs = {
     dconf.enable = true;
     # Chromium is enabled by default with sane defaults.
-    firefox = { enable = false; };
+    firefox = { enable = true; };
   };
 
   # Disable xterm
