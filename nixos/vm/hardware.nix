@@ -15,7 +15,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:5"
+      "compress-force=zstd:10"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -33,7 +33,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:5"
+      "compress-force=zstd:10"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -51,7 +51,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:5"
+      "compress-force=zstd:10"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -69,7 +69,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:5"
+      "compress-force=zstd:10"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -87,7 +87,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:5"
+      "compress-force=zstd:10"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -95,16 +95,16 @@
     ];
   };
 
-  fileSystems."/swap" = {
-    device = "/dev/disk/by-label/NIXOS";
-    fsType = "btrfs";
-    options = [
-      "subvol=@swap"
-      #"compress=lz4"
-      "defaults"
-      "noatime"
-    ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
-  };
+  #fileSystems."/swap" = {
+  #  device = "/dev/disk/by-label/NIXOS";
+  #  fsType = "btrfs";
+  #  options = [
+  #    "subvol=@swap"
+  #    #"compress=lz4"
+  #    "defaults"
+  #    "noatime"
+  #  ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
+  #};
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/EFI";
@@ -114,7 +114,9 @@
   };
 
   swapDevices = [{
-    device = "/swap/swapfile";
+    device = "/dev/disk/by-label/SWAP";    
+    ### SWAPFILE
+    #device = "/swap/swapfile";
     #size = 2 GiB;
     #device = "/swap/swapfile";
     #size = (1024 * 2); # RAM size
