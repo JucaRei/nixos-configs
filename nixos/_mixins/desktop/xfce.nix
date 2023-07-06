@@ -4,9 +4,6 @@
 
   environment = {
     xfce.excludePackages = with pkgs.xfce; [
-      xfburn
-      parole
-      xfce4-screenshooter
       xfce4-mailwatch-plugin
       xfce4-cpugraph-plugin
       thunar-dropbox-plugin
