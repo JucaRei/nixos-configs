@@ -1,7 +1,7 @@
 { lib, hostname, username, ... }: {
   imports = [ ]
     ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix")) ./hosts/${hostname}.nix;
-  #home.file.".face".source = ./face.png;
+  
   home = {
     #file.".bazaar/authentication.conf".text = "
     #  [Launchpad]
@@ -20,7 +20,7 @@
     file.".distroboxrc".text = "
       xhost +si:localuser:$USER
     ";
-    #file.".face".source = ./face.png;
+    file.".face".source = ./face.jpg;
     #file."Development/debian/.envrc".text = "export DEB_VENDOR=Debian";
     #file."Development/ubuntu/.envrc".text = "export DEB_VENDOR=Ubuntu";
     #file.".ssh/config".text = "

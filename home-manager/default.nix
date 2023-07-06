@@ -14,13 +14,11 @@ in {
     ./_mixins/console
     ./_mixins/dev
   ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
-    ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}"))
-    ./_mixins/users/${username};
+    ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
 
   home = {
     username = username;
-    homeDirectory =
-      if isDarwin then "/Users/${username}" else "/home/${username}";
+    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
     sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = stateVersion;
   };
@@ -61,6 +59,7 @@ in {
 
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
     settings.keep-going = true;
+    
     package = lib.mkDefault pkgs.unstable.nix;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {
