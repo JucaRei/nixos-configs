@@ -123,16 +123,21 @@
   systemd.services = {
     create-swapfile = {
       serviceConfig.Type = "oneshot";
-      #wantedBy = [ "swap-swapfile.swap" ];
-      wantedBy = [ "swapfile.swap" ];
+      wantedBy = [ "swap-swapfile.swap" ];
+      #wantedBy = [ "swapfile.swap" ];
+      #script = ''
+      #  swapfile="/swap/swapfile"
+      #  if [[ -f "$swapfile" ]]; then
+      #    echo "Swap file $swapfile already exists, taking no action"
+      #  else
+      #    echo "Setting up swap file $swapfile"
+      #    ${pkgs.coreutils}/bin/truncate -s 0 /swap/swapfile
+      #    ${pkgs.e2fsprogs}/bin/chattr +C /swap/swapfile
+      #'';
       script = ''
-        swapfile="/swap/swapfile"
-        if [[ -f "$swapfile" ]]; then
-          echo "Swap file $swapfile already exists, taking no action"
-        else
-          echo "Setting up swap file $swapfile"
-          ${pkgs.coreutils}/bin/truncate -s 0 /swap/swapfile
-          ${pkgs.e2fsprogs}/bin/chattr +C /swap/swapfile
+        ${pkgs.coreutils}/bin/truncate -s 0 /swap/swapfile
+        ${pkgs.e2fsprogs}/bin/chattr +C /swap/swapfile
+        ${pkgs.btrfs-progs}/bin/btrfs property set /swap/swapfile compression none
       '';
     };
   };
