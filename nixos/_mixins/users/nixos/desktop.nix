@@ -1,4 +1,4 @@
-{ desktop, lib, pkgs, username, ... }: {
+{ config, desktop, lib, pkgs, username, ... }: {
   config.systemd.tmpfiles.rules = [
     "d /home/${username}/Desktop 0755 ${username} users"
     "L+ /home/${username}/Desktop/gparted.desktop - - - - ${pkgs.gparted}/share/applications/gparted.desktop"

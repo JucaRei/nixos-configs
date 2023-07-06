@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   hardware = {
     sane = {
-      enable = true;
+      enable = false;
       extraBackends = with pkgs; [ hplipWithPlugin sane-airscan ];
     };
   };
