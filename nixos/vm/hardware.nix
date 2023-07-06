@@ -124,9 +124,9 @@
     create-swapfile = {
       serviceConfig.Type = "oneshot";
       #wantedBy = [ "swap-swapfile.swap" ];
-      wantedBy = [ "swapfile.swap" ];
+      wantedBy = [ "swapfile" ];
       script = ''
-        swapfile="/mnt/swap/swapfile"
+        swapfile="/swap/swapfile"
         if [[ -f "$swapfile" ]]; then
           echo "Swap file $swapfile already exists, taking no action"
         else
