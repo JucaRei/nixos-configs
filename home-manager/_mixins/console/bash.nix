@@ -6,20 +6,20 @@
 
     historyControl = [ "erasedups" "ignorespace" ];
 
-    historyFileSize = 40000;
+    historyFileSize = 10000;
     historyFile = "\$HOME/.bash_history";
     historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
       #"histappend"
-      "autocd"
+      #"autocd"
       #"globstar"
       #"checkwinsize"
       #"cdspell"
-      "expand_aliases"
-      "dotglob"
-      "gnu_errfmt"
-      "nocasematch"
+      #"expand_aliases"
+      #"dotglob"
+      #"gnu_errfmt"
+      #"nocasematch"
     ];
 
     profileExtra = ''
