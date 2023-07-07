@@ -11,11 +11,11 @@
     historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
-      #"histappend"
+      "histappend"
       #"autocd"
       #"globstar"
       "checkwinsize"
-      #"cdspell"
+      "cdspell"
       "expand_aliases"
       #"dotglob"
       #"gnu_errfmt"
