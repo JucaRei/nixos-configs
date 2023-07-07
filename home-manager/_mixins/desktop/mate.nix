@@ -343,7 +343,8 @@ with lib.hm.gvariant;
     };
 
     iconTheme = {
-      name = "Yaru-dark-magenta";
+      #name = "Yaru-dark-magenta";
+      name = "Yaru-magenta-dark";
       package = pkgs.yaru-theme;
     };
 
