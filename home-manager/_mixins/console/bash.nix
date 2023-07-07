@@ -15,7 +15,7 @@
       #"autocd"
       #"globstar"
       "checkwinsize"
-      "cdspell"
+      #"cdspell"
       "expand_aliases"
       #"dotglob"
       #"gnu_errfmt"
