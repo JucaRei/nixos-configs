@@ -14,6 +14,6 @@
 
   qt = { 
     enable = true;
-    qt.platformTheme = "gnome"; 
+    platformTheme = "gnome"; 
   };
 }
