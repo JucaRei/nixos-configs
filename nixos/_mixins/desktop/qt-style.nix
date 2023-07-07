@@ -13,6 +13,7 @@
   };
 
   qt = { 
-    enable = true; 
+    enable = true;
+    qt.platformTheme = "gnome"; 
   };
 }
