@@ -12,14 +12,14 @@
 
     shellOptions = [
       "histappend"
-      "autocd"
+      #"autocd"
       #"globstar"
       "checkwinsize"
       "cdspell"
       "expand_aliases"
-      "dotglob"
+      #"dotglob"
       #"gnu_errfmt"
-      "nocasematch"
+      #"nocasematch"
     ];
 
     profileExtra = ''
