@@ -348,7 +348,8 @@ with lib.hm.gvariant;
     };
 
     theme = {
-      name = "Yaru-dark-magenta";
+      #name = "Yaru-dark-magenta";
+      name = "Yaru-magenta-dark";
       package = pkgs.yaru-theme;
     };
   };
