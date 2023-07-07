@@ -11,7 +11,7 @@
     historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
-      "histappend"
+      #"histappend"
       #"autocd"
       #"globstar"
       "checkwinsize"
