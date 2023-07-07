@@ -1,6 +1,9 @@
 { pkgs, ... }: {
 
-  imports = [ ./qt-style.nix ../services/networkmanager.nix ];
+  imports = [ 
+    #./qt-style.nix 
+    ../services/networkmanager.nix 
+  ];
 
   environment = {
     systemPackages = with pkgs; [
