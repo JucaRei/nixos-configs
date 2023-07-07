@@ -16,7 +16,7 @@
       #"globstar"
       "checkwinsize"
       #"cdspell"
-      "expand_aliases"
+      #"expand_aliases"
       #"dotglob"
       #"gnu_errfmt"
       #"nocasematch"
