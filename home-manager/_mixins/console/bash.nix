@@ -7,15 +7,15 @@
     historyControl = [ "erasedups" "ignorespace" ];
 
     historyFileSize = 40000;
-    historyFile = "\$HOME/.bash_history";
+    #historyFile = "\$HOME/.bash_history";
     historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
-      "histappend"
+      #"histappend"
       #"autocd"
       #"globstar"
       "checkwinsize"
-      "cdspell"
+      #"cdspell"
       "expand_aliases"
       #"dotglob"
       #"gnu_errfmt"
