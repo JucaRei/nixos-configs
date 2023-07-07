@@ -6,7 +6,7 @@
     ./git.nix
     ./neofetch.nix
     ./broot.nix
-    ./xdg.nix
+    #./xdg.nix
     ./skim.nix
     ./glow.nix
   ];
