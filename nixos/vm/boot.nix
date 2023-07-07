@@ -198,7 +198,8 @@
 
         useOSProber = false; # check for other systems
         fsIdentifier = "label"; # mount devices config using label
-        gfxmodeEfi = "1280x720,auto";
+        #gfxmodeEfi = "1280x720,auto";
+        gfxmodeEfi = "1920x1080,auto";
         fontSize = 20;
 
         configurationName = "NixOS VM test";

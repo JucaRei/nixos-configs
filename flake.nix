@@ -64,6 +64,7 @@
         "juca@air"            = libx.mkHome { hostname = "air";             username = "juca";  desktop = "xfce";     };
         "juca@oldmac"         = libx.mkHome { hostname = "oldmac";          username = "juca";  desktop = "pantheon"; };
         ### VM testing ###
+        #"juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "pantheon";     };
         "juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "xfce";     };
 #       "juca@vm-mini"        = libx.mkHome { hostname = "vm-mini";         username = "juca";                        };
         ### Servers ###
@@ -85,7 +86,8 @@
         nitro           = libx.mkHost {  hostname = "nitro";           username = "juca";  hostid = "0145d776"; desktop = "pantheon"; };
         air             = libx.mkHost {  hostname = "air";             username = "juca";  hostid = "b28460d8"; desktop = "xfce"; };
         oldmac          = libx.mkHost {  hostname = "oldmac";          username = "juca";  hostid = "be4cb578"; desktop = "pantheon"; };
-        vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
+        #vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
+        vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "xfce"; };
         
         # Servers
         #vm-mini         = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };
