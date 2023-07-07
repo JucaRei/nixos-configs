@@ -16,11 +16,9 @@
       "globstar"
       "checkwinsize"
       "cdspell"
-      "dirspell"
       "expand_aliases"
       "dotglob"
       "gnu_errfmt"
-      "histreedit"
       "nocasematch"
     ];
 
