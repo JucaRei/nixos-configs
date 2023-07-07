@@ -13,7 +13,7 @@
     shellOptions = [
       "histappend"
       "autocd"
-      "globstar"
+      #"globstar"
       "checkwinsize"
       "cdspell"
       "expand_aliases"
