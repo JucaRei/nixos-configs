@@ -4,11 +4,11 @@
   programs.bash = {
     enable = true;
 
-    #historyControl = [ "erasedups" "ignorespace" ];
+    historyControl = [ "erasedups" "ignorespace" ];
 
-    historyFileSize = 10000;
+    #historyFileSize = 10000;
     historyFile = "\$HOME/.bash_history";
-    #historyIgnore = [ "ls" "exit" "kill" ];
+    historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
       "histappend"
