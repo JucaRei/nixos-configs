@@ -18,7 +18,7 @@
       "cdspell"
       "expand_aliases"
       "dotglob"
-      "gnu_errfmt"
+      #"gnu_errfmt"
       "nocasematch"
     ];
 
