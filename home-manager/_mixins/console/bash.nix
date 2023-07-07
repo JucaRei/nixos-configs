@@ -4,22 +4,22 @@
   programs.bash = {
     enable = true;
 
-    historyControl = [ "erasedups" "ignorespace" ];
+    #historyControl = [ "erasedups" "ignorespace" ];
 
     historyFileSize = 10000;
     historyFile = "\$HOME/.bash_history";
-    historyIgnore = [ "ls" "exit" "kill" ];
+    #historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
-      #"histappend"
-      #"autocd"
-      #"globstar"
-      #"checkwinsize"
-      #"cdspell"
-      #"expand_aliases"
-      #"dotglob"
-      #"gnu_errfmt"
-      #"nocasematch"
+      "histappend"
+      "autocd"
+      "globstar"
+      "checkwinsize"
+      "cdspell"
+      "expand_aliases"
+      "dotglob"
+      "gnu_errfmt"
+      "nocasematch"
     ];
 
     profileExtra = ''
