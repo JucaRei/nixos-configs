@@ -15,8 +15,8 @@
       LC_PAPER = "pt_BR.utf8";
       LC_TELEPHONE = "pt_BR.utf8";
       LC_TIME = "pt_BR.utf8";
-      LC_COLLATE = "pt_BR.utf8";
-      LC_MESSAGES = "pt_BR.utf8";
+      #LC_COLLATE = "pt_BR.utf8";
+      #LC_MESSAGES = "pt_BR.utf8";
     };
   };
   services = {
