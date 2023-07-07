@@ -7,19 +7,19 @@
     historyControl = [ "erasedups" "ignorespace" ];
 
     historyFileSize = 40000;
-    #historyFile = "\$HOME/.bash_history";
+    historyFile = "\$HOME/.bash_history";
     historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
       #"histappend"
-      #"autocd"
+      "autocd"
       #"globstar"
-      "checkwinsize"
+      #"checkwinsize"
       #"cdspell"
-      #"expand_aliases"
-      #"dotglob"
-      #"gnu_errfmt"
-      #"nocasematch"
+      "expand_aliases"
+      "dotglob"
+      "gnu_errfmt"
+      "nocasematch"
     ];
 
     profileExtra = ''
