@@ -69,7 +69,7 @@ StartupNotify=false";
     #"Xft.dpi" = 172;
 
     # set for 1080p
-    "Xcursor.size" = 16;
-    "Xft.dpi" = 96;
+    #"Xcursor.size" = 16;
+    #"Xft.dpi" = 96;
   };
 }
