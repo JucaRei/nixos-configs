@@ -1,61 +1,160 @@
-{ options, config, pkgs, ... }:
+{ config, ... }:
 
 {
   programs.bash = {
     enable = true;
+    enableCompletion = true;
+    vteIntegration = true;
 
-    historyControl = [ "erasedups" "ignorespace" ];
+    historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
 
     #historyFileSize = 10000;
-    historyFile = "\$HOME/.bash_history";
+    historyFile = "$HOME/.bash_history";
     historyIgnore = [ "ls" "exit" "kill" ];
 
     shellOptions = [
-      "histappend"
+      "histappend" # Append to history file rather than replacing it.
       "autocd"
-      "globstar"
-      "checkwinsize"
+      "globstar" # Extended globbing.
+      "extglob" # Extended globbing.
+      "checkwinsize" # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
       "cdspell"
+      "dirspell"
       "expand_aliases"
       "dotglob"
       "gnu_errfmt"
+      "histreedit"
       "nocasematch"
     ];
 
     profileExtra = ''
-            # if running bash
-            if [ -n "$BASH_VERSION" ]; then
-              # include .bashrc if it exists
-              if [ -f "$HOME/.bashrc" ]; then
-                . "$HOME/.bashrc"
-              fi
-            fi
+        # if running bash
+        if [ -n "$BASH_VERSION" ]; then
+          # include .bashrc if it exists
+          if [ -f "$HOME/.bashrc" ]; then
+            . "$HOME/.bashrc"
+          fi
+        fi
 
-            # set PATH so it includes user's private bin if it exists
-            if [ -d "$HOME/bin" ] ; then
-              PATH="$HOME/bin:$PATH"
-            fi
+        # set PATH so it includes user's private bin if it exists
+        if [ -d "$HOME/bin" ] ; then
+          PATH="$HOME/bin:$PATH"
+        fi
 
-            # set PATH so it includes user's private bin if it exists
-            if [ -d "$HOME/.local/bin" ] ; then
-              PATH="$HOME/.local/bin:$PATH"
-            fi
+        # set PATH so it includes user's private bin if it exists
+        if [ -d "$HOME/.local/bin" ] ; then
+          PATH="$HOME/.local/bin:$PATH"
+        fi
 
-            if [ -e ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh ]; then
-              source ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh
-            fi
+        if [ -e ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh ]; then
+          source ${config.home.homeDirectory}/.nix-profile/etc/profile.d/nix.sh
+        fi
 
-            if [ -f ~/.bash_aliases ]; then
-              . ~/.bash_aliases
-            fi
+         if [ -n "$VIRTUAL_ENV" ]; then
+          env=$(basename "$VIRTUAL_ENV")
+          export PS1="($env) $PS1"
+        fi
 
-            if ! shopt -oq posix; then
-              if [ -f /usr/share/bash-completion/bash_completion ]; then
-                . /usr/share/bash-completion/bash_completion
-              elif [ -f /etc/bash_completion ]; then
-                . /etc/bash_completion
-              fi
-            fi
+        if [ -n "$IN_NIX_SHELL" ]; then
+         export PS1="(nix-shell) $PS1"
+        fi
+
+        if [ ! -z "$WSL_DISTRO_NAME" -a -d ~/.nix-profile/etc/profile.d ]; then
+          for f in ~/.nix-profile/etc/profile.d/* ; do
+            source $f
+          done
+        fi
+
+        # search Files and Edit
+      fe() {
+        rg --files ''${1:-.} | fzf --preview 'bat -f {}' | xargs $EDITOR
+      }
+      # Search content and Edit
+      se() {
+        fileline=$(rg -n ''${1:-.} | fzf | awk '{print $1}' | sed 's/.$//')
+        $EDITOR ''${fileline%%:*} +''${fileline##*:}
+      }
+
+      nbfkg() {
+      nix build -f . --keep-going $@
+      }
+
+      # Search git log, preview shows subject, body, and diff
+      fl() {
+        git log --oneline --color=always | fzf --ansi --preview="echo {} | cut -d ' ' -f 1 | xargs -I @ sh -c 'git log --pretty=medium -n 1 @; git diff @^ @' | bat --color=always" | cut -d ' ' -f 1 | xargs git log --pretty=short -n 1
+      }
+
+
+        if [ -f ~/.bash_aliases ]; then
+          . ~/.bash_aliases
+        fi
+
+        if ! shopt -oq posix; then
+          if [ -f /usr/share/bash-completion/bash_completion ]; then
+            . /usr/share/bash-completion/bash_completion
+          elif [ -f /etc/bash_completion ]; then
+            . /etc/bash_completion
+          fi
+        fi
+
+        [ -f $HOME/.nix-profile/etc/profile.d/nix.sh ] && . $HOME/.nix-profile/etc/profile.d/nix.sh
+
+        # useful for showing icons on non-NixOS systems
+        export XDG_DATA_DIRS=$HOME/.nix-profile/share:$XDG_DATA_DIRS
+
+        [ -d "$HOME/.local/bin" ] && export PATH=$PATH:$HOME/.local/bin
+        [ -d "$HOME/.poetry/bin" ] && export PATH=$PATH:$HOME/.poetry/bin
+        [ -d "$HOME/go/bin" ] && export PATH=$PATH:$HOME/go/bin
+        # [ -d "$HOME/.dotnet/tools" ] && export PATH=$PATH:$HOME/.dotnet/tools
+    '';
+
+    shellAliases = {
+      sudo = "sudo "; # will now check for alias expansion after sudo
+      ls = "exa ";
+      ll = "exa -l --color=always";
+      la = "exa -a --color=always";
+      lla = "exa -al --color=always";
+      ".." = "cd ..";
+      "..." = "cd ../..";
+      "...." = "cd ../../..";
+      ".2" = "cd ../..";
+      ".3" = "cd ../../..";
+      ".4" = "cd ../../../..";
+      ".5" = "cd ../../../../..";
+      ".6" = "cd ../../../../../..";
+      bro = "bitte rebuild --only";
+      g = "git";
+      gco = "git checkout";
+      gst = "git status";
+      nfl = "nix flake lock";
+      nflu = "nix flake lock --update-input";
+      vimdiff = "nvim -d";
+      vim = "nvim";
+      vi = "nvim";
+      opt = ''
+        manix "" | grep '^# ' | sed 's/^# \(.*\) (.*/\1/;s/ (.*//;s/^# //' | fzf --ansi --preview="manix '{}' | sed 's/type: /> type: /g' | bat -l Markdown --color=always --plain"'';
+      to32 = "nix-hash --to-base32 --type sha256";
+
+      suspend = "systemctl suspend";
+    };
+
+    initExtra = ''
+      # Ctrl+W kills word
+      stty werase undef
+
+      # fzy reverse search
+      __fzy_history() {
+          ch="$(fc -rl 1 | awk -F'\t' '{print $2}' | sort -u | fzy)"
+          : "''${ch#"''${ch%%[![:space:]]*}"}"
+          printf "$_"
+      }
+
+      bind -x '"\C-r": READLINE_LINE=$(__fzy_history); READLINE_POINT="''${#READLINE_LINE}"'
+
+      #complete -cf doas
+
+      source <(kubectl completion bash)
+      complete -F __start_kubectl k
     '';
 
     #shellOptions = options.programs.bash.shellOptions.default ++ [ "pipefail" ];

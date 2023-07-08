@@ -75,7 +75,7 @@
       #tokei                         # Modern Unix `wc` for code
       #vdpauinfo                     # Terminal VDPAU info
       #wavemon                       # Terminal WiFi monitor
-      wget2                          # Terminal downloader
+      wget2 # Terminal downloader
       #wmctrl                        # Terminal X11 automation
       #xdotool                       # Terminal X11 automation
       #yadm                          # Terminal dot file manager
@@ -98,6 +98,7 @@
       alejandra # Code format Nix
       nurl # Nix URL fetcher
       nix-index # nix-locate
+      manix # A Fast Documentation Searcher for Nix
       rnix-hashes # Quick utility for converting hashes.
       nix-top # see what's building
       nixpkgs-fmt # Code format Nix
@@ -108,7 +109,7 @@
 
     sessionVariables = {
       EDITOR = "micro";
-      MANPAGER="sh -c 'col --no-backspaces --spaces | bat --language man'";
+      MANPAGER = "sh -c 'col --no-backspaces --spaces | bat --language man'";
       PAGER = "moar";
       SYSTEMD_EDITOR = "micro";
       VISUAL = "micro";
