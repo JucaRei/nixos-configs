@@ -54,13 +54,6 @@
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     supportedFilesystems = [ "apfs" "exfat" "vfat" "btrfs" ]; # fat 32 and btrfs
 
-    console = {
-      earlySetup = true;
-      font = "ter-powerline-v18n";
-      keyMap = "uk";
-      packages = with pkgs; [ terminus_font powerline-fonts ];
-    };
-
     loader = {
       systemd-boot.consoleMode = "max";
       efi = {
@@ -72,5 +65,11 @@
       systemd-boot.memtest86.enable = true;
       timeout = 10;
     };
+  };
+  console = {
+    earlySetup = true;
+    font = "ter-powerline-v18n";
+    keyMap = "us";
+    packages = with pkgs; [ terminus_font powerline-fonts ];
   };
 }
