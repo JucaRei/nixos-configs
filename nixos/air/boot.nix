@@ -16,6 +16,7 @@
       availableKernelModules =
         [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       verbose = false;
+      compressor = "zstd";
     };
 
     kernelModules = [
@@ -52,7 +53,6 @@
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     supportedFilesystems = [ "apfs" "exfat" "vfat" "btrfs" ]; # fat 32 and btrfs
-    compressor = "zstd";
 
     console = {
       earlySetup = true;
