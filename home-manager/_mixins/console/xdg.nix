@@ -62,18 +62,18 @@ in {
     userDirs = {
       enable = true;
       createDirectories = lib.mkDefault true;
-      desktop = "${config.home.homeDirectory}/desktop";
-      documents = "${config.home.homeDirectory}/documents";
-      download = "${config.home.homeDirectory}/downloads";
-      music = "${config.home.homeDirectory}/music";
-      pictures = "${config.home.homeDirectory}/pictures";
-      publicShare = "${config.home.homeDirectory}/public";
-      templates = "${config.home.homeDirectory}/templates";
-      videos = "${config.home.homeDirectory}/videos";
+      desktop = "${config.home.homeDirectory}/Desktop";
+      documents = "${config.home.homeDirectory}/Documents";
+      download = "${config.home.homeDirectory}/Downloads";
+      music = "${config.home.homeDirectory}/Music";
+      pictures = "${config.home.homeDirectory}/Pictures";
+      publicShare = "${config.home.homeDirectory}/Public";
+      templates = "${config.home.homeDirectory}/Templates";
+      videos = "${config.home.homeDirectory}/Videos";
       extraConfig = {
         XDG_SCREENSHOTS_DIR =
-          "${config.home.homeDirectory}/pictures/screenshots";
-        XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/pictures/wallpapers";
+          "${config.home.homeDirectory}/Pictures/screenshots";
+        XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/Pictures/wallpapers";
         XDG_CONTAINERS_DIR = "${config.home.homeDirectory}/containers-data";
         XDG_WORKSPACE_DIR = "${config.home.homeDirectory}/workspace";
         XDG_CACHE_HOME = "${config.home.homeDirectory}/.cache";

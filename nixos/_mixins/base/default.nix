@@ -49,24 +49,15 @@
   documentation.nixos.enable = false; # nixos documentation
   documentation.man.enable = true; # manual pages and the man command
   documentation.info.enable = false; # info pages and the info command
-  documentation.doc.enable = false; # documentation distributed in packages' /share/doc
+  documentation.doc.enable =
+    false; # documentation distributed in packages' /share/doc
 
   environment = {
     # Eject nano and perl from the system
-    defaultPackages = with pkgs; lib.mkForce [
-      gitMinimal
-      home-manager
-      micro
-      rsync
-    ];
+    defaultPackages = with pkgs;
+      lib.mkForce [ gitMinimal home-manager micro rsync ];
 
-    systemPackages = with pkgs; [
-      man-pages
-      pciutils
-      psmisc
-      unzip
-      usbutils
-    ];
+    systemPackages = with pkgs; [ man-pages pciutils psmisc unzip usbutils ];
 
     variables = {
       EDITOR = "micro";
@@ -216,10 +207,10 @@
     ];
 
     # Reduce default service stop timeouts for faster shutdown
-    #extraConfig = ''
-    #  DefaultTimeoutStopSec=15s
-    #  DefaultTimeoutAbortSec=5s
-    #'';
+    extraConfig = ''
+      DefaultTimeoutStopSec=15s
+      DefaultTimeoutAbortSec=5s
+    '';
 
     # systemd's out-of-memory daemon
     #oomd = {
