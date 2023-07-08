@@ -75,7 +75,7 @@
         configurationLimit = 4;
         forceInstall = true;
         useOSProber = false;
-        fsIdentifier = "partlabel";
+        fsIdentifier = "label";
         gfxmodeEfi = "1366x788";
         fontSize = 20;
         configurationName = "Nixos oldMacbook Air";
