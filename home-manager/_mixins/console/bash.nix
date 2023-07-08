@@ -111,7 +111,6 @@
       sudo = "sudo "; # will now check for alias expansion after sudo
       ls = "exa ";
       ll = "exa -l --color=always";
-      la = "exa -a --color=always";
       lla = "exa -al --color=always";
       ".." = "cd ..";
       "..." = "cd ../..";
