@@ -1,9 +1,10 @@
 # Intel Skull Canyon NUC6i7KYK
 { inputs, lib, pkgs, ... }: {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.apple-macbook-air-4
     ../_mixins/hardware/gfx-intel.nix
     ../_mixins/services/pipewire.nix
   ];
@@ -136,6 +137,10 @@
         interval = "weekly";
       };
     };
+
+    # Hard disk protection if the laptop falls:
+    hdapsd.enable = lib.mkDefault true;
+
     #logind.lidSwitch = "suspend";
     #thermald.enable = true;
     #upower.enable = true;
