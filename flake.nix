@@ -61,7 +61,7 @@
         "juca@iso-mini"       = libx.mkHome {  hostname = "iso-mini";       username = "nixos";                        };
         ### Laptop ###
         "juca@nitro"          = libx.mkHome { hostname = "nitro";           username = "juca";  desktop = "pantheon"; };
-        "juca@air"            = libx.mkHome { hostname = "air";             username = "juca";  desktop = "xfce";     };
+        "juca@air"            = libx.mkHome { hostname = "air";             username = "juca";  desktop = "mate";     };
         "juca@oldmac"         = libx.mkHome { hostname = "oldmac";          username = "juca";  desktop = "pantheon"; };
         ### VM testing ###
         #"juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "pantheon";     };
@@ -84,7 +84,7 @@
         #  - sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
         #  - nix build .#nixosConfigurations.vm.config.system.build.toplevel
         nitro           = libx.mkHost {  hostname = "nitro";           username = "juca";  hostid = "0145d776"; desktop = "pantheon"; };
-        air             = libx.mkHost {  hostname = "air";             username = "juca";  hostid = "b28460d8"; desktop = "xfce"; };
+        air             = libx.mkHost {  hostname = "air";             username = "juca";  hostid = "b28460d8"; desktop = "mate"; };
         oldmac          = libx.mkHost {  hostname = "oldmac";          username = "juca";  hostid = "be4cb578"; desktop = "pantheon"; };
         #vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
         vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "mate"; };
