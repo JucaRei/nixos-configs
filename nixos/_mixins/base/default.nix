@@ -65,7 +65,7 @@
       usbutils
       duf
       htop
-      neovim-nightly-overlay
+      neovim
     ];
 
     variables = {
