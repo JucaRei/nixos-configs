@@ -5,28 +5,32 @@
         (old: { inherit (LT.sources.material-kwin-decoration) version src; }))
     ];
 
-  services.xserver.desktopManager.plasma5 = {
-    enable = true;
-    runUsingSystemd = true;
-  };
-  services.xserver.displayManager.defaultSession = "plasmawayland";
-  services.xserver.displayManager.lightdm.enable = false;
-
-  services.greetd = {
-    enable = true;
-    restart = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.greetd}/bin/agreety --cmd startplasma-wayland";
-        user = "greeter";
+  services = {
+    xserver = {
+      desktopManager.plasma5 = {
+        enable = true;
+        runUsingSystemd = true;
       };
-      initial_session = {
-        command = "startplasma-wayland";
-        user = "lantian";
+      libinput.enable = true;
+      displayManager.defaultSession = "plasmawayland";
+      displayManager.lightdm.enable = false;
+    };
+    greetd = {
+      enable = true;
+      restart = true;
+      settings = {
+        default_session = {
+          command =
+            "${pkgs.greetd.greetd}/bin/agreety --cmd startplasma-wayland";
+          user = "greeter";
+        };
+        initial_session = {
+          command = "startplasma-wayland";
+          user = "lantian";
+        };
       };
     };
   };
-
   environment.etc."greetd/environments".text = ''
     startplasma-wayland
   '';
@@ -35,9 +39,11 @@
 
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.sddm.enableGnomeKeyring = true;
-  programs.seahorse.enable = true;
-  programs.ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
-  programs.xwayland.enable = true;
+  programs = {
+    seahorse.enable = true;
+    ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
+    xwayland.enable = true;
+  };
 
   users.users.lantian.extraGroups = [ "video" "users" "input" ];
 

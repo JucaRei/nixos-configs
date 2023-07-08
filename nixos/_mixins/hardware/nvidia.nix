@@ -1,26 +1,36 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
+  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
+    exec "$@"
+  '';
+
   intelBusId = "PCI:0:2:0";
   nvidiaBusId = "PCI:1:0:0";
 in {
-  services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia.prime = {
-    offload.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware = {
+    nvidia.prime = {
+      offload.enable = true;
 
-    # Bus ID of the Intel GPU
-    # Find it using lspci, either under 3D or VGA
-    inherit intelBusId;
+      # Bus ID of the Intel GPU
+      # Find it using lspci, either under 3D or VGA
+      inherit intelBusId;
 
-    # Bus ID of the Nvidia GPU
-    # Find it using lspci, either under 3D or VGA
-    inherit nvidiaBusId;
+      # Bus ID of the Nvidia GPU
+      # Find it using lspci, either under 3D or VGA
+      inherit nvidiaBusId;
+    };
+
+    # Useful for when NixOS has issues finding the primary display
+    nvidia.modesetting.enable = true;
   };
-
-  # Useful for when NixOS has issues finding the primary display
-  hardware.nvidia.modesetting.enable = true;
-
   # OpenGL and accelerated video playback
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
   hardware.opengl = {
     enable = true;
@@ -41,7 +51,5 @@ in {
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    nvidia-offload
-  ];
+  environment.systemPackages = with pkgs; [ nvidia-offload ];
 }
