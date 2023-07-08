@@ -31,6 +31,7 @@
 
   # Enable some programs to provide a complete desktop
   programs = {
+    light.enable = true;
     gnome-disks.enable = true;
     nm-applet.enable = true;
     seahorse.enable = true;

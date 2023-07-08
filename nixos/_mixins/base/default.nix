@@ -57,7 +57,16 @@
     defaultPackages = with pkgs;
       lib.mkForce [ gitMinimal home-manager micro rsync ];
 
-    systemPackages = with pkgs; [ man-pages pciutils psmisc unzip usbutils ];
+    systemPackages = with pkgs; [
+      man-pages
+      pciutils
+      psmisc
+      unzip
+      usbutils
+      duf
+      htop
+      neovim-nightly-overlay
+    ];
 
     variables = {
       EDITOR = "micro";
