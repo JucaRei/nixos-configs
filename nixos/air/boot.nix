@@ -71,7 +71,7 @@
         enable = true;
         device = "nodev";
         efiSupport = true;
-        efiInstallAsRemovable = true;
+        #efiInstallAsRemovable = true;
         configurationLimit = 4;
         forceInstall = true;
         useOSProber = false;
