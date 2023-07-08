@@ -2,8 +2,9 @@
   boot = {
 
     blacklistedKernelModules = [ "nvidia" "nouveau" ];
-    extraModulePackages = with config.boot.kernelPackages; [ ];
+    extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     extraModprobeConfig = lib.mkDefault "";
+    loader.systemd-boot.consoleMode = "max";
 
     tmp = {
       useTmpfs = lib.mkDefault true;
@@ -15,13 +16,26 @@
         true; # This is needed to show the plymouth login screen to unlock luks
       availableKernelModules =
         [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-      kernelModules = [ ];
       verbose = false;
     };
 
-    kernelModules =
-      [ "kvm-intel" "wl" "z3fold" "crc32c-intel" "lz4hc" "lz4hc_compress" ];
-    kernelParams = [ "mitigations=off" ];
+    kernelModules = [
+      "i915"
+      "kvm-intel"
+      "wl"
+      "z3fold"
+      "crc32c-intel"
+      "lz4hc"
+      "lz4hc_compress"
+    ];
+    kernelParams = [
+      "mitigations=off"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "udev.log_priority=3"
+    ];
     kernel.sysctl = {
       #"kernel.sysrq" = 1;
       #"kernel.printk" = "3 3 3 3";
@@ -39,6 +53,13 @@
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     supportedFilesystems = [ "apfs" "exfat" "vfat" "btrfs" ]; # fat 32 and btrfs
+
+    console = {
+      earlySetup = true;
+      font = "ter-powerline-v18n";
+      keyMap = "uk";
+      packages = with pkgs; [ terminus_font powerline-fonts ];
+    };
 
     loader = {
       efi.canTouchEfiVariables = true;

@@ -9,7 +9,7 @@
   ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXOS";
+    device = "/dev/disk/by-partlabel/NIXOS";
     fsType = "btrfs";
     options = [
       "subvol=@root"
@@ -27,7 +27,7 @@
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-label/NIXOS";
+    device = "/dev/disk/by-partlabel/NIXOS";
     fsType = "btrfs";
     options = [
       "subvol=@home"
@@ -45,7 +45,7 @@
   };
 
   fileSystems."/.snapshots" = {
-    device = "/dev/disk/by-label/NIXOS";
+    device = "/dev/disk/by-partlabel/NIXOS";
     fsType = "btrfs";
     options = [
       "subvol=@snapshots"
@@ -63,7 +63,7 @@
   };
 
   fileSystems."/var/tmp" = {
-    device = "/dev/disk/by-label/NIXOS";
+    device = "/dev/disk/by-partlabel/NIXOS";
     fsType = "btrfs";
     options = [
       "subvol=@tmp"
@@ -81,7 +81,7 @@
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-label/NIXOS";
+    device = "/dev/disk/by-partlabel/NIXOS";
     fsType = "btrfs";
     options = [
       "subvol=@nix"
@@ -99,7 +99,7 @@
   };
 
   #fileSystems."/swap" = {
-  #  device = "/dev/disk/by-label/NIXOS";
+  #  device = "/dev/disk/by-partlabel/NIXOS";
   #  fsType = "btrfs";
   #  options = [
   #    "subvol=@swap"
@@ -110,14 +110,14 @@
   #};
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-label/EFI";
+    device = "/dev/disk/by-partlabel/EFI";
     fsType = "vfat";
     options = [ "defaults" "noatime" "nodiratime" ];
     noCheck = true;
   };
 
   swapDevices = [{
-    device = "/dev/disk/by-label/SWAP";
+    device = "/dev/disk/by-partlabel/SWAP";
     ### SWAPFILE
     #device = "/swap/swapfile";
     #size = 2 GiB;
