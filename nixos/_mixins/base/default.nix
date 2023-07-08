@@ -1,7 +1,7 @@
 { hostid, hostname, username, lib, pkgs, ... }: {
   imports = [
     ./locale.nix
-    #./nano.nix
+    ./nano.nix
     ../services/fwupd.nix
     ../services/android.nix
     ../services/ntp.nix

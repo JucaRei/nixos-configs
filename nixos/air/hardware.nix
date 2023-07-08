@@ -4,41 +4,155 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
+    ../_mixins/hardware/gfx-intel.nix
+    ../_mixins/services/pipewire.nix
   ];
 
-  # TODO: Replace this with disko
   fileSystems."/" = {
-    device = "/dev/disk/by-label/root";
-    fsType = "xfs";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/ESP";
-    fsType = "vfat";
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [
+      "subvol=@root"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:15"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-label/home";
-    fsType = "xfs";
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [
+      "subvol=@home"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:15"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
+  };
+
+  fileSystems."/.snapshots" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [
+      "subvol=@snapshots"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:15"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
+  };
+
+  fileSystems."/var/tmp" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [
+      "subvol=@tmp"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:15"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-label/NIXOS";
+    fsType = "btrfs";
+    options = [
+      "subvol=@nix"
+      "rw"
+      "noatime"
+      "nodiratime"
+      "ssd"
+      "nodatacow"
+      "compress-force=zstd:15"
+      "space_cache=v2"
+      "commit=120"
+      "autodefrag"
+      "discard=async"
+    ];
+  };
+
+  #fileSystems."/swap" = {
+  #  device = "/dev/disk/by-label/NIXOS";
+  #  fsType = "btrfs";
+  #  options = [
+  #    "subvol=@swap"
+  #    #"compress=lz4"
+  #    "defaults"
+  #    "noatime"
+  #  ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
+  #};
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/EFI";
+    fsType = "vfat";
+    options = [ "defaults" "noatime" "nodiratime" ];
+    noCheck = true;
   };
 
   swapDevices = [{
-    device = "/swap";
-    size = 2048;
+    device = "/dev/disk/by-label/SWAP";
+    ### SWAPFILE
+    #device = "/swap/swapfile";
+    #size = 2 GiB;
+    #device = "/swap/swapfile";
+    #size = (1024 * 2); # RAM size
+    #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
   }];
 
-  console = {
-    earlySetup = true;
-    # Pixel sizes of the font: 12, 14, 16, 18, 20, 22, 24, 28, 32
-    # Followed by 'n' (normal) or 'b' (bold)
-    font = "ter-powerline-v22n";
-    packages = [ pkgs.terminus_font pkgs.powerline-fonts ];
-  };
-
-  hardware = {
-    bluetooth = {
-      enable = true;
-      settings = { General = { Enable = "Source,Sink,Media,Socket"; }; };
+  services = {
+    #############
+    ### BTRFS ###
+    #############
+    btrfs = {
+      autoScrub = {
+        enable = true;
+        interval = "weekly";
+      };
+    };
+    #logind.lidSwitch = "suspend";
+    #thermald.enable = true;
+    #upower.enable = true;
+    kmscon.extraOptions =
+      lib.mkForce [ "--xkb-layout=us" "--xkb-model=pc105" "--xkb-variant=mac" ];
+    xserver = {
+      resolutions = [{
+        x = 1366;
+        y = 788;
+      }
+      #{
+      #  x = 1280;
+      #  y = 720;
+      #}
+      # { x = 1600; y = 900; }
+      # { x = 3840; y = 2160; }
+        ];
     };
   };
 

@@ -67,7 +67,8 @@
       ### Enabled filesystem ###
       ##########################
       # supportedFilesystems = [ "vfat" "zfs" ];
-      supportedFilesystems = [ "vfat" "btrfs" ]; # fat 32 and btrfs
+      supportedFilesystems =
+        [ "apfs" "exfat" "vfat" "btrfs" ]; # fat 32 and btrfs
       compressor = "zstd";
       # compressorArgs = ["-19" "-T0"];
       verbose = false;
