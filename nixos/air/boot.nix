@@ -52,7 +52,7 @@
       "net.ipv4.ip_default_ttl" = 65;
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    supportedFilesystems = [ "vfat" "btrfs" ]; # fat 32 and btrfs
+    supportedFilesystems = [ "exfat" "ext" "vfat" "btrfs" ]; # fat 32 and btrfs
 
     loader = {
       efi = {
