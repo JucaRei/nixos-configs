@@ -4,7 +4,6 @@
   programs.bash = {
     enable = true;
     enableCompletion = true;
-    vteIntegration = true;
 
     historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
 
