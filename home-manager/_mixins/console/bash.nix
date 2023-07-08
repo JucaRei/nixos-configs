@@ -109,9 +109,7 @@
 
     shellAliases = {
       sudo = "sudo "; # will now check for alias expansion after sudo
-      ls = "exa ";
-      ll = "exa -l --color=always";
-      lla = "exa -al --color=always";
+      ls = "exa --color=always ";
       ".." = "cd ..";
       "..." = "cd ../..";
       "...." = "cd ../../..";
