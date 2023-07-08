@@ -139,8 +139,7 @@
     #logind.lidSwitch = "suspend";
     #thermald.enable = true;
     #upower.enable = true;
-    kmscon.extraOptions = lib.mkForce "--xkb-layout=us" + "--xkb-model=pc105"
-      + "--xkb-variant=mac";
+    kmscon.extraOptions = lib.mkForce "--xkb-layout=us";
     xserver = {
       resolutions = [{
         x = 1366;
