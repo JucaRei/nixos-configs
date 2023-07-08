@@ -55,15 +55,39 @@
     supportedFilesystems = [ "vfat" "btrfs" ]; # fat 32 and btrfs
 
     loader = {
-      systemd-boot.consoleMode = "max";
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
       };
-      systemd-boot.configurationLimit = 10;
-      systemd-boot.enable = true;
-      systemd-boot.memtest86.enable = true;
+      ### Systemd-BOOT
+      #systemd-boot = {
+      #  consoleMode = "max";
+      #  configurationLimit = 10;
+      #  enable = true;
+      #  memtest86.enable = true;
+      #};
       timeout = 10;
+      grub = {
+        enable = true;
+        device = "nodev";
+        efiSupport = true;
+        efiInstallAsRemovable = true;
+        configurationLimit = 4;
+        forceInstall = true;
+        useOSProber = false;
+        fsIdentifier = "partlabel";
+        gfxmodeEfi = "1366x788";
+        fontSize = 20;
+        configurationName = "Nixos oldMacbook Air";
+        extraEntries = ''
+          menuentry "Reboot" {
+            reboot
+          }
+          menuentry "Poweroff" {
+            halt
+          }
+        '';
+      };
     };
   };
   console = {
