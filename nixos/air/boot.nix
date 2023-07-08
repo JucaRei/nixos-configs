@@ -4,7 +4,6 @@
     blacklistedKernelModules = [ "nvidia" "nouveau" ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     extraModprobeConfig = lib.mkDefault "";
-    loader.systemd-boot.consoleMode = "max";
 
     tmp = {
       useTmpfs = lib.mkDefault true;
@@ -63,6 +62,7 @@
     };
 
     loader = {
+      systemd-boot.consoleMode = "max";
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
