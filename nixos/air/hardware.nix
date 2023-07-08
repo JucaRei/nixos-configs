@@ -140,7 +140,7 @@
     #thermald.enable = true;
     #upower.enable = true;
     kmscon.extraOptions =
-      lib.mkForce [ "--xkb-layout=us" "--xkb-model=pc105" "--xkb-variant=mac" ];
+      lib.mkForce [ "--xkb-layout=us --xkb-model=pc105 --xkb-variant=mac" ];
     xserver = {
       resolutions = [{
         x = 1366;
