@@ -138,6 +138,8 @@
       };
     };
 
+    ddccontrol.enable = true;
+
     # Hard disk protection if the laptop falls:
     hdapsd.enable = lib.mkDefault true;
 
