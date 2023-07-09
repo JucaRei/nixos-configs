@@ -4,7 +4,7 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.apple-macbook-air-4
+    #inputs.nixos-hardware.nixosModules.apple-macbook-air-4
     ../_mixins/hardware/gfx-intel.nix
     ../_mixins/services/pipewire.nix
   ];
