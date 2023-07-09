@@ -163,6 +163,7 @@
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  system.autoUpgrade.allowReboot = true;
 
   services.xserver.layout = lib.mkForce "us";
 }
