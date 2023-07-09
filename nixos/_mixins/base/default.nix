@@ -16,17 +16,17 @@
   boot = {
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
-      #"quiet"
+      "quiet"
       "boot.shell_on_fail"
       "rd.systemd.show_status=false"
       "rd.udev.log_priority=3"
       "udev.log_priority=3"
-      #"vt.global_cursor_default=0"
-      #"mitigations=off"
-      #"zswap.enabled=1"
-      #"zswap.compressor=lz4hc"
-      #"zswap.max_pool_percent=20"
-      #"zswap.zpool=z3fold"
+      "vt.global_cursor_default=0"
+      "mitigations=off"
+      "zswap.enabled=1"
+      "zswap.compressor=lz4hc"
+      "zswap.max_pool_percent=20"
+      "zswap.zpool=z3fold"
       "net.ifnames=0"
       #"mem_sleep_default=deep"
     ];

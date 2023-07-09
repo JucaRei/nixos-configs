@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }: {
   boot = {
 
+    plymouth = {
+      enable = true;
+    };
+
     blacklistedKernelModules = [ "nvidia" "nouveau" ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     extraModprobeConfig = lib.mkDefault "";
@@ -23,6 +27,7 @@
       "i965"
       #"i915"
       "kvm-intel"
+      "vhost_vsock"
       "wl"
       "z3fold"
       "crc32c-intel"
