@@ -168,7 +168,7 @@
       enableAliases = true;
       icons = true;
     };
-    gnupg = {
+    gpg = {
       enable = false; # disabled for now
       gnupg.package = pkgs.gnupg;
       dirmngr.enable = false;
