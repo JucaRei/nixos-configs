@@ -20,11 +20,29 @@
     };
   };
   services = {
-    #xserver = {
-    #layout = "br";
-    #xkbVariant = "pc105";
-    #xkbModel = "pc105";
-    #};
+    # grep "^! " /usr/share/X11/xkb/rules/xorg.lst
+    # awk '/\!\ layout/{flag=1;next}/\!\ variant/{flag=0}flag' /usr/share/X11/xkb/rules/xorg.lst | grep Portuguese
+    xserver = if (builtins.isString == "nitro") then
+      true {
+        layout = "br,gb,us";
+        xkbVariant = "pc105";
+        xkbModel = "pc105";
+        xkbOptions = "grp:alt_shift_toggle";
+      }
+    else {
+      layout = "us";
+      xkbVariant = "mac";
+      xkbModel = "pc105";
+      xkbOptions = ''
+        "altwin:ctrl_win"
+        "altwin:ctrl_alt_win"
+        "caps:super" 
+        "terminate:ctrl_alt_bksp" 
+      '';
+      #"caps:ctrl_modifier"
+      #"lv3:alt_switch"
+      #"lv3:switch,compose:lwin”
+    };
     kmscon.extraOptions = "--xkb-layout=us";
   };
   time.timeZone = lib.mkDefault "America/Sao_Paulo";

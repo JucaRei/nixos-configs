@@ -1,8 +1,9 @@
 { pkgs, ... }: {
 
-  imports = [ 
+  imports = [
     #./qt-style.nix 
-    ../services/networkmanager.nix 
+    ./apps/browsers/firefox.nix
+    ../services/networkmanager.nix
   ];
 
   environment = {
@@ -29,10 +30,8 @@
   programs = {
     gnome-disks.enable = true;
     seahorse.enable = true;
-    #gnupg.agent = {
-    #  enable = true;
-    #  enableSSHSupport = true;
-    #};
+    nm-applet.enable = true;
+    system-config-printer.enable = true;
     thunar = {
       enable = true;
       plugins = with pkgs.xfce; [
@@ -48,6 +47,7 @@
   services = {
     blueman.enable = true;
     gnome.gnome-keyring.enable = true;
+    system-config-printer.enable = true;
     xserver = {
       enable = true;
       excludePackages = with pkgs; [ xterm ];
@@ -62,7 +62,7 @@
           };
         };
       };
-      desktopManager.xfce.enable = true;
+      desktopManager = { xfce.enable = true; };
     };
   };
 
@@ -70,4 +70,5 @@
     #enable = true;
     mediaKeys.enable = true;
   };
+  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
 }

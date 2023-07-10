@@ -12,9 +12,7 @@
     (./. + "/${hostname}/boot.nix")
     (./. + "/${hostname}/hardware.nix")
     ./_mixins/base
-    #./_mixins/virt
     ./_mixins/services/kmscon.nix
-    ./_mixins/services/firewall.nix
     ./_mixins/services/fwupd.nix
     ./_mixins/users/root
     ./_mixins/users/${username}

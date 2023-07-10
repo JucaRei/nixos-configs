@@ -30,10 +30,10 @@ if [[ -z "$TARGET_USER" ]]; then
   exit 1
 fi
 
-# if [ ! -e "nixos/$TARGET_HOST/disks.nix" ]; then
-#   echo "ERROR! $(basename "$0") could not find the required nixos/$TARGET_HOST/disks.nix"
-#   exit 1
-# fi
+#if [ ! -e "nixos/$TARGET_HOST/disks.nix" ]; then
+#  echo "ERROR! $(basename "$0") could not find the required nixos/$TARGET_HOST/disks.nix"
+#  exit 1
+#fi
 
 # Check if the machine we're provisioning expects a keyfile to unlock a disk.
 # If it does, generate a new key, and write to a known location.
@@ -50,14 +50,14 @@ echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
   sudo true
 
-  # sudo nix run github:nix-community/disko \
-  #   --extra-experimental-features "nix-command flakes" \
-  #   --no-write-lock-file \
-  #   -- \
-  #   --mode zap_create_mount \
-  #   "nixos/$TARGET_HOST/disks.nix"
+  #sudo nix run github:nix-community/disko \
+  #  --extra-experimental-features "nix-command flakes" \
+  #  --no-write-lock-file \
+  #  -- \
+  #  --mode zap_create_mount \
+  #  "nixos/$TARGET_HOST/disks.nix"
 
-  # sudo nixos-install --no-root-password --flake ".#$TARGET_HOST"
+  sudo nixos-install --no-root-password --flake ".#$TARGET_HOST"
 
   # Rsync nix-config to the target install and set the remote origin to SSH.
   rsync -a --delete "$HOME/Zero/" "/mnt/home/$TARGET_USER/Zero/"

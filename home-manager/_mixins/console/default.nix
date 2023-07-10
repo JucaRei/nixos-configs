@@ -173,7 +173,6 @@
       enableAliases = true;
       icons = true;
     };
-    gpg.enable = true;
     home-manager.enable = true;
     info.enable = true;
     jq.enable = true;
@@ -205,11 +204,6 @@
   };
 
   services = {
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      pinentryFlavor = "curses";
-    };
     kbfs = {
       enable = true;
       #enable = false;
@@ -218,6 +212,22 @@
     keybase.enable = true;
     #keybase.enable = false;
   };
+
+  programs.gnupg.agent = {
+    enable = false;
+    # cache SSH keys added by the ssh-add
+    enableSSHSupport = true;
+    # set up a Unix domain socket forwarding from a remote system
+    # enables to use gpg on the remote system without exposing the private keys to the remote system
+    enableExtraSocket = false;
+    # allows web browsers to access the gpg-agent daemon
+    enableBrowserSocket = false;
+    # NOTE: "gnome3" flavor only works with Xorg
+    # To reload config: gpg-connect-agent reloadagent /bye
+    #pinentryFlavor = "gtk2"; # use "tty" for console only
+    pinentryFlavor = "curses"; # use "tty" for console only
+  };
+  environment.systemPackages = [ pkgs.gnupg ];
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

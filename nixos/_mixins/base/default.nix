@@ -14,6 +14,9 @@
   ];
 
   boot = {
+    initrd.verbose = false;
+    consoleLogLevel = 0;
+    kernelModules = [ "vhost_vsock" ];
     kernelParams = lib.mkDefault [
       # The 'splash' arg is included by the plymouth option
       "quiet"
@@ -43,9 +46,7 @@
         # Bypass hotspot restrictions for certain ISPs
         "net.ipv4.ip_default_ttl" = 65;
       };
-    };
-    initrd.verbose = false;
-    consoleLogLevel = 0;
+    };   
   };
 
   console = {
