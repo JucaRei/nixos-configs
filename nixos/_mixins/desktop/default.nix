@@ -1,7 +1,6 @@
 { desktop, pkgs, username, lib, hostname, ... }: {
   imports = [
     ../services/cups.nix
-    ../services/flatpak.nix
     ../hardware/gfx-intel.nix
     ../services/sane.nix
     ../services/dynamic-timezone.nix

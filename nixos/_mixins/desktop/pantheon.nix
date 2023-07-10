@@ -1,3 +1,5 @@
+# NOTE: This is the minimum Pantheon, included in the live .iso image
+# For actuall installs pantheon-apps.nix is also included
 { pkgs, ... }: {
   imports = [
     #./apps/style/qt-style.nix
@@ -20,41 +22,8 @@
     # - https://discourse.nixos.org/t/anyone-with-pantheon-de/28422
     # - https://github.com/NixOS/nixpkgs/issues/144045#issuecomment-992487775
     pathsToLink = [ "/libexec" ];
-
-    # Add some elementary additional apps and include Yaru for syntax highlighting
-    systemPackages = with pkgs; [
-      #inputs.nix-software-center.packages.${system}.nix-software-center
-      appeditor                       # elementary OS menu editor
-      celluloid                       # Video Player
-      formatter                       # elementary OS filesystem formatter
-      gthumb                          # Image Viewer
-      gnome.simple-scan
-      #indicator-application-gtk3     # App Indicator
-      #pantheon.sideload              # elementary OS Flatpak installer
-      yaru-theme
-      #cipher                         # elementary OS text encoding/decoding
-      #elementary-planner             # UNSTABLE: elementary OS planner with Todoist support
-      #evolutionWithPlugins           # Email client
-      #minder                         # elementary OS mind-mapping
-      #monitor                        # elementary OS system monitor
-      #nasc                           # UNSTABLE: elementary OS maths notebook
-      #notes-up                       # elementary OS Markdown editor
-      #tootle                         # elementary OS Mastodon client
-      #torrential                     # elementary OS torrent client
-    ];
   };
-
-  # Add GNOME Disks and Pantheon Tweaks
-  programs = {
-    gnome-disks.enable = true;
-    pantheon-tweaks.enable = true;
-    seahorse.enable = true;
-  };
-
   services = {
-    flatpak = { 
-      enable = true; 
-    };
     #pantheon.apps.enable = true;
 
     xserver = {
@@ -121,7 +90,8 @@
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
     serviceConfig = {
-      ExecStart = "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
+      ExecStart =
+        "${pkgs.indicator-application-gtk3}/libexec/indicator-application/indicator-application-service";
     };
   };
 }

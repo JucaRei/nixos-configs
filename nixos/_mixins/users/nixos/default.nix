@@ -1,6 +1,7 @@
 { config, desktop, lib, pkgs, username, ... }:
 let
-  ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+  ifExists = groups:
+    builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
   install-system = pkgs.writeScriptBin "install-system" ''
     #!${pkgs.stdenv.shell}
 
@@ -34,16 +35,17 @@ let
       exit 1
     fi
 
-    if [ ! -e "nixos/$TARGET_HOST/disks.nix" ]; then
-      echo "ERROR! $(basename "$0") could not find the required nixos/$TARGET_HOST/disks.nix"
-      exit 1
-    fi
+    ### Im not using disko at the moment.
+    #if [ ! -e "nixos/$TARGET_HOST/disks.nix" ]; then
+    #  echo "ERROR! $(basename "$0") could not find the required nixos/$TARGET_HOST/disks.nix"
+    #  exit 1
+    #fi
 
     # Check if the machine we're provisioning expects a keyfile to unlock a disk.
     # If it does, generate a new key, and write to a known location.
-    if grep -q "data.keyfile" "nixos/$TARGET_HOST/disks.nix"; then
-      echo -n "$(head -c32 /dev/random | base64)" > /tmp/data.keyfile
-    fi
+    #if grep -q "data.keyfile" "nixos/$TARGET_HOST/disks.nix"; then
+    #  echo -n "$(head -c32 /dev/random | base64)" > /tmp/data.keyfile
+    #fi
 
     echo "WARNING! The disks in $TARGET_HOST are about to get wiped"
     echo "         NixOS will be re-installed"
@@ -54,12 +56,12 @@ let
     if [[ $REPLY =~ ^[Yy]$ ]]; then
       sudo true
 
-      sudo nix run github:nix-community/disko \
-        --extra-experimental-features "nix-command flakes" \
-        --no-write-lock-file \
-        -- \
-        --mode zap_create_mount \
-        "nixos/$TARGET_HOST/disks.nix"
+      #sudo nix run github:nix-community/disko \
+      #  --extra-experimental-features "nix-command flakes" \
+      #  --no-write-lock-file \
+      #  -- \
+      #  --mode zap_create_mount \
+      #  "nixos/$TARGET_HOST/disks.nix"
 
       sudo nixos-install --no-root-password --flake ".#$TARGET_HOST"
 
