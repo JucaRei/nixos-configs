@@ -20,10 +20,10 @@ in {
     activation.report-changes = config.lib.dag.entryAnywhere ''
       ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
     '';
-    username = username;
     homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
     sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = stateVersion;
+    username = username;
   };
 
   # Let Home Manager install and manage itself.
