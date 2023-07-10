@@ -142,7 +142,7 @@ with lib.hm.gvariant;
       button-layout = ":minimize,maximize,close";
       center-new-windows = false;
       compositing-manager = true;
-      num-workspaces = 8;
+      num-workspaces = 5;
       show-tab-border = false;
       theme = "Yaru-dark";
       titlebar-font = "Work Sans Semi-Bold 12";
