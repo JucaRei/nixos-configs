@@ -22,10 +22,13 @@
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
 
-    #nur = {
-    ## NUR Packages
-    #url = "github:nix-community/NUR"; # Add "nur.nixosModules.nur" to the host modules
-    #};
+    nur = {
+    # NUR Packages
+    url = "github:nix-community/NUR"; # Add "nur.nixosModules.nur" to the host modules
+    };
+
+    spicetify-nix.url = "github:the-argus/spicetify-nix";
+    nixpkgs-f2k.url = "github:fortuneteller2k/nixpkgs-f2k";
 
     nixgl = {
       # OpenGL

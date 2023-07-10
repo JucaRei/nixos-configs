@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ lib, ... }: {
   boot = {
     tmp = {
 	useTmpfs = lib.mkDefault true;
@@ -18,9 +18,10 @@
         forceInstall = true;
         #useOSProber = false;
         fsIdentifier = "label";
-        gfxmodeEfi = "1366x788";
+        gfxmodeEfi = "auto";
+        #gfxmodeEfi = "1366x788";
         fontSize = 20;
-        configurationName = "Nixos oldMacbook Air";
+        configurationName = "Nixos Configuration";
         extraEntries = ''
           menuentry "Reboot" {
             reboot
