@@ -81,12 +81,6 @@ in {
         XDG_DATA_HOME = "${config.home.homeDirectory}/.local/share";
         XDG_BIN_HOME = "${config.home.homeDirectory}/.local/bin";
       };
-      #extraInit = ''
-      #  export XAUTHORITY=/tmp/Xauthority
-      #  export xserverauthfile=/tmp/xserverauth
-      #  [ -e ~/.Xauthority ] && mv -f ~/.Xauthority "$XAUTHORITY"
-      #  [ -e ~/.serverauth.* ] && mv -f ~/.serverauth.* "$xserverauthfile"
-      #'';
     };
   };
 }

@@ -51,18 +51,16 @@
       #  #rebuild-iso = "pushd $HOME/.setup && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
       };
       shellAliases = {
-        cat = "bat --paging=never";
+        cat = "bat --paging=never --style=plain";
         diff = "diffr";
         glow = "glow --pager";
-        #htop = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
+        bottom = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
         ip = "ip --color --brief";
         less = "bat --paging=always";
         more = "bat --paging=always";
-        nano = "micro";
-        open = "xdg-open";
         pubip = "curl -s ifconfig.me/ip";
         #pubip = "curl -s https://api.ipify.org";
-        top = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
+        top = "htop";
         tree = "exa --tree";
         moon = "curl -s wttr.in/Moon";
         wget = "wget2";

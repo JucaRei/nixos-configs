@@ -1,29 +1,30 @@
-{ config, desktop, pkgs, ...}: {
+{ config, desktop, pkgs, ... }: {
   imports = [
-    #./audio-recorder.nix
-    ./celluloid.nix
-    ./dconf-editor.nix
-    ./emote.nix
-    #./gitkraken.nix
-    #./gnome-sound-recorder.nix
-    #./meld.nix
-    ./rhythmbox.nix
-    #./tilix.nix
-    #./samba.nix
+    #../apps//audio-recorder.nix
+    ../apps/celluloid.nix
+    ../apps/dconf-editor.nix
+    ../apps/emote.nix
+    #../apps/gitkraken.nix
+    #../apps/gnome-sound-recorder.nix
+    #../apps/meld.nix
+    ../apps/rhythmbox.nix
+    #../apps/tilix.nix
+    #../apps/samba.nix
     (./. + "/${desktop}.nix")
   ];
 
   home.file = {
-    "${config.xdg.configHome}/autostart/enable-flathub.desktop".text = "
-[Desktop Entry]
-Name=Enable Flathub
-Comment=Enable Flathub
-Type=Application
-Exec=${pkgs.flatpak}/bin/flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-Categories=
-Terminal=false
-NoDisplay=true
-StartupNotify=false";
+    "${config.xdg.configHome}/autostart/enable-flathub.desktop".text = ''
+
+      [Desktop Entry]
+      Name=Enable Flathub
+      Comment=Enable Flathub
+      Type=Application
+      Exec=${pkgs.flatpak}/bin/flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      Categories=
+      Terminal=false
+      NoDisplay=true
+      StartupNotify=false'';
   };
 
   xresources.properties = {

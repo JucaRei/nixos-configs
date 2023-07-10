@@ -6,8 +6,8 @@
     ./readline.nix
     ./git.nix
     ./neofetch.nix
-    ./broot.nix
-    #./xdg.nix
+    #./broot.nix
+    ./xdg.nix
     ./skim.nix
     ./glow.nix
   ];
@@ -78,8 +78,6 @@
       wget2 # Terminal downloader
       #wmctrl                        # Terminal X11 automation
       #xdotool                       # Terminal X11 automation
-      #yadm                          # Terminal dot file manager
-      #ydotool                       # Terminal *all-the-things* automation
       #yq-go                         # Terminal `jq` for YAML
       #zsync                         # Terminal file sync
 
@@ -113,9 +111,6 @@
       PAGER = "moar";
       SYSTEMD_EDITOR = "micro";
       VISUAL = "micro";
-      #EDITOR = "nvim";
-      #SYSTEMD_EDITOR = "nvim";
-      #VISUAL = "nvim";
     };
   };
 
@@ -156,7 +151,7 @@
         };
       };
     };
-    command-not-found.enable = true;
+    #command-not-found.enable = true;
     dircolors = {
       enable = true;
       enableBashIntegration = true;
@@ -173,6 +168,7 @@
       enableAliases = true;
       icons = true;
     };
+    gpg.enable = false; # disabled for now
     home-manager.enable = true;
     info.enable = true;
     jq.enable = true;
@@ -204,6 +200,20 @@
   };
 
   services = {
+    gpg-agent = {
+      enable = false;
+      # cache SSH keys added by the ssh-add
+      enableSSHSupport = true;
+      # set up a Unix domain socket forwarding from a remote system
+      # enables to use gpg on the remote system without exposing the private keys to the remote system
+      enableExtraSocket = false;
+      # allows web browsers to access the gpg-agent daemon
+      enableBrowserSocket = false;
+      # NOTE: "gnome3" flavor only works with Xorg
+      # To reload config: gpg-connect-agent reloadagent /bye
+      #pinentryFlavor = "gtk2"; # use "tty" for console only
+      pinentryFlavor = "curses"; # use "tty" for console only
+    };
     kbfs = {
       enable = true;
       #enable = false;
@@ -212,22 +222,6 @@
     keybase.enable = true;
     #keybase.enable = false;
   };
-
-  programs.gnupg.agent = {
-    enable = false;
-    # cache SSH keys added by the ssh-add
-    enableSSHSupport = true;
-    # set up a Unix domain socket forwarding from a remote system
-    # enables to use gpg on the remote system without exposing the private keys to the remote system
-    enableExtraSocket = false;
-    # allows web browsers to access the gpg-agent daemon
-    enableBrowserSocket = false;
-    # NOTE: "gnome3" flavor only works with Xorg
-    # To reload config: gpg-connect-agent reloadagent /bye
-    #pinentryFlavor = "gtk2"; # use "tty" for console only
-    pinentryFlavor = "curses"; # use "tty" for console only
-  };
-  environment.systemPackages = [ pkgs.gnupg ];
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
