@@ -4,7 +4,7 @@
     options kvm_intel nested=1
     options kvm_intel emulate_invalid_guest_state=0
     options kvm ignore_nsrs=1
-  '';                                         # Needed to run OSX-KVM 
+  ''; # Needed to run OSX-KVM
 
   users.groups.libvirtd.members = [ "root" "${username}" ];
 
@@ -15,7 +15,7 @@
     virt-viewer
     qemu
     OVMF
-    gvfs 
+    gvfs
   ];
   security.polkit.enable = true;
   virtualisation = {
@@ -27,9 +27,19 @@
           enable = true;
           packages = with pkgs; [ OVMFFull.fd ];
         };
+        runAsRoot = true;
         swtpm.enable = true;
       };
+      onShutdown = "suspend";
+      onBoot = "ignore";
     };
     spiceUSBRedirection.enable = true;
+  };
+
+  environment.etc = {
+    "ovmf/edk2-x86_64-secure-code.fd" = {
+      source = config.virtualisation.libvirtd.qemu.package
+        + "/share/qemu/edk2-x86_64-secure-code.fd";
+    };
   };
 }

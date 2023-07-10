@@ -18,6 +18,9 @@
       # The 'splash' arg is included by the plymouth option
       "quiet"
       "loglevel=3"
+      #"randomize_kstack_offset=on" ## above kernel 5.13 improve safe
+      "vsyscall=none"
+      "acpi_call"
       "boot.shell_on_fail"
       "rd.systemd.show_status=false"
       "rd.udev.log_priority=3"
@@ -27,7 +30,7 @@
       "net.ifnames=0"
       #"mem_sleep_default=deep"
     ];
-    kernel = { 
+    kernel = {
       sysctl = lib.mkDefault {
         "net.ipv4.ip_forward" = 1;
         "net.ipv6.conf.all.forwarding" = 1;
@@ -180,7 +183,7 @@
     irqbalance.enable = true;
     fstrim.enable = true;
 
-    #dbus.implementation = "broker";
+    dbus.implementation = "broker";
 
     resolved = {
       extraConfig = ''
