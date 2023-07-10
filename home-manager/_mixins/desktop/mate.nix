@@ -107,7 +107,7 @@ with lib.hm.gvariant;
     };
 
     "org/mate/desktop/peripherals/mouse" = {
-      cursor-size = 32;
+      cursor-size = 24;
       cursor-theme = "Yaru";
     };
 
@@ -168,9 +168,6 @@ with lib.hm.gvariant;
       switch-to-workspace-3 = "<Mod4>3";
       switch-to-workspace-4 = "<Mod4>4";
       switch-to-workspace-5 = "<Mod4>5";
-      switch-to-workspace-6 = "<Mod4>6";
-      switch-to-workspace-7 = "<Mod4>7";
-      switch-to-workspace-8 = "<Mod4>8";
     };
 
     "org/mate/marco/keybinding-commands" = {
@@ -200,12 +197,9 @@ with lib.hm.gvariant;
     "org/mate/marco/workspace-names" = {
       name-1 = " Web ";
       name-2 = " Work ";
-      name-3 = " Chat ";
-      name-4 = " Code ";
-      name-5 = " Virt ";
-      name-6 = " Cast ";
-      name-7 = " Fun ";
-      name-8 = " Stuff ";
+      name-3 = " Code ";
+      name-4 = " Virt ";
+      name-5 = " Stuff ";
     };
 
     "org/mate/maximus" = {
@@ -315,7 +309,7 @@ with lib.hm.gvariant;
     cursorTheme = {
       name = "Yaru";
       package = pkgs.yaru-theme;
-      size = 32;
+      size = 24;
     };
 
     font = {
@@ -358,7 +352,7 @@ with lib.hm.gvariant;
   home.pointerCursor = {
     name = "Yaru";
     package = pkgs.yaru-theme;
-    size = 32;
+    size = 24;
     gtk.enable = true;
     x11.enable = true;
   };
