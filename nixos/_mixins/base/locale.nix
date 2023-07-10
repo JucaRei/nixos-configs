@@ -1,7 +1,6 @@
 { lib, ... }: {
-  #console.keyMap = "us";
-  #console.keyMap = "br-abnt2";
   #console.keyMap = "mac-us";
+  console.keyMap = if (builtins.isString == "nitro") then "br-abnt2" else "us";
   i18n = {
     defaultLocale = "en_US.utf8";
     extraLocaleSettings = {

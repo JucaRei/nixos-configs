@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   imports = [
-    #./qt-style.nix 
+    ./qt-style.nix 
     ./apps/browsers/firefox.nix
     ../services/networkmanager.nix
   ];
@@ -52,17 +52,24 @@
       enable = true;
       excludePackages = with pkgs; [ xterm ];
       displayManager = {
+        defaultSession = "xfce";
         lightdm = {
           enable = true;
           greeters = {
-            slick = {
-              enable = true;
-              theme.name = "Adwaita";
+            gtk = {
+              theme.package = pkgs.nordic;
+              theme.name = "Nordic";
             };
           };
         };
       };
-      desktopManager = { xfce.enable = true; };
+      desktopManager = {
+        xfce = {
+          enable = true;
+          enableXfwm = true;
+          enableScreensaver = true;
+        };
+      };
     };
   };
 

@@ -2,34 +2,23 @@
   imports = [
     ../services/cups.nix
     ../services/flatpak.nix
+    ../hardware/gfx-intel.nix
     ../services/sane.nix
     ../services/dynamic-timezone.nix
-  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
+  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix"))
+    ./${desktop}.nix;
 
   boot = {
     kernelParams = [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
   };
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-      extraPackages = [ ] ++ lib.optionals
-        (pkgs.system == "x86_64-linux" && hostname != "vm") # exclude vm
-        (with pkgs; [
-          intel-media-driver
-          vaapiIntel
-          vaapiVdpau
-          libvdpau-va-gl
-        ]);
-    };
-  };
-
   programs.dconf.enable = true;
 
   # Disable xterm
-  services.xserver.excludePackages = [ pkgs.xterm ];
-  services.xserver.desktopManager.xterm.enable = false;
+  services.xserver = {
+    excludePackages = [ pkgs.xterm ];
+    desktopManager.xterm.enable = false;
+  };
 
   security.sudo = {
     enable = true;
