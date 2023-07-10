@@ -138,6 +138,12 @@
       };
     };
 
+    mbpfan = {
+      enable = true;
+      aggressive = true;
+    };
+    
+
     ddccontrol.enable = true;
 
     # Hard disk protection if the laptop falls:

@@ -14,25 +14,32 @@
   ];
 
   boot = {
-    kernelParams = [
+    kernelParams = lib.mkDefault [
       # The 'splash' arg is included by the plymouth option
       "quiet"
+      "loglevel=3"
       "boot.shell_on_fail"
       "rd.systemd.show_status=false"
       "rd.udev.log_priority=3"
       "udev.log_priority=3"
       "vt.global_cursor_default=0"
       "mitigations=off"
-      "zswap.enabled=1"
-      "zswap.compressor=lz4hc"
-      "zswap.max_pool_percent=20"
-      "zswap.zpool=z3fold"
       "net.ifnames=0"
       #"mem_sleep_default=deep"
     ];
-    kernel.sysctl = {
-      "net.ipv4.ip_forward" = 1;
-      "net.ipv6.conf.all.forwarding" = 1;
+    kernel = { 
+      sysctl = lib.mkDefault {
+        "net.ipv4.ip_forward" = 1;
+        "net.ipv6.conf.all.forwarding" = 1;
+        "dev.i915.perf_stream_paranoid" = 0;
+
+        ### Improve networking
+        "net.ipv4.tcp_congestion_control" = "bbr";
+        "net.core.default_qdisc" = "fq";
+
+        # Bypass hotspot restrictions for certain ISPs
+        "net.ipv4.ip_default_ttl" = 65;
+      };
     };
     initrd.verbose = false;
     consoleLogLevel = 0;
