@@ -71,8 +71,8 @@ in {
         config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
-      sandbox = true;
-      trusted-users = [ "@nixbld" "@wheel" ];
+      #sandbox = true;
+      #trusted-users = [ "@nixbld" "@wheel" ];
     };
     extraOptions = ''
       keep-outputs          = true
