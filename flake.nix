@@ -60,44 +60,43 @@
         # nix build .#homeConfigurations."juca@DietPi".activationPackage
         
         ###.iso images ###
-        "juca@iso"            = libx.mkHome {  hostname = "iso";            username = "nixos"; desktop = "pantheon";  };
-        #"juca@iso-mini"       = libx.mkHome {  hostname = "iso-mini";       username = "nixos";                        };
+        "juca@iso-console"    = libx.mkHome {  hostname = "iso-console";     username = "nixos";                       };
+        "juca@iso-desktop"    = libx.mkHome {  hostname = "iso-desktop";     username = "nixos"; desktop = "pantheon"; };
+        
         ### Laptop ###
-        "juca@nitro"          = libx.mkHome { hostname = "nitro";           username = "juca";  desktop = "pantheon"; };
-        "juca@air"            = libx.mkHome { hostname = "air";             username = "juca";  desktop = "xfce";     };
-        "juca@oldmac"         = libx.mkHome { hostname = "oldmac";          username = "juca";  desktop = "pantheon"; };
+        "juca@nitro"          = libx.mkHome { hostname = "nitro";            username = "juca";  desktop = "pantheon"; };
+        "juca@air"            = libx.mkHome { hostname = "air";              username = "juca";  desktop = "xfce";     };
+        "juca@oldmac"         = libx.mkHome { hostname = "oldmac";           username = "juca";  desktop = "pantheon"; };
+        
         ### VM testing ###
-        #"juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "pantheon";     };
-        #"juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "mate";     };
-        "juca@vm"             = libx.mkHome { hostname = "vm";              username = "juca";  desktop = "xfce";     };
-#       "juca@vm-mini"        = libx.mkHome { hostname = "vm-mini";         username = "juca";                        };
+        "juca@vm"             = libx.mkHome { hostname = "vm";               username = "juca";  desktop = "pantheon"; };
+        "juca@vm-mini"        = libx.mkHome { hostname = "vm-mini";          username = "juca";                        };
+
         ### Servers ###
-        "juca@raspberry"      = libx.mkHome { hostname = "raspberry";       username = "juca";  desktop = "pantheon"; };
-        "juca@DietPi"         = libx.mkHome { hostname = "DietPi";          username = "juca";                        };
-        #"juca@raspberry-mini" = libx.mkHome { hostname = "raspberry-mini";  username = "juca";                        };
+        "juca@DietPi"         = libx.mkHome { hostname = "DietPi";           username = "juca";                        };
+        "juca@rpi3"           = libx.mkHome { hostname = "rpi3";             username = "juca";  desktop = "pantheon"; };
+        "juca@rpi3-mini"      = libx.mkHome { hostname = "rpi3-mini";        username = "juca";                        };
       };
 
       ### NixOS configs
       nixosConfigurations = {
         # .iso images
         #  - nix build .#nixosConfigurations.{iso|iso-mini}.config.system.build.isoImage
-        iso             = libx.mkHost {  hostname = "iso";             username = "nixos"; hostid = "0145d780"; desktop = "pantheon"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"; };
-        #iso-mini        = libx.mkHost {  hostname = "iso-mini";        username = "nixos"; hostid = "0145d783"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"; };
+        iso-console      = libx.mkHost {  hostname = "iso-console";   username = "nixos"; hostid = "0145d780"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"; };
+        iso-desktop      = libx.mkHost {  hostname = "iso-desktop";   username = "nixos"; hostid = "0145d783"; installer = nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix"; desktop = "pantheon"; };
         
         # Laptop
         #  - sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
         #  - nix build .#nixosConfigurations.vm.config.system.build.toplevel
         nitro           = libx.mkHost {  hostname = "nitro";           username = "juca";  hostid = "0145d776"; desktop = "pantheon"; };
-        air             = libx.mkHost {  hostname = "air";             username = "juca";  hostid = "b28460d8"; desktop = "xfce"; };
+        air             = libx.mkHost {  hostname = "air";             username = "juca";  hostid = "b28460d8"; desktop = "pantheon"; };
         oldmac          = libx.mkHost {  hostname = "oldmac";          username = "juca";  hostid = "be4cb578"; desktop = "pantheon"; };
-        #vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
-        vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "xfce"; };
-        #vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "budgie"; };
         
         # Servers
-        #vm-mini         = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };
-        raspberry       = libx.mkHost {  hostname = "raspberry";       username = "juca";  hostid = "8c0b93a2"; desktop = "pantheon"; };
-        #raspberry-mini  = libx.mkHost {  hostname = "raspberry-mini";  username = "juca";  hostid = "8c0b93a5"; };
+        vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
+        #vm-mini        = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };
+        pi              = libx.mkHost {  hostname = "rpi3";            username = "juca";  hostid = "8c0b93a2"; desktop = "pantheon"; };
+        #pi-mini        = libx.mkHost {  hostname = "rpi3-mini";       username = "juca";  hostid = "8c0b93a5"; };
       };
 
       # Devshell for bootstrapping; acessible via 'nix develop' or 'nix-shell' (legacy)
@@ -106,7 +105,7 @@
         in import ./shell.nix { inherit pkgs; });
 
       # Custom packages and modifications, exported as overlays
-      overlays = import ./overlays { inherit inputs; };
+      overlays = import ./overlays { inherit inputs outputs; };
 
       # Custom packages; acessible via 'nix build', 'nix shell', etc
       packages = libx.forAllSystems (system:

@@ -77,6 +77,7 @@ in {
     font = "ter-powerline-v18n";
     packages = with pkgs; [ terminus_font powerline-fonts ];
   };
+
   i18n = {
     defaultLocale = "en_US.utf8";
     extraLocaleSettings = {
@@ -100,7 +101,7 @@ in {
     ### Keyboard ###
     ################
 
-    xserver = if (builtins.isString == "nitro") then
+    xserver = if (builtins.isString == "nitro" || "vm") then
       true {
         layout = "br,gb,us";
         xkbVariant = "pc105";
