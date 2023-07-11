@@ -11,9 +11,9 @@ in {
 
     #inputs.disko.nixosModules.disko    
     (modulesPath + "/installer/scan/not-detected.nix")
-    #./${hostname}
-    (./. + "/${hostname}/boot.nix")
-    (./. + "/${hostname}/hardware.nix")
+    (./. + "/${hostname}")
+    #(./. + "/${hostname}/boot.nix")
+    #(./. + "/${hostname}/hardware.nix")
     ./_mixins/services/kmscon.nix
     ./_mixins/services/openssh.nix
     ./_mixins/services/firewall.nix
@@ -101,7 +101,7 @@ in {
     ### Keyboard ###
     ################
 
-    xserver = if (builtins.isString == "nitro" || "vm") then
+    xserver = if (builtins.isString == "nitro") then
       true {
         layout = "br,gb,us";
         xkbVariant = "pc105";

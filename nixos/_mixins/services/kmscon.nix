@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ ... }: {
   services = {
     kmscon = {
       enable = true;
@@ -8,8 +8,7 @@
         font-name=FiraCode Nerd Font Mono, SauceCodePro Nerd Font Mono
         font-size=14
       '';
-      extraOptions =
-        [ "--xkb-layout=us" "--xkb-model=pc105" "--xkb-variant=mac" ];
+      extraOptions = "--xkb-layout=us" ;
     };
   };
 }
