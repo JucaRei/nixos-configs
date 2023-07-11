@@ -1,4 +1,4 @@
-{ pkgs, inputs, system, ... }: {
+{ pkgs, inputs, system, lib,... }: {
   imports = [
     ./qt-style.nix
     ./apps/browsers/firefox.nix
@@ -38,7 +38,7 @@
         };
       };
 
-      desktopManager = { budgie.enable = true; };
+      desktopManager = { budgie.enable = lib.mkForce true; };
     };
   };
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
