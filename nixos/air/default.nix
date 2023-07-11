@@ -1,13 +1,76 @@
-# Intel Skull Canyon NUC6i7KYK
-{ inputs, lib, pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    #inputs.nixos-hardware.nixosModules.apple-macbook-air-4
+    #../_mixins/hardware/systemd-boot.nix
     ../_mixins/hardware/gfx-intel.nix
     ../_mixins/services/pipewire.nix
+    ../_mixins/services/power-man.nix
+    ../_mixins/services/dynamic-timezone.nix
+    ../_mixins/hardware/grub.nix
+    ../_mixins/hardware/backlight.nix
+    ../_mixins/virt/docker.nix
+    #../_mixins/services/tailscale.nix
+    #../_mixins/services/zerotier.nix
   ];
+
+  ############
+  ### BOOT ###
+  ############
+
+  boot = {
+
+    blacklistedKernelModules = lib.mkForce [ "nvidia" "nouveau" ];
+    extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
+    extraModprobeConfig = lib.mkDefault ''
+      options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 #parameters may differ
+    '';
+
+    initrd = {
+      #systemd.enable = true; # This is needed to show the plymouth login screen to unlock luks
+      availableKernelModules =
+        [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      verbose = false;
+      compressor = "zstd";
+    };
+
+    kernelModules = [
+      #"i965"
+      "i915"
+      "kvm-intel"
+      "wl"
+      "z3fold"
+      "crc32c-intel"
+      "lz4hc"
+      "lz4hc_compress"
+    ];
+    kernelParams = [
+      "zswap.enabled=1"
+      "zswap.compressor=lz4hc"
+      "zswap.max_pool_percent=20"
+      "zswap.zpool=z3fold"
+      "mem_sleep_default=deep"
+      "fs.inotify.max_user_watches = 524288"
+    ];
+    kernel.sysctl = {
+      #"kernel.sysrq" = 1;
+      #"kernel.printk" = "3 3 3 3";
+      "vm.vfs_cache_pressure" = 300;
+      "vm.swappiness" = 25;
+      "vm.dirty_background_ratio" = 1;
+      "vm.dirty_ratio" = 50;
+    };
+    #kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
+    supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
+  };
+
+  environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
+
+  ###################
+  ### Hard drives ###
+  ###################
 
   fileSystems."/" = {
     device = "/dev/disk/by-partlabel/NIXOS";
@@ -128,9 +191,6 @@
   }];
 
   services = {
-    #############
-    ### BTRFS ###
-    #############
     btrfs = {
       autoScrub = {
         enable = true;
@@ -142,34 +202,54 @@
       enable = true;
       aggressive = true;
     };
-    
 
-    ddccontrol.enable = true;
+    # ddccontrol.enable = true;
+
+    # Virtual Filesystem Support Library
+    gvfs = { enable = true; };
 
     # Hard disk protection if the laptop falls:
     hdapsd.enable = lib.mkDefault true;
 
-    #logind.lidSwitch = "suspend";
-    #thermald.enable = true;
-    #upower.enable = true;
     kmscon.extraOptions = lib.mkForce "--xkb-layout=us";
+
     xserver = {
-      resolutions = [{
-        x = 1366;
-        y = 788;
-      }
-      #{
-      #  x = 1280;
-      #  y = 720;
-      #}
-      # { x = 1600; y = 900; }
-      # { x = 3840; y = 2160; }
-        ];
+      #layout = lib.mkForce "us";
+
+      resolutions = [
+        {
+          # Default resolution
+          x = 1366;
+          y = 788;
+        }
+        {
+          x = 1280;
+          y = 720;
+        }
+        {
+          x = 1600;
+          y = 900;
+        }
+        {
+          x = 1920;
+          y = 1080;
+        }
+        {
+          x = 3840;
+          y = 2160;
+        }
+      ];
     };
   };
 
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  system.autoUpgrade.allowReboot = true;
+  ### fix filesystem
+  virtualisation.docker = { 
+    storageDriver = lib.mkForce "btrfs"; 
+  };
 
-  services.xserver.layout = lib.mkForce "us";
+  system = {
+    autoUpgrade.allowReboot = true;
+  };
+
+  nixpgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

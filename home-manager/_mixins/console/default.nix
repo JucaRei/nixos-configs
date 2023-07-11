@@ -161,7 +161,10 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = { enable = true; };
+      nix-direnv = {
+        enable = true;
+        enableFlakes = true;
+      };
     };
     exa = {
       enable = true;
@@ -169,7 +172,10 @@
       icons = true;
     };
     gpg.enable = true;
-    home-manager.enable = true;
+    home-manager = {
+      enable = true;
+      useGlobalPkgs = true;
+    };
     info.enable = true;
     jq.enable = true;
     micro = {

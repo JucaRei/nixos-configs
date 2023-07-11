@@ -18,5 +18,10 @@
         permit nopass :wheel
       '';
     };
+
+    rtkit.enable = true;
+    polkit.enable = true;
+    # tpm2.enable = true;
+    # unprivilegedUsernsClone = true;
   };
 }

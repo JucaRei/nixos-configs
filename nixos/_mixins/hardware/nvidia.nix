@@ -39,7 +39,7 @@ in {
         inherit nvidiaBusId;
 
         #reverseSync = true;
-        sync.enable = true; # will be always on and used for all rendering
+        sync.enable = false; # will be always on and used for all rendering
       };
 
       allowExternalGpu =

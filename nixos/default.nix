@@ -16,9 +16,10 @@ in {
     ./_mixins/services/kmscon.nix
     ./_mixins/services/openssh.nix
     ./_mixins/services/firewall.nix
-    ./_mixins/services/android.nix
-    ./_mixins/services/optimizations.nix
+    ./_mixins/services/flatpak.nix
     ./_mixins/services/fwupd.nix
+    ./_mixins/services/ntp.nix
+    ./_mixins/services/bluetooth.nix
     ./_mixins/services/security.nix
     ./_mixins/users/root
     #../services/tailscale.nix
@@ -263,6 +264,10 @@ in {
 
     # You can add overlays here
     overlays = [
+      # if you also want support for flakes
+      (self: super: {
+        nix-direnv = super.nix-direnv.override { enableFlakes = true; };
+      })
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications

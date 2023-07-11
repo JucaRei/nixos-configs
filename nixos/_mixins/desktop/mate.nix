@@ -35,7 +35,7 @@
     gnome-disks.enable = true;
     nm-applet.enable = true;
     seahorse.enable = true;
-    system-config-printer.enable = true;
+    #system-config-printer.enable = true;
   };
 
   # Enable services to round out the desktop

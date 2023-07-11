@@ -16,7 +16,24 @@
       criticalPowerAction = "Suspend";
     };
 
-    tlp.enable = true;
+    tlp = {
+      enable = true;
+      settings = {
+        CPU_SCALING_GOVERNOR_ON_AC = "ondemand";
+        CPU_SCALING_GOVERNOR_ON_BAT = "conservative";
+
+        PLATFORM_PROFILE_ON_AC = "performance";
+        PLATFORM_PROFILE_ON_BAT = "low-power";
+
+        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = [ "bluetooth" "wifi" ];
+        DEVICES_TO_ENABLE_ON_AC = [ "bluetooth" "wifi" ];
+
+        DISK_IOSCHED = [ "none" ];
+
+        #START_CHARGE_THRESH_BAT0 = 70;
+        #STOP_CHARGE_THRESH_BAT0 = 80;
+      };
+    };
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="net", KERNEL=="eth*", RUN+="${pkgs.ethtool}/bin/ethtool -s %k wol d"
       ACTION=="add", SUBSYSTEM=="net", KERNEL=="wlan*", RUN+="${pkgs.iw}/bin/iw dev %k set power_save on"

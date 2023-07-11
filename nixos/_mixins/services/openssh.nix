@@ -3,7 +3,24 @@
     openssh = {
       enable = true;
       openFirewall = true;
+      allowSFTP =
+        true; # SFTP: secure file transfer protocol (send file to server)
+      # connect: $ sftp <user>@<ip/domain>
+      #   or with file browser: sftp://<ip address>
+      # commands:
+      #   - lpwd & pwd = print (local) parent working directory
+      #   - put/get <filename> = send or receive file
       ports = [ 22 ];
+      startWhenNeeded =
+        true; # systemd will start an instance for each incoming connection.
+      # public:
+      #   - port forward 22 TCP to server
+      #   - in case you want to use the domain name insted of the ip:
+      #       - for me, via cloudflare, create an A record with name "ssh" to the correct ip without proxy
+      #   - connect via ssh <user>@<ip or ssh.domain>
+      # generating a key:
+      #   - $ ssh-keygen   |  ssh-copy-id <ip/domain>  |  ssh-add
+      #   - if ssh-add does not work: $ eval `ssh-agent -s`
       banner = ''
         ⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠛⠋⠉⠈⠉⠉⠉⠉⠛⠻⢿⣿⣿⣿⣿⣿⣿⣿
         ⣿⣿⣿⣿⣿⡿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⢿⣿⣿⣿⣿
@@ -34,6 +51,9 @@
 
 
       '';
+      extraConfig = ''
+        HostKeyAlgorithms +ssh-rsa
+      ''; # Temporary extra config so ssh will work in guacamole
       settings = {
         PasswordAuthentication = lib.mkForce false;
         PermitRootLogin = lib.mkDefault "no";

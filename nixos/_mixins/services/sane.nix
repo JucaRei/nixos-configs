@@ -2,7 +2,10 @@
   hardware = {
     sane = {
       enable = false;
-      extraBackends = with pkgs; [ hplipWithPlugin sane-airscan ];
+      extraBackends = with pkgs; [ 
+        hplipWithPlugin 
+        sane-airscan 
+      ];
     };
   };
 }
