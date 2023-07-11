@@ -44,49 +44,52 @@
       "net.ipv4.ip_unprivileged_port_start" = 80; # Podman access port 80
     };
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-partlabel/root";
-      fsType = "xfs";
-    };
+  };
 
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-partlabel/ESP";
-      fsType = "vfat";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-partlabel/root";
+    fsType = "xfs";
+  };
 
-    fileSystems."/home" = {
-      device = "/dev/disk/by-partlabel/home";
-      fsType = "xfs";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-partlabel/ESP";
+    fsType = "vfat";
+  };
 
-    swapDevices = [{
-      device = "/swap";
-      size = 2048;
-    }];
+  fileSystems."/home" = {
+    device = "/dev/disk/by-partlabel/home";
+    fsType = "xfs";
+  };
 
-    environment.systemPackages = with pkgs; [ 
-      nvtop 
+  swapDevices = [{
+    device = "/swap";
+    size = 2048;
+  }];
+
+  environment.systemPackages = with pkgs;
+    [
+      nvtop
       #polychromatic 
     ];
 
-    # This allows you to dynamically switch between NVIDIA<->Intel using
-    # nvidia-offload script
-    specialisation = {
-      nvidia-offload.configuration = {
-        hardware.nvidia = {
-          prime = {
-            offload.enable = lib.mkForce true;
-            sync.enable = lib.mkForce false;
-          };
-          modesetting.enable = lib.mkForce false;
+  # This allows you to dynamically switch between NVIDIA<->Intel using
+  # nvidia-offload script
+  specialisation = {
+    nvidia-offload.configuration = {
+      hardware.nvidia = {
+        prime = {
+          offload.enable = lib.mkForce true;
+          sync.enable = lib.mkForce false;
         };
-        system.nixos.tags = [ "nvidia-offload" ];
+        modesetting.enable = lib.mkForce false;
       };
+      system.nixos.tags = [ "nvidia-offload" ];
     };
   };
 
   hardware = {
-    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+    cpu.intel.updateMicrocode =
+      lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
