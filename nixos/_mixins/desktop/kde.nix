@@ -1,59 +1,38 @@
-{ pkgs, lib, LT, config, utils, inputs, ... }@args: {
-  environment.systemPackages = with pkgs;
-    [
-      (material-kwin-decoration.overrideAttrs
-        (old: { inherit (LT.sources.material-kwin-decoration) version src; }))
+{ pkgs, ... }: {
+  environment = {
+    systemPackages = with pkgs.libsForQt5; [
+      packagekit-qt
+      bismuth
     ];
+  };
 
   services = {
     xserver = {
+      enable = true;
+
+      modules = [ pkgs.xf86_input_wacon ];
+      wacom.enable = true;
+      libinput = {
+        enable = true;
+        touchpad.tapping =true;
+        disableWhileTyping = true;
+      };
+
       desktopManager.plasma5 = {
         enable = true;
         runUsingSystemd = true;
+        excludePackages = with pkgs.libsForQt5; [
+          elisa
+          khelpcenter
+          konsole
+          oxygen
+        ];
       };
-      libinput.enable = true;
-      displayManager.defaultSession = "plasmawayland";
-      displayManager.lightdm.enable = false;
-    };
-    greetd = {
-      enable = true;
-      restart = true;
-      settings = {
-        default_session = {
-          command =
-            "${pkgs.greetd.greetd}/bin/agreety --cmd startplasma-wayland";
-          user = "greeter";
-        };
-        initial_session = {
-          command = "startplasma-wayland";
-          user = "lantian";
-        };
+
+      displayManager = {
+        defaultSession = "plasmawayland";
+        sddm.enable = true;
       };
-    };
-  };
-  environment.etc."greetd/environments".text = ''
-    startplasma-wayland
-  '';
-
-  programs.dconf.enable = true;
-
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.sddm.enableGnomeKeyring = true;
-  programs = {
-    seahorse.enable = true;
-    ssh.askPassword = "${pkgs.libsForQt5.ksshaskpass}/bin/ksshaskpass";
-    xwayland.enable = true;
-  };
-
-  users.users.lantian.extraGroups = [ "video" "users" "input" ];
-
-  xdg = {
-    portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
     };
   };
 }

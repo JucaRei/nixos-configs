@@ -6,6 +6,10 @@
     # same time. See 'unstable-packages' overlay in 'overlays/default.nix'.
     nixpkgs-prev.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    darwin = {
+      url = "github:lnl7/nix-darwin/master"; # MacOS Package Management
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     disko = {
       url = "github:nix-community/disko";
@@ -42,11 +46,37 @@
     #};
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-software-center.url = "github:vlinkz/nix-software-center";
+    #nix-software-center.url = "github:vlinkz/nix-software-center";
+
+    #emacs-overlay = {
+    #  # Emacs Overlays
+    #  url = "github:nix-community/emacs-overlay";
+    #  flake = false;
+    #};
+
+    #doom-emacs = {
+    #  # Nix-community Doom Emacs
+    #  url = "github:nix-community/nix-doom-emacs";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #  inputs.emacs-overlay.follows = "emacs-overlay";
+    #};
+
+    #hyprland = {
+    #  # Official Hyprland flake
+    #  url = "github:vaxerski/Hyprland"; # Add "hyprland.nixosModules.default" to the host modules
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+
+    #plasma-manager = {
+    #  # KDE Plasma user settings
+    #  url = "github:pjones/plasma-manager"; # Add "inputs.plasma-manager.homeManagerModules.plasma-manager" to the home-manager.users.${user}.imports
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #  inputs.home-manager.follows = "nixpkgs";
+    #};  
   };
 
   outputs = { self, nixpkgs, disko, home-manager, nixos-hardware
-    , nix-software-center, ... }@inputs:
+    , ... }@inputs:
     let
       inherit (self) outputs;
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

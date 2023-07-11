@@ -54,6 +54,15 @@
       containersConf.settings = {
         containers.dns_servers = [ "8.8.8.8" "8.8.4.4" ];
       };
+      ## for ZFS
+      # storage = {
+      #   settings = {
+      #     driver = "zfs";
+      #     graphroot = "/var/lib/containers/storage";
+      #     runroot = "/run/containers/storage";
+      #     options.zfs.fsname = "zroot/podman";
+      #   };
+      # };
     };
   };
 }

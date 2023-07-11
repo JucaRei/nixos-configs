@@ -1,7 +1,6 @@
 { config, desktop, hostname, hostid, inputs, lib, modulesPath, outputs, pkgs
 , stateVersion, username, ... }:
-let 
-machines = [ "nitro" "air"];
+let machines = [ "nitro" "air" ];
 in {
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
@@ -20,6 +19,7 @@ in {
     ./_mixins/services/android.nix
     ./_mixins/services/optimizations.nix
     ./_mixins/services/fwupd.nix
+    ./_mixins/services/security.nix
     ./_mixins/users/root
     #../services/tailscale.nix
     #../services/zerotier.nix
@@ -29,9 +29,11 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
 
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
-    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
+    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix"))
+    (import ./${hostname}/extra.nix { })
     #++ lib.optional (builtins.isString hostname == "nitro" ? "air" ) ./_mixins/hardware/gfx-intel.nix
-    ++ lib.optional (builtins.elem hostname machines ) ./_mixins/hardware/gfx-intel.nix
+    ++ lib.optional (builtins.elem hostname machines)
+    ./_mixins/hardware/gfx-intel.nix
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
@@ -94,6 +96,8 @@ in {
       #LC_COLLATE = "pt_BR.utf8";
       #LC_MESSAGES = "pt_BR.utf8";
     };
+    supportedLocales =
+      lib.mkDefault [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
   };
 
   services = {
@@ -155,9 +159,12 @@ in {
     #};
 
     # Suspend when power key is pressed
-    logind.extraConfig = ''
-      HandlePowerKey=suspend-then-hibernate
-    '';
+    logind = {
+      lidSwitch = "suspend";
+      extraConfig = ''
+        HandlePowerKey=suspend-then-hibernate
+      '';
+    };
 
   };
   time.timeZone = lib.mkDefault "America/Sao_Paulo";
@@ -288,9 +295,6 @@ in {
 
   nix = {
 
-    # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
-    settings.keep-going = true;
-
     gc = {
       automatic = true;
       options = "--delete-older-than 5d";
@@ -326,6 +330,12 @@ in {
       auto-optimise-store = true;
       warn-dirty = false;
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+
+      # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
+      keep-going = false;
+
+      # Allow to run nix
+      allowed-users = [ "${username}" "wheel" ];
     };
   };
 

@@ -83,4 +83,16 @@ in {
       max-free = ${toString (1024 * 1024 * 1024)}
     '';
   };
+  systemd.${username} = {
+    # Nicely reload system units when changing configs
+    startServices = "sd-switch";
+
+    # Tray.target can not be found when xsession is not enabled. This fixes the issue.
+    targets.tray = {
+      Unit = {
+        Description = "Home Manager System Tray";
+        Requires = ["graphical-session-pre.target"];
+      };
+    };
+  };
 }

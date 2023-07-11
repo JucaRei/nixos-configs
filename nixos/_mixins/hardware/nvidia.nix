@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -13,43 +13,60 @@ let
 in {
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
-    nvidia.prime = {
-      offload.enable = true;
+    nvidia = {
+      # package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      # package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+      # package = pkgs.linuxKernel.packages.linux_xanmod_stable.nvidia_x11_legacy470;
+      # package = pkgs.linuxKernel.packages.linux_xanmod_stable.nvidia_x11_stable_open;
+      # package = pkgs.linuxKernel.packages.linux_zen.nvidia_x11;
 
-      # Bus ID of the Intel GPU
-      # Find it using lspci, either under 3D or VGA
-      inherit intelBusId;
+      #open = true;  #opensource
+      nvidiaSettings = false;
+      nvidiaPersistenced = true;
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
 
-      # Bus ID of the Nvidia GPU
-      # Find it using lspci, either under 3D or VGA
-      inherit nvidiaBusId;
+        # Bus ID of the Intel GPU
+        # Find it using lspci, either under 3D or VGA
+        inherit intelBusId;
+
+        # Bus ID of the Nvidia GPU
+        # Find it using lspci, either under 3D or VGA
+        inherit nvidiaBusId;
+
+        #reverseSync = true;
+        sync.enable = true; # will be always on and used for all rendering
+      };
+
+      allowExternalGpu =
+        false; # Configure X to allow external NVIDIA GPUs when using Prime [Reverse] sync optimus.
+
+      # Useful for when NixOS has issues finding the primary display
+      modesetting.enable = true;
+      powerManagement = {
+        enable = true;
+        finegrained = true;
+      };
+      #forceFullCompositionPipeline = true;
     };
+  };
+  environment.systemPackages = with pkgs; [
+    nvidia-offload
+    vulkan-loader
+    vulkan-validation-layers
+    vulkan-tools
+  ];
+  # sessionVariables.NIXOS_OZONE_WL = "1"; # Fix for electron apps with wayland
+  # Wayland
+  # variables = {
+  #   GBM_BACKEND = "nvidia-drm";
+  #   LIBVA_DRIVER_NAME = "nvidia";
+  #   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+  # };
 
-    # Useful for when NixOS has issues finding the primary display
-    nvidia.modesetting.enable = true;
-  };
-  # OpenGL and accelerated video playback
-  nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-  };
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-    driSupport32Bit = true;
-    extraPackages32 = with pkgs.pkgsi686Linux; [
-      intel-media-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-      libva
-    ];
-  };
-
-  environment.systemPackages = with pkgs; [ nvidia-offload ];
+  boot.blacklistedKernelModules = lib.mkForce [ "nouveau" ];
 }

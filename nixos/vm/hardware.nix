@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, username, ... }: {
+{ lib, ... }: {
   imports = [
     #inputs.nixos-hardware.nixosModules.common-pc
     ../_mixins/services/pipewire.nix
@@ -114,7 +114,7 @@
   };
 
   swapDevices = [{
-    device = "/dev/disk/by-label/SWAP";    
+    device = "/dev/disk/by-label/SWAP";
     ### SWAPFILE
     #device = "/swap/swapfile";
     #size = 2 GiB;
@@ -292,18 +292,17 @@
     #upower.enable = true;
     kmscon.extraOptions = lib.mkForce "--xkb-layout=br";
     xserver = {
-      resolutions = [
-        {
-          x = 1920;
-          y = 1080;
-        }
-        #{
-        #  x = 1280;
-        #  y = 720;
-        #}
-        # { x = 1600; y = 900; }
-        # { x = 3840; y = 2160; }
-      ];
+      resolutions = [{
+        x = 1920;
+        y = 1080;
+      }
+      #{
+      #  x = 1280;
+      #  y = 720;
+      #}
+      # { x = 1600; y = 900; }
+      # { x = 3840; y = 2160; }
+        ];
       #videoDrivers = [
       #  "amdgpu"
       #  "nvidia"

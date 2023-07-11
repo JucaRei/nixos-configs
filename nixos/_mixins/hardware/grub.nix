@@ -1,14 +1,17 @@
 { lib, ... }: {
+
   boot = {
     tmp = {
-	useTmpfs = lib.mkDefault true;
-	cleanOnBoot = true;
+      useTmpfs = lib.mkDefault true;
+      cleanOnBoot = true;
     };
+
     loader = {
       efi = {
         canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
       };
+
       grub = {
         enable = true;
         device = "nodev";
@@ -16,6 +19,20 @@
         #efiInstallAsRemovable = true;
         configurationLimit = 4;
         forceInstall = true;
+        #splashMode = "stretch";
+        #theme = "";
+
+        ### For encrypted boot
+        # enableCryptodisk = true;
+
+        ## If tpm is activated
+        # trustedBoot.systemHasTPM = "YES_TPM_is_activated"
+        # trustedBoot.enable = true;
+
+        ## If using zfs filesystem
+        # zfsSupport = true;                        # enable zfs
+        # copyKernels = true; 
+
         #useOSProber = false;
         fsIdentifier = "label";
         gfxmodeEfi = "auto";
