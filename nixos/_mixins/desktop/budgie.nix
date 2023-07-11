@@ -5,6 +5,8 @@
     ../services/networkmanager.nix
   ];
 
+  environment.budgie.excludePackages = with pkgs;  [ mate-terminal ] ;
+
   environment.systemPackages = [
     inputs.nix-software-center.packages.${system}.nix-software-center
   ];
@@ -22,7 +24,6 @@
   services = {
     blueman.enable = true;
     gnome.gnome-keyring.enable = true;
-    system-config-printer.enable = true;
     xserver = {
       enable = true;
       displayManager = {
@@ -38,7 +39,15 @@
         };
       };
 
-      desktopManager = { budgie.enable = lib.mkForce true; };
+      desktopManager = { 
+        budgie = {
+          enable = lib.mkForce true;
+          sessionPath = [];
+          extraGSettingsOverrides = "";
+          extraGSettingsOverridePackages = [];
+          extraPlugins = with pkgs; [ budgiePlugins.budgie-analogue-clock-applet ];
+          }; 
+      };
     };
   };
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
