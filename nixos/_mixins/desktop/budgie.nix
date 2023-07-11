@@ -5,7 +5,9 @@
     ../services/networkmanager.nix
   ];
 
-  environment.budgie.excludePackages = with pkgs;  [ mate-terminal ] ;
+  environment.budgie.excludePackages = with pkgs;  [ 
+    mate.mate-terminal 
+  ] ;
 
   environment.systemPackages = [
     inputs.nix-software-center.packages.${system}.nix-software-center
