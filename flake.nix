@@ -61,7 +61,7 @@
         
         ###.iso images ###
         "juca@iso"            = libx.mkHome {  hostname = "iso";            username = "nixos"; desktop = "pantheon";  };
-        "juca@iso-mini"       = libx.mkHome {  hostname = "iso-mini";       username = "nixos";                        };
+        #"juca@iso-mini"       = libx.mkHome {  hostname = "iso-mini";       username = "nixos";                        };
         ### Laptop ###
         "juca@nitro"          = libx.mkHome { hostname = "nitro";           username = "juca";  desktop = "pantheon"; };
         "juca@air"            = libx.mkHome { hostname = "air";             username = "juca";  desktop = "xfce";     };
@@ -73,7 +73,7 @@
         ### Servers ###
         "juca@raspberry"      = libx.mkHome { hostname = "raspberry";       username = "juca";  desktop = "pantheon"; };
         "juca@DietPi"         = libx.mkHome { hostname = "DietPi";          username = "juca";                        };
-        "juca@raspberry-mini" = libx.mkHome { hostname = "raspberry-mini";  username = "juca";                        };
+        #"juca@raspberry-mini" = libx.mkHome { hostname = "raspberry-mini";  username = "juca";                        };
       };
 
       ### NixOS configs

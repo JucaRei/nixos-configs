@@ -2,7 +2,7 @@
 let
   # Firewall configuration variable for syncthing
   syncthing = {
-    hosts = [ "nitro" "oldmac" "mcbair" "vm" "DietPi" ];
+    hosts = [ "nitro" "oldmac" "air" "vm" "DietPi" ];
     tcpPorts = [ 22000 8384 ];
     udpPorts = [ 22000 21027 ];
   };

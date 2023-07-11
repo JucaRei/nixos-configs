@@ -74,4 +74,5 @@
     # Enable mosh
     #mosh.enable = true;
   };
+  networking.firewall.allowedTCPPorts = [ 22 ];
 }
