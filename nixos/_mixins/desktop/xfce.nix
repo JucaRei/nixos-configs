@@ -42,7 +42,7 @@
     };
   };
 
-  security.pam.services.gdm.enableGnomeKeyring = true;
+  #security.pam.services.gdm.enableGnomeKeyring = true;
 
   services = {
     blueman.enable = true;

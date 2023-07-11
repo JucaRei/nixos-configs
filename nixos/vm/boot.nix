@@ -7,8 +7,8 @@
   boot = {
     isContainer = false;
 
-    kernelParams = [ "resume_offset=140544" ];
-    resumeDevice = "/dev/disk/by-label/NIXOS";
+    #kernelParams = [ "resume_offset=140544" ];
+    #resumeDevice = "/dev/disk/by-label/NIXOS";
 
     #cleanTmpDir = true;
     #tmpOnTmpfs = lib.mkDefault true;
@@ -68,7 +68,7 @@
       ##########################
       # supportedFilesystems = [ "vfat" "zfs" ];
       supportedFilesystems =
-        [ "apfs" "exfat" "vfat" "btrfs" ]; # fat 32 and btrfs
+        [ "btrfs" ]; # fat 32 and btrfs
       compressor = "zstd";
       # compressorArgs = ["-19" "-T0"];
       verbose = false;

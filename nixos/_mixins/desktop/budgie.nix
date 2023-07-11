@@ -1,33 +1,13 @@
-{ pkgs, username, ... }: {
+{ pkgs, inputs, system, ... }: {
   imports = [
     ./qt-style.nix
     ./apps/browsers/firefox.nix
     ../services/networkmanager.nix
   ];
 
-  # Exclude MATE themes. Yaru will be used instead.
-  # Don't install mate-netbook or caja-dropbox
-  environment = {
-    mate.excludePackages = with pkgs.mate; [
-      caja-dropbox
-      eom
-      mate-themes
-      mate-netbook
-      mate-icon-theme
-      mate-backgrounds
-      mate-icon-theme-faenza
-    ];
-
-    # Add some packages to complete the MATE desktop
-    systemPackages = with pkgs; [
-      celluloid
-      gnome.gucharmap
-      gnome-firmware
-      gnome.simple-scan
-      gthumb
-      networkmanagerapplet
-    ];
-  };
+  environment.systemPackages = [
+    inputs.nix-software-center.packages.${system}.nix-software-center
+  ];
 
   # Enable some programs to provide a complete desktop
   programs = {
