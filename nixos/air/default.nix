@@ -20,17 +20,6 @@
 
   boot = {
 
-    tmp = {
-      useTmpfs = true;
-      cleanOnBoot = true;
-    };
-
-    # EFI Boot
-    efi = {
-      canTouchEfiVariables = false; # EFI
-      efiSysMountPoint = "/boot/efi";
-    };
-
     blacklistedKernelModules = lib.mkForce [ "nvidia" "nouveau" ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     extraModprobeConfig = lib.mkDefault ''
@@ -43,6 +32,7 @@
         [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       verbose = false;
       compressor = "zstd";
+      supportedFilesystems = [ "btrfs" ];
     };
 
     kernelModules = [
@@ -256,7 +246,7 @@
   ### fix filesystem
   virtualisation.docker = { storageDriver = lib.mkForce "btrfs"; };
 
-  system = { autoUpgrade.allowReboot = true; };
+  #system = { autoUpgrade.allowReboot = true; };
 
   nixpgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
