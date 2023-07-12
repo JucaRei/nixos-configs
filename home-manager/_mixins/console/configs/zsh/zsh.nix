@@ -1,12 +1,7 @@
 { config, pkgs, ... }:
-#let
-#  files = [ ./kubectl.zsh ./prompt.zsh ./git.zsh ];
-#  src = builtins.filterSource (p: t: builtins.elem (/. + p) files) ./.;
-#in 
-
 let
-  filter = path: type:
-    builtins.elem (/. + path) [ ./git.zsh ./kubectl.zsh ./prompt.zsh ];
+  files = [ ./kubectl.zsh ./prompt.zsh ./git.zsh ];
+  src = builtins.filterSource (p: t: builtins.elem (./. + p) files) /.;
 in {
   programs.zsh = {
     enable = true;
@@ -14,8 +9,6 @@ in {
   };
   home = {
     packages = with pkgs; [ zsh ];
-    file = {
-      "${config.xdg.configHome}/.zshrc".text = builtins.readFile filter;
-    };
+    file = { "${config.xdg.configHome}/.zshrc".text = builtins.readFile src; };
   };
 }
