@@ -243,13 +243,9 @@
   };
 
   ### fix filesystem
-  virtualisation.docker = { 
-    storageDriver = lib.mkForce "btrfs"; 
-  };
+  virtualisation.docker = { storageDriver = lib.mkForce "btrfs"; };
 
-  system = {
-    autoUpgrade.allowReboot = true;
-  };
+  system = { autoUpgrade.allowReboot = true; };
 
   nixpgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
