@@ -1,7 +1,6 @@
-{ ... }: {
+{ pkgs, ... }: {
   gpg = {
     enable = false; # disabled for now
-    gnupg.package = pkgs.gnupg;
     dirmngr.enable = false;
     agent = {
       enable = false;
@@ -17,6 +16,11 @@
       # enables to use gpg on the remote system without exposing the private keys to the remote system
       enableExtraSocket = false;
       enableBrowserSocket = false;
+      defaultCacheTtl = 34560000;
+      defaultCacheTtlSsh = 34560000;
+      maxCacheTtl = 34560000;
+      maxCacheTtlSsh = 34560000;
     };
   };
+  home.packages = [ pkgs.gnupg ];
 }

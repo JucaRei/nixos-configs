@@ -10,11 +10,12 @@
     ../_mixins/services/power-man.nix
     ../_mixins/hardware/nvidia.nix
     ../_mixins/hardware/gfx-intel.nix
-    ../_mixins/hardware/grub.nix
+    #../_mixins/hardware/grub.nix
     #../_mixins/hardware/tpm.nix
     ../_mixins/virt
   ];
   boot = {
+
     extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
     extraModprobeConfig = lib.mkDefault ''
       options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
