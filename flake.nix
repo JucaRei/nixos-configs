@@ -118,7 +118,7 @@
         # Laptop
         #  - sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
         #  - nix build .#nixosConfigurations.vm.config.system.build.toplevel
-        nitro           = libx.mkHost {  hostname = "nitro";           username = "juca";  hostid = "0145d776"; desktop = "pantheon"; };
+        #nitro           = libx.mkHost {  hostname = "nitro";           username = "juca";  hostid = "0145d776"; desktop = "pantheon"; };
         air             = libx.mkHost {  hostname = "air";             username = "juca";  hostid = "b28460d8"; desktop = "pantheon"; };
         oldmac          = libx.mkHost {  hostname = "oldmac";          username = "juca";  hostid = "be4cb578"; desktop = "pantheon"; };
         

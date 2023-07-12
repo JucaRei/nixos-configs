@@ -1,40 +1,28 @@
-{ pkgs, lib, config, ... }:
-with pkgs;
-with lib;
-with builtins;
-let cfg = config.sys;
-in {
-  options.sys.virtualisation = {
+{ lib, pkgs, hostname, ... }: {
+  virtualisation = {
+    oci-containers.backend = "docker";
     docker = {
-      enable = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Enables docker";
-      };
-      enableOnBoot = mkOption {
-        type = types.bool;
-        default = true;
-        description = "Enables docker on boot";
+      enable = true;
+      enableOnBoot = lib.mkDefault false;
+      enableNvidia = if hostname == "air" then false else true;
+      rootless = {
+        enable = true;
+        package = pkgs.docker;
       };
       autoPrune = {
-        type = types.bool;
-        default = false;
-        description = "Prune all automatic";
+        enable = true;
+        dates = "monthly";
       };
 
       # https://docs.docker.com/build/buildkit/
-      daemon.settings = { "features" = { "buildkit" = true; }; };
+      #daemon.settings = { "features" = { "buildkit" = true; }; };
+      storageDriver = "overlay2";
     };
   };
 
-  config = {
-    virtualisation.docker.enable = cfg.virtualisation.docker.enable;
-    virtualisation.docker.storageDriver = "overlay2";
-  };
-
-  # Add docker extensions.
-  environment.systemPackages = [
-    #pkgs.docker-compose
-    pkgs.docker-machine
+  environment.systemPackages = with pkgs; [
+    docker-machine
+    docker-compose
+    lazydocker
   ];
 }
