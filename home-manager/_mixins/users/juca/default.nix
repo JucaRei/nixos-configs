@@ -23,10 +23,10 @@
     file.".face".source = ./face.jpg;
     #file."Development/debian/.envrc".text = "export DEB_VENDOR=Debian";
     #file."Development/ubuntu/.envrc".text = "export DEB_VENDOR=Ubuntu";
-    #file.".ssh/config".text = "
-    #  Host github.com
-    #    HostName github.com
-    #    User git
+    file.".ssh/config".text = "
+      Host github.com
+        HostName github.com
+        User git
 
     #  Host man
     #    HostName man.wimpress.io
@@ -60,20 +60,20 @@
     #  Host ubuntupodcast.org
     #    HostName live.ubuntupodcast.org
     #";
-    #file."Quickemu/nixos.conf".text = ''
-    #  #!/run/current-system/sw/bin/quickemu --vm
-    #  guest_os="linux"
-    #  disk_img="nixos/disk.qcow2"
-    #  disk_size="96G"
-    #  iso="nixos/nixos.iso"
-    #'';
-    #file."Quickemu/nixos-mini.conf".text = ''
-    #  #!/run/current-system/sw/bin/quickemu --vm
-    #  guest_os="linux"
-    #  disk_img="nixos-mini/disk.qcow2"
-    #  disk_size="96G"
-    #  iso="nixos-mini/nixos.iso"
-    #'';
+    file."Quickemu/nixos.conf".text = ''
+      #!/run/current-system/sw/bin/quickemu --vm
+      guest_os="linux"
+      disk_img="nixos/disk.qcow2"
+      disk_size="20G"
+      iso="nixos/nixos.iso"
+    '';
+    file."Quickemu/nixos-mini.conf".text = ''
+      #!/run/current-system/sw/bin/quickemu --vm
+      guest_os="linux"
+      disk_img="nixos-mini/disk.qcow2"
+      disk_size="13G"
+      iso="nixos-mini/nixos.iso"
+    '';
     #sessionVariables = {
     #  BZR_EMAIL = "Martin Wimpress <code@wimpress.io>";
     #  DEBFULLNAME = "Martin Wimpress";
@@ -93,18 +93,18 @@
   };
 
   systemd.user.tmpfiles.rules = [
-    "d /home/${username}/workspace/linux 0755 ${username} users - -"
-    "d /home/${username}/workspace/virtualmachines 0755 ${username} users - -"
-    "d /home/${username}/workspace/docker-configs 0755 ${username} users - -"
-    "d /home/${username}/workspace/lab 0755 ${username} users - -"
-    "d /home/${username}/workspace/github 0755 ${username} users - -"
-    "d /home/${username}/workspace/bitbucket 0755 ${username} users - -"
-    "d /home/${username}/workspace/gitlab 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/linux 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/virtualmachines 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/docker-configs 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/lab 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/github 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/bitbucket 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/gitlab 0755 ${username} users - -"
+    "d /home/${username}/Documents/workspace/scripts/ 0755 ${username} users - -"
     "d /home/${username}/games 0755 ${username} users - -"
-    "d /home/${username}/quickemu 0755 ${username} users - -"
-    "d /home/${username}/scripts 0755 ${username} users - -"
+    "d /home/${username}/quickemu/nixos 0755 ${username} users - -"
+    "d /home/${username}/quickemu/nixos-mini 0755 ${username} users - -"
     "d /home/${username}/syncthing 0755 ${username} users - -"
-    "d /home/${username}/websites 0755 ${username} users - -"
     "d /home/${username}/Zero 0755 ${username} users - -"
   ];
 }

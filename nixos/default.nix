@@ -27,33 +27,28 @@ in {
     ./_mixins/users/${username}
   ]
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
-
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
-    ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix"))
-    (import ./${hostname}/extra.nix { })
+  #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
+
     ++ lib.optional (builtins.elem hostname machines)
     ./_mixins/hardware/gfx-intel.nix
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
-    tmp = {
-      useTmpfs = true;
-      cleanOnBoot = true;
+    initrd = {
+
     };
     consoleLogLevel = 0;
     kernelModules = [ "vhost_vsock" ];
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
       #"quiet"
-      #"randomize_kstack_offset=on" ## above kernel 5.13 improve safe
       "boot.shell_on_fail"
       "rd.systemd.show_status=false"
       "rd.udev.log_priority=3"
       "udev.log_priority=3"
       "vt.global_cursor_default=0"
-      "mitigations=off"
       "net.ifnames=0"
-      #"mem_sleep_default=deep"
     ];
     kernel = {
       sysctl = {
@@ -130,7 +125,7 @@ in {
       package = pkgs.ananicy-cpp;
       enable = true;
     };
-    earlyoom.enable = true;
+    earlyoom.enable = false;
     irqbalance.enable = true;
     fstrim.enable = true;
 
@@ -169,11 +164,13 @@ in {
   #};
 
   # Only install the docs I use
-  documentation.enable = true; # documentation of packages
-  documentation.nixos.enable = false; # nixos documentation
-  documentation.man.enable = true; # man pages and the man command
-  documentation.info.enable = false; # info pages and the info command
-  documentation.doc.enable = false;
+  documentation = {
+    enable = true; # documentation of packages
+    nixos.enable = false; # nixos documentation
+    man.enable = true; # man pages and the man command
+    info.enable = false; # info pages and the info command
+    doc.enable = false;
+  };
 
   environment = {
     # Eject nano and perl from the system
@@ -247,15 +244,6 @@ in {
 
   nixpkgs = {
 
-    ### Allow old broken electron 
-    config.permittedInsecurePackages = lib.singleton "electron-12.2.3";
-
-    ### Android
-    config.android_sdk.accept_license = true;
-
-    # Accept the joypixels license
-    config.joypixels.acceptLicense = true;
-
     # You can add overlays here
     overlays = [
       # if you also want support for flakes
@@ -285,6 +273,15 @@ in {
       allowBroken = false;
       # Disable if you don't want unfree packages
       allowUnfree = true;
+
+      ### Allow old broken electron 
+      permittedInsecurePackages = lib.singleton "electron-12.2.3";
+
+      ### Android
+      android_sdk.accept_license = true;
+
+      # Accept the joypixels license
+      joypixels.acceptLicense = true;
     };
   };
 
@@ -322,7 +319,10 @@ in {
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
       config.nix.registry;
 
-    optimise.automatic = true;
+    optimise = {
+      automatic = true;
+      dates = [ "00:00" "05:00" "12:00" "21:00" ];
+    };
     package = pkgs.unstable.nix;
     #package = pkgs.nixFlakes;
     settings = {
@@ -376,8 +376,9 @@ in {
         set -U fish_pager_color_progress brwhite '--background=cyan'
       '';
       shellAbbrs = {
-        mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
         # https://github.com/NixOS/nixpkgs/issues/191128#issuecomment-1246030417
+        mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
+
         nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
         rebuild-all = "rebuild-host && rebuild-home";
         rebuild-home =
@@ -441,18 +442,23 @@ in {
       DefaultTimeoutAbortSec=5s
     '';
   };
-  system.activationScripts.diff = {
-    supportsDryActivation = true;
-    text = ''
-      ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
-    '';
+  system = {
 
-    # systemd's out-of-memory daemon
-    #oomd = {
-    #  enable = lib.mkDefault true;
-    #  enableSystemSlice = true;
-    #  enableUserServices = true;
-    #};
+    autoUpgrade.allowReboot = true;
+
+    activationScripts.diff = {
+      supportsDryActivation = true;
+      text = ''
+        ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
+      '';
+
+      # systemd's out-of-memory daemon
+      #oomd = {
+      #  enable = lib.mkDefault true;
+      #  enableSystemSlice = true;
+      #  enableUserServices = true;
+      #};
+    };
   };
 
   systemd.services = {

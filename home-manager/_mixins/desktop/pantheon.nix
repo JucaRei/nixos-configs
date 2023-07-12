@@ -7,7 +7,7 @@ with lib.hm.gvariant;
       indicator-state = true;
       indicator-cpu-state = false;
       indicator-gpu-state = false;
-      indicator-memory-state = false;
+      indicator-memory-state = true;
       indicator-network-download-state = true;
       indicator-network-upload-state = true;
       indicator-temperature-state = true;
@@ -40,7 +40,7 @@ with lib.hm.gvariant;
     };
 
     "io/elementary/desktop/wingpanel" = {
-      use-transparency = false;
+      use-transparency = true; # false
     };
 
     "io/elementary/desktop/wingpanel/datetime" = {
@@ -48,7 +48,7 @@ with lib.hm.gvariant;
     };
 
     "io/elementary/desktop/wingpanel/sound" = {
-      max-volume = 120.0;
+      max-volume = 150.0;
     };
 
     "io/elementary/files/preferences" = {
@@ -84,7 +84,7 @@ with lib.hm.gvariant;
     "net/launchpad/plank/docks/dock1" = {
       alignment = "center";
       hide-mode = "window-dodge";
-      icon-size = 48;
+      icon-size = 42;
       pinned-only = false;
       position = "left";
       theme = "Transparent";
@@ -128,9 +128,9 @@ with lib.hm.gvariant;
     "org/gnome/desktop/wm/preferences" = {
       audible-bell = false;
       button-layout = ":minimize,maximize,close";
-      num-workspaces = 5;
+      num-workspaces = 6;
       titlebar-font = "Work Sans Semi-Bold 12";
-      workspace-names = ["Web" "Work" "Code" "Virt" "Stuff"];
+      workspace-names = ["Web" "Work" "Code" "Virt" "Fun" "Stuff"];
     };
 
     "org/gnome/GWeather" = {

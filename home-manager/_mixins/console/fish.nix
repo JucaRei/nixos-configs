@@ -39,12 +39,12 @@
       shellAbbrs = {
       #  mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
       #  # https://github.com/NixOS/nixpkgs/issues/191128#issuecomment-1246030417
-      rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
       #  rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+      rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
       rebuild-lock = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
       rebuild-iso = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
-      #  nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
       nix-gc = "sudo nix-collect-garbage --delete-older-than 4d";
+      #  nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
       #  #rebuild-home = "home-manager switch -b backup --flake $HOME/.setup";
       #  #rebuild-host = "sudo nixos-rebuild switch --flake $HOME/.setup";
       #  #rebuild-lock = "pushd $HOME/.setup && nix flake lock --recreate-lock-file && popd";
@@ -54,18 +54,13 @@
         cat = "bat --paging=never --style=plain";
         diff = "diffr";
         glow = "glow --pager";
-        bottom = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
+        htop = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
         ip = "ip --color --brief";
         less = "bat --paging=always";
         more = "bat --paging=always";
-        pubip = "curl -s ifconfig.me/ip";
-        #pubip = "curl -s https://api.ipify.org";
-        top = "htop";
+        top = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
         tree = "exa --tree";
-        moon = "curl -s wttr.in/Moon";
         wget = "wget2";
-        wttr = "curl -scurl -s wttr.in && curl -s v2.wttr.in";
-        wttr-bas = "curl -s wttr.in/basingstoke && curl -s v2.wttr.in/basingstoke";
       };
     };
   };

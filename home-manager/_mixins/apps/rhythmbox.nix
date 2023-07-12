@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, username, ... }:
 with lib.hm.gvariant;
 {
   dconf.settings = {
@@ -11,7 +11,7 @@ with lib.hm.gvariant;
     };
     
     "org/gnome/rhythmbox/rhythmdb" = {
-      locations = [ "file:///home/juca/Studio/Music" ];
+      locations = [ "file:///home/${username}/Music" ];
       monitor-library = true;
     };
     

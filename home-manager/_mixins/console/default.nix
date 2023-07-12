@@ -139,7 +139,7 @@
         };
         disk_filter = {
           is_list_ignored = true;
-          list = [ "/dev/loop" ];
+          list = ["/dev/loop"];
           regex = true;
           case_sensitive = false;
           whole_word = false;
@@ -154,6 +154,7 @@
         };
       };
     };
+
     #command-not-found.enable = true;
     dircolors = {
       enable = true;
@@ -164,7 +165,9 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = { enable = true; };
+      nix-direnv = { 
+        enable = true; 
+      };
     };
     exa = {
       enable = true;
@@ -216,7 +219,4 @@
     keybase.enable = true;
     #keybase.enable = false;
   };
-
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
 }

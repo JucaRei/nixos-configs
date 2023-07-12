@@ -7,9 +7,9 @@
     ../_mixins/services/pipewire.nix
     ../_mixins/services/power-man.nix
     ../_mixins/services/dynamic-timezone.nix
-    ../_mixins/hardware/grub.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
+    ../_mixins/hardware/grub.nix
     #../_mixins/services/tailscale.nix
     #../_mixins/services/zerotier.nix
   ];
@@ -19,6 +19,11 @@
   ############
 
   boot = {
+
+    tmp = {
+      useTmpfs = true;
+      cleanOnBoot = true;
+    };
 
     # EFI Boot
     efi = {
@@ -51,12 +56,13 @@
       "lz4hc_compress"
     ];
     kernelParams = [
+      "mem_sleep_default=deep"
       "zswap.enabled=1"
       "zswap.compressor=lz4hc"
       "zswap.max_pool_percent=20"
       "zswap.zpool=z3fold"
-      "mem_sleep_default=deep"
       "fs.inotify.max_user_watches = 524288"
+      "mitigations=off"
     ];
     kernel.sysctl = {
       #"kernel.sysrq" = 1;

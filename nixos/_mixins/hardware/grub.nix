@@ -1,11 +1,6 @@
 { ... }: {
 
   boot = {
-    tmp = {
-      useTmpfs = true;
-      cleanOnBoot = true;
-    };
-
     grub = {
       enable = true;
       device = "nodev";

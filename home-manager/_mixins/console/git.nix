@@ -4,6 +4,7 @@
       enable = true;
       extensions = with pkgs; [ gh-markdown-preview ];
       settings = {
+        editor = "micro";
         git_protocol = "ssh";
         prompt = "enabled";
       };
@@ -15,6 +16,7 @@
         enable = true;
         options = {
           features = "side-by-side line-numbers decorations";
+          navigate = true;
           syntax-theme = "Dracula";
           plus-style = ''syntax "#003800"'';
           minus-style = ''syntax "#3f0001"'';
@@ -126,12 +128,12 @@
         github = { user = "Reinaldo"; };
         commit = { verbose = true; };
         url = {
-          "https://github.com/".insteadOf       = "gh:";
-          "https://gitlab.com/".insteadOf       = "gl:";
-          "https://gist.github.com/".insteadOf  = "gist:";
-          "git@gist.github.com".pushInsteadOf   = "gist:";
-          "git@gitlab.com:".pushInsteadOf       = "gl:";
-          "git@github.com:".pushInsteadOf       = "gh:";
+          "https://github.com/".insteadOf = "gh:";
+          "https://gitlab.com/".insteadOf = "gl:";
+          "https://gist.github.com/".insteadOf = "gist:";
+          "git@gist.github.com".pushInsteadOf = "gist:";
+          "git@gitlab.com:".pushInsteadOf = "gl:";
+          "git@github.com:".pushInsteadOf = "gh:";
         };
       };
 

@@ -20,14 +20,11 @@ in {
     activation.report-changes = config.lib.dag.entryAnywhere ''
       ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
     '';
-    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+    homeDirectory = if isDarwin then "/Users/${username}" else isLinux "/home/${username}";
     sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = stateVersion;
     username = username;
   };
-
-  # Let Home Manager install and manage itself.
-  #programs.home-manager.enable = true;
 
   nixpkgs = {
     # You can add overlays here
@@ -62,7 +59,10 @@ in {
 
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
     settings.keep-going = true;
-    
+
+    build-use-sandbox = false;
+    auto-optimise-store = true;
+
     package = lib.mkDefault pkgs.unstable.nix;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {
@@ -83,6 +83,7 @@ in {
       max-free = ${toString (1024 * 1024 * 1024)}
     '';
   };
+
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 }

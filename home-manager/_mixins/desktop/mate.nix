@@ -197,9 +197,9 @@ with lib.hm.gvariant;
     "org/mate/marco/workspace-names" = {
       name-1 = " Web ";
       name-2 = " Work ";
-      name-3 = " Code ";
-      name-4 = " Virt ";
-      name-5 = " Stuff ";
+      name-3 = " Stuff ";
+      name-4 = " Code ";
+      name-5 = " Virt ";
     };
 
     "org/mate/maximus" = {
@@ -337,14 +337,12 @@ with lib.hm.gvariant;
     };
 
     iconTheme = {
-      #name = "Yaru-dark-magenta";
-      name = "Yaru-magenta-dark";
+      name = "Yaru-dark-magenta";
       package = pkgs.yaru-theme;
     };
 
     theme = {
-      #name = "Yaru-dark-magenta";
-      name = "Yaru-magenta-dark";
+      name = "Yaru-dark-magenta";
       package = pkgs.yaru-theme;
     };
   };

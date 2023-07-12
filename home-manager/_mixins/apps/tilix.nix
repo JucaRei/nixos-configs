@@ -1,6 +1,9 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
 { lib, ... }:
-with lib.hm.gvariant; {
+
+with lib.hm.gvariant;
+
+{
   dconf.settings = {
     "com/gexperts/Tilix" = {
       app-title = "\${appName}: \${directory}";
@@ -15,7 +18,9 @@ with lib.hm.gvariant; {
       window-style = "normal";
     };
 
-    "com/gexperts/Tilix/keybindings" = { win-view-sidebar = "<Primary>F12"; };
+    "com/gexperts/Tilix/keybindings" = {
+      win-view-sidebar = "<Primary>F12";
+    };
 
     "com/gexperts/Tilix/profiles" = {
       default = "d1def387-a465-4497-81bc-b8b2de782b2d";
@@ -44,58 +49,36 @@ with lib.hm.gvariant; {
       font = "FiraCode Nerd Font Medium 12";
       foreground-color = "#C8C8C8C8C8C8";
       highlight-background-color = "#1E1E1E1E2020";
-      highlight-colors-set = true;
+      highlight-colors-set = false;
       highlight-foreground-color = "#C8C8C8C8C8C8";
-      palette = [
-        "#121212121414"
-        "#D6D62B2B2B2B"
-        "#4141DDDD7575"
-        "#FFFFB6B63838"
-        "#2828A9A9FFFF"
-        "#E6E66D6DFFFF"
-        "#1414E5E5D3D3"
-        "#C8C8C8C8C8C8"
-        "#434343434545"
-        "#DEDE56565656"
-        "#A1A1EEEEBBBB"
-        "#FFFFC5C56060"
-        "#9494D4D4FFFF"
-        "#F2F2B6B6FFFF"
-        "#A0A0F5F5EDED"
-        "#E9E9E9E9E9E9"
-      ];
+      palette = [ "#121212121414" "#D6D62B2B2B2B" "#4141DDDD7575" "#FFFFB6B63838" "#2828A9A9FFFF" "#E6E66D6DFFFF" "#1414E5E5D3D3" "#C8C8C8C8C8C8" "#434343434545" "#DEDE56565656" "#A1A1EEEEBBBB" "#FFFFC5C56060" "#9494D4D4FFFF" "#F2F2B6B6FFFF" "#A0A0F5F5EDED" "#E9E9E9E9E9E9" ];
       scrollback-unlimited = true;
       terminal-title = "";
       use-system-font = true;
       use-theme-colors = false;
       visible-name = "Bearded Dark Vivid";
     };
+
     "org/gnome/desktop/default/applications/terminal" = {
       exec = "tilix";
       exec-arg = "-e";
     };
 
     "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
-      ];
+      custom-keybindings = [ "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/" "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/" ];
       terminal = [ "" ];
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
-      {
-        binding = "<Super>t";
-        command = "tilix";
-        name = "tilix";
-      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Super>t";
+      command = "tilix";
+      name = "tilix";
+    };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
-      {
-        binding = "<Primary><Alt>t";
-        command = "tilix";
-        name = "tilix";
-      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+      binding = "<Primary><Alt>t";
+      command = "tilix";
+      name = "tilix";
+    };
   };
 }
