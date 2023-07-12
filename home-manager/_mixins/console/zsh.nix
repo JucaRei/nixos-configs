@@ -5,9 +5,10 @@
   };
   home = {
     packages = with pkgs; [ zsh ];
-    file = {
+    file = let files = [ ./configs/zsh/kubectl.zsh ./configs/zsh/prompt.zsh ];
+    in {
       "${config.xdg.configHome}/.zshrc".text =
-        builtins.readFile ./configs/zsh/kubectl.zsh ++ ./configs/zsh/prompt.zsh;
+        builtins.readFile (builtins.elem files);
     };
   };
 }
