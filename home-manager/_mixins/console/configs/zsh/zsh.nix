@@ -13,7 +13,9 @@
     file = {
       "${config.xdg.configHome}/.zshrc".text = [
         (builtins.readFile ./kubectl.zsh)
+        "\n"
         (builtins.readFile ./git.zsh)
+        "\n"
         (builtins.readFile ./prompt.zsh)
       ];
     };
