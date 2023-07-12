@@ -12,11 +12,9 @@
     packages = with pkgs; [ zsh ];
     file = {
       "${config.xdg.configHome}/.zshrc".text = [
-        (builtins.readFile ./kubectl.zsh)
-        "\n"
-        (builtins.readFile ./git.zsh)
-        "\n"
-        (builtins.readFile ./prompt.zsh)
+        (builtins.readFile "\n" ./kubectl.zsh)
+        (builtins.readFile "\n" ./git.zsh)
+        (builtins.readFile "\n" ./prompt.zsh)
       ];
     };
   };
