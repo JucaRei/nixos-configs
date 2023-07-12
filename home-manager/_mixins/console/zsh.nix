@@ -8,7 +8,7 @@
     file = let files = [ ./configs/zsh/kubectl.zsh ./configs/zsh/prompt.zsh ];
     in {
       "${config.xdg.configHome}/.zshrc".text =
-        builtins.readFile (builtins.elem files);
+        builtins.readFile (builtins.elem files files);
     };
   };
 }
