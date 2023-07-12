@@ -3,7 +3,7 @@
     ./fish.nix
     ./bat.nix
     ./bash.nix
-    ./zsh.nix
+    ./configs/zsh/zsh.nix
     ./readline.nix
     ./git.nix
     ./neofetch.nix
