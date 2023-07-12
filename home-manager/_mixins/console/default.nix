@@ -174,7 +174,6 @@
     gpg.enable = true;
     home-manager = {
       enable = true;
-      useGlobalPkgs = true;
     };
     info.enable = true;
     jq.enable = true;
