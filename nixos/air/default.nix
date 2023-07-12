@@ -4,7 +4,6 @@
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     #../_mixins/hardware/systemd-boot.nix
-    ../_mixins/hardware/gfx-intel.nix
     ../_mixins/services/pipewire.nix
     ../_mixins/services/power-man.nix
     ../_mixins/services/dynamic-timezone.nix
@@ -20,6 +19,12 @@
   ############
 
   boot = {
+
+    # EFI Boot
+    efi = {
+      canTouchEfiVariables = false; # EFI
+      efiSysMountPoint = "/boot/efi";
+    };
 
     blacklistedKernelModules = lib.mkForce [ "nvidia" "nouveau" ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];

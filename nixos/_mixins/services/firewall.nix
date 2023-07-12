@@ -9,11 +9,15 @@ let
 in {
   networking = {
     firewall = {
+      # if packets are still dropped, they will show up in dmesg
+      #logReversePathDrops = true;
       enable = true;
       allowedTCPPorts = [ ]
-        ++ lib.optionals (builtins.elem hostname syncthing.hosts) syncthing.tcpPorts;
+        ++ lib.optionals (builtins.elem hostname syncthing.hosts)
+        syncthing.tcpPorts;
       allowedUDPPorts = [ ]
-        ++ lib.optionals (builtins.elem hostname syncthing.hosts) syncthing.udpPorts;
+        ++ lib.optionals (builtins.elem hostname syncthing.hosts)
+        syncthing.udpPorts;
     };
   };
 }

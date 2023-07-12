@@ -84,6 +84,8 @@
       ### Ansible
       #ansible # Automation
       #sshpass # Ansible Dependency
+      #rclone # Gdrive mount  ($ rclone config | rclone mount --daemon gdrive: <mount> | fusermount -u <mount>)
+      #wdisplays # Display Configurator
 
       ### Archive Tools
       unzip
@@ -161,9 +163,7 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = {
-        enable = true;
-      };
+      nix-direnv = { enable = true; };
     };
     exa = {
       enable = true;
@@ -171,9 +171,7 @@
       icons = true;
     };
     gpg.enable = true;
-    home-manager = {
-      enable = true;
-    };
+    home-manager = { enable = true; };
     info.enable = true;
     jq.enable = true;
     micro = {

@@ -1,8 +1,8 @@
-{ lib, ... }: {
+{ ... }: {
 
   boot = {
     tmp = {
-      useTmpfs = lib.mkDefault true;
+      useTmpfs = true;
       cleanOnBoot = true;
     };
 

@@ -7,12 +7,12 @@ in {
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
   imports = [
     #(./. + "/${hostname}/disks.nix")
+    #(./. + "/${hostname}/hardware.nix")
+    #(./. + "/${hostname}/boot.nix")
 
     #inputs.disko.nixosModules.disko    
     (modulesPath + "/installer/scan/not-detected.nix")
     (./. + "/${hostname}")
-    #(./. + "/${hostname}/boot.nix")
-    #(./. + "/${hostname}/hardware.nix")
     ./_mixins/services/kmscon.nix
     ./_mixins/services/openssh.nix
     ./_mixins/services/firewall.nix
@@ -24,7 +24,6 @@ in {
     ./_mixins/users/root
     #../services/tailscale.nix
     #../services/zerotier.nix
-    #./_mixins/hardware/gfx-intel.nix
     ./_mixins/users/${username}
   ]
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
@@ -32,23 +31,21 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
     ++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix"))
     (import ./${hostname}/extra.nix { })
-    #++ lib.optional (builtins.isString hostname == "nitro" ? "air" ) ./_mixins/hardware/gfx-intel.nix
     ++ lib.optional (builtins.elem hostname machines)
     ./_mixins/hardware/gfx-intel.nix
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
-    plymouth.enable = true;
-    initrd.verbose = false;
+    tmp = {
+      useTmpfs = true;
+      cleanOnBoot = true;
+    };
     consoleLogLevel = 0;
     kernelModules = [ "vhost_vsock" ];
-    kernelParams = lib.mkDefault [
+    kernelParams = [
       # The 'splash' arg is included by the plymouth option
       #"quiet"
-      "loglevel=3"
       #"randomize_kstack_offset=on" ## above kernel 5.13 improve safe
-      "vsyscall=none"
-      "acpi_call"
       "boot.shell_on_fail"
       "rd.systemd.show_status=false"
       "rd.udev.log_priority=3"
@@ -59,7 +56,7 @@ in {
       #"mem_sleep_default=deep"
     ];
     kernel = {
-      sysctl = lib.mkDefault {
+      sysctl = {
         "net.ipv4.ip_forward" = 1;
         "net.ipv6.conf.all.forwarding" = 1;
         "dev.i915.perf_stream_paranoid" = 0;
@@ -77,8 +74,8 @@ in {
   console = {
     keyMap = if (builtins.isString == "nitro") then "br-abnt2" else "us";
     earlySetup = true;
-    font = "ter-powerline-v18n";
-    packages = with pkgs; [ terminus_font powerline-fonts ];
+    font = "${pkgs.tamzen}/share/consolefonts/TamzenForPowerline10x20.psf";
+    packages = with pkgs; [ tamzen ];
   };
 
   i18n = {
@@ -97,8 +94,7 @@ in {
       #LC_COLLATE = "pt_BR.utf8";
       #LC_MESSAGES = "pt_BR.utf8";
     };
-    supportedLocales =
-      lib.mkDefault [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
+    supportedLocales = [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
   };
 
   services = {
@@ -106,14 +102,12 @@ in {
     ### Keyboard ###
     ################
 
-    xserver = if (builtins.isString == "nitro") then
-      true {
-        layout = "br,gb,us";
-        xkbVariant = "pc105";
-        xkbModel = "pc105";
-        xkbOptions = "grp:alt_shift_toggle";
-      }
-    else {
+    xserver = if (builtins.isString == "nitro" && "vm") then {
+      layout = "br,gb,us";
+      xkbVariant = "pc105";
+      xkbModel = "pc105";
+      xkbOptions = "grp:alt_shift_toggle";
+    } else {
       layout = "us";
       xkbVariant = "mac";
       xkbModel = "pc105";
@@ -327,9 +321,10 @@ in {
     # Making legacy nix commands consistent as well, awesome!
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
       config.nix.registry;
+
     optimise.automatic = true;
-    #package = pkgs.unstable.nix;
-    package = pkgs.nixFlakes;
+    package = pkgs.unstable.nix;
+    #package = pkgs.nixFlakes;
     settings = {
       #sandbox = "relaxed";
       auto-optimise-store = true;
@@ -458,6 +453,12 @@ in {
     #  enableSystemSlice = true;
     #  enableUserServices = true;
     #};
+  };
+
+  systemd.services = {
+    # Workaround https://github.com/NixOS/nixpkgs/issues/180175
+    NetworkManager-wait-online.enable = false;
+    systemd-udevd.restartIfChanged = false;
   };
 
   system.stateVersion = stateVersion;
