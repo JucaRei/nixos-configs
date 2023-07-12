@@ -1,10 +1,6 @@
 { ... }: {
   boot = {
     loader = {
-      efi = {
-        #canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
       systemd-boot = {
         enable = true;
         editor = true;
@@ -12,7 +8,6 @@
         consoleMode = "max";
         memtest86.enable = true;
       };
-      timeout = 6;
     };
   };
 }
