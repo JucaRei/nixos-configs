@@ -1,4 +1,4 @@
-{ lib, pkgs, hostname,... }: {
+{ lib, pkgs,... }: {
 
   imports = [
     #inputs.nixos-hardware.nixosModules.common-pc
@@ -139,7 +139,7 @@
         gfxmodeEfi = "1920x1080,auto";
         fontSize = 20;
 
-        configurationName = "NixOS VM test";
+        configurationName = lib.mkForce "NixOS VM test";
       };
     };
   };
