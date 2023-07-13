@@ -289,7 +289,6 @@
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
-    dockerSocket = true;
     defaultNetwork.settings = { dns_enabled = true;};
   };
 
