@@ -219,6 +219,8 @@
 
     # ddccontrol.enable = true;
 
+    dbus.implementation = lib.mkForce "dbus";
+
     # Virtual Filesystem Support Library
     gvfs = { enable = true; };
 
