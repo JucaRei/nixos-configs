@@ -379,6 +379,8 @@ in {
         # https://github.com/NixOS/nixpkgs/issues/191128#issuecomment-1246030417
         mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
 
+        # VM testing
+        nixclone = "git clone --depth=1 https://github.com/JucaRei/nixos-configs $HOME/Zero/nix-config";
         nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
         rebuild-all = "rebuild-host && rebuild-home";
         rebuild-home =
