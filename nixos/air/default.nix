@@ -295,7 +295,5 @@
     ];
   };
 
-  systemd.packages = "hdapsd";
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
