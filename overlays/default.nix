@@ -10,6 +10,11 @@
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
+    
+    #intel = pkgs.xorg.xf86videointel.overrideAttrs (attrs: {
+    #  patches = attrs.patches ++ [ ./intel.patch ];
+    #});
+  };
   };
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will
