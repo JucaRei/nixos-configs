@@ -24,7 +24,7 @@
     loader = {
       efi = { canTouchEfiVariables = lib.mkForce false; };
       grub = {
-        gfxmodeEfi = "1366x788";
+        gfxmodeEfi = lib.mkForce "1366x788";
         efiInstallAsRemovable = true;
       };
     };
