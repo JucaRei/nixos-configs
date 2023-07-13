@@ -23,6 +23,7 @@
           libva-utils                   # Terminal VAAPI info
           python310Packages.gpustat     # Terminal GPU info
           vdpauinfo                     # Terminal VDPAU info
+          lshw
         ];
       };
     });
