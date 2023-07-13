@@ -54,6 +54,7 @@
       "kvm-intel"
       "wl"
       "z3fold"
+      "hdapsd"
       "crc32c-intel"
       "lz4hc"
       "lz4hc_compress"
@@ -212,6 +213,8 @@
       };
     };
 
+    udev.packages = "hdapsd" ;
+
     mbpfan = {
       enable = true;
       aggressive = true;
@@ -291,6 +294,8 @@
       pkgs.libvdpau-va-gl
     ];
   };
+
+  systemd.packages = pkgs.hdapsd;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
