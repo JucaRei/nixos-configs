@@ -225,6 +225,27 @@
     xserver = {
       #layout = lib.mkForce "us";
 
+      
+
+      # Crocus driver instead of i965.  /etc/X11/xorg.conf.d/92-intel.conf 
+      deviceSection = ''
+       Section "Device"
+	           Identifier  "Intel Graphics"
+	           Driver      "intel"
+	           Option      "DRI" "crocus"
+       EndSection
+      '';
+
+      #exportConfiguration = true;
+      #config = ''
+      #  Section "Device"
+	    #        Identifier  "Intel Graphics"
+	    #        Driver      "intel"
+	    #        Option      "DRI" "crocus"
+      #  EndSection
+      #'';
+
+      videoDrivers = ["intel"];
       resolutions = [
         {
           # Default resolution
