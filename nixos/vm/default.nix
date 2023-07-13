@@ -4,7 +4,6 @@
     #inputs.nixos-hardware.nixosModules.common-pc
     ../_mixins/services/pipewire.nix
     ../_mixins/hardware/grub-efi.nix
-    ../_mixins/virt
   ];
 
   ####################
