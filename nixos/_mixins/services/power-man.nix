@@ -16,7 +16,7 @@
       percentageCritical = 20;
       percentageAction = 5;
       #criticalPowerAction = "Hibernate";
-      criticalPowerAction = "Suspend";
+      criticalPowerAction = "HybridSleep";
     };
   };
   powerManagement.powertop.enable = true;

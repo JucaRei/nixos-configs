@@ -3,14 +3,14 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    ../_mixins/hardware/systemd-boot.nix
-    ../_mixins/hardware/refind.nix
+    #../_mixins/hardware/systemd-boot.nix
+    #../_mixins/hardware/refind.nix
     ../_mixins/services/pipewire.nix
     ../_mixins/services/power-man.nix
     ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
-    #../_mixins/hardware/grub.nix
+    ../_mixins/hardware/grub.nix
     #../_mixins/services/tailscale.nix
     #../_mixins/services/zerotier.nix
   ];
@@ -44,8 +44,8 @@
     };
 
     kernelModules = [
-      #"i965"
-      "i915"
+      "i965"
+      #"i915"
       "kvm-intel"
       "wl"
       "z3fold"
@@ -59,7 +59,7 @@
       "zswap.compressor=lz4hc"
       "zswap.max_pool_percent=20"
       "zswap.zpool=z3fold"
-      "fs.inotify.max_user_watches = 524288"
+      "fs.inotify.max_user_watches=524288"
       "mitigations=off"
     ];
     kernel.sysctl = {
@@ -75,7 +75,7 @@
     supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
   };
 
-  environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
+  #environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
 
   ###################
   ### Hard drives ###
