@@ -57,7 +57,7 @@
       settings = {
         PasswordAuthentication = lib.mkForce false;
         PermitRootLogin = lib.mkDefault "no";
-        X11Forwarding = false; # enable X11 forwarding
+        X11Forwarding = true; # enable X11 forwarding
         #KbdInteractiveAuthentication = false;
       };
     };
