@@ -282,5 +282,13 @@
 
   #system = { autoUpgrade.allowReboot = true; };
 
+  hardware.opengl = {
+    extraPackages = lib.mkForce [
+      pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      pkgs.vaapiVdpau
+      pkgs.libvdpau-va-gl
+    ];
+  };
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
