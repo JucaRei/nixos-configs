@@ -59,7 +59,9 @@
       verbose = false;
     };
 
-    kernelPackages = pkgs.linuxPackages_zen;
+    #kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_latest;
+
 
     # Allow compilation of packages ARM/ARM64 architectures via QEMU
     # e.g. nix-build -A <pkg> --argstr system aarch64-linux
