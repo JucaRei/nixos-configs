@@ -56,7 +56,7 @@ in {
   xdg = {
     enable = true;
     mimeApps = {
-      enable = true;
+      enable = false;
       defaultApplications = associations;
     };
     userDirs = {
