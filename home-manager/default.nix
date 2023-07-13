@@ -20,7 +20,7 @@ in {
     activation.report-changes = config.lib.dag.entryAnywhere ''
       ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
     '';
-    homeDirectory = if isDarwin then "/Users/${username}" else isLinux "/home/${username}";
+    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
     sessionPath = [ "$HOME/.local/bin" ];
     stateVersion = stateVersion;
     username = username;
@@ -58,17 +58,13 @@ in {
   nix = {
 
     # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
-    settings.keep-going = true;
-
-    build-use-sandbox = false;
-    auto-optimise-store = true;
+    settings.keep-going = false;
 
     package = lib.mkDefault pkgs.unstable.nix;
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
-      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
-        config.nix.registry;
+      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
       #sandbox = true;

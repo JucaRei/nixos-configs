@@ -95,7 +95,8 @@
         
         ### Laptop ###
         "juca@nitro"          = libx.mkHome { hostname = "nitro";            username = "juca";  desktop = "pantheon"; };
-        "juca@air"            = libx.mkHome { hostname = "air";              username = "juca";  desktop = "mate"; };
+        "junior@archnitro"    = libx.mkHome { hostname = "archnitro";        username = "junior";                      };
+        "juca@air"            = libx.mkHome { hostname = "air";              username = "juca";  desktop = "mate";     };
         "juca@oldmac"         = libx.mkHome { hostname = "oldmac";           username = "juca";  desktop = "pantheon"; };
         
         ### VM testing ###

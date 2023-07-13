@@ -2,8 +2,8 @@
   imports = [
     ./fish.nix
     ./bat.nix
-    ./bash.nix
-    ./configs/zsh/zsh.nix
+    #./bash.nix
+    #./configs/zsh/zsh.nix
     ./readline.nix
     ./git.nix
     ./neofetch.nix
