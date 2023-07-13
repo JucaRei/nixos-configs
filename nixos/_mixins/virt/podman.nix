@@ -1,4 +1,4 @@
-{ config, lib, pkgs, desktop, ... }: {
+{ config, lib, pkgs, hostname, ... }: {
   #https://nixos.wiki/wiki/Podman
 
   environment.systemPackages = with pkgs; [
@@ -35,7 +35,7 @@
       #extraPackages = [ pkgs.zfs ];  # Using podman with ZFS
       dockerCompat = true;
       enable = true;
-      enableNvidia = lib.elem (if builtins.isString desktop != "air" || "vm" then 
+      enableNvidia = lib.elem (if builtins.isString hostname != "air" || "vm" then 
           "nvidia" config.services.xserver.videoDrivers
         else
           false);
