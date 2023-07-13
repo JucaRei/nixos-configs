@@ -13,16 +13,18 @@
     #../../desktop/tilix.nix
     #../../desktop/vivaldi.nix
 
-  ] ++ lib.optional (builtins.pathExists (./. + "/${desktop}-apps.nix"))
-    ./${desktop}-apps.nix;
+  ] ++ lib.optional (builtins.pathExists (../.. + "/desktop/${desktop}-apps.nix")) ../../desktop/${desktop}-apps.nix;
 
   environment.systemPackages = with pkgs; [
+    #audio-recorder
     #authy
+    #chatterino2
     #cider
     #gimp-with-plugins
     gnome.dconf-editor
     gnome.gnome-clocks
     #gnome.gnome-sound-recorder
+    pick-colour-picker
     #irccloud
     #inkscape
     libreoffice
@@ -34,6 +36,7 @@
     rhythmbox
     #shotcut
     #slack
+    #zoom-us
 
     # Fast moving apps use the unstable branch
     #unstable.discord
@@ -41,7 +44,6 @@
     #unstable.tdesktop
     unstable.vscode-fhs
     #unstable.fluffychat
-    #unstable.zoom-us
     #unstable.wavebox
   ];
 }

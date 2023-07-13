@@ -1,13 +1,12 @@
 { config, desktop, lib, pkgs, ... }:
 let
-  ifExists = groups:
-    builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in {
+  ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
+in 
+{
   # Only include desktop components if one is supplied.
   imports = [ ] ++ lib.optional (builtins.isString desktop) ./desktop.nix;
 
-  environment.systemPackages = with pkgs;
-    [
+  environment.systemPackages = with pkgs; [
       yadm # Terminal dot file manager
     ];
 
@@ -21,7 +20,7 @@ in {
         "network"
         "wireshark"
         "lxd"
-        "git"
+        #"git"
         "libvirtd"
       ];
     # mkpasswd -m sha-512
