@@ -10,7 +10,7 @@
     ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
-    ../_mixins/hardware/grub.nix
+    ../_mixins/hardware/grub-efi.nix
     #../_mixins/services/tailscale.nix
     #../_mixins/services/zerotier.nix
   ];

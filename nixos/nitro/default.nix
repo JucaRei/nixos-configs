@@ -10,7 +10,7 @@
     ../_mixins/services/power-man.nix
     ../_mixins/hardware/nvidia.nix
     ../_mixins/hardware/gfx-intel.nix
-    #../_mixins/hardware/grub.nix
+    #../_mixins/hardware/grub-efi.nix
     #../_mixins/hardware/tpm.nix
     ../_mixins/virt
   ];

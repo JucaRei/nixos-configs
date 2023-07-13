@@ -14,7 +14,7 @@
         enable = true;
         device = "nodev"; # "nodev" for efi only
         efiSupport = true;
-        #efiInstallAsRemovable = true;
+        efiInstallAsRemovable = true;
         configurationLimit = 4;
         forceInstall = true;
         #splashMode = "stretch";
@@ -31,7 +31,7 @@
         # zfsSupport = true;                        # enable zfs
         # copyKernels = true; 
 
-        #useOSProber = false;
+        useOSProber = false;
         fsIdentifier = "label";
         gfxmodeEfi = "auto";
         #gfxmodeEfi = "1366x788";
