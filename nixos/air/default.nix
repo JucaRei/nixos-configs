@@ -3,13 +3,14 @@
     inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
     inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
-    #../_mixins/hardware/systemd-boot.nix
+    ../_mixins/hardware/systemd-boot.nix
+    ../_mixins/hardware/refind.nix
     ../_mixins/services/pipewire.nix
     ../_mixins/services/power-man.nix
     ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
-    ../_mixins/hardware/grub.nix
+    #../_mixins/hardware/grub.nix
     #../_mixins/services/tailscale.nix
     #../_mixins/services/zerotier.nix
   ];
