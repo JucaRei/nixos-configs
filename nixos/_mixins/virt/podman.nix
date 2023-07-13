@@ -35,7 +35,7 @@
       #extraPackages = [ pkgs.zfs ];  # Using podman with ZFS
       dockerCompat = true;
       enable = true;
-      enableNvidia = lib.elem (if builtins.isString hostname != "air" || "vm" then 
+      enableNvidia = lib.elem (if builtins.isString hostname != "air" then 
           "nvidia" config.services.xserver.videoDrivers
         else
           false);

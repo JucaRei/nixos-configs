@@ -287,6 +287,13 @@
   #  };
   #};
 
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    dockerSocket = true;
+    defaultNetwork.settings = { dns_enabled = true;};
+  };
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
 
