@@ -124,7 +124,7 @@
         #oldmac          = libx.mkHost {  hostname = "oldmac";          username = "juca";  hostid = "be4cb578"; desktop = "pantheon"; };
         
         # Servers
-        #vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
+        vm              = libx.mkHost {  hostname = "vm";              username = "juca";  hostid = "8c0b93a0"; desktop = "pantheon"; };
         #vm-mini        = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };
         #pi              = libx.mkHost {  hostname = "rpi3";            username = "juca";  hostid = "8c0b93a2"; desktop = "pantheon"; };
         #pi-mini        = libx.mkHost {  hostname = "rpi3-mini";       username = "juca";  hostid = "8c0b93a5"; };
