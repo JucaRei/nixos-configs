@@ -44,8 +44,8 @@
     };
 
     kernelModules = [
-      "i965"
-      #"i915"
+      #"i965"
+      "i915"
       "kvm-intel"
       "wl"
       "z3fold"
