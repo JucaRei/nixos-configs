@@ -60,7 +60,7 @@
     };
 
     #kernelPackages = pkgs.linuxPackages_zen;
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages_5_15;
 
 
     # Allow compilation of packages ARM/ARM64 architectures via QEMU
