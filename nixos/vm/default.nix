@@ -135,7 +135,7 @@
         # zfsSupport = true;                        # enable zfs
         # copyKernels = true;                       # https://nixos.wiki/wiki/NixOS_on_ZFS
 
-        gfxmodeEfi = "1920x1080,auto";
+        gfxmodeEfi = lib.mkForce "1920x1080,auto";
         fontSize = 20;
 
         configurationName = lib.mkForce "NixOS VM test";
