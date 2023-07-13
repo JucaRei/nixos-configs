@@ -1,8 +1,7 @@
 {
   description = "My NixOS and Home Manager Configuration";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
-    #nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     # You can access packages and modules from different nixpkgs revs at the
     # same time. See 'unstable-packages' overlay in 'overlays/default.nix'.
     nixpkgs-prev.url = "github:NixOS/nixpkgs/nixos-22.11";
@@ -81,7 +80,7 @@
     let
       inherit (self) outputs;
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-      stateVersion = "23.11";
+      stateVersion = "23.05";
       libx = import ./lib { inherit inputs outputs stateVersion; };
     in {
 
