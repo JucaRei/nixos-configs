@@ -7,6 +7,7 @@
     ./readline.nix
     ./git.nix
     ./neofetch.nix
+    ./htop.nix
     #./broot.nix
     ./xdg.nix
     ./skim.nix
