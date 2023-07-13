@@ -29,7 +29,7 @@ in {
       "$6$nmx8IpxHWpKjbT7O$R4RqA4sUDdCLmt.pO1w3.YAIje4/DPFcmj.a5hsdEzkekGPrgAEpEDyMK2Yotv.nZ9bnu5wuWEE7n0B6EL/ik1";
     homeMode = "0755";
     isNormalUser = true;
-    createHome = false;
+    createHome = true;
     autoSubUidGidRange =
       true; # Allocated range is currently always of size 65536
     uid = 1000;
