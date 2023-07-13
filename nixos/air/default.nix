@@ -20,6 +20,13 @@
 
   boot = {
 
+    loader = {
+      efi = { canTouchEfiVariables = lib.mkForce false; };
+      grub = {
+        gfxmodeEfi = "1366x788";
+        efiInstallAsRemovable = true;
+      };
+    };
     blacklistedKernelModules = lib.mkForce [ "nvidia" "nouveau" ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     extraModprobeConfig = lib.mkDefault ''
