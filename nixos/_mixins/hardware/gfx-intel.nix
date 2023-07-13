@@ -25,10 +25,8 @@
       };
     };
     
-    nixpkgs.config.packageOverrides = if hostname == "nitro" then (pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    })
-    else 
-      false;
+    #nixpkgs.config.packageOverrides = pkgs: {
+    #  vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+    #};
   };
 }
