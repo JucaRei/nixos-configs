@@ -21,6 +21,11 @@
 
   boot = {
 
+    plymouth = {
+      enable = lib.mkForce true;
+
+    };
+
     loader = {
       efi = { canTouchEfiVariables = lib.mkForce false; };
       grub = {
