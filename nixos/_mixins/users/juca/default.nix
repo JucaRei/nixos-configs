@@ -1,4 +1,4 @@
-{ config, desktop, lib, pkgs, username, ... }:
+{ config, desktop, lib, pkgs, ... }:
 let
   ifExists = groups:
     builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
@@ -11,7 +11,7 @@ in {
       yadm # Terminal dot file manager
     ];
 
-  users.users.${username} = {
+  users.users.juca = {
     description = "Reinaldo P JR";
     extraGroups = [ "audio" "networkmanager" "users" "video" "wheel" ]
       ++ ifExists [

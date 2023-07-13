@@ -1,4 +1,4 @@
-{ lib, inputs, ... }: {
+{ lib, inputs, config, pkgs, ... }: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
     inputs.nixos-hardware.nixosModules.common-pc
@@ -9,7 +9,7 @@
     ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
-    #../_mixins/hardware/grub.nix
+    ../_mixins/hardware/grub.nix
     #../_mixins/services/tailscale.nix
     #../_mixins/services/zerotier.nix
   ];
@@ -18,7 +18,56 @@
   ### BOOT ###
   ############
 
-  #environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
+  boot = {
+
+    blacklistedKernelModules = lib.mkForce [ "nvidia" "nouveau" ];
+    extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
+    extraModprobeConfig = lib.mkDefault ''
+      options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 #parameters may differ
+    '';
+
+    initrd = {
+      #systemd.enable = true; # This is needed to show the plymouth login screen to unlock luks
+      availableKernelModules =
+        [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      verbose = false;
+      compressor = "zstd";
+      supportedFilesystems = [ "btrfs" ];
+    };
+
+    kernelModules = [
+      #"i965"
+      "i915"
+      "kvm-intel"
+      "wl"
+      "z3fold"
+      "crc32c-intel"
+      "lz4hc"
+      "lz4hc_compress"
+    ];
+    kernelParams = [
+      "mem_sleep_default=deep"
+      "zswap.enabled=1"
+      "zswap.compressor=lz4hc"
+      "zswap.max_pool_percent=20"
+      "zswap.zpool=z3fold"
+      "fs.inotify.max_user_watches = 524288"
+      "mitigations=off"
+    ];
+    kernel.sysctl = {
+      #"kernel.sysrq" = 1;
+      #"kernel.printk" = "3 3 3 3";
+      "vm.vfs_cache_pressure" = 300;
+      "vm.swappiness" = 25;
+      "vm.dirty_background_ratio" = 1;
+      "vm.dirty_ratio" = 50;
+    };
+    #kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_zen;
+    supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
+  };
+
+  environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
 
   ###################
   ### Hard drives ###
@@ -199,5 +248,5 @@
 
   #system = { autoUpgrade.allowReboot = true; };
 
-  nixpgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
