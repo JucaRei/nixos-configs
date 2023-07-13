@@ -213,8 +213,6 @@
       };
     };
 
-    udev.packages = "hdapsd" ;
-
     mbpfan = {
       enable = true;
       aggressive = true;
