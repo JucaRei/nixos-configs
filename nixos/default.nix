@@ -30,8 +30,7 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
 
-    ++ lib.optional (builtins.elem hostname machines)
-    ./_mixins/hardware/gfx-intel.nix
+    ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
@@ -247,9 +246,9 @@ in {
     # You can add overlays here
     overlays = [
       # if you also want support for flakes
-      (self: super: {
-        nix-direnv = super.nix-direnv.override { enableFlakes = true; };
-      })
+      #(self: super: {
+      #  nix-direnv = super.nix-direnv.override { enableFlakes = true; };
+      #})
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
@@ -297,6 +296,7 @@ in {
       dates = "00:00";
     };
 
+
     extraOptions = ''
       log-lines = 15
 
@@ -326,7 +326,7 @@ in {
     package = pkgs.unstable.nix;
     #package = pkgs.nixFlakes;
     settings = {
-      #sandbox = "relaxed";
+      sandbox = "relaxed";
       auto-optimise-store = true;
       warn-dirty = false;
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
