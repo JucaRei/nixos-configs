@@ -33,7 +33,7 @@
         lightdm.enable = true;
         # Use GTK greeter as the Pantheon greeter is not working
         #lightdm.greeters.pantheon.enable = false;
-        lightdm.greeters.pantheon.enable = true;
+        #lightdm.greeters.pantheon.enable = true;
         #lightdm.greeters.gtk = {
         #  enable = true;
         #  cursorTheme.name = "elementary";
