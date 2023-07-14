@@ -35,40 +35,40 @@
   };
 
    services.gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      enableExtraSocket = true;
-      #updateStartupTty = false;
-      defaultCacheTtl = 6*h;
-      defaultCacheTtlSsh = 6*h;
-      maxCacheTtl = 100*y; # effectively unlimited
-      maxCacheTtlSsh = 100*y; # effectively unlimited
-      sshKeys = [ "7A53AFDE4EF7B526" ];
-      extraConfig = ''
-        Match host * exec "gpg-connect-agent UPDATESTARTUPTTY /bye"
-      '';
+   #   enable = true;
+   #   enableSshSupport = true;
+   #   enableExtraSocket = true;
+      ##updateStartupTty = false;
+   #   defaultCacheTtl = 6*h;
+   #   defaultCacheTtlSsh = 6*h;
+   #   maxCacheTtl = 100*y; # effectively unlimited
+   #   maxCacheTtlSsh = 100*y; # effectively unlimited
+   #   sshKeys = [ "7A53AFDE4EF7B526" ];
+   #   extraConfig = ''
+   #    Match host * exec "gpg-connect-agent UPDATESTARTUPTTY /bye"
+   #  '';
 
       pinentryFlavor = "tty";  #curses
    };
 
    # to avoid The `busctl monitor` error
   # "name org.freedesktop.secrets was not provided by any .service files"
-  programs.password-store = {
-    enable = true;
-    package = pkgs.pass; #.withExtensions (ext: [ ext.pass-otp ]);
-    settings = {
-      PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
-    };
-  };
+  #programs.password-store = {
+  #  enable = true;
+  #  package = pkgs.pass; #.withExtensions (ext: [ ext.pass-otp ]);
+  #  settings = {
+  #    PASSWORD_STORE_DIR = "${config.home.homeDirectory}/.password-store";
+  #  };
+  #};
 
-  services.pass-secret-service.enable = true;
-  systemd.user.services.pass-secret-service = {
-    Service = {
-      Type = "dbus";
-      BusName = "org.freedesktop.secrets";
-      ExecStart = lib.mkForce "${pkgs.pass-secret-service}/bin/pass_secret_service --path ${config.programs.password-store.settings.PASSWORD_STORE_DIR}";
-    };
-  };
+  #services.pass-secret-service.enable = true;
+  #systemd.user.services.pass-secret-service = {
+  #  Service = {
+  #    Type = "dbus";
+  #    BusName = "org.freedesktop.secrets";
+  #    ExecStart = lib.mkForce "${pkgs.pass-secret-service}/bin/pass_secret_service --path ${config.programs.password-store.settings.PASSWORD_STORE_DIR}";
+  #  };
+  #};
 
   #NIXOS
 
