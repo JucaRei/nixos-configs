@@ -176,7 +176,7 @@
       icons = true;
     };
     gpg.enable = true;
-    home-manager = { enable = true; };
+    home-manager.enable = true;
     info.enable = true;
     jq.enable = true;
     micro = {
@@ -219,5 +219,8 @@
     };
     keybase.enable = true;
     #keybase.enable = false;
+  # Nicely reload system units when changing configs
+  systemd.user.startServices = "sd-switch";
+
   };
 }

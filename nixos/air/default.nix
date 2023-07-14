@@ -60,7 +60,6 @@
       "lz4hc_compress"
     ];
     kernelParams = [
-      "mem_sleep_default=deep"
       "zswap.enabled=1"
       "zswap.compressor=lz4hc"
       "zswap.max_pool_percent=20"

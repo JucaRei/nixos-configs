@@ -20,11 +20,6 @@
 
     # Add some packages to complete the MATE desktop
     systemPackages = with pkgs; [
-      celluloid
-      gnome.gucharmap
-      gnome-firmware
-      gnome.simple-scan
-      gthumb
       networkmanagerapplet
     ];
   };
@@ -86,7 +81,9 @@
         };
       };
 
-      desktopManager = { mate.enable = true; };
+      desktopManager = { 
+        mate.enable = true; 
+      };
     };
   };
   xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];

@@ -55,7 +55,7 @@
         HostKeyAlgorithms +ssh-rsa
       ''; # Temporary extra config so ssh will work in guacamole
       settings = {
-        PasswordAuthentication = lib.mkForce false;
+        PasswordAuthentication = false;
         PermitRootLogin = lib.mkDefault "no";
         X11Forwarding = true; # enable X11 forwarding
         #KbdInteractiveAuthentication = false;

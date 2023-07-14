@@ -35,7 +35,7 @@ in {
 
   boot = {
     initrd = {
-
+      verbose = false;
     };
     consoleLogLevel = 0;
     kernelModules = [ "vhost_vsock" ];
@@ -43,10 +43,10 @@ in {
       # The 'splash' arg is included by the plymouth option
       #"quiet"
       "boot.shell_on_fail"
+      "loglevel=3"
       "rd.systemd.show_status=false"
-      "rd.udev.log_priority=3"
+      "rd.udev.log_level=3"
       "udev.log_priority=3"
-      "vt.global_cursor_default=0"
       "net.ifnames=0"
     ];
     kernel = {
@@ -316,8 +316,7 @@ in {
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
-      config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     optimise = {
       automatic = true;
@@ -335,7 +334,7 @@ in {
       keep-going = false;
 
       # Allow to run nix
-      allowed-users = [ "${username}" "wheel" ];
+      #allowed-users = [ "${username}" "wheel" ];
     };
   };
 

@@ -12,6 +12,7 @@
         consoleMode = "max";
         memtest86.enable = true;
       };
+      timeout = 5;
     };
   };
 }

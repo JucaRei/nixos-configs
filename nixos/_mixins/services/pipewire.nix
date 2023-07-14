@@ -1,7 +1,12 @@
 { lib, ... }: {
+  
+  environment.systemPackages = with pkgs; [
+    pulsemixer                    # Terminal PulseAudio mixer
+    playerctl                     # Terminal media controller
+  ];
   hardware = {
     pulseaudio = {
-      enable = lib.mkForce false;
+      enable = lib.mkDefault false;
       extraConfig = "\n    load-module module-switch-on-connect\n  ";
     };
   };

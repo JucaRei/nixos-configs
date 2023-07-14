@@ -75,8 +75,13 @@
     #};  
   };
 
-  outputs = { self, nixpkgs, disko, home-manager, nixos-hardware
-    , ... }@inputs:
+  outputs = { 
+    self, 
+    disko, 
+    home-manager, 
+    nixos-hardware, 
+    nixpkgs, 
+    ... } @ inputs:
     let
       inherit (self) outputs;
       # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
@@ -136,7 +141,7 @@
         in import ./shell.nix { inherit pkgs; });
 
       # Custom packages and modifications, exported as overlays
-      overlays = import ./overlays { inherit inputs outputs; };
+      overlays = import ./overlays { inherit inputs; };
 
       # Custom packages; acessible via 'nix build', 'nix shell', etc
       packages = libx.forAllSystems (system:

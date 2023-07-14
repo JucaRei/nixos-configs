@@ -14,7 +14,7 @@
   ];
 
   home.file = {
-    "${config.xdg.configHome}/autostart/enable-flathub.desktop".text = ''
+    "${config.xdg.configHome}/autostart/enable-flathub.desktop".text = "
 
       [Desktop Entry]
       Name=Enable Flathub
@@ -24,7 +24,7 @@
       Categories=
       Terminal=false
       NoDisplay=true
-      StartupNotify=false'';
+      StartupNotify=false";
   };
 
   xresources.properties = {
