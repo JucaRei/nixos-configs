@@ -6,7 +6,7 @@
   ];
   hardware = {
     pulseaudio = {
-      enable = lib.mkDefault false;
+      enable = lib.mkForce false;
       extraConfig = "\n    load-module module-switch-on-connect\n  ";
     };
   };
