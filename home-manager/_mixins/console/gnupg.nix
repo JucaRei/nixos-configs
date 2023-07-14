@@ -70,23 +70,25 @@
     };
   };
 
-  # relevant part of nixos configuration
-  environment.systemPackages = with pkgs; [
-    pass-secret-service
-  ];
-  services.dbus = {
-    packages = [
-      pkgs.pass-secret-service
-    ];
-  };
-  services.pcscd.enable = true;
+  #NIXOS
 
-  # removed all gpg-agent related configuration
-  programs.keychain = {
-    enable = true;
-    keys = [ "id_ed25519" ];
-    # Each time I need to add new key, I just type keychain path/to/key.
-  };
+ # # relevant part of nixos configuration
+ # environment.systemPackages = with pkgs; [
+ #   pass-secret-service
+ # ];
+ # services.dbus = {
+ #   packages = [
+ #     pkgs.pass-secret-service
+ #   ];
+ # };
+ # services.pcscd.enable = true;
+#
+ # # removed all gpg-agent related configuration
+ # programs.keychain = {
+ #   enable = true;
+ #   keys = [ "id_ed25519" ];
+ #   # Each time I need to add new key, I just type keychain path/to/key.
+ # };
 
   home.packages = [ pkgs.gnupg ];
 }
