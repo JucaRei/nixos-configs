@@ -1,7 +1,7 @@
 { pkgs, config, lib, ... }: let m = 60; h = 60*m; d = 24*h; y = 365*d; in {
   programs.gpg = {
     enable = true;
-    dirmngr.enable = false;
+    #dirmngr.enable = false;
     settings = {
       default-key = "3868 E14C 17FE 4F20 86C2  1A6F 3EE4 4BE6 8AF1 8D09";
       default-recipient-self = true;
@@ -38,7 +38,7 @@
       enable = true;
       enableSshSupport = true;
       enableExtraSocket = true;
-      updateStartupTty = false;
+      #updateStartupTty = false;
       defaultCacheTtl = 6*h;
       defaultCacheTtlSsh = 6*h;
       maxCacheTtl = 100*y; # effectively unlimited
