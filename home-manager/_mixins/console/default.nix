@@ -174,6 +174,10 @@
       enable = true;
       enableAliases = true;
       icons = true;
+      extraOptions = [
+        "--group-directories-first"
+        "--color=always"
+      ];
     };
     gpg.enable = true;
     home-manager.enable = true;
