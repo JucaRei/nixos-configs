@@ -11,6 +11,7 @@
     #./broot.nix
     ./xdg.nix
     ./skim.nix
+    ./gnupg.nix
     ./glow.nix
   ];
 
@@ -179,7 +180,6 @@
         "--color=always"
       ];
     };
-    gpg.enable = true;
     home-manager.enable = true;
     info.enable = true;
     jq.enable = true;
@@ -211,11 +211,6 @@
   };
 
   services = {
-    gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      pinentryFlavor = "curses";
-    };
     kbfs = {
       enable = true;
       #enable = false;

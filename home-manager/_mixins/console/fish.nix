@@ -34,6 +34,8 @@
         set -U fish_pager_color_prefix white --bold --underline
         set -U fish_pager_color_progress brwhite '--background=cyan'
         #starship init fish | source
+        GPG_TTY="$(tty)"
+        export GPG_TTY
       '';
 
       shellAbbrs = {
