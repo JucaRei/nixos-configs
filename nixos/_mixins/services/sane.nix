@@ -1,5 +1,5 @@
 { pkgs, lib,desktop, ... }: {
-    imports = [ ] ++ lib.optional (builtins.isString desktop) ../desktop/simple-scan.nix;
+    imports = [ ] ++ lib.optional (builtins.isString desktop) ../desktop/apps/utils/simple-scan.nix;
 
   hardware = {
     sane = {
