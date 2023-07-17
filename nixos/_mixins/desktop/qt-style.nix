@@ -8,13 +8,14 @@
     # TODO: Set this in the user-session
     variables = lib.mkForce {
       QT_QPA_PLATFORMTHEME = "gnome";
-      QT_STYLE_OVERRIDE = "Adwaita-Dark";
+      QT_STYLE_OVERRIDE = "adwaita-dark";
     };
   };
 
   qt = {
     enable = true;
-    #platformTheme = "gnome"; 
+    platformTheme = "gnome"; 
     #style = "adwaita";
+    style = "adwaita-dark";
   };
 }
