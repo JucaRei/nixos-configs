@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   imports = [
     ./qt-style.nix
-    ./apps/browsers/firefox.nix
+    #./apps/browsers/firefox.nix
     ../services/networkmanager.nix
   ];
 
@@ -26,11 +26,8 @@
 
   # Enable some programs to provide a complete desktop
   programs = {
-    light.enable = true;
-    gnome-disks.enable = true;
     nm-applet.enable = true;
-    seahorse.enable = true;
-    #system-config-printer.enable = true;
+    system-config-printer.enable = true;
   };
 
   # Enable services to round out the desktop
@@ -86,5 +83,5 @@
       };
     };
   };
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 }

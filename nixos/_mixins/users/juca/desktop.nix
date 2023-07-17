@@ -1,19 +1,18 @@
 { pkgs, lib, desktop, ... }: {
   imports = [
-    #../../desktop/obs-studio.nix
+    #../../desktop/apps/video-editing/obs-studio.nix
     #../../virt/quickemu.nix
     #../../virt/virt-manager.nix
-    #../../desktop/brave.nix
-    ../../desktop/apps/browsers/firefox.nix
+    #../../desktop/apps/browsers/brave.nix
+    #../../desktop/apps/browsers/firefox.nix
     #../../desktop/evolution.nix
-    #../../desktop/google-chrome.nix
-    #../../desktop/microsoft-edge.nix
-    #../../desktop/obs-studio.nix
-    #../../desktop/opera.nix
-    #../../desktop/tilix.nix
+    #../../desktop/apps/browsers/google-chrome.nix
+    #../../desktop/apps/browsers/microsoft-edge.nix
+    #../../desktop/apps/browsers/opera.nix
+    ../../desktop/apps/terminals/tilix.nix
     #../../desktop/vivaldi.nix
 
-  ] ++ lib.optional (builtins.pathExists (../.. + "/desktop/${desktop}-apps.nix")) ../../desktop/${desktop}-apps.nix;
+  ] ++ lib.optional (builtins.pathExists (../.. + "/desktop/${desktop}-apps.nix")) ../../desktop/${desktop}-apps.nix + ../../desktop/apps/browsers/firefox.nix;
 
   environment.systemPackages = with pkgs; [
     #audio-recorder

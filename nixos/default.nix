@@ -1,16 +1,5 @@
-{ config
-, desktop
-, hostname
-, hostid
-, inputs
-, lib
-, modulesPath
-, outputs
-, pkgs
-, stateVersion
-, username
-, ...
-}:
+{ config, desktop, hostname, hostid, inputs, lib, modulesPath, outputs, pkgs
+, stateVersion, username, ... }:
 let machines = [ "nitro" "air" ];
 in {
   # Import host specific boot and hardware configurations.
@@ -41,13 +30,12 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
 
-  ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
-  ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
+    ++ lib.optional (builtins.elem hostname machines)
+    ./_mixins/hardware/gfx-intel.nix
+    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
-    initrd = {
-      verbose = false;
-    };
+    initrd = { verbose = false; };
     consoleLogLevel = 0;
     kernelModules = [ "vhost_vsock" ];
     kernelParams = [
@@ -107,26 +95,25 @@ in {
     ### Keyboard ###
     ################
 
-    xserver =
-      if (builtins.isString == "nitro" && "vm") then {
-        layout = "br,gb,us";
-        xkbVariant = "pc105";
-        xkbModel = "pc105";
-        xkbOptions = "grp:alt_shift_toggle";
-      } else {
-        layout = "us";
-        xkbVariant = "mac";
-        xkbModel = "pc105";
-        xkbOptions = ''
-          "altwin:ctrl_win"
-          "altwin:ctrl_alt_win"
-          "caps:super" 
-          "terminate:ctrl_alt_bksp" 
-        '';
-        #"caps:ctrl_modifier"
-        #"lv3:alt_switch"
-        #"lv3:switch,compose:lwin”
-      };
+    xserver = if (builtins.isString == "nitro" && "vm") then {
+      layout = "br,gb,us";
+      xkbVariant = "pc105";
+      xkbModel = "pc105";
+      xkbOptions = "grp:alt_shift_toggle";
+    } else {
+      layout = "us";
+      xkbVariant = "mac";
+      xkbModel = "pc105";
+      xkbOptions = ''
+        "altwin:ctrl_win"
+        "altwin:ctrl_alt_win"
+        "caps:super" 
+        "terminate:ctrl_alt_bksp" 
+      '';
+      #"caps:ctrl_modifier"
+      #"lv3:alt_switch"
+      #"lv3:switch,compose:lwin”
+    };
 
     ##################
     ### More Stuff ###
@@ -308,7 +295,6 @@ in {
       dates = "00:00";
     };
 
-
     extraOptions = ''
       log-lines = 15
 
@@ -328,7 +314,8 @@ in {
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
 
     optimise = {
       automatic = true;
@@ -412,8 +399,7 @@ in {
         pubip = "curl -s ifconfig.me/ip";
         #pubip = "curl -s https://api.ipify.org";
         wttr = "curl -s wttr.in && curl -s v2.wttr.in";
-        wttr-bas =
-          "curl -s wttr.in/basingstoke && curl -s v2.wttr.in/basingstoke";
+        wttr-bas = "curl -s wttr.in/basingstoke && curl -s v2.wttr.in/basingstoke";
       };
     };
     #nano.syntaxHighlight = true;
@@ -451,9 +437,7 @@ in {
     '';
 
     services.nix-daemon = {
-      environment = {
-        TMPDIR = "/var/cache/nix";
-      };
+      environment = { TMPDIR = "/var/cache/nix"; };
       serviceConfig = {
         CacheDirectory = "nix";
         Nice = 19;

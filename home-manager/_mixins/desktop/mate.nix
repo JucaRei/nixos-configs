@@ -142,7 +142,7 @@ with lib.hm.gvariant;
       button-layout = ":minimize,maximize,close";
       center-new-windows = false;
       compositing-manager = true;
-      num-workspaces = 5;
+      num-workspaces = 8;
       show-tab-border = false;
       theme = "Yaru-dark";
       titlebar-font = "Work Sans Semi-Bold 12";
@@ -168,6 +168,9 @@ with lib.hm.gvariant;
       switch-to-workspace-3 = "<Mod4>3";
       switch-to-workspace-4 = "<Mod4>4";
       switch-to-workspace-5 = "<Mod4>5";
+      switch-to-workspace-6 = "<Mod4>6";
+      switch-to-workspace-7 = "<Mod4>7";
+      switch-to-workspace-8 = "<Mod4>8";
     };
 
     "org/mate/marco/keybinding-commands" = {
@@ -197,9 +200,12 @@ with lib.hm.gvariant;
     "org/mate/marco/workspace-names" = {
       name-1 = " Web ";
       name-2 = " Work ";
-      name-3 = " Stuff ";
+      name-3 = " Chat ";
       name-4 = " Code ";
       name-5 = " Virt ";
+      name-6 = " Cast ";
+      name-7 = " Fun ";
+      name-8 = " Stuff ";
     };
 
     "org/mate/maximus" = {

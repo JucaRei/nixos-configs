@@ -4,9 +4,9 @@
   imports = [
     #./apps/style/qt-style.nix
     ./qt-style.nix
-    ./pantheon-apps.nix
+    #./pantheon-apps.nix
     ../services/networkmanager.nix
-    ./apps/browsers/firefox.nix
+    #./apps/browsers/firefox.nix
     #../services/systemd-networkd.nix
   ];
 
