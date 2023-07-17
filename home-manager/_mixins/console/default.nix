@@ -14,6 +14,7 @@
     ./gnupg.nix
     ./glow.nix
     ./nixpkgs.nix
+    ./ssh.nix
   ];
 
   home = {
