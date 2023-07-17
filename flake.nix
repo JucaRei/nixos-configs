@@ -6,6 +6,12 @@
     # same time. See 'unstable-packages' overlay in 'overlays/default.nix'.
     nixpkgs-prev.url = "github:NixOS/nixpkgs/nixos-22.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     darwin = {
       url = "github:lnl7/nix-darwin/master"; # MacOS Package Management
       inputs.nixpkgs.follows = "nixpkgs";

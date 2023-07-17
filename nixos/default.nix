@@ -1,5 +1,16 @@
-{ config, desktop, hostname, hostid, inputs, lib, modulesPath, outputs, pkgs
-, stateVersion, username, ... }:
+{ config
+, desktop
+, hostname
+, hostid
+, inputs
+, lib
+, modulesPath
+, outputs
+, pkgs
+, stateVersion
+, username
+, ...
+}:
 let machines = [ "nitro" "air" ];
 in {
   # Import host specific boot and hardware configurations.
@@ -30,9 +41,9 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
 
-    ++ lib.optional (builtins.elem hostname machines)
+  ++ lib.optional (builtins.elem hostname machines)
     ./_mixins/hardware/gfx-intel.nix
-    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
+  ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
     initrd = { verbose = false; };
@@ -95,25 +106,26 @@ in {
     ### Keyboard ###
     ################
 
-    xserver = if (builtins.isString == "nitro" && "vm") then {
-      layout = "br,gb,us";
-      xkbVariant = "pc105";
-      xkbModel = "pc105";
-      xkbOptions = "grp:alt_shift_toggle";
-    } else {
-      layout = "us";
-      xkbVariant = "mac";
-      xkbModel = "pc105";
-      xkbOptions = ''
-        "altwin:ctrl_win"
-        "altwin:ctrl_alt_win"
-        "caps:super" 
-        "terminate:ctrl_alt_bksp" 
-      '';
-      #"caps:ctrl_modifier"
-      #"lv3:alt_switch"
-      #"lv3:switch,compose:lwin”
-    };
+    xserver =
+      if (builtins.isString == "nitro" && "vm") then {
+        layout = "br,gb,us";
+        xkbVariant = "pc105";
+        xkbModel = "pc105";
+        xkbOptions = "grp:alt_shift_toggle";
+      } else {
+        layout = "us";
+        xkbVariant = "mac";
+        xkbModel = "pc105";
+        xkbOptions = ''
+          "altwin:ctrl_win"
+          "altwin:ctrl_alt_win"
+          "caps:super" 
+          "terminate:ctrl_alt_bksp" 
+        '';
+        #"caps:ctrl_modifier"
+        #"lv3:alt_switch"
+        #"lv3:switch,compose:lwin”
+      };
 
     ##################
     ### More Stuff ###
