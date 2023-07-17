@@ -84,6 +84,8 @@
       #yq-go                         # Terminal `jq` for YAML
       #zsync                         # Terminal file sync
 
+      android-file-transfer
+
       ### Ansible
       #ansible # Automation
       #sshpass # Ansible Dependency

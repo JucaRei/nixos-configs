@@ -438,10 +438,20 @@ in {
     ];
 
     # Reduce default service stop timeouts for faster shutdown
-    #extraConfig = ''
-    #  DefaultTimeoutStopSec=15s
-    #  DefaultTimeoutAbortSec=5s
-    #'';
+    extraConfig = ''
+      DefaultTimeoutStopSec=15s
+      DefaultTimeoutAbortSec=5s
+    '';
+
+    services.nix-daemon = {
+      environment = {
+        TMPDIR = "/var/cache/nix";
+      };
+      serviceConfig = {
+        CacheDirectory = "nix";
+        Nice = 19;
+      };
+    };
   };
   system = {
 

@@ -12,8 +12,14 @@ in
 
   users.users.juca = {
     description = "Reinaldo P JR";
-    extraGroups = [ "audio" "networkmanager" "users" "video" "wheel" ]
-      ++ ifExists [
+    extraGroups = [ 
+      "audio" 
+      "networkmanager" 
+      "users" 
+      "video" 
+      "wheel" 
+      "systemd-journal"
+    ] ++ ifExists [
         "docker"
         "podman"
         "adbusers"

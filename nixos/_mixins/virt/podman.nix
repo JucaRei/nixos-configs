@@ -68,4 +68,8 @@
       # };
     };
   };
+  systemd = {
+    services.podman-auto-update.enable = true;
+    timers.podman-auto-update.enable = true;
+  };
 }
