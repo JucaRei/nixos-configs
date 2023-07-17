@@ -1,8 +1,6 @@
-{
-  variables,
-  config,
-  pkgs,
-  lib,
+{ variables
+, pkgs
+,
 }: [
   {
     target = "${variables.homeDir}/.config/kitty/kitty.conf";

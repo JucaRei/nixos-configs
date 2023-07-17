@@ -1,4 +1,4 @@
-{lib, ...}:
+{ lib, ... }:
 with lib.kernel; {
   LOCALVERSION = freeform "-nixos";
   EXPERT = yes;

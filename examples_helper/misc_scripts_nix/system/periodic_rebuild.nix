@@ -1,8 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ lib
+, ...
 }: {
   systemd = {
     services.nixos-update-prebuild = {
@@ -19,8 +16,8 @@
       */
     };
     timers.nixos-update-prebuild = {
-      wantedBy = ["timers.target"];
-      partOf = ["nixos-update-prebuild.service"];
+      wantedBy = [ "timers.target" ];
+      partOf = [ "nixos-update-prebuild.service" ];
       timerConfig = {
         OnCalendar = "hourly";
         Unit = "nixos-update-prebuild.service";

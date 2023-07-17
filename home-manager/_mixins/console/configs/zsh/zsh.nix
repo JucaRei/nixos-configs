@@ -1,8 +1,9 @@
 { config, pkgs, ... }:
 let
   files = [ ./kubectl.zsh ./prompt.zsh ./git.zsh ];
-  src = builtins.filterSource (p: t: builtins.elem (./. + p) files) /.;
-in {
+  src = builtins.filterSource (p: _t: builtins.elem (./. + p) files) /.;
+in
+{
   programs.zsh = {
     enable = true;
     enableCompletion = true;

@@ -1,9 +1,8 @@
 #Bootable NixOS USB stick for kiosk or demo usage
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 with lib; {
   imports = [

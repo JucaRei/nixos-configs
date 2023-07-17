@@ -1,16 +1,16 @@
-{
-  lib,
-  config,
-  pkgs,
-  ...
+{ lib
+, config
+, pkgs
+, ...
 }:
 with lib; let
   cfg = config.mine.lxc;
 
-  format = pkgs.formats.json {};
+  format = pkgs.formats.json { };
 
   preseedFile = format.generate "preseed.yaml" cfg.preseed;
-in {
+in
+{
   options.mine.lxc = {
     enable = mkEnableOption "lxc";
 
@@ -20,8 +20,8 @@ in {
     };
 
     preseed = mkOption {
-      default = {};
-      type = format.type;
+      default = { };
+      inherit (format) type;
       example = literalExpression ''
         {
           config = {
@@ -91,8 +91,8 @@ in {
 
     systemd.services."lxd-preseed" = {
       description = "Preseed LXD";
-      wantedBy = ["multi-user.target"];
-      requires = ["lxd.socket"];
+      wantedBy = [ "multi-user.target" ];
+      requires = [ "lxd.socket" ];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = pkgs.writers.writeDash "preseed" ''

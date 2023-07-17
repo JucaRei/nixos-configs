@@ -1,14 +1,12 @@
 #
 # Screenshots
 #
-{
-  config,
-  lib,
-  pkgs,
-  user,
-  ...
+{ config
+, lib
+, user
+, ...
 }: {
-  config = lib.mkIf (config.xsession.enable) {
+  config = lib.mkIf config.xsession.enable {
     # Only evaluate code if using X11
     services = {
       # sxhkd shortcut = Printscreen button (Print)

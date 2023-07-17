@@ -1,13 +1,9 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+_: {
   config = {
     networking = {
       firewall = {
-        allowedTCPPorts = [3000];
-        allowedUDPPorts = [53];
+        allowedTCPPorts = [ 3000 ];
+        allowedUDPPorts = [ 53 ];
       };
     };
 

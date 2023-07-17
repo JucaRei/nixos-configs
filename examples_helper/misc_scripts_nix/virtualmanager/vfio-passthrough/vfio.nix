@@ -1,24 +1,23 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
+{ lib
+, pkgs
+, config
+, ...
 }:
 with lib; let
   cfg = config.virtualisation.vfio;
-  acscommit = "1ec4cb0753488353e111496a90bdfbe2a074827e";
-in {
+in
+{
   options.virtualisation.vfio = {
     enable = mkEnableOption "VFIO Configuration";
     IOMMUType = mkOption {
-      type = types.enum ["intel" "amd"];
+      type = types.enum [ "intel" "amd" ];
       example = "intel";
       description = "Type of the IOMMU used";
     };
     devices = mkOption {
       type = types.listOf (types.strMatching "[0-9a-f]{4}:[0-9a-f]{4}");
-      default = [];
-      example = ["10de:1b80" "10de:10f0"];
+      default = [ ];
+      example = [ "10de:1b80" "10de:10f0" ];
       description = "PCI IDs of devices to bind to vfio-pci";
     };
     disableEFIfb = mkOption {
@@ -62,7 +61,7 @@ in {
           "intel_iommu=on"
           "intel_iommu=igfx_off"
         ]
-        else ["amd_iommu=on"]
+        else [ "amd_iommu=on" ]
       )
       ++ (optional (builtins.length cfg.devices > 0)
         ("vfio-pci.ids=" + builtins.concatStringsSep "," cfg.devices))
@@ -76,11 +75,11 @@ in {
         "kvm.report_ignored_msrs=0"
       ]);
 
-    boot.kernelModules = ["vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
+    boot.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
 
-    boot.initrd.kernelModules = ["vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio"];
+    boot.initrd.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
     boot.blacklistedKernelModules =
-      optionals cfg.blacklistNvidia ["nvidia" "nouveau"];
+      optionals cfg.blacklistNvidia [ "nvidia" "nouveau" ];
 
     boot.kernelPatches = optionals cfg.applyACSpatch [
       {

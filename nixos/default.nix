@@ -1,5 +1,16 @@
-{ config, desktop, hostname, hostid, inputs, lib, modulesPath, outputs, pkgs
-, stateVersion, username, ... }:
+{ config
+, desktop
+, hostname
+, hostid
+, inputs
+, lib
+, modulesPath
+, outputs
+, pkgs
+, stateVersion
+, username
+, ...
+}:
 let machines = [ "nitro" "air" ];
 in {
   # Import host specific boot and hardware configurations.
@@ -30,8 +41,8 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
 
-    ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
-    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
+  ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
+  ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
     initrd = {
@@ -96,25 +107,26 @@ in {
     ### Keyboard ###
     ################
 
-    xserver = if (builtins.isString == "nitro" && "vm") then {
-      layout = "br,gb,us";
-      xkbVariant = "pc105";
-      xkbModel = "pc105";
-      xkbOptions = "grp:alt_shift_toggle";
-    } else {
-      layout = "us";
-      xkbVariant = "mac";
-      xkbModel = "pc105";
-      xkbOptions = ''
-        "altwin:ctrl_win"
-        "altwin:ctrl_alt_win"
-        "caps:super" 
-        "terminate:ctrl_alt_bksp" 
-      '';
-      #"caps:ctrl_modifier"
-      #"lv3:alt_switch"
-      #"lv3:switch,compose:lwin”
-    };
+    xserver =
+      if (builtins.isString == "nitro" && "vm") then {
+        layout = "br,gb,us";
+        xkbVariant = "pc105";
+        xkbModel = "pc105";
+        xkbOptions = "grp:alt_shift_toggle";
+      } else {
+        layout = "us";
+        xkbVariant = "mac";
+        xkbModel = "pc105";
+        xkbOptions = ''
+          "altwin:ctrl_win"
+          "altwin:ctrl_alt_win"
+          "caps:super" 
+          "terminate:ctrl_alt_bksp" 
+        '';
+        #"caps:ctrl_modifier"
+        #"lv3:alt_switch"
+        #"lv3:switch,compose:lwin”
+      };
 
     ##################
     ### More Stuff ###
@@ -381,22 +393,17 @@ in {
         # VM testing
         nixclone = "git clone --depth=1 https://github.com/JucaRei/nixos-configs $HOME/Zero/nix-config";
         nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
-        rebuild-all = "rebuild-host && rebuild-home";
-        rebuild-home =
-          "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host =
-          "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock =
-          "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
-        rebuild-iso-console =
-          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
-        rebuild-iso-desktop =
-          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
+        rebuild-all = "sudo nix-collect-garbage --delete-older-than 14d && sudo nixos-rebuild switch --flake $HOME/Zero/nix-config && home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+        rebuild-lock = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
+        rebuild-iso-console = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
+        rebuild-iso-desktop = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
         nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
-        #rebuild-home = "home-manager switch -b backup --flake $HOME/.setup";
-        #rebuild-host = "sudo nixos-rebuild switch --flake $HOME/.setup";
-        #rebuild-lock = "pushd $HOME/.setup && nix flake lock --recreate-lock-file && popd";
-        #rebuild-iso = "pushd $HOME/.setup && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
+        #rebuild-home       = "home-manager switch -b backup --flake $HOME/.setup";
+        #rebuild-host       = "sudo nixos-rebuild switch --flake $HOME/.setup";
+        #rebuild-lock       = "pushd $HOME/.setup && nix flake lock --recreate-lock-file && popd";
+        #rebuild-iso        = "pushd $HOME/.setup && nix build .#nixosConfigurations.iso.config.system.build.isoImage && popd";
       };
       shellAliases = {
         moon = "curl -s wttr.in/Moon";

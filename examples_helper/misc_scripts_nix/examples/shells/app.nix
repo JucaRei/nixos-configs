@@ -2,14 +2,14 @@ let
   version = "103.0";
   buildnumber = "r20220613094641";
 in
-  {pkgs ? import <nixpkgs> {}}:
-    pkgs.appimageTools.wrapType2 {
-      name = "firefox-nightly";
-      src = pkgs.fetchurl {
-        url = "https://github.com/srevinsaju/Firefox-Appimage/releases/download/firefox-nightly/firefox-nightly-${version}.${buildnumber}-x86_64.AppImage";
-        sha256 = "8IYYbHnoq4hcpheIa5oPlrevalux5/xPAO0v32XumOc=";
-      };
-    }
+{ pkgs ? import <nixpkgs> { } }:
+pkgs.appimageTools.wrapType2 {
+  name = "firefox-nightly";
+  src = pkgs.fetchurl {
+    url = "https://github.com/srevinsaju/Firefox-Appimage/releases/download/firefox-nightly/firefox-nightly-${version}.${buildnumber}-x86_64.AppImage";
+    sha256 = "8IYYbHnoq4hcpheIa5oPlrevalux5/xPAO0v32XumOc=";
+  };
+}
 #
 # This is an example on how to be able to use appimages.
 # Here it installs firefox nightly form an appimage available online.

@@ -6,9 +6,9 @@
       package = pkgs.bluezFull;
       # battery info support
       #package = pkgs.bluez5-experimental;
-      settings = { 
-        General = { 
-          Enable = "Source,Sink,Media,Socket"; 
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
           # make Xbox Series X controller work
           #Class = "0x000100";
           #ControllerMode = "bredr";
@@ -16,7 +16,7 @@
           #JustWorksRepairing = "always";
           #Privacy = "device";
           #Experimental = true;
-        }; 
+        };
       };
     };
   };

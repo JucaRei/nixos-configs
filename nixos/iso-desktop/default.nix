@@ -1,4 +1,4 @@
-{ lib, pkgs, config,... }:
+{ lib, pkgs, config, ... }:
 {
   imports = [
     ../_mixins/services/bluetooth.nix
@@ -25,8 +25,8 @@
 
   environment.systemPackages = with pkgs; [ ];
 
-  services = { 
-    xserver.videoDrivers = [ ]; 
+  services = {
+    xserver.videoDrivers = [ ];
     ananicy.enable = lib.mkForce false;
     irqbalance.enable = lib.mkForce false;
     fstrim.enable = lib.mkDefault false;

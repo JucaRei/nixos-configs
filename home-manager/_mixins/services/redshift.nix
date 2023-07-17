@@ -3,7 +3,8 @@
 { config, lib, ... }:
 
 {
-  config = lib.mkIf (config.xsession.enable) { # Only evaluate code if using X11
+  config = lib.mkIf config.xsession.enable {
+    # Only evaluate code if using X11
     services = {
       redshift = {
         enable = true;

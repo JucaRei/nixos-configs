@@ -1,10 +1,9 @@
-{
-  config,
-  options,
-  lib,
-  pkgs,
-  ...
-}: let
+{ config
+, lib
+, pkgs
+, ...
+}:
+let
   ytdlpAudio = pkgs.writeScriptBin "yt-dlp-audio" ''
     ${pkgs.yt-dlp}/bin/yt-dlp --config-location "${./config/yt-dlp-audio.conf}" $@
   '';
@@ -14,7 +13,8 @@
 
   musicDir = config.xdg.userDirs.music;
   playlistsDir = "${musicDir}/playlists";
-in {
+in
+{
   home.packages = with pkgs; [
     vscodium-fhs # Visual Studio-lite and for those who suffer from Visual Studio withdrawal.
     hledger # Trying to be a good accountant.
@@ -50,7 +50,7 @@ in {
   # mostly configuring anyways.
   programs.ssh = {
     enable = true;
-    includes = ["config.d/*"];
+    includes = [ "config.d/*" ];
     extraConfig = ''
       AddKeysToAgent confirm 15m
       ForwardAgent no
@@ -105,12 +105,12 @@ in {
       # Shorthand for popular forges ala-Nix flake URL inputs. It's just a fun
       # little part of the config.
       url = {
-        "https://github.com/".insteadOf = ["gh:" "github:"];
-        "https://gitlab.com/".insteadOf = ["gl:" "gitlab:"];
-        "https://gitlab.gnome.org/".insteadOf = ["gnome:"];
-        "https://invent.kde.org/".insteadOf = ["kde:"];
-        "https://git.sr.ht/".insteadOf = ["sh:" "sourcehut:"];
-        "https://git.savannah.nongnu.org/git/".insteadOf = ["sv:" "savannah:"];
+        "https://github.com/".insteadOf = [ "gh:" "github:" ];
+        "https://gitlab.com/".insteadOf = [ "gl:" "gitlab:" ];
+        "https://gitlab.gnome.org/".insteadOf = [ "gnome:" ];
+        "https://invent.kde.org/".insteadOf = [ "kde:" ];
+        "https://git.sr.ht/".insteadOf = [ "sh:" "sourcehut:" ];
+        "https://git.savannah.nongnu.org/git/".insteadOf = [ "sv:" "savannah:" ];
       };
     };
   };
@@ -302,19 +302,19 @@ in {
   programs.brave = {
     enable = true;
     extensions = [
-      {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # Vimium
-      {id = "ekhagklcjbdpajgpjgmbionohlpdbjgc";} # Zotero connector
-      {id = "jfnifeihccihocjbfcfhicmmgpjicaec";} # GSConnect
-      {id = "aapbdbdomjkkjkaonfhkkikfgjllcleb";} # Google Translate
-      {id = "egpjdkipkomnmjhjmdamaniclmdlobbo";} # Firenvim
-      {id = "gknkbkaapnhpmkcgkmdekdffgcddoiel";} # Open Access Button
-      {id = "fpnmgdkabkmnadcjpehmlllkndpkmiak";} # Wayback Machine
-      {id = "gphhapmejobijbbhgpjhcjognlahblep";} # GNOME Shell integration
-      {id = "haebnnbpedcbhciplfhjjkbafijpncjl";} # TinEye Reverse Image Search
-      {id = "dhdgffkkebhmkfjojejmpbldmpobfkfo";} # Tampermonkey
-      {id = "kkmlkkjojmombglmlpbpapmhcaljjkde";} # Zhongwen
-      {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
-      {id = "oldceeleldhonbafppcapldpdifcinji";} # LanguageTool checker
+      { id = "dbepggeogbaibhgnhhndojpepiihcmeb"; } # Vimium
+      { id = "ekhagklcjbdpajgpjgmbionohlpdbjgc"; } # Zotero connector
+      { id = "jfnifeihccihocjbfcfhicmmgpjicaec"; } # GSConnect
+      { id = "aapbdbdomjkkjkaonfhkkikfgjllcleb"; } # Google Translate
+      { id = "egpjdkipkomnmjhjmdamaniclmdlobbo"; } # Firenvim
+      { id = "gknkbkaapnhpmkcgkmdekdffgcddoiel"; } # Open Access Button
+      { id = "fpnmgdkabkmnadcjpehmlllkndpkmiak"; } # Wayback Machine
+      { id = "gphhapmejobijbbhgpjhcjognlahblep"; } # GNOME Shell integration
+      { id = "haebnnbpedcbhciplfhjjkbafijpncjl"; } # TinEye Reverse Image Search
+      { id = "dhdgffkkebhmkfjojejmpbldmpobfkfo"; } # Tampermonkey
+      { id = "kkmlkkjojmombglmlpbpapmhcaljjkde"; } # Zhongwen
+      { id = "nngceckbapebfimnlniiiahkandclblb"; } # Bitwarden
+      { id = "oldceeleldhonbafppcapldpdifcinji"; } # LanguageTool checker
     ];
   };
 
@@ -346,7 +346,7 @@ in {
     "${config.xdg.configHome}/emacs" = {
       url = "https://github.com/doomemacs/doomemacs.git";
       type = "git";
-      extraArgs = ["--depth" "1"];
+      extraArgs = [ "--depth" "1" ];
     };
 
     # ...and my custom theme to be a showoff.
@@ -357,13 +357,14 @@ in {
   };
 
   systemd.user.services.fetch-mutable-files = {
-    Service.ExecStartPost = let
-      script = pkgs.writeShellScript "post-fetch-mutable-files" ''
-        # Automate installation of Doom Emacs.
-        ${config.xdg.configHome}/emacs/bin/doom install --no-config --no-fonts --install --force
-        ${config.xdg.configHome}/emacs/bin/doom sync
-      '';
-    in
+    Service.ExecStartPost =
+      let
+        script = pkgs.writeShellScript "post-fetch-mutable-files" ''
+          # Automate installation of Doom Emacs.
+          ${config.xdg.configHome}/emacs/bin/doom install --no-config --no-fonts --install --force
+          ${config.xdg.configHome}/emacs/bin/doom sync
+        '';
+      in
       builtins.toString script;
   };
 }

@@ -22,7 +22,7 @@
 # To fix, use the default kernel, or enable "IA32_EMULATION y" in the kernel config.
 let
   # nixpkgs-unstable does not have jdk7 anymore. I used the nixos-18.03 channel
-  pkgs = import <nixpkgs> {};
+  pkgs = import <nixpkgs> { };
 
   # Inspired from https://nixos.wiki/wiki/Android#Building_Android_on_NixOS
   # I had to add several packages to make it work for me
@@ -82,10 +82,10 @@ let
     '';
   };
 in
-  pkgs.stdenv.mkDerivation {
-    name = "android-env-shell";
-    nativeBuildInputs = [fhs];
-    shellHook = "exec android-env";
-  }
+pkgs.stdenv.mkDerivation {
+  name = "android-env-shell";
+  nativeBuildInputs = [ fhs ];
+  shellHook = "exec android-env";
+}
 ### Building LineageOS on NixOS
 

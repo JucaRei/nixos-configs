@@ -1,8 +1,6 @@
-{
-  config,
-  pkgs,
-  my,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   home.packages = with pkgs; [
     yt-dlp
@@ -13,12 +11,12 @@
   xdg.configFile = with pkgs; {
     "mpv/scripts/navigator.lua".source =
       fetchFromGitHub
-      {
-        owner = "jonniek";
-        repo = "mpv-filenavigator";
-        rev = "a67c8280a7711cfaa5871f55d53ddb017f6d7b4c";
-        sha256 = "0kvj36nwxz5izps0qm6qw6yrcd5fkkh1kb9zgb2z32hfbmvq22sy";
-      }
+        {
+          owner = "jonniek";
+          repo = "mpv-filenavigator";
+          rev = "a67c8280a7711cfaa5871f55d53ddb017f6d7b4c";
+          sha256 = "0kvj36nwxz5izps0qm6qw6yrcd5fkkh1kb9zgb2z32hfbmvq22sy";
+        }
       + "/navigator.lua";
   };
 

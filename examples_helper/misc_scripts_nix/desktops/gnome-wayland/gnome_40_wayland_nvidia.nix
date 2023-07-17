@@ -1,21 +1,24 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config
+, pkgs
+, ...
+}:
+let
   # Get the last working revision with nvidia 460.x
-  nixos-unstable-pinned = import (builtins.fetchTarball {
-    name = "nixos-unstable_nvidia-x11-470.57.02";
-    url = https://github.com/nixos/nixpkgs/archive/03100da5a714a2b6c5210ceb6af092073ba4fce5.tar.gz;
-    sha256 = "0bblrvhig7vwiq2lgjrl5ibil3sz7hj26gaip6y8wpd9xcjr3v7a";
-  }) {config.allowUnfree = true;};
+  nixos-unstable-pinned = import
+    (builtins.fetchTarball {
+      name = "nixos-unstable_nvidia-x11-470.57.02";
+      url = "https://github.com/nixos/nixpkgs/archive/03100da5a714a2b6c5210ceb6af092073ba4fce5.tar.gz";
+      sha256 = "0bblrvhig7vwiq2lgjrl5ibil3sz7hj26gaip6y8wpd9xcjr3v7a";
+    })
+    { config.allowUnfree = true; };
   # We'll use this twice
   pinnedKernelPackages = nixos-unstable-pinned.linuxPackages_latest;
-  stremio = pkgs.callPackage /root/nix-config/devices/config/packages/stremio/default.nix {};
-in {
+  stremio = pkgs.callPackage /root/nix-config/devices/config/packages/stremio/default.nix { };
+in
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -28,11 +31,11 @@ in {
   hardware.opengl.enable = true;
 
   # Install nvidia 460
-  nixpkgs.config.packageOverrides = pkgs: {
+  nixpkgs.config.packageOverrides = _pkgs: {
     # Swap out all of the linux packages
     linuxPackages_latest = pinnedKernelPackages;
     # Make sure x11 will use the correct package as well
-    nvidia_x11 = nixos-unstable-pinned.nvidia_x11;
+    inherit (nixos-unstable-pinned) nvidia_x11;
   };
 
   boot = {

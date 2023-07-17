@@ -1,13 +1,11 @@
 #
 #  Screen color temperature changer
 #
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, ...
 }: {
-  config = lib.mkIf (config.xsession.enable) {
+  config = lib.mkIf config.xsession.enable {
     # Only evaluate code if using X11
     services = {
       redshift = {

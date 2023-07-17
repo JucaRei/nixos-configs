@@ -1,24 +1,23 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, lib
+, ...
 }:
 with lib;
 with builtins; let
   cfg = config.sys.services;
   domain = "headscale.krutonium.ca";
   port = 8080;
-in {
-  config = mkIf (cfg.headscale == true) {
+in
+{
+  config = mkIf cfg.headscale {
     services = {
       headscale = {
         enable = true;
         address = "0.0.0.0";
-        port = port;
+        inherit port;
         serverUrl = "https://${domain}";
-        dns = {baseDomain = "krutonium.ca";};
-        settings = {logtail.enabled = false;};
+        dns = { baseDomain = "krutonium.ca"; };
+        settings = { logtail.enabled = false; };
       };
 
       nginx.virtualHosts.${domain} = {
@@ -30,6 +29,6 @@ in {
         };
       };
     };
-    environment.systemPackages = [config.services.headscale.package];
+    environment.systemPackages = [ config.services.headscale.package ];
   };
 }

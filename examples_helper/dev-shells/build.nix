@@ -1,4 +1,4 @@
-{pkgs}: {
+{ pkgs }: {
   name = "build";
   fhs = false;
   targetPkgs = with pkgs; [

@@ -1,4 +1,5 @@
-{...}: let
+_:
+let
   tunnel.port.int = xxxxxx;
   tunnel.port.str = "xxxxxx";
   tunnel.ip = "x.x.x.x";
@@ -7,16 +8,17 @@
   tunnel.external.pubkey = "xxxxxxxxxxxxxxxxxxxxx";
   tunnel.internal.ip = "x.x.x.x";
   tunnel.internal.pubkey = "xxxxxxxxxxxxxxxxxxxxx";
-in {
+in
+{
   boot.kernel.sysctl."net.ipv4.ip_forward" = true;
-  networking.firewall.allowedUDPPorts = [tunnel.port.int];
+  networking.firewall.allowedUDPPorts = [ tunnel.port.int ];
   networking.wireguard.enable = true;
   networking.wireguard.interfaces.tunnel = {
     generatePrivateKeyFile = true;
     listenPort = tunnel.port.int;
     privateKeyFile = "/xxxxxxx/xxxxxxx.xxxxxxx";
     allowedIPsAsRoutes = false;
-    ips = ["${tunnel.external.ip}/32"];
+    ips = [ "${tunnel.external.ip}/32" ];
     peers = [
       {
         allowedIPs = [

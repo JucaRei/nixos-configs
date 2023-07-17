@@ -1,10 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  sources,
-  profilesPath,
-  ...
+{ profilesPath
+, ...
 }: {
   imports = [
     "${profilesPath}/hosts/minimal.nix"

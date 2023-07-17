@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   systemd.coredump.enable = false;
 
   services.clamav = {

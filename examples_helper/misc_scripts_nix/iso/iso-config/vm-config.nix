@@ -1,7 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }:
 with lib; {
   imports = [
@@ -19,7 +18,7 @@ with lib; {
     virtualisation.diskSize = 1024 * 2048;
 
     boot.growPartition = true;
-    boot.kernelParams = ["console=ttyS0"];
+    boot.kernelParams = [ "console=ttyS0" ];
     boot.loader.grub.device = "/dev/vda";
     boot.loader.timeout = 0;
 
@@ -46,7 +45,7 @@ with lib; {
     users.mutableUsers = false;
 
     users.users.root = {
-      extraGroups = ["wheel"];
+      extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
         "ssh-rsa ... "
       ];

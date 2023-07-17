@@ -1,4 +1,4 @@
-{ super, lib, pkgs, ... }:
+{ pkgs, ... }:
 
 let inherit (pkgs) nixpkgs-fmt rnix-lsp rust-analyzer;
 in {

@@ -1,17 +1,16 @@
 # libvirt with statically configured bridge
 # Module for configuring libvirt with static NixOS networking
 # instead of using libvirt managed bridge.
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, ...
 }:
 with lib; let
   cfg = config.virtualisation.libvirtd.networking;
   v6Enabled = cfg.ipv6.network != null;
   v6PLen = toInt (elemAt (splitString "/" cfg.ipv6.network) 1);
-in {
+in
+{
   options = {
     virtualisation.libvirtd.networking = {
       enable = mkEnableOption "Enable nix-managed networking for libvirt";
@@ -56,7 +55,7 @@ in {
 
         nameServers = mkOption {
           type = types.listOf types.str;
-          default = ["2001:4860:4860::8888" "2001:4860:4860::8844"]; # google dns
+          default = [ "2001:4860:4860::8888" "2001:4860:4860::8844" ]; # google dns
           description = ''
             List of v6 nameservers advertised via SLAAC.
           '';
@@ -86,7 +85,7 @@ in {
                 };
               };
             });
-          default = [];
+          default = [ ];
           example = [
             {
               sourcePort = 8080;
@@ -109,8 +108,8 @@ in {
     networking.nat =
       {
         enable = true;
-        internalInterfaces = [cfg.bridgeName];
-        externalInterface = cfg.externalInterface;
+        internalInterfaces = [ cfg.bridgeName ];
+        inherit (cfg) externalInterface;
       }
       // optionalAttrs v6Enabled {
         extraCommands =
@@ -132,7 +131,7 @@ in {
       };
 
     # libvirt uses 192.168.122.0
-    networking.bridges."${cfg.bridgeName}".interfaces = [];
+    networking.bridges."${cfg.bridgeName}".interfaces = [ ];
     networking.interfaces."${cfg.bridgeName}" = {
       ipv4.addresses = [
         {
@@ -150,7 +149,7 @@ in {
 
     services.dhcpd4 = {
       enable = true;
-      interfaces = [cfg.bridgeName];
+      interfaces = [ cfg.bridgeName ];
       extraConfig = ''
         option routers 192.168.122.1;
         option broadcast-address 192.168.122.255;
@@ -198,7 +197,7 @@ in {
     # NixOS guests obtain address, routes, and DNS from router advertisements.
     # So there's no need to run DHCP if you're OK with SLAAC addresses.
     /*
-    services.dhcpd6 = mkIf v6Enabled {
+      services.dhcpd6 = mkIf v6Enabled {
       enable = true;
       interfaces = [ cfg.bridgeName ];
       extraConfig = ''
@@ -213,7 +212,7 @@ in {
         subnet6 ${cfg.ipv6.network} {
         }
       '';
-    };
+      };
     */
   };
 }

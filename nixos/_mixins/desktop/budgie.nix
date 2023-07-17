@@ -1,13 +1,13 @@
-{ pkgs, inputs, system, lib,... }: {
+{ pkgs, lib, ... }: {
   imports = [
     ./qt-style.nix
     ./apps/browsers/firefox.nix
     ../services/networkmanager.nix
   ];
 
-  environment.budgie.excludePackages = with pkgs;  [ 
-    mate.mate-terminal 
-  ] ;
+  environment.budgie.excludePackages = with pkgs;  [
+    mate.mate-terminal
+  ];
 
   environment.systemPackages = [
     #inputs.nix-software-center.packages.${system}.nix-software-center
@@ -41,14 +41,14 @@
         };
       };
 
-      desktopManager = { 
+      desktopManager = {
         budgie = {
           enable = lib.mkForce true;
-          sessionPath = [];
+          sessionPath = [ ];
           extraGSettingsOverrides = "";
-          extraGSettingsOverridePackages = [];
+          extraGSettingsOverridePackages = [ ];
           extraPlugins = with pkgs; [ budgiePlugins.budgie-analogue-clock-applet ];
-          }; 
+        };
       };
     };
   };

@@ -1,7 +1,7 @@
 # Ripperootskees for the space.
-{
-  mkShell,
-  texlive,
+{ mkShell
+, texlive
+,
 }:
 mkShell {
   packages = [

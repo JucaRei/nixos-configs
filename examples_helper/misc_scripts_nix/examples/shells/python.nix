@@ -1,4 +1,4 @@
-{pkgs ? import <nixpkgs> {}}:
+{ pkgs ? import <nixpkgs> { } }:
 pkgs.mkShell {
   packages = with pkgs; [
     (pkgs.python3.withPackages (ps: [

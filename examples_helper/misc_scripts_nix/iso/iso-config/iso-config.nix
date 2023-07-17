@@ -1,7 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
+{ pkgs
+, lib
+, ...
 }:
 with lib; {
   config = {
@@ -28,7 +27,7 @@ with lib; {
     users.mutableUsers = false;
 
     users.users.root = {
-      extraGroups = ["wheel"];
+      extraGroups = [ "wheel" ];
       openssh.authorizedKeys.keys = [
         "ssh-rsa ... "
       ];

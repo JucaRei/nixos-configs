@@ -7,11 +7,10 @@
 #  6 sudo systemctl start tailscaled.service
 #
 # Then add the .state file to your machine secrets and pass its path as tailscaleStatePath.
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   options = {
     remote-machine.boot.tailscaleUnlock = with lib; {
@@ -26,23 +25,24 @@
     };
   };
 
-  config = let
-    cfg = config.remote-machine.boot.tailscaleUnlock;
-    # TODO: This uses old-style non-nftables iptables; ideally, we wouldn't have to opt out of that.
-    # Enabling nftables compat means having to shuffle the list of
-    # modules down in availableKernelModules; that's a bunch of work
-    # (deploying to a linux machine & rebooting to see what doesn't
-    # work this time), so I'm a bit too lazy for that now.
-    iptables-static = (pkgs.iptables.override {nftablesCompat = false;}).overrideAttrs (old: {
-      dontDisableStatic = true;
-      configureFlags =
-        (lib.remove "--enable-shared" old.configureFlags)
-        ++ [
-          "--enable-static"
-          "--disable-shared"
-        ];
-    });
-  in
+  config =
+    let
+      cfg = config.remote-machine.boot.tailscaleUnlock;
+      # TODO: This uses old-style non-nftables iptables; ideally, we wouldn't have to opt out of that.
+      # Enabling nftables compat means having to shuffle the list of
+      # modules down in availableKernelModules; that's a bunch of work
+      # (deploying to a linux machine & rebooting to see what doesn't
+      # work this time), so I'm a bit too lazy for that now.
+      iptables-static = (pkgs.iptables.override { nftablesCompat = false; }).overrideAttrs (old: {
+        dontDisableStatic = true;
+        configureFlags =
+          (lib.remove "--enable-shared" old.configureFlags)
+          ++ [
+            "--enable-static"
+            "--disable-shared"
+          ];
+      });
+    in
     lib.mkIf cfg.enable {
       boot.initrd = {
         secrets = {

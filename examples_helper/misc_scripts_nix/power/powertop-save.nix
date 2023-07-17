@@ -1,14 +1,12 @@
-{
-  config,
-  pkgs,
-  ...
+{ pkgs
+, ...
 }: {
   environment.systemPackages = with pkgs; [
     powertop
   ];
 
   boot = {
-    kernelParams = ["pcie_aspm.policy=powersave"];
+    kernelParams = [ "pcie_aspm.policy=powersave" ];
     extraModprobeConfig = ''
       options snd_hda_intel power_save=1
       options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0

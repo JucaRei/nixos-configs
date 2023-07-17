@@ -1,10 +1,8 @@
-{
-  config,
-  pkgs,
-  ...
+{ pkgs
+, ...
 }: {
   # tell kernel to use SE Linux
-  boot.kernelParams = ["security=selinux"];
+  boot.kernelParams = [ "security=selinux" ];
   # compile kernel with SE Linux support - but also support for other LSM modules
   boot.kernelPatches = [
     {
@@ -22,7 +20,7 @@
     }
   ];
   # policycoreutils is for load_policy, fixfiles, setfiles, setsebool, semodile, and sestatus.
-  environment.systemPackages = with pkgs; [policycoreutils];
+  environment.systemPackages = with pkgs; [ policycoreutils ];
   # build systemd with SE Linux support so it loads policy at boot and supports file labelling
-  systemd.package = pkgs.systemd.override {withSelinux = true;};
+  systemd.package = pkgs.systemd.override { withSelinux = true; };
 }

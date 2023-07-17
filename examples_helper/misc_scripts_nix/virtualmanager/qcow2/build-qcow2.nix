@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 with lib; {
   imports = [
@@ -12,15 +11,15 @@ with lib; {
 
   system.build.qcow2 = import <nixpkgs/nixos/lib/make-disk-image.nix> {
     inherit lib config;
-    pkgs = import <nixpkgs> {inherit (pkgs) system;}; # ensure we use the regular qemu-kvm package
+    pkgs = import <nixpkgs> { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
     diskSize = 8192;
     format = "qcow2";
     configFile =
       pkgs.writeText "configuration.nix"
-      ''
-        {
-          imports = [ <./machine-config.nix> ];
-        }
-      '';
+        ''
+          {
+            imports = [ <./machine-config.nix> ];
+          }
+        '';
   };
 }

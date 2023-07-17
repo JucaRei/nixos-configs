@@ -1,8 +1,4 @@
-{
-  desktop,
-  lib,
-  pkgs,
-  ...
+{ ...
 }: {
   imports = [
     #./charm-tools.nix

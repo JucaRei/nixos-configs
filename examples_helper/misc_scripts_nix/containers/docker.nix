@@ -1,9 +1,4 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: {
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
 
   # services.kubernetes.roles = [ "master" "node" ];

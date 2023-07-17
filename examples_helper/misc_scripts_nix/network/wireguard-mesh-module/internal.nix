@@ -1,4 +1,5 @@
-{...}: let
+_:
+let
   tunnel.port.int = xxxxxx;
   tunnel.port.str = "xxxxxx";
   tunnel.ip = "x.x.x.x";
@@ -7,8 +8,9 @@
   tunnel.external.pubkey = "xxxxxxxxxxxxxxxxxxxxx";
   tunnel.internal.ip = "x.x.x.x";
   tunnel.internal.pubkey = "xxxxxxxxxxxxxxxxxxxxx";
-in {
-  networking.firewall.allowedUDPPorts = [tunnel.port.int];
+in
+{
+  networking.firewall.allowedUDPPorts = [ tunnel.port.int ];
   networking.wireguard.enable = true;
   networking.wireguard.interfaces.tunnel = {
     generatePrivateKeyFile = true;
@@ -21,7 +23,7 @@ in {
     ];
     peers = [
       {
-        allowedIPs = ["0.0.0.0/0"];
+        allowedIPs = [ "0.0.0.0/0" ];
         endpoint = "${tunnel.external.endpoint}:${tunnel.port.str}";
         publicKey = tunnel.external.pubkey;
         persistentKeepalive = 5;

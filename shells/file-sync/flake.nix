@@ -7,8 +7,7 @@
   };
 
   outputs =
-    { self
-    , nixpkgs
+    { nixpkgs
     , flake-utils
     }:
 
@@ -19,11 +18,11 @@
     {
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
-          croc                          # Terminal file transfer
-          mktorrent                     # Terminal torrent creator
-          rclone                        # Terminal cloud storage client
-          s3cmd                         # Terminal cloud storage client
-          zsync                         # Terminal file sync
+          croc # Terminal file transfer
+          mktorrent # Terminal torrent creator
+          rclone # Terminal cloud storage client
+          s3cmd # Terminal cloud storage client
+          zsync # Terminal file sync
         ];
       };
     });

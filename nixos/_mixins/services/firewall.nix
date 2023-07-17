@@ -6,7 +6,8 @@ let
     tcpPorts = [ 22000 8384 ];
     udpPorts = [ 22000 21027 ];
   };
-in {
+in
+{
   networking = {
     firewall = {
       # if packets are still dropped, they will show up in dmesg

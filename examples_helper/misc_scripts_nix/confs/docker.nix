@@ -1,17 +1,15 @@
 #
 # Docker
 #
-{
-  config,
-  pkgs,
-  user,
-  ...
+{ pkgs
+, user
+, ...
 }: {
   virtualisation = {
     docker.enable = true;
   };
 
-  users.groups.docker.members = ["${user}"];
+  users.groups.docker.members = [ "${user}" ];
 
   #environment = {
   #  interactiveShellInit = ''

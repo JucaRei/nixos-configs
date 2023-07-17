@@ -5,20 +5,21 @@ let
     "10de:228b" # 3070 Ti Audio
   ];
 in
-  {
-    pkgs,
-    lib,
-    config,
-    username,
-    home-manager,
-    ...
-  }: {
-    options.vfio.enable = with lib;
-      mkEnableOption "Configure the machine for VFIO";
+{ pkgs
+, lib
+, config
+, username
+, home-manager
+, ...
+}: {
+  options.vfio.enable = with lib;
+    mkEnableOption "Configure the machine for VFIO";
 
-    config = let
+  config =
+    let
       cfg = config.vfio;
-    in {
+    in
+    {
       boot = {
         initrd.kernelModules = [
           "vfio_pci"
@@ -38,8 +39,8 @@ in
             "amd_iommu=on"
           ]
           ++ lib.optional cfg.enable
-          # isolate the GPU
-          ("vfio-pci.ids=" + lib.concatStringsSep "," iommuIds);
+            # isolate the GPU
+            ("vfio-pci.ids=" + lib.concatStringsSep "," iommuIds);
       };
 
       hardware.opengl.enable = true;
@@ -56,14 +57,13 @@ in
           swtpm.enable = true;
           ovmf.enable = true;
           ovmf.packages = [
-            ((unstable.OVMFFull.override
-              {
-                secureBoot = true;
-                tpmSupport = true;
-                csmSupport = true;
-                httpSupport = true;
-              })
-            .fd)
+            (unstable.OVMFFull.override
+                {
+                  secureBoot = true;
+                  tpmSupport = true;
+                  csmSupport = true;
+                  httpSupport = true;
+                }).fd
           ];
         };
       };
@@ -88,8 +88,8 @@ in
           Restart = "always";
           RestartSec = 2;
         };
-        wantedBy = ["default.target"];
-        requires = ["pipewire-pulse.service"];
+        wantedBy = [ "default.target" ];
+        requires = [ "pipewire-pulse.service" ];
       };
 
       home-manager.users.${username} = {
@@ -103,7 +103,7 @@ in
         };
       };
     };
-  }
+}
 ## Note that I have a bunch of other PCI devices (hard drives, webcam etc) passed through
 ## on the VM configuration that you'll probably want to remove from the VM configuration.
 ##

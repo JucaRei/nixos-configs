@@ -1,7 +1,7 @@
 #
 # Shell
 #
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs = {
     zsh = {
       enable = true;
@@ -13,7 +13,7 @@
       ohMyZsh = {
         # Extra plugins for zsh
         enable = true;
-        plugins = ["git"];
+        plugins = [ "git" ];
       };
 
       shellInit = ''                            # Zsh theme

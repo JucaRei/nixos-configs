@@ -1,4 +1,4 @@
-{ config, pkgs, lib, modulesPath, inputs, nixpkgs, ... }:
+{ config, pkgs, nixpkgs, ... }:
 
 {
   programs.steam = {
@@ -10,10 +10,10 @@
   };
 
   # Adding missing dependencies
-  nixpkgs.config.packageOverrides = (pkgs: {
+  nixpkgs.config.packageOverrides = pkgs: {
     steam =
       pkgs.steam.override { extraPkgs = pkgs: with pkgs; [ libgdiplus ]; };
-  });
+  };
 
   # Java
   programs.java.enable = true;

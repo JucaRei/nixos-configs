@@ -1,9 +1,9 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}: let
+{ pkgs
+, lib
+, config
+, ...
+}:
+let
   inherit (lib) mkDefault mkEnableOption mkIf mkOption;
   inherit (lib.types) int;
 
@@ -51,11 +51,12 @@
 
   hourly =
     if pkgs.stdenv.isLinux
-    then {dates = mkDefault "hourly";}
+    then { dates = mkDefault "hourly"; }
     else if pkgs.stdenv.isDarwin
-    then {interval = mkDefault {Minute = 0;};}
+    then { interval = mkDefault { Minute = 0; }; }
     else throw "unsupported system";
-in {
+in
+{
   options = {
     sys2x.gc = {
       useDiskAware = mkEnableOption "disk-aware garbage collector";

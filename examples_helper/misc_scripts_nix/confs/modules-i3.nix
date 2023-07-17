@@ -1,21 +1,21 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: let
+{ pkgs
+, lib
+, ...
+}:
+let
   polybar = pkgs.polybar.override {
     i3GapsSupport = true;
     alsaSupport = true;
   };
   execWithEnv =
     pkgs.writeScriptBin "execWithEnv"
-    ''      #!${pkgs.stdenv.shell}
+      ''      #!${pkgs.stdenv.shell}
 
         unset __NIXOS_SET_ENVIRONMENT_DONE
         source /etc/profile
         exec "$@"'';
-in {
+in
+{
   systemd.user.targets.autostart = {
     description = "Target to bind applications that should be started after VM";
   };
@@ -44,7 +44,7 @@ in {
 
   systemd.user.services.sxhkd = {
     description = "Simple X hotkey daemon";
-    wantedBy = ["autostart.target"];
+    wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
       ExecStart = "/run/current-system/sw/bin/execWithEnv ${pkgs.sxhkd}/bin/sxhkd -c ${./sxhkd.conf}";
@@ -53,7 +53,7 @@ in {
 
   systemd.user.services.polybar = {
     description = "Polybar system status bar";
-    wantedBy = ["autostart.target"];
+    wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
       ExecStart = "${polybar}/bin/polybar -c ${./polybar.conf} main";
@@ -77,19 +77,19 @@ in {
 
     fontconfig.enable = true;
     fontconfig.defaultFonts = {
-      monospace = lib.mkDefault ["RobotoMono Nerd Font" "DejaVu Sans Mono"];
-      sansSerif = lib.mkDefault ["Roboto" "DejaVu Sans"];
-      serif = lib.mkDefault ["Roboto" "DejaVu Serif"];
-      emoji = lib.mkDefault ["Twitter Color Emoji"];
+      monospace = lib.mkDefault [ "RobotoMono Nerd Font" "DejaVu Sans Mono" ];
+      sansSerif = lib.mkDefault [ "Roboto" "DejaVu Sans" ];
+      serif = lib.mkDefault [ "Roboto" "DejaVu Serif" ];
+      emoji = lib.mkDefault [ "Twitter Color Emoji" ];
     };
   };
 
-  console.packages = with pkgs; [terminus_font];
+  console.packages = with pkgs; [ terminus_font ];
   console.font = "ter-v12n";
 
   systemd.user.services.autorandr = {
     description = "Autorandr execution hook";
-    wantedBy = ["autostart.target"];
+    wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "/run/current-system/sw/bin/execWithEnv ${pkgs.autorandr}/bin/autorandr --change";
@@ -98,7 +98,7 @@ in {
 
   systemd.user.services.flameshot = {
     description = "Flameshot";
-    wantedBy = ["autostart.target"];
+    wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
       ExecStart = "/run/current-system/sw/bin/execWithEnv ${pkgs.flameshot}/bin/flameshot";
@@ -107,7 +107,7 @@ in {
 
   systemd.user.services.nm-applet = {
     description = "Network Manager Applet";
-    wantedBy = ["autostart.target"];
+    wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
       ExecStart = "${pkgs.networkmanagerapplet}/bin/nm-applet";
@@ -116,7 +116,7 @@ in {
 
   systemd.user.services.polkit-ui = {
     description = "Polkit UI popup";
-    wantedBy = ["autostart.target"];
+    wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
       ExecStart = "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit";
@@ -125,7 +125,7 @@ in {
 
   systemd.user.services.feh = {
     description = "Feh";
-    wantedBy = ["autostart.target"];
+    wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Type = "oneshot";
       ExecStart = "${pkgs.feh}/bin/feh --randomize --no-fehbg --bg-fill ${./Wallpapers}";

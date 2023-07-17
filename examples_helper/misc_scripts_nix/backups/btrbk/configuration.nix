@@ -21,8 +21,7 @@
       "/home" = {
         snapshot_dir = "snapshots";
         subvolume = {
-          "." = {
-          };
+          "." = { };
         };
         target = "ssh://nas/backup/nixos";
       };

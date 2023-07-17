@@ -1,5 +1,5 @@
 # Virtual machine configuration
-{ config, inputs, lib, pkgs, username, ... }: {
+{ config, lib, pkgs, ... }: {
   imports = [ ../_mixins/services/pipewire.nix ];
 
   # TODO: Replace this with disko

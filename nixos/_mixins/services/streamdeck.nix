@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   # Provides users with access to all USB devices created by Elgato.
   #sevices.udev.extraRules = ''
   #  SUBSYSTEM=="usb", ATTRS{idVendor}=="0fd9", TAG+="uaccess"

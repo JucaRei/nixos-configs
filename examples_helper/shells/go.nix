@@ -1,8 +1,8 @@
-{
-  mkShell,
-  go,
-  gofumpt,
-  gopls,
+{ mkShell
+, go
+, gofumpt
+, gopls
+,
 }:
 mkShell {
   packages = [
@@ -11,5 +11,5 @@ mkShell {
     gopls
   ];
 
-  inputsFrom = [go];
+  inputsFrom = [ go ];
 }

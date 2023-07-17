@@ -1,7 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   nixpkgs.overlays = [
-    (self: super: {
-      openrgb-51 = self.pkgs.openrgb.overrideAttrs (oldAttrs: rec {
+    (self: _super: {
+      openrgb-51 = self.pkgs.openrgb.overrideAttrs (_oldAttrs: rec {
         src = self.fetchFromGitLab {
           owner = "CalcProgrammer1";
           repo = "OpenRGB";
@@ -16,7 +16,7 @@
     openrgb-51
   ];
 
-  boot.kernelModules = ["i2c-dev" "i2c-piix4"];
+  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTR{idVendor}=="26CE", ATTR{idProduct}=="01A2", TAG+="uaccess"

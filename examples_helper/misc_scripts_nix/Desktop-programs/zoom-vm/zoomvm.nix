@@ -14,17 +14,18 @@
 #    you have to open a terminal (either a TTY or by pressing Ctrl+T and then c)
 #    and run `sudo nixos-rebuild boot`. After a reboot it should work
 # NOTE: The default password for the user `zoom` is `123456`
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config
+, pkgs
+, ...
+}:
+let
   home-manager = builtins.fetchGit {
     url = "https://github.com/rycee/home-manager.git";
     rev = "b78b5fa4a073dfcdabdf0deb9a8cfd56050113be"; # CHANGEME
     ref = "release-19.09";
   };
-in {
+in
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -33,7 +34,7 @@ in {
 
   # Use the systemd-boot EFI boot loader.
   boot = {
-    kernelParams = ["net.ifnames=0" "biosdevname=0"];
+    kernelParams = [ "net.ifnames=0" "biosdevname=0" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -54,8 +55,8 @@ in {
       enable = true;
       # package = pkgs.iptables-nftables-compat; # Does not work with my firewall.nix (proably not stable yet?)
 
-      allowedTCPPorts = [];
-      allowedUDPPorts = [];
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
     };
   };
 
@@ -81,7 +82,7 @@ in {
     xserver = {
       enable = true;
       layout = "de";
-      videoDrivers = ["qxl" "cirrus" "vmware" "vesa" "modesetting"];
+      videoDrivers = [ "qxl" "cirrus" "vmware" "vesa" "modesetting" ];
 
       windowManager = {
         default = "ratpoison"; # Deprecated
@@ -151,11 +152,10 @@ in {
     createHome = true;
     initialHashedPassword = "$6$ah4q31hZlNa$zh4FzYEYHOFf.R6MG.GVgR7MyrKqb.ueXNUymResXIYeVC2IbcZkQ3IhZwv.whTm1VOox8W2WolHqF4Im6f7i1"; # 123456
     isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
 
-  environment.etc = {
-  };
+  environment.etc = { };
 
   home-manager.users.zoom = {
     home.file.ratpoisonrc = {

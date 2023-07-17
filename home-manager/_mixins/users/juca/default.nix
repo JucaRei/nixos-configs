@@ -1,7 +1,7 @@
 { lib, hostname, username, ... }: {
   imports = [ ]
     ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix")) ./hosts/${hostname}.nix;
-  
+
   home = {
     #file.".bazaar/authentication.conf".text = "
     #  [Launchpad]

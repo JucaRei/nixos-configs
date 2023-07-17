@@ -52,7 +52,8 @@ let
     "application/bzip2" = archiveManager;
     "application/vnd.rar" = archiveManager;
   };
-in {
+in
+{
   xdg = {
     enable = true;
     mimeApps = {

@@ -1,10 +1,9 @@
-{
-  pkgs,
-  lib,
-  stdenv,
-  specialArgs,
-  ...
-}: let
+{ pkgs
+, lib
+, specialArgs
+, ...
+}:
+let
   inherit (specialArgs) addons hidpi;
 
   customAddons = pkgs.callPackage ./firefox-addons.nix {
@@ -26,7 +25,7 @@
       unpaywall
       vimium
     ]
-    ++ (with customAddons; [chatgpt]);
+    ++ (with customAddons; [ chatgpt ]);
 
   # disable the annoying floating icon with camera and mic when on a call
   disableWebRtcIndicator = ''
@@ -114,7 +113,8 @@
       "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
     }
     // dpiSettings;
-in {
+in
+{
   programs.firefox = {
     enable = true;
 

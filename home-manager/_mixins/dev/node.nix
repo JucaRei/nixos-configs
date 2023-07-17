@@ -1,16 +1,17 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ config
+, pkgs
+, ...
+}:
+let
   inherit (config.home) homeDirectory;
-in {
+in
+{
   home = {
     packages = with pkgs; [
       nodejs
       yarn
     ];
-    sessionPath = ["${homeDirectory}/.npm-packages/bin"];
+    sessionPath = [ "${homeDirectory}/.npm-packages/bin" ];
     sessionVariables = rec {
       NPM_PACKAGES = "${homeDirectory}/.npm-packages";
       NODE_PATH = "${NPM_PACKAGES}/lib/node_modules:$NODE_PATH";

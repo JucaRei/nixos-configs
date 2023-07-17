@@ -1,10 +1,9 @@
-{
-  config,
-  inputs,
-  lib,
-  pkgs,
-  ...
-}: let
+{ inputs
+, lib
+, pkgs
+, ...
+}:
+let
   marketplace-extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
     johnnymorganz.stylua
     ms-python.black-formatter
@@ -12,7 +11,8 @@
     rvest.vs-code-prettier-eslint
     sndst00m.markdown-github-dark-pack
   ];
-in {
+in
+{
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = true;

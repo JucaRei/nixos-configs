@@ -1,11 +1,9 @@
 #
 # Qemu/KVM with virt-manager
 #
-{
-  config,
-  pkgs,
-  user,
-  ...
+{ pkgs
+, user
+, ...
 }: {
   # Add libvirtd and kvm to userGroups
   boot.extraModprobeConfig = ''
@@ -14,7 +12,7 @@
     options kvm ignore_nsrs=1
   ''; # Needed to run OSX-KVM
 
-  users.groups.libvirtd.members = ["root" "${user}"];
+  users.groups.libvirtd.members = [ "root" "${user}" ];
 
   virtualisation = {
     libvirtd = {

@@ -1,8 +1,6 @@
-{
-  flake,
-  config,
-  pkgs,
-  ...
+{ flake
+, config
+, ...
 }: {
   imports = [
     flake.inputs.jenkins-nix-ci.nixosModules.default # Provided by https://github.com/juspay/jenkins-nix-ci
@@ -49,7 +47,7 @@
     acceptTerms = true;
     defaults.email = "srid@srid.ca";
   };
-  networking.firewall.allowedTCPPorts = [443];
+  networking.firewall.allowedTCPPorts = [ 443 ];
   services.nginx = {
     enable = true;
     virtualHosts.${config.jenkins-nix-ci.domain} = {

@@ -81,8 +81,8 @@
         };
       };
 
-      desktopManager = { 
-        mate.enable = true; 
+      desktopManager = {
+        mate.enable = true;
       };
     };
   };

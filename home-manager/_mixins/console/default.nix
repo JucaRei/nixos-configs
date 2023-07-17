@@ -100,16 +100,16 @@
       xar
 
       ### Nix
-      alejandra # Code format Nix
-      nurl # Nix URL fetcher
-      nix-index # nix-locate
-      manix # A Fast Documentation Searcher for Nix
-      rnix-hashes # Quick utility for converting hashes.
-      nix-top # see what's building
-      nixpkgs-fmt # Code format Nix
-      nixpkgs-review # Nix code review
-      dconf2nix # Nix code from Dconf files
-      deadnix # Code lint Nix
+      #alejandra # Code format Nix
+      #nurl # Nix URL fetcher
+      #nix-index # nix-locate
+      #manix # A Fast Documentation Searcher for Nix
+      #rnix-hashes # Quick utility for converting hashes.
+      #nix-top # see what's building
+      #nixpkgs-fmt # Code format Nix
+      #nixpkgs-review # Nix code review
+      #dconf2nix # Nix code from Dconf files
+      #deadnix # Code lint Nix
     ];
 
     sessionVariables = {
@@ -143,7 +143,7 @@
         };
         disk_filter = {
           is_list_ignored = true;
-          list = ["/dev/loop"];
+          list = [ "/dev/loop" ];
           regex = true;
           case_sensitive = false;
           whole_word = false;
@@ -169,8 +169,8 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = { 
-        enable = true; 
+      nix-direnv = {
+        enable = true;
       };
     };
     exa = {

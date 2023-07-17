@@ -1,4 +1,4 @@
-{pkgs}: {
+{ pkgs }: {
   name = "java";
   fhs = false;
   targetPkgs = with pkgs; [

@@ -99,7 +99,7 @@
           };
           image = link // { bold = true; };
           image_text = {
-            color = link_text.color;
+            inherit (link_text) color;
             format = "Image= [{{.text}}]";
           };
           code = {
@@ -109,7 +109,7 @@
             suffix = " ";
           };
           code_block = {
-            color = document.color;
+            inherit (document) color;
             margin = 2;
             chroma = {
               text.color = orange;

@@ -1,3 +1,3 @@
-with import <nixpkgs> {}; {
-  user-mounts = callPackage ./user-mounts.nix {};
+with import <nixpkgs> { }; {
+  user-mounts = callPackage ./user-mounts.nix { };
 }

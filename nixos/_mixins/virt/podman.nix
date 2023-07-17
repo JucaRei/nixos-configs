@@ -2,10 +2,10 @@
   #https://nixos.wiki/wiki/Podman
 
   environment.systemPackages = with pkgs; [
-    buildah          # Container build tool
+    buildah # Container build tool
     #conmon           # Container monitoring
     #dive             # Container analyzer
-    fuse-overlayfs    # Container overlay+shiftfs
+    fuse-overlayfs # Container overlay+shiftfs
     #grype            # Container vulnerability scanner
     podman-compose
     podman-tui
@@ -35,10 +35,10 @@
       #extraPackages = [ pkgs.zfs ];  # Using podman with ZFS
       dockerCompat = true;
       enable = true;
-      enableNvidia = lib.elem (if builtins.isString hostname != "air" then 
-          "nvidia" config.services.xserver.videoDrivers
-        else
-          false);
+      enableNvidia = lib.elem (if builtins.isString hostname != "air" then
+        "nvidia" config.services.xserver.videoDrivers
+      else
+        false);
     };
     containers = {
       registries.search = [

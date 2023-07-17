@@ -1,3 +1,3 @@
-{ ... }: { 
-  services.automatic-timezoned.enable = true; 
+_: {
+  services.automatic-timezoned.enable = true;
 }

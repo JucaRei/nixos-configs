@@ -2,10 +2,9 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  ...
+{ config
+, pkgs
+, ...
 }: {
   imports = [
     # Include the results of the hardware scan.
@@ -130,26 +129,26 @@
             "rt.time.soft" = 200000;
             "rt.time.hard" = 200000;
           };
-          flags = ["ifexists" "nofail"];
+          flags = [ "ifexists" "nofail" ];
         }
-        {name = "libpipewire-module-protocol-native";}
-        {name = "libpipewire-module-profiler";}
-        {name = "libpipewire-module-metadata";}
-        {name = "libpipewire-module-spa-device-factory";}
-        {name = "libpipewire-module-spa-node-factory";}
-        {name = "libpipewire-module-client-node";}
-        {name = "libpipewire-module-client-device";}
+        { name = "libpipewire-module-protocol-native"; }
+        { name = "libpipewire-module-profiler"; }
+        { name = "libpipewire-module-metadata"; }
+        { name = "libpipewire-module-spa-device-factory"; }
+        { name = "libpipewire-module-spa-node-factory"; }
+        { name = "libpipewire-module-client-node"; }
+        { name = "libpipewire-module-client-device"; }
         {
           name = "libpipewire-module-portal";
-          flags = ["ifexists" "nofail"];
+          flags = [ "ifexists" "nofail" ];
         }
         {
           name = "libpipewire-module-access";
-          args = {};
+          args = { };
         }
-        {name = "libpipewire-module-adapter";}
-        {name = "libpipewire-module-link-factory";}
-        {name = "libpipewire-module-session-manager";}
+        { name = "libpipewire-module-adapter"; }
+        { name = "libpipewire-module-link-factory"; }
+        { name = "libpipewire-module-session-manager"; }
       ];
 
       # Pro Audio
@@ -190,10 +189,10 @@
     media-session.config.bluez-monitor.rules = [
       {
         # Matches all cards
-        matches = [{"device.name" = "~bluez_card.*";}];
+        matches = [{ "device.name" = "~bluez_card.*"; }];
         actions = {
           "update-props" = {
-            "bluez5.reconnect-profiles" = ["hfp_hf" "hsp_hs" "a2dp_sink"];
+            "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
             # mSBC is not expected to work on all headset + adapter combinations.
             "bluez5.msbc-support" = true;
             # SBC-XQ is not expected to work on all headset + adapter combinations.
@@ -204,9 +203,9 @@
       {
         matches = [
           # Matches all sources
-          {"node.name" = "~bluez_input.*";}
+          { "node.name" = "~bluez_input.*"; }
           # Matches all outputs
-          {"node.name" = "~bluez_output.*";}
+          { "node.name" = "~bluez_output.*"; }
         ];
       }
     ];
@@ -215,7 +214,7 @@
     media-session.config.alsa-monitor = {
       rules = [
         {
-          matches = [{"node.name" = "alsa_output.*";}];
+          matches = [{ "node.name" = "alsa_output.*"; }];
           actions = {
             update-props = {
               "audio.format" = "S32LE";
@@ -238,9 +237,9 @@
   # Allow unstable packages, Wiki https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs
   # $ nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
   # $ nix-channel --update
-  nixpkgs.config.packageOverrides = pkgs: {
+  nixpkgs.config.packageOverrides = _pkgs: {
     unstable = import <nixos-unstable> {
-      config = config.nixpkgs.config;
+      inherit (config.nixpkgs) config;
     };
   };
   #nixpkgs.config.allowBroken = true; # Allow Broken packages
@@ -321,7 +320,7 @@
   # Podman wiki https://nixos.wiki/wiki/Podman
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
-  virtualisation.podman.extraPackages = [pkgs.zfs];
+  virtualisation.podman.extraPackages = [ pkgs.zfs ];
   virtualisation.oci-containers.backend = "podman";
   # Virt-manager wiki https://nixos.wiki/wiki/Virt-manager
   virtualisation.libvirtd.enable = true;
@@ -446,7 +445,7 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = true;
   # networking.firewall.interfaces."eth0".allowedTCPPorts = [ 80 443 ];
-  networking.firewall.interfaces."wlp3s0".allowedTCPPorts = [];
+  networking.firewall.interfaces."wlp3s0".allowedTCPPorts = [ ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

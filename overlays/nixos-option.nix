@@ -1,4 +1,4 @@
-self: super:
+_self: super:
 {
   nixos-option = super.symlinkJoin {
     name = "nixos-option";

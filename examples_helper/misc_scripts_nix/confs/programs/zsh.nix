@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }: {
   programs.zsh = {
     enable = true;
@@ -238,13 +237,13 @@
       enable = true;
       zplugHome = "${config.xdg.configHome}/zsh/zplug";
       plugins = [
-        {name = "Aloxaf/fzf-tab";}
-        {name = "zdharma-continuum/fast-syntax-highlighting";}
-        {name = "zsh-users/zsh-history-substring-search";}
-        {name = "zsh-users/zsh-completions";}
-        {name = "zsh-users/zsh-autosuggestions";}
-        {name = "hlissner/zsh-autopair";}
-        {name = "chisui/zsh-nix-shell";}
+        { name = "Aloxaf/fzf-tab"; }
+        { name = "zdharma-continuum/fast-syntax-highlighting"; }
+        { name = "zsh-users/zsh-history-substring-search"; }
+        { name = "zsh-users/zsh-completions"; }
+        { name = "zsh-users/zsh-autosuggestions"; }
+        { name = "hlissner/zsh-autopair"; }
+        { name = "chisui/zsh-nix-shell"; }
       ];
     };
   };

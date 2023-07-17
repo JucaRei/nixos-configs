@@ -1,8 +1,6 @@
-{
-  variables,
-  config,
-  pkgs,
-  lib,
+{ variables
+, pkgs
+,
 }: [
   {
     target = "${variables.homeDir}/.config/sublime-text-3/Packages/User/Preferences.sublime-settings";

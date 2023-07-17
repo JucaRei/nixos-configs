@@ -1,10 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  sources,
-  profilesPath,
-  ...
+{ profilesPath
+, ...
 }: {
   imports = [
     "${profilesPath}/hosts/minimal.nix"
@@ -15,7 +10,7 @@
   };
 
   networking = {
-    nameservers = ["8.8.8.8"];
+    nameservers = [ "8.8.8.8" ];
     useDHCP = false;
   };
 
@@ -44,7 +39,7 @@
         description = "User";
         isNormalUser = true;
         group = "user";
-        extraGroups = ["wheel"];
+        extraGroups = [ "wheel" ];
         password = "user";
       };
     };

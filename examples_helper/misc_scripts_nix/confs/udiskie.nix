@@ -1,12 +1,7 @@
 #
 # Mounting tool
 #
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
+_: {
   services = {
     udiskie = {
       # Udiskie wil automatically mount storage devices

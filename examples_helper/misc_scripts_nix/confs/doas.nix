@@ -1,15 +1,11 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+_: {
   security = {
     sudo.enable = false;
     doas = {
       enable = true;
       extraRules = [
         {
-          groups = ["wheel"];
+          groups = [ "wheel" ];
           keepEnv = true;
           persist = true;
         }

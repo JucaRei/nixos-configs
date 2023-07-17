@@ -1,14 +1,14 @@
 # Kudos to https://github.com/notgne2
 # https://github.com/balsoft/nixos-config/blob/master/modules/ezwg.nix
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 with lib; let
   cfg = config.services.ezwg;
-in {
+in
+{
   options.services.ezwg = {
     enable = mkEnableOption "Enable simple Wireguard connection";
     proxy = mkOption {
@@ -45,8 +45,8 @@ in {
   };
   config = mkIf cfg.enable {
     networking.firewall.checkReversePath = false;
-    systemd.services.wireguard-wg0.wantedBy = lib.mkForce [];
-    systemd.paths.wireguard-wg0.wantedBy = lib.mkForce [];
+    systemd.services.wireguard-wg0.wantedBy = lib.mkForce [ ];
+    systemd.paths.wireguard-wg0.wantedBy = lib.mkForce [ ];
     systemd.services."wireguard-wg0-peer-${
       lib.replaceChars ["/" "-" " " "+" "="] [
         "-"
@@ -57,44 +57,46 @@ in {
       ]
       cfg.serverKey
     }".wantedBy =
-      lib.mkForce [];
+      lib.mkForce [ ];
 
-    networking.wireguard.interfaces.wg0 = let
-      generateRangesScript = builtins.toFile "exclusionary-wildcard-ranges-generator.py" ''
-        import ipaddress
-        n1 = ipaddress.ip_network('0.0.0.0/0')
-        n2 = ipaddress.ip_network('${cfg.serverIP}/32')
-        print(':'.join(list(map(lambda x: str(x), list(n1.address_exclude(n2))))), end="")
-      '';
-      rangesOutput = pkgs.runCommandNoCC "exclusionary-wildcard-ranges" {} ''
-        ${pkgs.python3}/bin/python3 ${generateRangesScript} > $out
-      '';
-      generateSubnetScript = builtins.toFile "subnet-without-host-bits-generator.py" ''
-        import ipaddress
-        n1 = ipaddress.ip_network('${cfg.vlanIP}/${
-          toString cfg.lanSize
-        }', False)
-        print(n1, end="")
-      '';
-      subnetOutput = pkgs.runCommandNoCC "subnet-without-host-bits" {} ''
-        ${pkgs.python3}/bin/python3 ${generateSubnetScript} > $out
-      '';
-      ranges = lib.splitString ":" (builtins.readFile "${rangesOutput}");
-      subnet = builtins.readFile "${subnetOutput}";
-    in {
-      ips = ["${cfg.vlanIP}/${toString cfg.lanSize}"];
-      privateKeyFile = cfg.privateKeyFile;
-      peers = [
-        {
-          publicKey = cfg.serverKey;
-          allowedIPs =
-            if cfg.proxy
-            then ranges
-            else [subnet];
-          endpoint = "${cfg.serverIP}:${toString cfg.serverPort}";
-          persistentKeepalive = 25;
-        }
-      ];
-    };
+    networking.wireguard.interfaces.wg0 =
+      let
+        generateRangesScript = builtins.toFile "exclusionary-wildcard-ranges-generator.py" ''
+          import ipaddress
+          n1 = ipaddress.ip_network('0.0.0.0/0')
+          n2 = ipaddress.ip_network('${cfg.serverIP}/32')
+          print(':'.join(list(map(lambda x: str(x), list(n1.address_exclude(n2))))), end="")
+        '';
+        rangesOutput = pkgs.runCommandNoCC "exclusionary-wildcard-ranges" { } ''
+          ${pkgs.python3}/bin/python3 ${generateRangesScript} > $out
+        '';
+        generateSubnetScript = builtins.toFile "subnet-without-host-bits-generator.py" ''
+          import ipaddress
+          n1 = ipaddress.ip_network('${cfg.vlanIP}/${
+            toString cfg.lanSize
+          }', False)
+          print(n1, end="")
+        '';
+        subnetOutput = pkgs.runCommandNoCC "subnet-without-host-bits" { } ''
+          ${pkgs.python3}/bin/python3 ${generateSubnetScript} > $out
+        '';
+        ranges = lib.splitString ":" (builtins.readFile "${rangesOutput}");
+        subnet = builtins.readFile "${subnetOutput}";
+      in
+      {
+        ips = [ "${cfg.vlanIP}/${toString cfg.lanSize}" ];
+        inherit (cfg) privateKeyFile;
+        peers = [
+          {
+            publicKey = cfg.serverKey;
+            allowedIPs =
+              if cfg.proxy
+              then ranges
+              else [ subnet ];
+            endpoint = "${cfg.serverIP}:${toString cfg.serverPort}";
+            persistentKeepalive = 25;
+          }
+        ];
+      };
   };
 }

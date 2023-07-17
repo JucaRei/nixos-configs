@@ -1,8 +1,7 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 # A temporary hack to `loginctl enable-linger $somebody` (for
 # multiplexer sessions to last), until this one is unresolved:
@@ -12,11 +11,11 @@
 with lib; let
   dataDir = "/var/lib/systemd/linger";
 
-  lingeringUsers = map (u: u.name) (attrValues (flip filterAttrs config.users.users (n: u: u.linger)));
+  lingeringUsers = map (u: u.name) (attrValues (flip filterAttrs config.users.users (_n: u: u.linger)));
 
   lingeringUsersFile =
     builtins.toFile "lingering-users"
-    (concatStrings (map (s: "${s}\n")
+      (concatStrings (map (s: "${s}\n")
         (sort (a: b: a < b) lingeringUsers))); # this sorting is important for `comm` to work correctly
 
   updateLingering = ''
@@ -29,7 +28,8 @@ with lib; let
   userOptions = {
     options.linger = mkEnableOption "Lingering for the user";
   };
-in {
+in
+{
   options = {
     users.users = mkOption {
       type = with types; attrsOf (submodule userOptions);
@@ -37,6 +37,6 @@ in {
   };
 
   config = {
-    system.activationScripts.update-lingering = stringAfter ["users"] updateLingering;
+    system.activationScripts.update-lingering = stringAfter [ "users" ] updateLingering;
   };
 }

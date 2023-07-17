@@ -1,6 +1,6 @@
-{
-  buildFirefoxXpiAddon,
-  lib,
+{ buildFirefoxXpiAddon
+, lib
+,
 }: {
   chatgpt = buildFirefoxXpiAddon rec {
     pname = "chatgpt_for_search_engines";

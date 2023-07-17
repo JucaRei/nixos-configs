@@ -1,7 +1,5 @@
-{
-  pkgs,
-  lib,
-  ...
+{ lib
+, ...
 }:
 with lib; {
   imports = [
@@ -16,7 +14,7 @@ with lib; {
     };
 
     boot.growPartition = true;
-    boot.kernelParams = ["console=ttyS0"];
+    boot.kernelParams = [ "console=ttyS0" ];
     boot.loader.grub.device = "/dev/vda";
     boot.loader.timeout = 0;
 

@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 # Based on https://wiki.archlinux.org/title/Nftables#Working_with_Docker
 let
   dockerHostName = "dockernet";
@@ -32,7 +32,8 @@ let
 
     ${hostip} link delete ${dockerHostName} || true
   '';
-in {
+in
+{
   systemd.services.docker.serviceConfig.PrivateNetwork = true;
   systemd.services.docker.serviceConfig.ExecStartPre = [
     ""

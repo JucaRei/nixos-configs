@@ -13,9 +13,9 @@
 
 
   environment.systemPackages = with pkgs; [
-    wmctrl                        # Terminal X11 automation
-    xdotool                       # Terminal X11 automation
-    ydotool                       # Terminal *all-the-things* automation
+    wmctrl # Terminal X11 automation
+    xdotool # Terminal X11 automation
+    ydotool # Terminal *all-the-things* automation
   ];
 
   programs.dconf.enable = true;

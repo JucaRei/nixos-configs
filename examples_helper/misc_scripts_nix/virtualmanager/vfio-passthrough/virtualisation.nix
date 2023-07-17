@@ -1,16 +1,15 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
+{ lib
+, config
+, ...
 }:
 with lib; let
   cfg = config.virtualisation;
   tmpfileEntry = name: f: "f /dev/shm/${name} ${f.mode} ${f.user} ${f.group} -";
-in {
+in
+{
   options.virtualisation = {
     sharedMemoryFiles = mkOption {
-      type = types.attrsOf (types.submodule ({name, ...}: {
+      type = types.attrsOf (types.submodule ({ name, ... }: {
         options = {
           name = mkOption {
             visible = false;
@@ -34,7 +33,7 @@ in {
           };
         };
       }));
-      default = {};
+      default = { };
     };
     hugepages = {
       enable = mkEnableOption "Hugepages";

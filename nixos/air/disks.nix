@@ -14,7 +14,8 @@ let
     "autodefrag"
     "discard=async"
   ];
-in {
+in
+{
   disko.devices = {
     disk = {
       ### Dual boot mac, dont format mac EFI

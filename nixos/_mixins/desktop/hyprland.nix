@@ -10,11 +10,12 @@ let
 
     ${pkgs.hyprland}/bin/hyperctl dispatch exit
   '';
-in {
+in
+{
   imports = [
     (import ./configs/hyperland/tiling-common.nix {
       inherit lib pkgs;
-      runner = (lib.getExe hypr-run);
+      runner = lib.getExe hypr-run;
     })
   ];
 

@@ -1,8 +1,6 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
+{ lib
+, config
+, ...
 }:
 with lib; let
   cfg = config.virtualisation.libvirtd;
@@ -16,13 +14,14 @@ with lib; let
     concatMapStringsSep ''
       ,
     ''
-    escapeNixString
-    cfg.deviceACL;
-in {
+      escapeNixString
+      cfg.deviceACL;
+in
+{
   options.virtualisation.libvirtd = {
     deviceACL = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
     };
     clearEmulationCapabilities = mkOption {
       type = types.bool;
@@ -32,7 +31,7 @@ in {
 
   # Add qemu-libvirtd to the input group if required
   config.users.users."qemu-libvirtd" = {
-    extraGroups = optionals (!cfg.qemuRunAsRoot) ["kvm" "input"];
+    extraGroups = optionals (!cfg.qemuRunAsRoot) [ "kvm" "input" ];
     isSystemUser = true;
   };
 

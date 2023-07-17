@@ -1,9 +1,7 @@
 # https://nixos.wiki/wiki/VSCodium
 # Available nix VS extensions https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/applications/editors/vscode/extensions/default.nix
-{
-  config,
-  pkgs,
-  ...
+{ pkgs
+, ...
 }: {
   programs.vscode = {
     enable = true;

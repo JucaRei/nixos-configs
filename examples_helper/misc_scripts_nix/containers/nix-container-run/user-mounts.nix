@@ -1,8 +1,9 @@
-{
-  runCommand,
-  gcc,
+{ runCommand
+, gcc
+,
 }:
-runCommand "user-mount-tools" {
+runCommand "user-mount-tools"
+{
   nativeBuildInputs = [
     gcc
   ];

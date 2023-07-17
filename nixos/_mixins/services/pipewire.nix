@@ -1,8 +1,9 @@
-{ lib, pkgs, ... }: {
-  
+{ lib, pkgs, desktop, ... }: {
+
   environment.systemPackages = with pkgs; [
-    pulsemixer                    # Terminal PulseAudio mixer
-    playerctl                     # Terminal media controller
+    pulsemixer # Terminal PulseAudio mixer
+  ] ++ lib.optionals (desktop != null) [
+    pavucontrol # Terminal Media Controller
   ];
   hardware = {
     pulseaudio = {

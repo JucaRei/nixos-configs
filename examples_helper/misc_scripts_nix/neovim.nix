@@ -92,7 +92,7 @@
           # FIXME: dummy plugin since there is no way currently to set a config
           # before the plugins are initialized
           # See: https://github.com/nix-community/home-manager/pull/2391
-          plugin = (pkgs.writeText "00-init-pre" "");
+          plugin = pkgs.writeText "00-init-pre" "";
           config = ''
             " remap leader
             let g:mapleader = "\<Space>"

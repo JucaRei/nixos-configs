@@ -1,10 +1,9 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  fantasque-sans-ligatures,
-  nerd-font-patcher,
-  python3Packages,
+{ lib
+, stdenvNoCC
+, fantasque-sans-ligatures
+, nerd-font-patcher
+, python3Packages
+,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "fantasque-sans-ligatures-nerd";

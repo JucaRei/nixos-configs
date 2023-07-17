@@ -1,34 +1,34 @@
 { config, desktop, lib, pkgs, ... }:
 let
   ifExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
-in 
+in
 {
   # Only include desktop components if one is supplied.
   imports = [ ] ++ lib.optional (builtins.isString desktop) ./desktop.nix;
 
   environment.systemPackages = with pkgs; [
-      yadm # Terminal dot file manager
-    ];
+    yadm # Terminal dot file manager
+  ];
 
   users.users.juca = {
     description = "Reinaldo P JR";
-    extraGroups = [ 
-      "audio" 
-      "networkmanager" 
-      "users" 
-      "video" 
-      "wheel" 
+    extraGroups = [
+      "audio"
+      "networkmanager"
+      "users"
+      "video"
+      "wheel"
       "systemd-journal"
     ] ++ ifExists [
-        "docker"
-        "podman"
-        "adbusers"
-        "network"
-        "wireshark"
-        "lxd"
-        #"git"
-        "libvirtd"
-      ];
+      "docker"
+      "podman"
+      "adbusers"
+      "network"
+      "wireshark"
+      "lxd"
+      #"git"
+      "libvirtd"
+    ];
     # mkpasswd -m sha-512
     hashedPassword =
       "$6$nmx8IpxHWpKjbT7O$R4RqA4sUDdCLmt.pO1w3.YAIje4/DPFcmj.a5hsdEzkekGPrgAEpEDyMK2Yotv.nZ9bnu5wuWEE7n0B6EL/ik1";

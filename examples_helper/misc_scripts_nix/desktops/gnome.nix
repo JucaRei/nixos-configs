@@ -1,13 +1,13 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 with lib;
 with builtins; let
   cfg = config.sys.desktop;
-in {
+in
+{
   config = mkIf (cfg.desktop == "gnome") {
     services = {
       xserver = {
@@ -15,8 +15,8 @@ in {
         displayManager = {
           gdm = {
             enable = true;
-            wayland = cfg.wayland;
-            autoSuspend = cfg.autoSuspend;
+            inherit (cfg) wayland;
+            inherit (cfg) autoSuspend;
           };
         };
         desktopManager = {
@@ -41,6 +41,6 @@ in {
         enable = true;
       };
     };
-    environment.systemPackages = [pkgs.qjackctl];
+    environment.systemPackages = [ pkgs.qjackctl ];
   };
 }

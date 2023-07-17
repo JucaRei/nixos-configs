@@ -96,7 +96,7 @@
     config.packageOverrides = pkgs: {
       vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
     };
-    
+
     hostPlatform = lib.mkDefault "x86_64-linux";
   };
 }

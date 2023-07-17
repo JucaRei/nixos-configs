@@ -1,10 +1,5 @@
-{
-  config,
-  lib,
-  pkgs,
-  sources,
-  profilesPath,
-  ...
+{ profilesPath
+, ...
 }: {
   imports = [
     "${profilesPath}/hosts/minimal.nix"
@@ -36,7 +31,7 @@
         description = "User";
         isNormalUser = true;
         group = "user";
-        extraGroups = ["wheel"];
+        extraGroups = [ "wheel" ];
         password = "user";
       };
     };

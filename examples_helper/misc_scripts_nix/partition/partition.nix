@@ -1,4 +1,4 @@
-{disks ? ["/dev/disk/by-id/ata-Samsung_SSD_850_PRO_256GB_S1SUNSAFB04586A"], ...}: {
+{ disks ? [ "/dev/disk/by-id/ata-Samsung_SSD_850_PRO_256GB_S1SUNSAFB04586A" ], ... }: {
   disk = {
     main = {
       type = "disk";

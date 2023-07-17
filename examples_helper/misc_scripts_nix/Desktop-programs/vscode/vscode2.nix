@@ -1,8 +1,6 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  ...
+{ pkgs
+, inputs
+, ...
 }: {
   home.packages = [
     inputs.nil.packages.${pkgs.system}.default

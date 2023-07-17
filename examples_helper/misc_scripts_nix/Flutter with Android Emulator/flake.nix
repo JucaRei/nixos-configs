@@ -6,15 +6,16 @@
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
+  outputs =
+    { nixpkgs
+    , flake-utils
+    ,
+    }:
     flake-utils.lib.eachDefaultSystem (
-      system: let
+      system:
+      let
         pkgs = import nixpkgs {
-          system = system;
+          inherit system;
           config.android_sdk.accept_license = true;
           config.allowUnfreePredicate = pkg:
             builtins.elem (nixpkgs.lib.getName pkg) [
@@ -28,16 +29,16 @@
         androidComposition = pkgs.androidenv.composeAndroidPackages {
           #cmdLineToolsVersion = "8.0";
           includeEmulator = true;
-          buildToolsVersions = ["30.0.3" "33.0.2"];
-          platformVersions = ["28" "33"];
-          abiVersions = ["x86" "x86_64"];
+          buildToolsVersions = [ "30.0.3" "33.0.2" ];
+          platformVersions = [ "28" "33" ];
+          abiVersions = [ "x86" "x86_64" ];
           includeNDK = true;
           includeExtras = [
             "extras;google;gcm"
           ];
-          extraLicenses = [];
+          extraLicenses = [ ];
         };
-        androidsdk = androidComposition.androidsdk;
+        inherit (androidComposition) androidsdk;
 
         # FROM: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/compilers/flutter/flutter.nix
         flutter_deps = pkgs:
@@ -81,7 +82,7 @@
           multiPkgs = pkgs:
             with pkgs; [
               # Flutter only use these certificates
-              (runCommand "fedoracert" {} ''
+              (runCommand "fedoracert" { } ''
                 mkdir -p $out/etc/pki/tls/
                 ln -s ${cacert}/etc/ssl/certs $out/etc/pki/tls/certs
               '')
@@ -89,24 +90,24 @@
             ];
           targetPkgs = pkgs:
             with pkgs;
-              [
-                flutter.passthru.unwrapped
-                clang
+            [
+              flutter.passthru.unwrapped
+              clang
 
-                # required on flutter doctor
-                cmake
-                ninja
-                pkg-config
-                glib
-                gtk3 # test with: pkg-config --libs gtk+-3.0
+              # required on flutter doctor
+              cmake
+              ninja
+              pkg-config
+              glib
+              gtk3 # test with: pkg-config --libs gtk+-3.0
 
-                # required on flutter run
-                xorg.xorgproto
-                libepoxy
-              ]
-              ++ (flutter_deps pkgs)
-              ++ gtk3.propagatedBuildInputs
-              ++ pango.propagatedBuildInputs;
+              # required on flutter run
+              xorg.xorgproto
+              libepoxy
+            ]
+            ++ (flutter_deps pkgs)
+            ++ gtk3.propagatedBuildInputs
+            ++ pango.propagatedBuildInputs;
           profile = with pkgs; ''
             export PUB_CACHE=''${PUB_CACHE:-"$HOME/.pub-cache"}
             export ANDROID_EMULATOR_USE_SYSTEM_LIBS=1
@@ -122,14 +123,15 @@
             "--bind-try ~/bwrap/flutter ~/"
             "--bind-try ~/projects/codes/flutter ~/projects/codes/flutter"
           ];
-          extraOutputsToInstall = ["dev"];
+          extraOutputsToInstall = [ "dev" ];
           #extraBuildCommands = ''
           #  mkdir -p $out/bin
           #  mkdir -p $out/bin/cache/
           #  ln -sf ${pkgs.dart} $out/bin/cache/dart-sdk
           #'';
         };
-      in {
+      in
+      {
         devShell = fhs.env;
 
         # Extra commands:

@@ -1,12 +1,12 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
+{ config
+, lib
+, pkgs
+, ...
 }:
 with lib; let
   cfg = config.nixfiles.modules.games.steam-run;
-in {
+in
+{
   options.nixfiles.modules.games.steam-run = {
     enable = mkEnableOption "Whether to enable native Steam runtime.";
 
@@ -27,10 +27,12 @@ in {
       (steam.override {
         extraLibraries = _:
           with cfg.quirks;
-            optionals mountandblade [
-              (glew.overrideAttrs (_: super: let
+          optionals mountandblade [
+            (glew.overrideAttrs (_: super:
+              let
                 opname = super.pname;
-              in rec {
+              in
+              rec {
                 pname = "${opname}-mountandblade";
                 inherit (super) version;
                 src = fetchurl {
@@ -38,25 +40,28 @@ in {
                   sha256 = "sha256-BN6R5+Z2MDm8EZQAlc2cf4gLq6ghlqd2X3J6wFqZPJU=";
                 };
               }))
-              (fmodex.overrideAttrs (_: super: let
+            (fmodex.overrideAttrs (_: super:
+              let
                 opname = super.pname;
-              in rec {
+              in
+              rec {
                 pname = "${opname}-mountandblade";
                 inherit (super) version;
-                installPhase = let
-                  libPath = makeLibraryPath [
-                    alsa-lib
-                    libpulseaudio
-                    stdenv.cc.cc
-                  ];
-                in ''
-                  install -Dm755 api/lib/libfmodex64-${version}.so $out/lib/libfmodex64.so
-                  patchelf --set-rpath ${libPath} $out/lib/libfmodex64.so
-                '';
+                installPhase =
+                  let
+                    libPath = makeLibraryPath [
+                      alsa-lib
+                      libpulseaudio
+                      stdenv.cc.cc
+                    ];
+                  in
+                  ''
+                    install -Dm755 api/lib/libfmodex64-${version}.so $out/lib/libfmodex64.so
+                    patchelf --set-rpath ${libPath} $out/lib/libfmodex64.so
+                  '';
               }))
-            ];
-      })
-      .run
+          ];
+      }).run
     ];
   };
 }

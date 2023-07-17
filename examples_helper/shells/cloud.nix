@@ -4,7 +4,7 @@
 #
 # The reason why we have these with a light sandbox is for more sophiscated
 # tools like in Google Cloud SDK.
-{buildFHSUserEnv}:
+{ buildFHSUserEnv }:
 (buildFHSUserEnv {
   name = "cloud-admin-env";
   targetPkgs = pkgs: (with pkgs; [
@@ -14,11 +14,11 @@
     # For Google Cloud Platform.
     (
       google-cloud-sdk.withExtraComponents
-      (with google-cloud-sdk.components; [
-        gke-gcloud-auth-plugin
-        gcloud-man-pages
-        cloud-run-proxy
-      ])
+        (with google-cloud-sdk.components; [
+          gke-gcloud-auth-plugin
+          gcloud-man-pages
+          cloud-run-proxy
+        ])
     )
 
     kubectl # For managing Kubernetes cluster if it is on one.
@@ -29,5 +29,4 @@
     # It's here since Google Cloud SDK needs it.
     python3
   ]);
-})
-.env
+}).env

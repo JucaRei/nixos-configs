@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 with pkgs;
 
@@ -50,7 +50,7 @@ mkShell {
     ${androidSdk}/bin/sdkmanager --update
     ${androidSdk}/bin/sdkmanager "platform-tools" "build-tools;${buildToolsVersion}"
     ${androidSdk}/bin/sdkmanager "platforms;android-30"
-    export PATH=$PWD/gradle-7.2/bin:$PATH
+    export PATH = $PWD/gradle-7.2/bin:$PATH
     ./gradlew assembleRelease
 
     # Sign the APK
@@ -62,8 +62,8 @@ mkShell {
     # Clean up
     rm app-release-unsigned.apk
     rm app-release-signed.apk
-  };
+    };
 
-  # Build the APK for the specified package name
-  buildApk "com.example.app";
-}
+    # Build the APK for the specified package name
+    buildApk "com.example.app";
+    }

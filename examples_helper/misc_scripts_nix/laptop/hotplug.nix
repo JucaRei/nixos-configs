@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+_: {
   services.autorandr = {
     enable = true;
   };

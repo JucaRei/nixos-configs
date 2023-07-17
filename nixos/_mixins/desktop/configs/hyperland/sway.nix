@@ -10,11 +10,12 @@ let
 
     ${pkgs.sway}/bin/swaymsg exit
   '';
-in {
+in
+{
   imports = [
     (import ./tiling-common.nix {
       inherit lib pkgs;
-      runner = (lib.getExe sway-run);
+      runner = lib.getExe sway-run;
     })
   ];
 

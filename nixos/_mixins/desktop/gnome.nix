@@ -1,4 +1,4 @@
-{pkgs, ...} : {
+{ pkgs, ... }: {
 
   imports = [
     #./qt-style.nix
@@ -20,10 +20,10 @@
       enable = true;
 
       displayManager.gdm = {
-        enable = true;            # Display Manager
+        enable = true; # Display Manager
       };
       desktopManager.gnome = {
-        enable = true;            # Window Manager
+        enable = true; # Window Manager
       };
     };
     udev.packages = with pkgs; [
@@ -43,11 +43,11 @@
       # Gnome ignored packages
       gnome-tour
     ]) ++ (with pkgs.gnome; [
-      gedit                   # text editor
-      epiphany                # web-browser
-      geary                   # email client
+      gedit # text editor
+      epiphany # web-browser
+      geary # email client
       gnome-characters
-      totem                   # video player
+      totem # video player
       tali
       iagno
       hitori
@@ -55,7 +55,7 @@
       yelp
       gnome-contacts
       gnome-initial-setup
-      gnome.gnome-terminal    # remove default terminal
+      gnome.gnome-terminal # remove default terminal
     ]);
   };
 }

@@ -1,24 +1,24 @@
-{
-  config,
-  pkgs,
-  ...
-}: let
+{ pkgs
+, ...
+}:
+let
   caffeine =
     pkgs.writeScriptBin "caffeine"
-    ''
-      #!${pkgs.runtimeShell}
-      set -xe
-      HOURS=$*
-      SECS=`expr 1 + 60 \* 60 \* $HOURS`
-      date
-      ${pkgs.xautolock}/bin/xautolock -disable
-      ${pkgs.cowsay}/bin/cowsay "Autolock de-activated for next $HOURS hours"
-      sleep $SECS
-      date
-      ${pkgs.xautolock}/bin/xautolock -enable
-      ${pkgs.cowsay}/bin/cowsay "Autolock re-activated."
-    '';
-in {
+      ''
+        #!${pkgs.runtimeShell}
+        set -xe
+        HOURS=$*
+        SECS=`expr 1 + 60 \* 60 \* $HOURS`
+        date
+        ${pkgs.xautolock}/bin/xautolock -disable
+        ${pkgs.cowsay}/bin/cowsay "Autolock de-activated for next $HOURS hours"
+        sleep $SECS
+        date
+        ${pkgs.xautolock}/bin/xautolock -enable
+        ${pkgs.cowsay}/bin/cowsay "Autolock re-activated."
+      '';
+in
+{
   services.xserver.xautolock = {
     enable = true;
     time = 5; # mins

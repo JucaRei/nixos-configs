@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   # discover services on other systems
   services = {
     avahi = {

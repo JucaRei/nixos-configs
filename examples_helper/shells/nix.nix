@@ -1,14 +1,13 @@
 # For usual Nix projects such as overlays, package repositories, and whatnot.
 # Also, it's fun to have a file named `nix.nix`.
-{
-  mkShell,
-  lib,
-  jq,
-  nix-tree,
-  nixfmt,
-  nurl,
-  rnix-hashes,
-  rnix-lsp,
+{ mkShell
+, jq
+, nix-tree
+, nixfmt
+, nurl
+, rnix-hashes
+, rnix-lsp
+,
 }:
 mkShell {
   packages = [

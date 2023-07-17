@@ -1,13 +1,12 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, lib
+, ...
 }:
 with lib;
 with builtins; let
   cfg = config.sys.desktop;
-in {
+in
+{
   config = mkIf (cfg.desktop == "kde") {
     services = {
       xserver = {

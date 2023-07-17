@@ -1,9 +1,9 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   security = {
     apparmor = {
       enable = true;
       killUnconfinedConfinables = true;
-      packages = [pkgs.apparmor-profiles];
+      packages = [ pkgs.apparmor-profiles ];
     };
 
     pam = {

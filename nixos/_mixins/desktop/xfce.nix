@@ -1,7 +1,7 @@
 { pkgs, ... }: {
 
   imports = [
-    ./qt-style.nix 
+    ./qt-style.nix
     ./apps/browsers/firefox.nix
     ../services/networkmanager.nix
   ];

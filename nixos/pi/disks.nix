@@ -1,4 +1,4 @@
-{disks ? ["/dev/nvme0n1"], ...}: {
+{ disks ? [ "/dev/nvme0n1" ], ... }: {
   disko.devices = {
     disk = {
       nvme0 = {
@@ -13,7 +13,7 @@
               type = "partition";
               start = "0";
               end = "1M";
-              flags = ["bios_grub"];
+              flags = [ "bios_grub" ];
             }
             {
               type = "partition";
@@ -36,7 +36,7 @@
               content = {
                 type = "filesystem";
                 # Overwirte the existing filesystem
-                extraArgs = ["-f"];
+                extraArgs = [ "-f" ];
                 format = "xfs";
                 mountpoint = "/";
               };

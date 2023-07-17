@@ -6,7 +6,7 @@
       # Configure kmscon fonts via extraConfig so that we can use Nerd Fonts
       fonts = [{
         name = "FiraCode Nerd Font Mono";
-        package = (pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; });
+        package = pkgs.nerdfonts.override { fonts = [ "FiraCode" ]; };
       }];
       extraConfig = ''
         font-size=14

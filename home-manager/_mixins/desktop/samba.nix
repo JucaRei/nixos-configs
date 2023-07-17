@@ -1,7 +1,5 @@
-{
-  lib,
-  config,
-  ...
+{ lib
+, ...
 }:
 with lib.hm.gvariant; {
   # SMB Shares

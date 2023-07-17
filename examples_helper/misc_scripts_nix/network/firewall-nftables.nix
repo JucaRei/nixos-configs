@@ -1,142 +1,145 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
+{ config
+, pkgs
+, lib
+, ...
 }:
 with lib; let
-  verifiedNetfilter = {
-    text,
-    modules ? [],
-  }: let
-    file = pkgs.writeText "netfilter" text;
-    vmTools = pkgs.vmTools.override {
-      rootModules =
-        [
-          "virtio_pci"
-          "virtio_mmio"
-          "virtio_blk"
-          "virtio_balloon"
-          "virtio_rng"
-          "ext4"
-          "unix"
-          "9p"
-          "9pnet_virtio"
-          "crc32c_generic"
-        ]
-        ++ modules;
-    };
+  verifiedNetfilter =
+    { text
+    , modules ? [ ]
+    ,
+    }:
+    let
+      file = pkgs.writeText "netfilter" text;
+      vmTools = pkgs.vmTools.override {
+        rootModules =
+          [
+            "virtio_pci"
+            "virtio_mmio"
+            "virtio_blk"
+            "virtio_balloon"
+            "virtio_rng"
+            "ext4"
+            "unix"
+            "9p"
+            "9pnet_virtio"
+            "crc32c_generic"
+          ]
+          ++ modules;
+      };
 
-    check = vmTools.runInLinuxVM (
-      pkgs.runCommand "nft-check"
-      {
-        buildInputs = [pkgs.nftables];
-        inherit file;
-      } ''
-        set -ex
-        # make sure protocols & services are known
-        ln -s ${pkgs.iana-etc}/etc/protocol /etc/protocol
-        ln -s ${pkgs.iana-etc}/etc/services /etc/services
-        # test the configuration
-        nft --file $file
-        set +x
-      ''
-    );
-  in
+      check = vmTools.runInLinuxVM (
+        pkgs.runCommand "nft-check"
+          {
+            buildInputs = [ pkgs.nftables ];
+            inherit file;
+          } ''
+          set -ex
+          # make sure protocols & services are known
+          ln -s ${pkgs.iana-etc}/etc/protocol /etc/protocol
+          ln -s ${pkgs.iana-etc}/etc/services /etc/services
+          # test the configuration
+          nft --file $file
+          set +x
+        ''
+      );
+    in
     "#checked with ${check}\n" + text;
 
-  ruleset = let
-    trustedInterfaces = builtins.concatStringsSep "\n" (
-      lib.forEach cfg.trustedInterfaces (x: "iifname ${x} accept")
-    );
+  ruleset =
+    let
+      trustedInterfaces = builtins.concatStringsSep "\n" (
+        lib.forEach cfg.trustedInterfaces (x: "iifname ${x} accept")
+      );
 
-    makePorts = ports: protocol:
-      if (length ports) == 0
-      then ""
-      else "${protocol} dport { ${lib.concatMapStringsSep '','' (port: toString port) ports} } accept";
-    makePortRanges = portRanges: protocol: lib.concatMapStringsSep "\n" (pr: "${protocol} dport ${toString pr.from}-${toString pr.to} accept") portRanges;
+      makePorts = ports: protocol:
+        if (length ports) == 0
+        then ""
+        else "${protocol} dport { ${lib.concatMapStringsSep '','' toString ports} } accept";
+      makePortRanges = portRanges: protocol: lib.concatMapStringsSep "\n" (pr: "${protocol} dport ${toString pr.from}-${toString pr.to} accept") portRanges;
 
-    mkCommonRules = rules: ''
-      # tcp and udp ports
-      ${makePorts rules.allowedTCPPorts "tcp"}
-      ${makePorts rules.allowedUDPPorts "udp"}
+      mkCommonRules = rules: ''
+        # tcp and udp ports
+        ${makePorts rules.allowedTCPPorts "tcp"}
+        ${makePorts rules.allowedUDPPorts "udp"}
 
-      # tcp and udp port ranges
-      ${makePortRanges rules.allowedTCPPortRanges "tcp"}
-      ${makePortRanges rules.allowedUDPPortRanges "udp"}
-    '';
+        # tcp and udp port ranges
+        ${makePortRanges rules.allowedTCPPortRanges "tcp"}
+        ${makePortRanges rules.allowedUDPPortRanges "udp"}
+      '';
 
-    allowPingIPv4Text = "icmp type echo-request accept";
-    allowPingIPv6Text = ''
-      icmpv6 type {
-          echo-request,
-          nd-router-solicit,
-          nd-router-advert,
-          nd-neighbor-solicit,
-          nd-neighbor-advert,
-      } accept
-    '';
+      allowPingIPv4Text = "icmp type echo-request accept";
+      allowPingIPv6Text = ''
+        icmpv6 type {
+            echo-request,
+            nd-router-solicit,
+            nd-router-advert,
+            nd-neighbor-solicit,
+            nd-neighbor-advert,
+        } accept
+      '';
 
-    # networking.firewall.* which is not implemented yet
-    trashFile = pkgs.writeText "nftables-trashfile" ''
-      extraStopCommands: ${lib.generators.toJSON {} cfg.extraStopCommands}
-      extraCommands: ${lib.generators.toJSON {} cfg.extraCommands}
-      checkReversePath: ${lib.generators.toJSON {} cfg.checkReversePath}
+      # networking.firewall.* which is not implemented yet
+      trashFile = pkgs.writeText "nftables-trashfile" ''
+        extraStopCommands: ${lib.generators.toJSON {} cfg.extraStopCommands}
+        extraCommands: ${lib.generators.toJSON {} cfg.extraCommands}
+        checkReversePath: ${lib.generators.toJSON {} cfg.checkReversePath}
 
-      connectionTrackingModules DEPRECATED: ${lib.generators.toJSON {} cfg.connectionTrackingModules}
-    '';
-  in ''
-    # firewall rules which was defined in `networking.firewall.*`
-    # but which was not handled/implemented yet
-    # ${trashFile}
+        connectionTrackingModules DEPRECATED: ${lib.generators.toJSON {} cfg.connectionTrackingModules}
+      '';
+    in
+    ''
+      # firewall rules which was defined in `networking.firewall.*`
+      # but which was not handled/implemented yet
+      # ${trashFile}
 
-    table inet filter {
-      chain input {
-        type filter hook input priority filter; policy drop;
+      table inet filter {
+        chain input {
+          type filter hook input priority filter; policy drop;
 
-        # allow traffic from established and related packets
-        ct state {established, related} accept
+          # allow traffic from established and related packets
+          ct state {established, related} accept
 
-        # drop invalid packets.
-        ct state invalid drop
+          # drop invalid packets.
+          ct state invalid drop
 
-        # allow loopback traffic
-        ${trustedInterfaces}
+          # allow loopback traffic
+          ${trustedInterfaces}
 
-        # allow ICMP
-        ${
-      if cfg.allowPing
-      then allowPingIPv4Text
-      else ""
-    }
-        ${
-      if cfg.allowPing
-      then allowPingIPv6Text
-      else ""
-    }
-
-        # common rules
-        ${mkCommonRules cfg}
-
-        # interface rules
-        ${lib.concatMapStrings (name: "iifname ${name} jump interface-${name}\n") (lib.attrNames cfg.interfaces)}
+          # allow ICMP
+          ${
+        if cfg.allowPing
+        then allowPingIPv4Text
+        else ""
+      }
+          ${
+        if cfg.allowPing
+        then allowPingIPv6Text
+        else ""
       }
 
-      # interface chains
-      ${lib.concatMapStringsSep "\n\n" (x: "chain interface-${x.name} {\n ${mkCommonRules x} \n}") (lib.mapAttrsToList (n: v: v // {name = n;}) cfg.interfaces)}
-    }
+          # common rules
+          ${mkCommonRules cfg}
 
-    ${cfg.extraRules}
-    ${lib.concatMapStringsSep "\n" (path: ''include "${path}"'') cfg.rulesets}
-  '';
+          # interface rules
+          ${lib.concatMapStrings (name: "iifname ${name} jump interface-${name}\n") (lib.attrNames cfg.interfaces)}
+        }
+
+        # interface chains
+        ${lib.concatMapStringsSep "\n\n" (x: "chain interface-${x.name} {\n ${mkCommonRules x} \n}") (lib.mapAttrsToList (n: v: v // {name = n;}) cfg.interfaces)}
+      }
+
+      ${cfg.extraRules}
+      ${lib.concatMapStringsSep "\n" (path: ''include "${path}"'') cfg.rulesets}
+    '';
 
   # common options, needed for interfaces and the base config
   commonOptions = {
     allowedTCPPorts = mkOption {
       type = types.listOf types.port;
-      default = [];
+      default = [ ];
       apply = canonicalizePortList;
-      example = [22 80];
+      example = [ 22 80 ];
       description = ''
         List of TCP ports on which incoming connections are
         accepted.
@@ -145,7 +148,7 @@ with lib; let
 
     allowedTCPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
-      default = [];
+      default = [ ];
       example = [
         {
           from = 8999;
@@ -160,9 +163,9 @@ with lib; let
 
     allowedUDPPorts = mkOption {
       type = types.listOf types.port;
-      default = [];
+      default = [ ];
       apply = canonicalizePortList;
-      example = [53];
+      example = [ 53 ];
       description = ''
         List of open UDP ports.
       '';
@@ -170,7 +173,7 @@ with lib; let
 
     allowedUDPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
-      default = [];
+      default = [ ];
       example = [
         {
           from = 60000;
@@ -187,7 +190,8 @@ with lib; let
   cfg = config.networking.firewall;
 
   canonicalizePortList = ports: lib.unique (builtins.sort builtins.lessThan ports);
-in {
+in
+{
   # TODO(eyJhb): remove this at some point?
   disabledModules = [
     "services/networking/firewall.nix"
@@ -209,7 +213,7 @@ in {
 
       rulesets = mkOption {
         type = types.listOf types.path;
-        default = [];
+        default = [ ];
         description = ''
           List of files that will be included from the main nftables file.
           These will be included at the end of the main nftables file.
@@ -225,8 +229,8 @@ in {
 
       trustedInterfaces = mkOption {
         type = types.listOf types.str;
-        default = [];
-        example = ["enp0s2"];
+        default = [ ];
+        example = [ "enp0s2" ];
         description = ''
           Traffic coming in from these interfaces will be accepted
           unconditionally.  Traffic from the loopback (lo) interface
@@ -236,7 +240,7 @@ in {
 
       # TODO(eyJhb): not implemented
       checkReversePath = mkOption {
-        type = types.either types.bool (types.enum ["strict" "loose"]);
+        type = types.either types.bool (types.enum [ "strict" "loose" ]);
         default = false;
         apply = x: trace "nftables.firewall: checkReversePath value ${lib.generators.toJSON {} x}" x;
       };
@@ -251,8 +255,8 @@ in {
         apply = x: trace "nftables.firewall: extraStopCommands value ${lib.generators.toJSON {} x}" x;
       };
       interfaces = mkOption {
-        default = {};
-        type = with types; attrsOf (submodule [{options = commonOptions;}]);
+        default = { };
+        type = with types; attrsOf (submodule [{ options = commonOptions; }]);
         description = ''
           Interface-specific open ports.
         '';
@@ -260,19 +264,19 @@ in {
       # DEPRECATED! DON'T USE !!
       connectionTrackingModules = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         apply = x: trace "nftables.firewall DEPRECATED: connectionTrackingModules value ${lib.generators.toJSON {} x}" x;
       };
     }
     // commonOptions;
 
   config = mkIf cfg.enable {
-    networking.firewall.trustedInterfaces = ["lo"];
+    networking.firewall.trustedInterfaces = [ "lo" ];
 
     networking.nftables = {
       enable = true;
       ruleset = verifiedNetfilter {
-        modules = [];
+        modules = [ ];
         text = ruleset;
       };
     };

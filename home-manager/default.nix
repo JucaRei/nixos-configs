@@ -1,5 +1,5 @@
-{ config, desktop, inputs, lib, outputs, pkgs, stateVersion, username, ... }:
-let inherit (pkgs.stdenv) isDarwin isLinux;
+{ config, desktop, lib, outputs, pkgs, stateVersion, username, ... }:
+let inherit (pkgs.stdenv) isDarwin;
 in {
   # Only import desktop configuration if the host is desktop enabled
   # Only import user specific configuration if they have bespoke settings
@@ -13,7 +13,7 @@ in {
     # You can also split up your configuration and import pieces of it here:
     #./_mixins/dev
     ./_mixins/console
-  ] 
+  ]
   ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
   ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
 
@@ -23,8 +23,8 @@ in {
     '';
     homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
     sessionPath = [ "$HOME/.local/bin" ];
-    stateVersion = stateVersion;
-    username = username;
+    inherit stateVersion;
+    inherit username;
   };
 
   nixpkgs = {
@@ -52,7 +52,7 @@ in {
       # Disable if you don't want unfree packages
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
