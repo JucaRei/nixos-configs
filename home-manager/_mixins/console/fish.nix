@@ -55,6 +55,7 @@ _: {
       shellAliases = {
         cat = "bat --paging=never --style=plain";
         diff = "diffr";
+        htop = "htop";
         glow = "glow --pager";
         btop = "btm --basic --tree --hide_table_gap --dot_marker --mem_as_value";
         ip = "ip --color --brief";
