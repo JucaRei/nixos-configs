@@ -16,6 +16,9 @@
     #kernelParams = [ "resume_offset=140544" ];
     #resumeDevice = "/dev/disk/by-label/NIXOS";
 
+    # Force kernel log in tty1, otherwise it will override greetd
+     kernelParams = [ "console=tty1" ];
+
     ##############
     ### INITRD ###
     ##############

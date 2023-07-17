@@ -448,13 +448,13 @@ in {
       DefaultTimeoutAbortSec=5s
     '';
 
-    services.nix-daemon = {
-      environment = { TMPDIR = "/var/cache/nix"; };
-      serviceConfig = {
-        CacheDirectory = "nix";
-        Nice = 19;
-      };
-    };
+    #services.nix-daemon = {
+    #  environment = { TMPDIR = "/var/cache/nix"; };
+    #  serviceConfig = {
+    #    CacheDirectory = "nix";
+    #    Nice = 19;
+    #  };
+    #};
   };
   system = {
 

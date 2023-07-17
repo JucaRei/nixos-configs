@@ -292,5 +292,7 @@
     ];
   };
 
+  environment.systemPackages = with pkgs; [ intel-gpu-tools ];
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

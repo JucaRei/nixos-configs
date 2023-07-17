@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib,... }: {
   programs.gpg = {
     enable = true;
     #dirmngr.enable = false;
@@ -34,7 +34,7 @@
     # };
   };
 
-  services.gpg-agent = {
+  services.gpg-agent = lib.mkIf pkgs.stdenv.isLinux {
     #   enable = true;
     #   enableSshSupport = true;
     #   enableExtraSocket = true;

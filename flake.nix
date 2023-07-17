@@ -161,7 +161,11 @@
           config.tools = {
             alejandra.enable = false;
             deadnix.enable = true;
-            nixpkgs-fmt.enable = true;
+            nixfmt.enable = true;
+            nixpkgs-fmt = {
+              enable = true;
+              excludes = [ "./examples_helper/" ];
+            };
             statix.enable = true;
           };
         }
