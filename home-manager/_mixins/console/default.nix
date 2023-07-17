@@ -13,7 +13,7 @@
     ./skim.nix
     ./gnupg.nix
     ./glow.nix
-    ./nixpkgs.nix
+    #./nixpkgs.nix
   ];
 
   home = {
