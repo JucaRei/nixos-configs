@@ -14,7 +14,7 @@
 
   qt = {
     enable = true;
-    platformTheme = "gnome"; 
+    platformTheme = "gnome";
     #style = "adwaita";
     style = "adwaita-dark";
   };

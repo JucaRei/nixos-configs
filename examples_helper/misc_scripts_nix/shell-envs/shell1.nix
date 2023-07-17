@@ -79,7 +79,8 @@ pkgs.mkShell {
     cargo-nix-docker-image executable-name>
     ```
     */
-  passthru.dockerImage = {
+  passthru.dockerImage =
+    {
       # Cargo workspace member name
       name
     , tag ? "latest"

@@ -58,12 +58,12 @@ in
           ovmf.enable = true;
           ovmf.packages = [
             (unstable.OVMFFull.override
-                {
-                  secureBoot = true;
-                  tpmSupport = true;
-                  csmSupport = true;
-                  httpSupport = true;
-                }).fd
+              {
+                secureBoot = true;
+                tpmSupport = true;
+                csmSupport = true;
+                httpSupport = true;
+              }).fd
           ];
         };
       };
