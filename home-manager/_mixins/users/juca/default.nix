@@ -60,19 +60,19 @@
     #  Host ubuntupodcast.org
     #    HostName live.ubuntupodcast.org
     #";
-    file."Quickemu/nixos.conf".text = ''
+    file."Quickemu/nixos-desktop.conf".text = ''
       #!/run/current-system/sw/bin/quickemu --vm
       guest_os="linux"
-      disk_img="nixos/disk.qcow2"
+      disk_img="nixos-desktop/disk.qcow2"
       disk_size="20G"
-      iso="nixos/nixos.iso"
+      iso="nixos-desktop/nixos.iso"
     '';
-    file."Quickemu/nixos-mini.conf".text = ''
+    file."Quickemu/nixos-console.conf".text = ''
       #!/run/current-system/sw/bin/quickemu --vm
       guest_os="linux"
-      disk_img="nixos-mini/disk.qcow2"
+      disk_img="nixos-console/disk.qcow2"
       disk_size="13G"
-      iso="nixos-mini/nixos.iso"
+      iso="nixos-console/nixos.iso"
     '';
     #sessionVariables = {
     #  BZR_EMAIL = "Martin Wimpress <code@wimpress.io>";
@@ -102,8 +102,8 @@
     "d /home/${username}/Documents/workspace/gitlab 0755 ${username} users - -"
     "d /home/${username}/Documents/workspace/scripts/ 0755 ${username} users - -"
     "d /home/${username}/games 0755 ${username} users - -"
-    "d /home/${username}/quickemu/nixos 0755 ${username} users - -"
-    "d /home/${username}/quickemu/nixos-mini 0755 ${username} users - -"
+    "d /home/${username}/quickemu/nixos-desktop 0755 ${username} users - -"
+    "d /home/${username}/quickemu/nixos-console 0755 ${username} users - -"
     "d /home/${username}/syncthing 0755 ${username} users - -"
     "d /home/${username}/Zero 0755 ${username} users - -"
   ];
