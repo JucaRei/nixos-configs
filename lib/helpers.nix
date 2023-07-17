@@ -1,6 +1,6 @@
 { inputs, outputs, stateVersion, ... }:
 let 
-      hosts = builtins.any [ "aarch64-linux" "x86_64-linux" ];
+      hosts = builtins.any.genAttrs [ "aarch64-linux" "x86_64-linux" ];
 in  {
   # Helper function for generating home-manager configs
   mkHome = { hostname, username, desktop ? null, platform ? hosts }: inputs.home-manager.lib.homeManagerConfiguration {
