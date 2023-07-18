@@ -35,7 +35,7 @@ in {
     ./_mixins/users/root
     #../services/tailscale.nix
     #../services/zerotier.nix
-    ( ./. + "/_mixins/users/${username}")
+    ./_mixins/users/${username}
   ]
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
@@ -51,7 +51,7 @@ in {
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
       #"quiet"
-      "boot.shell_on_fail"
+      #"boot.shell_on_fail"
       "loglevel=3"
       "rd.systemd.show_status=false"
       "rd.udev.log_level=3"
