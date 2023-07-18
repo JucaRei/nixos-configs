@@ -1,4 +1,4 @@
-### How to rebind keys in Firefox in NixOS
+# ## How to rebind keys in Firefox in NixOS
 { pkgs, ... }: {
   home-manager.users.youruser = {
     programs.firefox = {

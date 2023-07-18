@@ -1,5 +1,4 @@
-_self: super:
-{
+_self: super: {
   chromium = super.symlinkJoin {
     name = "chromium";
     paths = [ super.chromium ];

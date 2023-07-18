@@ -85,9 +85,7 @@
     };
     xserver = {
       enable = true;
-      excludePackages = with pkgs; [
-        xterm
-      ];
+      excludePackages = with pkgs; [ xterm ];
       displayManager.gdm.enable = true;
       desktopManager.xfce.enable = true;
     };

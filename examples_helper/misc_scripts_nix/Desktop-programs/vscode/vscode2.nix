@@ -1,10 +1,5 @@
-{ pkgs
-, inputs
-, ...
-}: {
-  home.packages = [
-    inputs.nil.packages.${pkgs.system}.default
-  ];
+{ pkgs, inputs, ... }: {
+  home.packages = [ inputs.nil.packages.${pkgs.system}.default ];
   programs.vscode = {
     enable = true;
     # package = pkgs.vscodium; # use vscode because copilot no worky :(

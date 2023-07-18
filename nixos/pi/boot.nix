@@ -1,8 +1,4 @@
-{ config
-, lib
-, pkgs
-, ...
-}: {
+{ config, lib, pkgs, ... }: {
   boot = {
     blacklistedKernelModules = [ ];
     consoleLogLevel = 3;
@@ -22,15 +18,10 @@
         "usb_storage"
         "xhci_pci"
       ];
-      kernelModules = [
-        "amdgpu"
-      ];
+      kernelModules = [ "amdgpu" ];
     };
 
-    kernelModules = [
-      "kvm-amd"
-      "vhost_vsock"
-    ];
+    kernelModules = [ "kvm-amd" "vhost_vsock" ];
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "mitigations=off" ];
     kernel.sysctl = {

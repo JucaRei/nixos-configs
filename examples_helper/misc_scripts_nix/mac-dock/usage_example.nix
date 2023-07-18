@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}: {
+{ pkgs, ... }: {
   local.dock.entries = [
     { path = "${pkgs.emacs}/Applications/Emacs.app/"; }
     { path = "/Applications/Mailplane.app"; }
@@ -11,7 +9,9 @@
     { path = "/System/Applications/Messages.app/"; }
     { path = "/Applications/iTerm.app/"; }
     { path = "/System/Applications/Music.app/"; }
-    { path = "/System/Applications/Home.app/"; }
+    {
+      path = "/System/Applications/Home.app/";
+    }
 
     # Folders:
     {

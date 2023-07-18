@@ -1,19 +1,15 @@
-{ pkgs
-, lib
-, ...
-}:
+{ pkgs, lib, ... }:
 let
   polybar = pkgs.polybar.override {
     i3GapsSupport = true;
     alsaSupport = true;
   };
-  execWithEnv =
-    pkgs.writeScriptBin "execWithEnv"
-      ''      #!${pkgs.stdenv.shell}
+  execWithEnv = pkgs.writeScriptBin "execWithEnv" ''
+    #!${pkgs.stdenv.shell}
 
-        unset __NIXOS_SET_ENVIRONMENT_DONE
-        source /etc/profile
-        exec "$@"'';
+      unset __NIXOS_SET_ENVIRONMENT_DONE
+      source /etc/profile
+      exec "$@"'';
 in
 {
   systemd.user.targets.autostart = {
@@ -47,7 +43,10 @@ in
     wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
-      ExecStart = "/run/current-system/sw/bin/execWithEnv ${pkgs.sxhkd}/bin/sxhkd -c ${./sxhkd.conf}";
+      ExecStart =
+        "/run/current-system/sw/bin/execWithEnv ${pkgs.sxhkd}/bin/sxhkd -c ${
+          ./sxhkd.conf
+        }";
     };
   };
 
@@ -92,7 +91,8 @@ in
     wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/execWithEnv ${pkgs.autorandr}/bin/autorandr --change";
+      ExecStart =
+        "/run/current-system/sw/bin/execWithEnv ${pkgs.autorandr}/bin/autorandr --change";
     };
   };
 
@@ -101,7 +101,8 @@ in
     wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
-      ExecStart = "/run/current-system/sw/bin/execWithEnv ${pkgs.flameshot}/bin/flameshot";
+      ExecStart =
+        "/run/current-system/sw/bin/execWithEnv ${pkgs.flameshot}/bin/flameshot";
     };
   };
 
@@ -119,7 +120,8 @@ in
     wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Restart = "always";
-      ExecStart = "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit";
+      ExecStart =
+        "${pkgs.pantheon.pantheon-agent-polkit}/libexec/policykit-1-pantheon/io.elementary.desktop.agent-polkit";
     };
   };
 
@@ -128,7 +130,8 @@ in
     wantedBy = [ "autostart.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "${pkgs.feh}/bin/feh --randomize --no-fehbg --bg-fill ${./Wallpapers}";
+      ExecStart =
+        "${pkgs.feh}/bin/feh --randomize --no-fehbg --bg-fill ${./Wallpapers}";
     };
   };
 

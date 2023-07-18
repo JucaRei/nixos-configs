@@ -12,8 +12,11 @@
     #../../desktop/apps/terminals/tilix.nix
     #../../desktop/vivaldi.nix
 
-  ] ++ lib.optional (builtins.pathExists (../.. + "/desktop/${desktop}-apps.nix")) ../../desktop/${desktop}-apps.nix
-  ++ lib.optional (builtins.isString desktop) (../.. + "/desktop/apps/browsers/firefox.nix");
+  ] ++ lib.optional
+    (builtins.pathExists (../.. + "/desktop/${desktop}-apps.nix"))
+    ../../desktop/${desktop}-apps.nix
+  ++ lib.optional (builtins.isString desktop)
+    (../.. + "/desktop/apps/browsers/firefox.nix");
 
   environment.systemPackages = with pkgs; [
     #audio-recorder

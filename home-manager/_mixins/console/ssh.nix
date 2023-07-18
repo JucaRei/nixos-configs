@@ -7,9 +7,7 @@
     forwardAgent = true;
     serverAliveCountMax = 2;
     serverAliveInterval = 300;
-    extraOptionOverrides = {
-      Include = "local.d/*";
-    };
+    extraOptionOverrides = { Include = "local.d/*"; };
     extraConfig = ''
       AddKeysToAgent yes
     '' + lib.optionalString pkgs.stdenv.isDarwin ''

@@ -1,9 +1,6 @@
-{ lib, pkgs, config, ... }:
-{
-  imports = [
-    ../_mixins/services/bluetooth.nix
-    ../_mixins/services/pipewire.nix
-  ];
+{ lib, pkgs, config, ... }: {
+  imports =
+    [ ../_mixins/services/bluetooth.nix ../_mixins/services/pipewire.nix ];
 
   boot = {
     kernelPackages = pkgs.linuxPackages_5_4;

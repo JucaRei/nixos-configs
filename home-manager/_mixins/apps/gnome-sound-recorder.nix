@@ -1,6 +1,5 @@
 { lib, username, ... }:
-with lib.hm.gvariant;
-{
+with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/SoundRecorder" = {
       audio-channel = "mono";

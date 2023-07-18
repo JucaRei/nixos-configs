@@ -1,4 +1,4 @@
-## Triggers the build of KVM VM's specified into systemd services
+# # Triggers the build of KVM VM's specified into systemd services
 ## Import this into your servers /etc/nixos/configuration.nix
 _:
 let
@@ -17,9 +17,7 @@ in
 
     wantedBy = [ "multi-user.target" ];
 
-    environment = {
-      KVM_NAME = "template";
-    };
+    environment = { KVM_NAME = "template"; };
     script = ''
       VM_STORAGE=${KVM-GUESTS}/$KVM_NAME
 

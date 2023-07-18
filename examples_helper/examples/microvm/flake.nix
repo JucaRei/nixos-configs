@@ -1,12 +1,6 @@
 {
-  inputs = {
-    mrkuz.url = "github:mrkuz/nixos";
-  };
-  outputs =
-    { mrkuz
-    , nixpkgs
-    ,
-    }:
+  inputs = { mrkuz.url = "github:mrkuz/nixos"; };
+  outputs = { mrkuz, nixpkgs, }:
     let
       name = "microvm";
       system = "x86_64-linux";
@@ -19,7 +13,5 @@
         };
       };
     in
-    {
-      packages."${system}".default = nixos.config.system.build.qemuRun;
-    };
+    { packages."${system}".default = nixos.config.system.build.qemuRun; };
 }

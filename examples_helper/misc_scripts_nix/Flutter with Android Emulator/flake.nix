@@ -6,22 +6,14 @@
     flake-utils.url = "github:numtide/flake-utils/v1.0.0";
   };
 
-  outputs =
-    { nixpkgs
-    , flake-utils
-    ,
-    }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
+  outputs = { nixpkgs, flake-utils, }:
+    flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
           config.android_sdk.accept_license = true;
           config.allowUnfreePredicate = pkg:
-            builtins.elem (nixpkgs.lib.getName pkg) [
-              "cmdline-tools"
-              "tools"
-            ];
+            builtins.elem (nixpkgs.lib.getName pkg) [ "cmdline-tools" "tools" ];
         };
 
         # options on:
@@ -33,9 +25,7 @@
           platformVersions = [ "28" "33" ];
           abiVersions = [ "x86" "x86_64" ];
           includeNDK = true;
-          includeExtras = [
-            "extras;google;gcm"
-          ];
+          includeExtras = [ "extras;google;gcm" ];
           extraLicenses = [ ];
         };
         inherit (androidComposition) androidsdk;
@@ -104,9 +94,7 @@
               # required on flutter run
               xorg.xorgproto
               libepoxy
-            ]
-            ++ (flutter_deps pkgs)
-            ++ gtk3.propagatedBuildInputs
+            ] ++ (flutter_deps pkgs) ++ gtk3.propagatedBuildInputs
             ++ pango.propagatedBuildInputs;
           profile = with pkgs; ''
             export PUB_CACHE=''${PUB_CACHE:-"$HOME/.pub-cache"}
@@ -139,6 +127,5 @@
         # flutter precache
         # flutter doctor --android-licenses
         # flutter doctor
-      }
-    );
+      });
 }

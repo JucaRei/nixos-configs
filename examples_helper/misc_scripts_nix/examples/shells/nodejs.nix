@@ -14,7 +14,8 @@ mkShell {
     patchelf
     binutils
   ];
-  ELECTRON_OVERRIDE_DIST_PATH = "${electron}/bin/"; #NEEDED to not get errors on npm start
+  ELECTRON_OVERRIDE_DIST_PATH =
+    "${electron}/bin/"; # NEEDED to not get errors on npm start
 
   shellHook = ''
     echo "done"

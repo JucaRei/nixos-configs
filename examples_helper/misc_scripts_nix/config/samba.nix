@@ -1,13 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   inherit (config.device) mediaDir;
   inherit (config.meta) username;
 in
 with config.users.users.${username}; {
-  environment.systemPackages = with pkgs; [
-    samba
-  ];
+  environment.systemPackages = with pkgs; [ samba ];
 
   services = {
     # Enable Samba

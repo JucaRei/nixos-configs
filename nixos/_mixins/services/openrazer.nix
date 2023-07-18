@@ -1,8 +1,5 @@
-{ pkgs, username, ... }:
-{
-  environment.systemPackages = with pkgs; [
-    polychromatic
-  ];
+{ pkgs, username, ... }: {
+  environment.systemPackages = with pkgs; [ polychromatic ];
 
   hardware = {
     openrazer = {

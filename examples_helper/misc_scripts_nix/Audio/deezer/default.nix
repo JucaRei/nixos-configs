@@ -1,4 +1,4 @@
-{ stdenv, lib, pkgs, sources, ... }:
+{ stdenv, pkgs, sources, ... }:
 
 # see:
 # - https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=deezer
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     runHook preUnpack
 
     # Extract app from installer
-    7z x -so $src "\''$PLUGINSDIR/app-32.7z" > app-32.7z
+    7z x -so $src "\$PLUGINSDIR/app-32.7z" > app-32.7z
     # Extract app archive
     7z x -y -bsp0 -bso0 app-32.7z
 
@@ -79,7 +79,6 @@ stdenv.mkDerivation rec {
 
     runHook postBuild
   '';
-
 
   installPhase = ''
     runHook preInstall

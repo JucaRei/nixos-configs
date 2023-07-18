@@ -14,10 +14,7 @@
 #    you have to open a terminal (either a TTY or by pressing Ctrl+T and then c)
 #    and run `sudo nixos-rebuild boot`. After a reboot it should work
 # NOTE: The default password for the user `zoom` is `123456`
-{ config
-, pkgs
-, ...
-}:
+{ config, pkgs, ... }:
 let
   home-manager = builtins.fetchGit {
     url = "https://github.com/rycee/home-manager.git";
@@ -150,7 +147,8 @@ in
 
   users.users.zoom = {
     createHome = true;
-    initialHashedPassword = "$6$ah4q31hZlNa$zh4FzYEYHOFf.R6MG.GVgR7MyrKqb.ueXNUymResXIYeVC2IbcZkQ3IhZwv.whTm1VOox8W2WolHqF4Im6f7i1"; # 123456
+    initialHashedPassword =
+      "$6$ah4q31hZlNa$zh4FzYEYHOFf.R6MG.GVgR7MyrKqb.ueXNUymResXIYeVC2IbcZkQ3IhZwv.whTm1VOox8W2WolHqF4Im6f7i1"; # 123456
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };

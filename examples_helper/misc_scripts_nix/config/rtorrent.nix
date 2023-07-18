@@ -5,15 +5,13 @@ let
   inherit (config.meta) username;
 in
 with config.users.users.${username}; {
-  environment.systemPackages = with pkgs; [
-    rtorrent
-  ];
+  environment.systemPackages = with pkgs; [ rtorrent ];
 
   services.rtorrent = {
     enable = true;
     downloadDir = "${mediaDir}/Downloads";
     user = username;
-    group = group;
+    inherit group;
     port = 60001;
     openFirewall = true;
     configText = ''
@@ -48,7 +46,6 @@ with config.users.users.${username}; {
     };
   };
 
-  systemd.tmpfiles.rules = [
-    "d ${mediaDir}/Downloads 0775 ${username} ${group}"
-  ];
+  systemd.tmpfiles.rules =
+    [ "d ${mediaDir}/Downloads 0775 ${username} ${group}" ];
 }

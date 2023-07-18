@@ -1,14 +1,12 @@
-### Returns dnsname-cni to nixpkgs' podman
+# ## Returns dnsname-cni to nixpkgs' podman
 { pkgs, ... }: {
   environment.etc."cni/net.d/87-podman-bridge.conflist".source =
     let
-      cfgExtraPlugins = [
-        {
-          type = "dnsname";
-          domainName = "dns.podman";
-          capabilities.aliases = true;
-        }
-      ];
+      cfgExtraPlugins = [{
+        type = "dnsname";
+        domainName = "dns.podman";
+        capabilities.aliases = true;
+      }];
       cfgPackage = pkgs.podman;
     in
     pkgs.runCommand "87-podman-bridge.conflist"

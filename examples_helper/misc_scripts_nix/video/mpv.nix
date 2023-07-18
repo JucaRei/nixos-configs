@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   home.packages = with pkgs; [
     yt-dlp
     streamlink
@@ -9,15 +6,13 @@
   ];
 
   xdg.configFile = with pkgs; {
-    "mpv/scripts/navigator.lua".source =
-      fetchFromGitHub
-        {
-          owner = "jonniek";
-          repo = "mpv-filenavigator";
-          rev = "a67c8280a7711cfaa5871f55d53ddb017f6d7b4c";
-          sha256 = "0kvj36nwxz5izps0qm6qw6yrcd5fkkh1kb9zgb2z32hfbmvq22sy";
-        }
-      + "/navigator.lua";
+    "mpv/scripts/navigator.lua".source = fetchFromGitHub
+      {
+        owner = "jonniek";
+        repo = "mpv-filenavigator";
+        rev = "a67c8280a7711cfaa5871f55d53ddb017f6d7b4c";
+        sha256 = "0kvj36nwxz5izps0qm6qw6yrcd5fkkh1kb9zgb2z32hfbmvq22sy";
+      } + "/navigator.lua";
   };
 
   programs.mpv = {
@@ -50,7 +45,7 @@
       "Alt+x" = "quit-watch-later";
       "1" = "cycle border";
       "Ctrl+a" = "cycle ontop";
-      n = ''show-text ''${media-title}'';
+      n = "show-text \${media-title}";
       MBTN_LEFT = "cycle pause";
       MBTN_LEFT_DBL = "cycle fullscreen";
       MBTN_RIGHT = "ignore";
@@ -77,7 +72,8 @@
       a = "cycle audio";
       "Shift+a" = "cycle audio down";
       "Ctrl+M" = "cycle mute";
-      "=" = ''af toggle "lavfi=[pan=1c|c0=0.5*c0+0.5*c1]" ; show-text "Audio mix set to Mono"'';
+      "=" = ''
+        af toggle "lavfi=[pan=1c|c0=0.5*c0+0.5*c1]" ; show-text "Audio mix set to Mono"'';
 
       # Frame-step
       ">" = "frame-step";

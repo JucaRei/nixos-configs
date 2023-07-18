@@ -1,11 +1,6 @@
 {
-  inputs = {
-    mrkuz.url = "github:mrkuz/nixos";
-  };
-  outputs =
-    { mrkuz
-    ,
-    }:
+  inputs = { mrkuz.url = "github:mrkuz/nixos"; };
+  outputs = { mrkuz, }:
     let
       system = "x86_64-linux";
       pkgs = mrkuz.utils.mkPkgs system;

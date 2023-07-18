@@ -5,28 +5,22 @@
 # or nixos-generate -f vm -c vm.nix --run
 # nixos-generate --help
 # nixos-generate --list
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 with lib; {
-  imports = [
-    <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
-    ./vm-config.nix
-  ];
+  imports =
+    [ <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix> ./vm-config.nix ];
 
   system.build.qemuvmImage = import <nixpkgs/nixos/lib/make-disk-image.nix> {
     inherit lib config;
-    pkgs = import <nixpkgs/nixos> { inherit (pkgs) system; }; # ensure we use the regular qemu-kvm package
+    pkgs = import <nixpkgs/nixos> {
+      inherit (pkgs) system;
+    }; # ensure we use the regular qemu-kvm package
     diskSize = 8192;
     format = "qcow2";
-    configFile =
-      pkgs.writeText "configuration.nix"
-        ''
-          {
-            imports = [ <./vm-config.nix> ];
-          }
-        '';
+    configFile = pkgs.writeText "configuration.nix" ''
+      {
+        imports = [ <./vm-config.nix> ];
+      }
+    '';
   };
 }

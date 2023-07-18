@@ -1,8 +1,6 @@
 { pkgs, ... }:
-let
-  pivnet = callPackage ./pivnet.nix { };
-in
-pkgs.dockerTools.buildImage {
+let pivnet = callPackage ./pivnet.nix { };
+in pkgs.dockerTools.buildImage {
   name = "pivnet";
   tag = "latest";
   created = "now";
@@ -11,25 +9,14 @@ pkgs.dockerTools.buildImage {
     name = "image-root";
     pathsToLink = [ "/bin" ];
 
-    paths =
-      (with pkgs; [
-        busybox
-        curlFull
-        cacert
-      ])
-      ++ [ pivnet ];
+    paths = (with pkgs; [ busybox curlFull cacert ]) ++ [ pivnet ];
   };
 
   config = {
-    Entrypoint = [
-      "${pivnet}/bin/pivnet"
-    ];
-    Cmd = [
-    ];
+    Entrypoint = [ "${pivnet}/bin/pivnet" ];
+    Cmd = [ ];
     ExposedPorts = { };
-    Env = [
-      "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-    ];
+    Env = [ "SSL_CERT_FILE=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" ];
     WorkingDir = "/workdir";
   };
 }

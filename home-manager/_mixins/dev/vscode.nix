@@ -1,8 +1,6 @@
 # https://nixos.wiki/wiki/VSCodium
 # Available nix VS extensions https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/applications/editors/vscode/extensions/default.nix
-{ pkgs
-, ...
-}: {
+{ pkgs, ... }: {
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
@@ -19,8 +17,7 @@
         gruntfuggly.todo-tree
         naumovs.color-highlight
         yzhang.markdown-all-in-one
-      ]
-      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "better-comments";
           publisher = "aaron-bond";
@@ -54,39 +51,28 @@
       ];
 
     userSettings = {
-      "editor.fontFamily" = "'Source Code Pro','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'";
+      "editor.fontFamily" =
+        "'Source Code Pro','Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'";
       "explorer.confirmDragAndDrop" = false;
       "explorer.confirmDelete" = false;
-      "workspace-manager.includeGlobPattern" = [
-        "~/private"
-        "~/work"
-      ];
+      "workspace-manager.includeGlobPattern" = [ "~/private" "~/work" ];
       "git.confirmSync" = false;
-      "workbench.editorAssociations" = {
-        "*.ipynb" = "jupyter-notebook";
-      };
-      "yaml.customTags" = [
-        "!encrypted/pkcs1-oaep scalar"
-        "!vault scalar"
-      ];
+      "workbench.editorAssociations" = { "*.ipynb" = "jupyter-notebook"; };
+      "yaml.customTags" = [ "!encrypted/pkcs1-oaep scalar" "!vault scalar" ];
       "git.suggestSmartCommit" = false;
       "workbench.editor.focusRecentEditorAfterClose" = false;
       "workbench.editor.highlightModifiedTabs" = true;
       "pico8vscodeeditor.pico8fullpath" = "/usr/local/bin/pico8";
       "workbench.colorCustomizations" = {
-        "[Default Dark+]" = {
-          "tab.activeBackground" = "#2D4D2D";
-        };
+        "[Default Dark+]" = { "tab.activeBackground" = "#2D4D2D"; };
       };
       #"vscodeGoogleTranslate.preferredLanguage" = "French";
       "tabnine.experimentalAutoImports" = true;
       "emeraldwalk.runonsave" = {
-        "commands" = [
-          {
-            "match" = "\\.nix$";
-            "cmd" = "echo 'I am a .txt file \${file}.'";
-          }
-        ];
+        "commands" = [{
+          "match" = "\\.nix$";
+          "cmd" = "echo 'I am a .txt file \${file}.'";
+        }];
       };
       "diffEditor.ignoreTrimWhitespace" = false;
     };

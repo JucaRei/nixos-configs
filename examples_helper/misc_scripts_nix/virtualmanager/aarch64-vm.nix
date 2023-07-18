@@ -3,11 +3,13 @@ let
   pkgs = import pkgsPath { };
   pkgsAarch64 = import pkgsPath { system = "aarch64-linux"; };
 
-  iso =
-    (pkgsAarch64.nixos {
-      imports = [ (pkgsPath + "/nixos/modules/installer/cd-dvd/installation-cd-base.nix") ];
-      users.users.root.openssh.authorizedKeys.keyFiles = [ (builtins.fetchurl "https://github.com/lheckemann.keys") ];
-    }).config.system.build.isoImage;
+  iso = (pkgsAarch64.nixos {
+    imports = [
+      (pkgsPath + "/nixos/modules/installer/cd-dvd/installation-cd-base.nix")
+    ];
+    users.users.root.openssh.authorizedKeys.keyFiles =
+      [ (builtins.fetchurl "https://github.com/lheckemann.keys") ];
+  }).config.system.build.isoImage;
 
   vmScript = pkgs.writeScript "run-nixos-vm" ''
     #!${pkgs.runtimeShell}

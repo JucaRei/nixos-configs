@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}:
+{ config, pkgs, ... }:
 let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
@@ -43,11 +40,6 @@ in
     pulseaudio.support32Bit = true;
   };
   environment = {
-    systemPackages = with pkgs; [
-      nvidia-offload
-      libva
-      libva-utils
-      glxinfo
-    ];
+    systemPackages = with pkgs; [ nvidia-offload libva libva-utils glxinfo ];
   };
 }

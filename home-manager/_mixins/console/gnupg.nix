@@ -1,4 +1,4 @@
-{ pkgs, lib,... }: {
+{ pkgs, lib, ... }: {
   programs.gpg = {
     enable = true;
     #dirmngr.enable = false;
@@ -48,7 +48,7 @@
     #    Match host * exec "gpg-connect-agent UPDATESTARTUPTTY /bye"
     #  '';
 
-    pinentryFlavor = "tty"; #curses
+    pinentryFlavor = "tty"; # curses
   };
 
   # to avoid The `busctl monitor` error

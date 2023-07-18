@@ -6,15 +6,16 @@
   # This one contains whatever you want to overlay
   # You can change versions, add patches, set compilation flags, anything really.
   # https://nixos.wiki/wiki/Overlays
-  modifications = _final: _prev: {
-    # example = prev.example.overrideAttrs (oldAttrs: rec {
-    # ...
-    # });
+  modifications = _final: _prev:
+    {
+      # example = prev.example.overrideAttrs (oldAttrs: rec {
+      # ...
+      # });
 
-    #intel = pkgs.xorg.xf86videointel.overrideAttrs (attrs: {
-    #  patches = attrs.patches ++ [ ./intel.patch ];
-    #});
-  };
+      #intel = pkgs.xorg.xf86videointel.overrideAttrs (attrs: {
+      #  patches = attrs.patches ++ [ ./intel.patch ];
+      #});
+    };
   #};
 
   # When applied, the unstable nixpkgs set (declared in the flake inputs) will

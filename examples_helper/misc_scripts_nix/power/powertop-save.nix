@@ -1,9 +1,5 @@
-{ pkgs
-, ...
-}: {
-  environment.systemPackages = with pkgs; [
-    powertop
-  ];
+{ pkgs, ... }: {
+  environment.systemPackages = with pkgs; [ powertop ];
 
   boot = {
     kernelParams = [ "pcie_aspm.policy=powersave" ];

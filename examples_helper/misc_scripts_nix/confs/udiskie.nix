@@ -1,4 +1,3 @@
-#
 # Mounting tool
 #
 _: {

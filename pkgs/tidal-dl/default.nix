@@ -19,7 +19,8 @@ let
       sha256 = "sha256-1kQced6YdC/wvegqFVhZfej4+4aemGXvKysKjejP13w=";
     };
 
-    propagatedBuildInputs = [ mutagen requests colorama prettytable pycrypto pydub ];
+    propagatedBuildInputs =
+      [ mutagen requests colorama prettytable pycrypto pydub ];
   };
 in
 buildPythonApplication rec {
@@ -35,9 +36,12 @@ buildPythonApplication rec {
 
   meta = with lib; {
     homepage = "https://github.com/yaronzz/Tidal-Media-Downloader";
-    description = "An application that lets you download videos and tracks from Tidal";
+    description =
+      "An application that lets you download videos and tracks from Tidal";
     license = licenses.asl20;
     maintainers = with maintainers; [ misterio77 ];
     platforms = platforms.all;
+    #platforms =  ["x86_64-linux"];
+    badPlataforms = [ "x86_64-unknown-linux-gnu" "i686-unknown-linux-gnu" "aarch64-unknown-linux-gnu" ];
   };
 }

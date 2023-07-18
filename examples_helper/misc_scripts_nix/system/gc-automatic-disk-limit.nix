@@ -1,8 +1,4 @@
-{ pkgs
-, lib
-, config
-, ...
-}:
+{ pkgs, lib, config, ... }:
 let
   inherit (lib) mkDefault mkEnableOption mkIf mkOption;
   inherit (lib.types) int;
@@ -50,11 +46,12 @@ let
   '';
 
   hourly =
-    if pkgs.stdenv.isLinux
-    then { dates = mkDefault "hourly"; }
-    else if pkgs.stdenv.isDarwin
-    then { interval = mkDefault { Minute = 0; }; }
-    else throw "unsupported system";
+    if pkgs.stdenv.isLinux then {
+      dates = mkDefault "hourly";
+    } else if pkgs.stdenv.isDarwin then {
+      interval = mkDefault { Minute = 0; };
+    } else
+      throw "unsupported system";
 in
 {
   options = {
@@ -68,7 +65,8 @@ in
       };
 
       collectLimitMiB = mkOption {
-        description = "Maximum disk usage before GC is triggered in MiB (negative values: SIZE-x)";
+        description =
+          "Maximum disk usage before GC is triggered in MiB (negative values: SIZE-x)";
         type = int;
         default = -8192;
       };
@@ -88,12 +86,10 @@ in
   };
 
   config = mkIf cfg.useDiskAware {
-    nix.gc =
-      {
-        automatic = mkDefault true;
-        options = ''--max-freed "$(${script}/bin/get-gc-size)"'';
-      }
-      // hourly;
+    nix.gc = {
+      automatic = mkDefault true;
+      options = ''--max-freed "$(${script}/bin/get-gc-size)"'';
+    } // hourly;
   };
 }
 # Module to set disk space limits for the automatic garbage collector

@@ -17,18 +17,13 @@ in
     listenPort = tunnel.port.int;
     privateKeyFile = "/xxxxxxx/xxxxxxx.xxxxxxx";
     allowedIPsAsRoutes = false;
-    ips = [
-      "${tunnel.ip}/32"
-      "${tunnel.internal.ip}/32"
-    ];
-    peers = [
-      {
-        allowedIPs = [ "0.0.0.0/0" ];
-        endpoint = "${tunnel.external.endpoint}:${tunnel.port.str}";
-        publicKey = tunnel.external.pubkey;
-        persistentKeepalive = 5;
-      }
-    ];
+    ips = [ "${tunnel.ip}/32" "${tunnel.internal.ip}/32" ];
+    peers = [{
+      allowedIPs = [ "0.0.0.0/0" ];
+      endpoint = "${tunnel.external.endpoint}:${tunnel.port.str}";
+      publicKey = tunnel.external.pubkey;
+      persistentKeepalive = 5;
+    }];
     postSetup = ''
       ip route add ${tunnel.external.ip} dev tunnel scope link
       ip route add default via ${tunnel.external.ip} table 200

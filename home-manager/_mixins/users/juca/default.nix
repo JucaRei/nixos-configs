@@ -1,6 +1,7 @@
 { lib, hostname, username, ... }: {
   imports = [ ]
-    ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix")) ./hosts/${hostname}.nix;
+    ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix"))
+    ./hosts/${hostname}.nix;
 
   home = {
     #file.".bazaar/authentication.conf".text = "
@@ -17,49 +18,12 @@
     #  tab_width = 4
     #  [ALIASES]
     #";
-    file.".distroboxrc".text = "
-      xhost +si:localuser:$USER
-    ";
+    file.".distroboxrc".text = "\n      xhost +si:localuser:$USER\n    ";
     file.".face".source = ./face.jpg;
     #file."Development/debian/.envrc".text = "export DEB_VENDOR=Debian";
     #file."Development/ubuntu/.envrc".text = "export DEB_VENDOR=Ubuntu";
-    file.".ssh/config".text = "
-      Host github.com
-        HostName github.com
-        User git
-
-    #  Host man
-    #    HostName man.wimpress.io
-
-    #  Host yor
-    #    HostName yor.wimpress.io
-
-    #  Host man.ubuntu-mate.net
-    #    HostName man.ubuntu-mate.net
-    #    User matey
-    #    IdentityFile ~/.ssh/id_rsa_semaphore
-
-    #  Host yor.ubuntu-mate.net
-    #    HostName yor.ubuntu-mate.net
-    #    User matey
-    #    IdentityFile ~/.ssh/id_rsa_semaphore
-
-    #  Host bazaar.launchpad.net
-    #    User flexiondotorg
-
-    #  Host git.launchpad.net
-    #    User flexiondotorg
-
-    #  Host ubuntu.com
-    #    HostName people.ubuntu.com
-    #    User flexiondotorg
-
-    #  Host people.ubuntu.com
-    #    User flexiondotorg
-
-    #  Host ubuntupodcast.org
-    #    HostName live.ubuntupodcast.org
-    #";
+    file.".ssh/config".text =
+      "\n      Host github.com\n        HostName github.com\n        User git\n\n    #  Host man\n    #    HostName man.wimpress.io\n\n    #  Host yor\n    #    HostName yor.wimpress.io\n\n    #  Host man.ubuntu-mate.net\n    #    HostName man.ubuntu-mate.net\n    #    User matey\n    #    IdentityFile ~/.ssh/id_rsa_semaphore\n\n    #  Host yor.ubuntu-mate.net\n    #    HostName yor.ubuntu-mate.net\n    #    User matey\n    #    IdentityFile ~/.ssh/id_rsa_semaphore\n\n    #  Host bazaar.launchpad.net\n    #    User flexiondotorg\n\n    #  Host git.launchpad.net\n    #    User flexiondotorg\n\n    #  Host ubuntu.com\n    #    HostName people.ubuntu.com\n    #    User flexiondotorg\n\n    #  Host people.ubuntu.com\n    #    User flexiondotorg\n\n    #  Host ubuntupodcast.org\n    #    HostName live.ubuntupodcast.org\n    #";
     file."Quickemu/nixos-desktop.conf".text = ''
       #!/run/current-system/sw/bin/quickemu --vm
       guest_os="linux"

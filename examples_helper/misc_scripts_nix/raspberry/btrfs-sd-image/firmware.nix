@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   system.build.uboot = pkgs.buildUBoot rec {
     defconfig = "nanopi-m4-rk3399_defconfig";
     extraMeta.platforms = [ "aarch64-linux" ];

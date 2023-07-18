@@ -14,8 +14,7 @@ in
   configfile = "${srcBuildRoot}/.config";
   allowImportFromDerivation = true;
 }).overrideAttrs (attrs:
-attrs
-  // {
+attrs // {
   dontStrip = true;
   phases = [ "buildPhase" "installPhase" ];
   nativeBuildInputs = [ buildPackages.kmod ] ++ attrs.nativeBuildInputs;

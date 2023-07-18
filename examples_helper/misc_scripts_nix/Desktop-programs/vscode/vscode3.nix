@@ -1,12 +1,9 @@
-{ pkgs
-, ...
-}: {
-  /*
-     imports = [
-    flake.inputs.nixos-vscode-server.nixosModules.default
-    ];
-    services.vscode-server.enable = true;
-    services.vscode-server.installPath = "~/.vscode-server-insiders";
+{ pkgs, ... }: {
+  /* imports = [
+     flake.inputs.nixos-vscode-server.nixosModules.default
+     ];
+     services.vscode-server.enable = true;
+     services.vscode-server.installPath = "~/.vscode-server-insiders";
   */
 
   # https://unix.stackexchange.com/q/659901/14042
@@ -20,7 +17,5 @@
   ];
 
   # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
-  boot.kernel.sysctl = {
-    "fs.inotify.max_user_watches" = "524288";
-  };
+  boot.kernel.sysctl = { "fs.inotify.max_user_watches" = "524288"; };
 }

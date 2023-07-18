@@ -31,7 +31,7 @@
 # [drm:amdgpu_ttm_init.cold [amdgpu]] *ERROR* Failed initializing PREEMPT heap.
 # [drm:amdgpu_preempt_mgr_init [amdgpu]] *ERROR* Failed to create device file mem_info_preempt_used
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   # Check if vfio is loaded with:
@@ -77,16 +77,19 @@
       serviceConfig = {
         LimitMEMLOCK = 25000000;
         NoNewPrivileges = true; # never gain new privileges through execve()
-        RemoveIPC = true; # System V and POSIX IPC are removed when stopped (only has an effect with DynamicUser)
+        RemoveIPC =
+          true; # System V and POSIX IPC are removed when stopped (only has an effect with DynamicUser)
         ProtectClock = false;
         ProtectKernelModules = true;
         ProtectControlGroups = true;
         ProtectKernelLogs = true;
-        ProtectSystem = "full"; # makes /boot, /etc, and /usr directories read-only
+        ProtectSystem =
+          "full"; # makes /boot, /etc, and /usr directories read-only
         ProtectHome = "tmpfs"; # hides /home, /root and /run/user
         BindPaths = "/keep/data/qemu";
         PrivateTmp = true; # makes /tmp and /var/tmp private
-        RestrictSUIDSGID = true; # attempts to set the set-user-ID (SUID) or set-group-ID (SGID) bits on files or directories will be denied 
+        RestrictSUIDSGID =
+          true; # attempts to set the set-user-ID (SUID) or set-group-ID (SGID) bits on files or directories will be denied
         #Restart = "on-failure";
       };
 

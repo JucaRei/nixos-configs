@@ -9,9 +9,7 @@
       statix
     ];
 
-    sessionVariables = {
-      DIRENV_LOG_FORMAT = "";
-    };
+    sessionVariables = { DIRENV_LOG_FORMAT = ""; };
   };
 
   programs = {

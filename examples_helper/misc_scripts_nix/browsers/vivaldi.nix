@@ -1,4 +1,1 @@
-let
-  baseDir = "vivaldi";
-in
-import ./install-ext.nix { inherit baseDir; }
+let baseDir = "vivaldi"; in import ./install-ext.nix { inherit baseDir; }

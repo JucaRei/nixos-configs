@@ -19,9 +19,7 @@
     ];
 
     # Add some packages to complete the MATE desktop
-    systemPackages = with pkgs; [
-      networkmanagerapplet
-    ];
+    systemPackages = with pkgs; [ networkmanagerapplet ];
   };
 
   # Enable some programs to provide a complete desktop
@@ -78,9 +76,7 @@
         };
       };
 
-      desktopManager = {
-        mate.enable = true;
-      };
+      desktopManager = { mate.enable = true; };
     };
   };
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];

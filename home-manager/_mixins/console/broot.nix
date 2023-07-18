@@ -6,7 +6,7 @@
 # ╚═════╝ ╚═╝  ╚═╝ ╚═════╝  ╚═════╝    ╚═╝
 { hostname, ... }: {
   programs.broot = {
-    enable = true; ## Alias br alias
+    enable = true; # # Alias br alias
     settings = {
       default_flags = "sdp";
       date_time_format = "%d/%m/%Y %R";
@@ -48,7 +48,7 @@
           invocation = "change_colors_scheme";
           shortcut = "ccs";
           key = "ctrl-b";
-          external = "my-set-color-scheme-from-image \"{file}\"";
+          external = ''my-set-color-scheme-from-image "{file}"'';
           "leave_broot" = false;
         }
         {

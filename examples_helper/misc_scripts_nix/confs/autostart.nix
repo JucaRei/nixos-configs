@@ -1,7 +1,4 @@
-{ config
-, lib
-, ...
-}:
+{ config, lib, ... }:
 let
   cfg = config.autostart;
   inherit (lib) mkOption mdDoc types;
@@ -47,25 +44,21 @@ in
   config = {
     systemd.user.services = lib.attrsets.mapAttrs'
       (name: value:
-        lib.attrsets.nameValuePair
-          "autostart-${name}"
-          {
-            Install = {
-              WantedBy = [ "graphical-session.target" ];
-            };
+        lib.attrsets.nameValuePair "autostart-${name}" {
+          Install = { WantedBy = [ "graphical-session.target" ]; };
 
-            Service = {
-              ExecStartPre = value.execPre;
-              ExecStart = value.exec;
-            };
+          Service = {
+            ExecStartPre = value.execPre;
+            ExecStart = value.exec;
+          };
 
-            Unit = {
-              After = [ "graphical-session-pre.target" "tray.target" ];
-              Description = value.description;
-              PartOf = [ "graphical-session.target" ];
-              Requires = [ "tray.target" ];
-            };
-          })
+          Unit = {
+            After = [ "graphical-session-pre.target" "tray.target" ];
+            Description = value.description;
+            PartOf = [ "graphical-session.target" ];
+            Requires = [ "tray.target" ];
+          };
+        })
       cfg;
   };
 }

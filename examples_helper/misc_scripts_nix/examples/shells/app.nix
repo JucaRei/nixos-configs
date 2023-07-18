@@ -6,7 +6,8 @@ in
 pkgs.appimageTools.wrapType2 {
   name = "firefox-nightly";
   src = pkgs.fetchurl {
-    url = "https://github.com/srevinsaju/Firefox-Appimage/releases/download/firefox-nightly/firefox-nightly-${version}.${buildnumber}-x86_64.AppImage";
+    url =
+      "https://github.com/srevinsaju/Firefox-Appimage/releases/download/firefox-nightly/firefox-nightly-${version}.${buildnumber}-x86_64.AppImage";
     sha256 = "8IYYbHnoq4hcpheIa5oPlrevalux5/xPAO0v32XumOc=";
   };
 }

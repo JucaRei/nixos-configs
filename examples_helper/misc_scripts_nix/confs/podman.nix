@@ -1,10 +1,6 @@
-#
 # Docker
 #
-{ pkgs
-, user
-, ...
-}: {
+{ pkgs, user, ... }: {
   virtualisation = {
     podman = {
       enable = true;
@@ -31,10 +27,7 @@
         # "registry.centos.org"
       ];
       containersConf.settings = {
-        containers.dns_servers = [
-          "8.8.8.8"
-          "8.8.4.4"
-        ];
+        containers.dns_servers = [ "8.8.8.8" "8.8.4.4" ];
       };
       ## for ZFS
       # storage = {
@@ -56,7 +49,5 @@
   #  '';                                                           # Alias to easily start container
   #};
 
-  environment.systemPackages = with pkgs; [
-    docker-compose
-  ];
+  environment.systemPackages = with pkgs; [ docker-compose ];
 }

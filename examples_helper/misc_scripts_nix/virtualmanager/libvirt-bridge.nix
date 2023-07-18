@@ -1,11 +1,9 @@
 # libvirt with statically configured bridge
 # Module for configuring libvirt with static NixOS networking
 # instead of using libvirt managed bridge.
-{ config
-, lib
-, ...
-}:
-with lib; let
+{ config, lib, ... }:
+with lib;
+let
   cfg = config.virtualisation.libvirtd.networking;
   v6Enabled = cfg.ipv6.network != null;
   v6PLen = toInt (elemAt (splitString "/" cfg.ipv6.network) 1);
@@ -55,7 +53,8 @@ in
 
         nameServers = mkOption {
           type = types.listOf types.str;
-          default = [ "2001:4860:4860::8888" "2001:4860:4860::8844" ]; # google dns
+          default =
+            [ "2001:4860:4860::8888" "2001:4860:4860::8844" ]; # google dns
           description = ''
             List of v6 nameservers advertised via SLAAC.
           '';
@@ -86,12 +85,10 @@ in
               };
             });
           default = [ ];
-          example = [
-            {
-              sourcePort = 8080;
-              destination = "[fda7:1646:3af8:af4e:5054:ff:fe76:a97c]:80";
-            }
-          ];
+          example = [{
+            sourcePort = 8080;
+            destination = "[fda7:1646:3af8:af4e:5054:ff:fe76:a97c]:80";
+          }];
           description = ''
             List of forwarded ports from the external interface to internal destinations by using DNAT.
           '';
@@ -105,46 +102,40 @@ in
       mkdir -p /var/lib/libvirt/images
     '';
 
-    networking.nat =
-      {
-        enable = true;
-        internalInterfaces = [ cfg.bridgeName ];
-        inherit (cfg) externalInterface;
-      }
-      // optionalAttrs v6Enabled {
-        extraCommands =
-          (flip concatMapStrings cfg.ipv6.forwardPorts (f: ''
-            ip6tables -w -t nat -I PREROUTING -i ${cfg.externalInterface} -p ${f.proto} --dport ${toString f.sourcePort} -j DNAT --to-destination ${f.destination}
-          ''))
-          + ''
-            ip6tables -w -t nat -I POSTROUTING -o ${cfg.externalInterface} -j MASQUERADE
-          '';
+    networking.nat = {
+      enable = true;
+      internalInterfaces = [ cfg.bridgeName ];
+      inherit (cfg) externalInterface;
+    } // optionalAttrs v6Enabled {
+      extraCommands = (flip concatMapStrings cfg.ipv6.forwardPorts (f: ''
+        ip6tables -w -t nat -I PREROUTING -i ${cfg.externalInterface} -p ${f.proto} --dport ${
+          toString f.sourcePort
+        } -j DNAT --to-destination ${f.destination}
+      '')) + ''
+        ip6tables -w -t nat -I POSTROUTING -o ${cfg.externalInterface} -j MASQUERADE
+      '';
 
-        # XXX removing element from forwardPorts won't work, we should use custom chain and flush it instead
-        extraStopCommands =
-          (flip concatMapStrings cfg.ipv6.forwardPorts (f: ''
-            ip6tables -w -t nat -D PREROUTING -i ${cfg.externalInterface} -p ${f.proto} --dport ${toString f.sourcePort} -j DNAT --to-destination ${f.destination} || true
-          ''))
-          + ''
-            ip6tables -w -t nat -D POSTROUTING -o ${cfg.externalInterface} -j MASQUERADE || true
-          '';
-      };
+      # XXX removing element from forwardPorts won't work, we should use custom chain and flush it instead
+      extraStopCommands = (flip concatMapStrings cfg.ipv6.forwardPorts (f: ''
+        ip6tables -w -t nat -D PREROUTING -i ${cfg.externalInterface} -p ${f.proto} --dport ${
+          toString f.sourcePort
+        } -j DNAT --to-destination ${f.destination} || true
+      '')) + ''
+        ip6tables -w -t nat -D POSTROUTING -o ${cfg.externalInterface} -j MASQUERADE || true
+      '';
+    };
 
     # libvirt uses 192.168.122.0
     networking.bridges."${cfg.bridgeName}".interfaces = [ ];
     networking.interfaces."${cfg.bridgeName}" = {
-      ipv4.addresses = [
-        {
-          address = "192.168.122.1";
-          prefixLength = 24;
-        }
-      ];
-      ipv6.addresses = mkIf v6Enabled [
-        {
-          address = cfg.ipv6.hostAddress;
-          prefixLength = v6PLen;
-        }
-      ];
+      ipv4.addresses = [{
+        address = "192.168.122.1";
+        prefixLength = 24;
+      }];
+      ipv6.addresses = mkIf v6Enabled [{
+        address = cfg.ipv6.hostAddress;
+        prefixLength = v6PLen;
+      }];
     };
 
     services.dhcpd4 = {
@@ -187,32 +178,33 @@ in
 
           route ::/0 {};
 
-          ${optionalString (cfg.ipv6.nameServers != []) ''
-          RDNSS ${builtins.concatStringsSep " " cfg.ipv6.nameServers} {};
-        ''}
+          ${
+            optionalString (cfg.ipv6.nameServers != [ ]) ''
+              RDNSS ${builtins.concatStringsSep " " cfg.ipv6.nameServers} {};
+            ''
+          }
         };
       '';
     };
 
     # NixOS guests obtain address, routes, and DNS from router advertisements.
     # So there's no need to run DHCP if you're OK with SLAAC addresses.
-    /*
-      services.dhcpd6 = mkIf v6Enabled {
-      enable = true;
-      interfaces = [ cfg.bridgeName ];
-      extraConfig = ''
-        ${optionalString (cfg.ipv6.nameServers != []) ''
-          option dhcp6.name-servers ${builtins.concatStringsSep ", " cfg.ipv6.nameServers};
-        ''}
+    /* services.dhcpd6 = mkIf v6Enabled {
+       enable = true;
+       interfaces = [ cfg.bridgeName ];
+       extraConfig = ''
+         ${optionalString (cfg.ipv6.nameServers != []) ''
+           option dhcp6.name-servers ${builtins.concatStringsSep ", " cfg.ipv6.nameServers};
+         ''}
 
-        ${optionalString cfg.infiniteLeaseTime  ''
-        default-lease-time -1;
-        max-lease-time -1;
-        ''}
-        subnet6 ${cfg.ipv6.network} {
-        }
-      '';
-      };
+         ${optionalString cfg.infiniteLeaseTime  ''
+         default-lease-time -1;
+         max-lease-time -1;
+         ''}
+         subnet6 ${cfg.ipv6.network} {
+         }
+       '';
+       };
     */
   };
 }

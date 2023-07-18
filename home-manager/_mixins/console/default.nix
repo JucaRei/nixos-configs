@@ -171,18 +171,13 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = {
-        enable = true;
-      };
+      nix-direnv = { enable = true; };
     };
     exa = {
       enable = true;
       enableAliases = true;
       icons = true;
-      extraOptions = [
-        "--group-directories-first"
-        "--color=always"
-      ];
+      extraOptions = [ "--group-directories-first" "--color=always" ];
     };
     home-manager.enable = true;
     info.enable = true;

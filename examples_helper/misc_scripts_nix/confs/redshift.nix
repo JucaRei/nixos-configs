@@ -1,18 +1,14 @@
+# Screen color temperature changer
 #
-#  Screen color temperature changer
-#
-{ config
-, lib
-, ...
-}: {
+{ config, lib, ... }: {
   config = lib.mkIf config.xsession.enable {
     # Only evaluate code if using X11
     services = {
       redshift = {
         enable = true;
         temperature.night = 3000;
-        latitude = -23.539380;
-        longitude = -46.652530;
+        latitude = -23.53938;
+        longitude = -46.65253;
       };
     };
   };

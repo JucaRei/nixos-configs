@@ -1,12 +1,6 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-,
-}:
-let
-  custom = ./custom;
-in
-stdenv.mkDerivation rec {
+{ lib, stdenv, fetchFromGitHub, }:
+let custom = ./custom;
+in stdenv.mkDerivation rec {
   pname = "NvChad";
   version = "2.0.0";
 

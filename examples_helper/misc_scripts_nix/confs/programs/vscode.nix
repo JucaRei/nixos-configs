@@ -1,16 +1,13 @@
-{ inputs
-, lib
-, pkgs
-, ...
-}:
+{ inputs, lib, pkgs, ... }:
 let
-  marketplace-extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
-    johnnymorganz.stylua
-    ms-python.black-formatter
-    ms-python.python
-    rvest.vs-code-prettier-eslint
-    sndst00m.markdown-github-dark-pack
-  ];
+  marketplace-extensions =
+    with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
+      johnnymorganz.stylua
+      ms-python.black-formatter
+      ms-python.python
+      rvest.vs-code-prettier-eslint
+      sndst00m.markdown-github-dark-pack
+    ];
 in
 {
   programs.vscode = {
@@ -38,8 +35,7 @@ in
         usernamehw.errorlens
         vadimcn.vscode-lldb
         xaver.clang-format
-      ]
-      ++ marketplace-extensions;
+      ] ++ marketplace-extensions;
 
     userSettings = {
       breadcrumbs.enabled = false;
@@ -49,7 +45,8 @@ in
       black-formatter.path = lib.getExe pkgs.black;
       stylua.styluaPath = lib.getExe pkgs.stylua;
       nix.serverPath = lib.getExe inputs.nil.packages.${pkgs.system}.default;
-      Lua.misc.executablePath = "${pkgs.sumneko-lua-language-server}/bin/lua-language-server";
+      Lua.misc.executablePath =
+        "${pkgs.sumneko-lua-language-server}/bin/lua-language-server";
 
       "[c]".editor.defaultFormatter = "xaver.clang-format";
       "[cpp]".editor.defaultFormatter = "xaver.clang-format";

@@ -2,7 +2,8 @@
 let
   pivnet = pkgs.fetchurl {
     name = "pivnet";
-    url = "https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1";
+    url =
+      "https://github.com/pivotal-cf/pivnet-cli/releases/download/v3.0.1/pivnet-linux-amd64-3.0.1";
     sha256 = "sha256-et44d6fpcyJ8WMrGrjpRrXiBMDh8FmRjaR/gjzd5KPw=";
   };
 in

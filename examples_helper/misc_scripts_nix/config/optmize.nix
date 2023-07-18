@@ -1,4 +1,3 @@
-#
 # Functions to optimize a package
 #
 # From: 
@@ -6,7 +5,7 @@
 # Optimizations: 
 # - https://wiki.gentoo.org/wiki/GCC_optimization
 
-pkgs:
+_pkgs:
 
 rec {
   optimizeWithFlags = pkg: flags:
@@ -21,8 +20,13 @@ rec {
   # -fpic -shared - no text relocations for shared libraries; Address Space Layout Randomization (ASLR) is a state-of-the-art measure to increase security by randomly placing each function and buffer in memory. This makes it harder for attack vectors to succeed.
 
   optimizeForThisHost = pkg:
-    optimizeWithFlags pkg [ "-O3" "-march=native" "-mtune=native" "-fPIC" "-pipe" ];
+    optimizeWithFlags pkg [
+      "-O3"
+      "-march=native"
+      "-mtune=native"
+      "-fPIC"
+      "-pipe"
+    ];
 
-  withDebuggingCompiled = pkg:
-    optimizeWithFlags pkg [ "-DDEBUG" ];
+  withDebuggingCompiled = pkg: optimizeWithFlags pkg [ "-DDEBUG" ];
 }

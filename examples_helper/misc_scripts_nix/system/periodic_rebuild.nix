@@ -1,6 +1,4 @@
-{ lib
-, ...
-}: {
+{ lib, ... }: {
   systemd = {
     services.nixos-update-prebuild = {
       serviceConfig.Type = "oneshot";
@@ -11,9 +9,7 @@
         cd /var/lib/nixos-update-prebuild
         nixos-rebuild --upgrade dry-activate
       '';
-      /*
-      todo: send notification when update would change something
-      */
+      # todo: send notification when update would change something
     };
     timers.nixos-update-prebuild = {
       wantedBy = [ "timers.target" ];

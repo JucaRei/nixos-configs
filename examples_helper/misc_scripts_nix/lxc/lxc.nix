@@ -1,9 +1,6 @@
-{ lib
-, config
-, pkgs
-, ...
-}:
-with lib; let
+{ lib, config, pkgs, ... }:
+with lib;
+let
   cfg = config.mine.lxc;
 
   format = pkgs.formats.json { };
@@ -39,40 +36,34 @@ in
 
   config = mkIf cfg.enable {
     mine.lxc.preseed = {
-      networks = [
-        {
-          name = "lxdbr0";
-          type = "bridge";
-          config = {
-            "ipv4.address" = "10.200.0.1/24";
-            "ipv6.address" = "fd42::1/64";
-          };
-        }
-      ];
+      networks = [{
+        name = "lxdbr0";
+        type = "bridge";
+        config = {
+          "ipv4.address" = "10.200.0.1/24";
+          "ipv6.address" = "fd42::1/64";
+        };
+      }];
 
-      storage_pools = [
-        {
-          name = "default";
-          driver = "zfs";
-          config.source = cfg.zfsPool;
-        }
-      ];
+      storage_pools = [{
+        name = "default";
+        driver = "zfs";
+        config.source = cfg.zfsPool;
+      }];
 
-      profiles = [
-        {
-          name = "default";
-          devices.eth0 = {
-            name = "eth0";
-            network = "lxdbr0";
-            type = "nic";
-          };
-          devices.root = {
-            path = "/";
-            pool = "default";
-            type = "disk";
-          };
-        }
-      ];
+      profiles = [{
+        name = "default";
+        devices.eth0 = {
+          name = "eth0";
+          network = "lxdbr0";
+          type = "nic";
+        };
+        devices.root = {
+          path = "/";
+          pool = "default";
+          type = "disk";
+        };
+      }];
     };
 
     virtualisation.lxd = {

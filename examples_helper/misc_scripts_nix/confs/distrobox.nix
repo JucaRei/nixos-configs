@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}:
+{ pkgs, ... }:
 let
   distrobox = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "distrobox";

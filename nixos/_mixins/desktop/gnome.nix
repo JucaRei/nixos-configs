@@ -26,9 +26,7 @@
         enable = true; # Window Manager
       };
     };
-    udev.packages = with pkgs; [
-      gnome.gnome-settings-daemon
-    ];
+    udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   };
 
   environment = {
@@ -39,10 +37,11 @@
       gnome.adwaita-icon-theme
       tilix
     ];
-    gnome.excludePackages = (with pkgs; [
-      # Gnome ignored packages
-      gnome-tour
-    ]) ++ (with pkgs.gnome; [
+    gnome.excludePackages = (with pkgs;
+      [
+        # Gnome ignored packages
+        gnome-tour
+      ]) ++ (with pkgs.gnome; [
       gedit # text editor
       epiphany # web-browser
       geary # email client

@@ -1,14 +1,13 @@
-{ config
-, lib
-, pkgs
-, ...
-}:
+{ config, lib, pkgs, ... }:
 let
   ytdlpAudio = pkgs.writeScriptBin "yt-dlp-audio" ''
-    ${pkgs.yt-dlp}/bin/yt-dlp --config-location "${./config/yt-dlp-audio.conf}" $@
+    ${pkgs.yt-dlp}/bin/yt-dlp --config-location "${
+      ./config/yt-dlp-audio.conf
+    }" $@
   '';
 
-  dotfilesAsStorePath = config.lib.file.mkOutOfStoreSymlink config.home.mutableFile."library/dotfiles".path;
+  dotfilesAsStorePath = config.lib.file.mkOutOfStoreSymlink
+    config.home.mutableFile."library/dotfiles".path;
   getDotfiles = path: "${dotfilesAsStorePath}/${path}";
 
   musicDir = config.xdg.userDirs.music;
@@ -41,7 +40,8 @@ in
       fi
     '';
 
-    sessionVariables.PATH = "${config.home.mutableFile."library/dotfiles".path}/bin\${PATH:+:$PATH}";
+    sessionVariables.PATH =
+      "${config.home.mutableFile."library/dotfiles".path}/bin\${PATH:+:$PATH}";
   };
 
   # My SSH client configuration. It is encouraged to keep matches and extra
@@ -97,7 +97,8 @@ in
 
       alias = {
         unstage = "reset HEAD --";
-        quick-rebase = "rebase --interactive --autostash --committer-date-is-author-date";
+        quick-rebase =
+          "rebase --interactive --autostash --committer-date-is-author-date";
       };
 
       init.defaultBranch = "main";
@@ -110,7 +111,8 @@ in
         "https://gitlab.gnome.org/".insteadOf = [ "gnome:" ];
         "https://invent.kde.org/".insteadOf = [ "kde:" ];
         "https://git.sr.ht/".insteadOf = [ "sh:" "sourcehut:" ];
-        "https://git.savannah.nongnu.org/git/".insteadOf = [ "sv:" "savannah:" ];
+        "https://git.savannah.nongnu.org/git/".insteadOf =
+          [ "sv:" "savannah:" ];
       };
     };
   };
@@ -118,10 +120,7 @@ in
   # My GitHub CLI setup.
   programs.gh = {
     enable = true;
-    extensions = with pkgs; [
-      gh-eco
-      gh-dash
-    ];
+    extensions = with pkgs; [ gh-eco gh-dash ];
 
     settings = {
       git_protocol = "ssh";
@@ -201,16 +200,11 @@ in
     ];
 
     settings = {
-      http = {
-        hostname = "0.0.0.0";
-      };
+      http = { hostname = "0.0.0.0"; };
 
       file = {
         enabled = true;
-        media_dirs = [
-          "$XDG_MUSIC_DIR|Music"
-          "~/library/music|Library"
-        ];
+        media_dirs = [ "$XDG_MUSIC_DIR|Music" "~/library/music|Library" ];
       };
 
       internetarchive = {
@@ -253,9 +247,7 @@ in
         "skippedNames+" = ".editorconfig .gitignore result flake.lock go.sum";
       };
 
-      "~/library/projects/software" = {
-        "skippedNames+" = "target result";
-      };
+      "~/library/projects/software" = { "skippedNames+" = "target result"; };
     };
   };
 
@@ -351,7 +343,8 @@ in
 
     # ...and my custom theme to be a showoff.
     "${config.xdg.dataHome}/base16/bark-on-a-tree" = {
-      url = "https://github.com/foo-dogsquared/base16-bark-on-a-tree-scheme.git";
+      url =
+        "https://github.com/foo-dogsquared/base16-bark-on-a-tree-scheme.git";
       type = "git";
     };
   };

@@ -1,66 +1,64 @@
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/refs/tags/23.05.tar.gz") { } }:
-with pkgs; let
+{ pkgs ? import
+    (fetchTarball
+      "https://github.com/NixOS/nixpkgs/archive/refs/tags/23.05.tar.gz")
+    { }
+}:
+with pkgs;
+let
   init = pkgs.writeScript "init.sh" ''
     #!${pkgs.runtimeShell}
     /activate
     exec /run/current-system/systemd/lib/systemd/systemd $*
   '';
 
-  config =
-    { pkgs
-    , ...
-    }: {
-      boot = {
-        loader.grub.devices = [ "nodev" ];
-        isContainer = true;
+  config = { pkgs, ... }: {
+    boot = {
+      loader.grub.devices = [ "nodev" ];
+      isContainer = true;
+    };
+    fileSystems."/".device = "nodev";
+
+    users = {
+      mutableUsers = false;
+      allowNoPasswordLogin = true;
+    };
+
+    time.timeZone = "Europe/Moscow";
+
+    networking.useHostResolvConf = false;
+    services.resolved.enable = true;
+
+    services.rstudio-server = {
+      enable = true;
+      package = pkgs.rstudioServerWrapper.override {
+        packages = with pkgs.rPackages; [ tidyverse data_table shiny ];
       };
-      fileSystems."/".device = "nodev";
-
-      users = {
-        mutableUsers = false;
-        allowNoPasswordLogin = true;
-      };
-
-      time.timeZone = "Europe/Moscow";
-
-      networking.useHostResolvConf = false;
-      services.resolved.enable = true;
-
-      services.rstudio-server = {
-        enable = true;
-        package = pkgs.rstudioServerWrapper.override {
-          packages = with pkgs.rPackages; [
-            tidyverse
-            data_table
-            shiny
-          ];
-        };
-        serverWorkingDir = "/data";
-        listenAddr = "0.0.0.0";
-        rserverExtraConfig = ''
-          auth-none=1
-          auth-validate-users=0
-          auth-encrypt-password=0
-          auth-minimum-user-id=0
-          server-daemonize=1
-          server-pid-file=/var/run/rstudio-server/rstudio-server.pid
-          www-port=8080
-        '';
-      };
-
-      systemd.services.rstudio-server.serviceConfig.User = "rstudio-server";
-      users.users.rstudio-server.home = "/data";
-
-      system.stateVersion = "22.05";
-
-      system.extraSystemBuilderCmds = ''
-        ln -s ${init} $out/init.sh
-        # /etc is a symlink, make a copy because systemd-nspawn breaks with symlinks
-        ETC=$(readlink -f $out/etc)
-        rm $out/etc
-        cp -rf $ETC $out/etc
+      serverWorkingDir = "/data";
+      listenAddr = "0.0.0.0";
+      rserverExtraConfig = ''
+        auth-none=1
+        auth-validate-users=0
+        auth-encrypt-password=0
+        auth-minimum-user-id=0
+        server-daemonize=1
+        server-pid-file=/var/run/rstudio-server/rstudio-server.pid
+        www-port=8080
       '';
     };
+
+    systemd.services.rstudio-server.serviceConfig.User = "rstudio-server";
+    users.users.rstudio-server.home = "/data";
+
+    system.stateVersion = "22.05";
+
+    system.extraSystemBuilderCmds = ''
+      ln -s ${init} $out/init.sh
+      # /etc is a symlink, make a copy because systemd-nspawn breaks with symlinks
+      ETC=$(readlink -f $out/etc)
+      rm $out/etc
+      cp -rf $ETC $out/etc
+    '';
+  };
 
   nixos = (pkgs.nixos config).toplevel;
 

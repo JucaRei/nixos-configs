@@ -1,18 +1,12 @@
 { pkgs, ... }: {
-  home.packages = with pkgs; [
-    glow
-  ];
+  home.packages = with pkgs; [ glow ];
 
   xdg.configFile =
-    let
-      glowThemePath = "glow/cyberpunk_neon.json";
-    in
-    {
+    let glowThemePath = "glow/cyberpunk_neon.json";
+    in {
       "glow/glow.yml".source =
-        let
-          yamlFormat = pkgs.formats.yaml { };
-        in
-        yamlFormat.generate "glow-format" {
+        let yamlFormat = pkgs.formats.yaml { };
+        in yamlFormat.generate "glow-format" {
           # style name or JSON path (default "auto")
           style = "~/.config/${glowThemePath}";
           # show local files only; no network (TUI-mode only)
@@ -77,7 +71,10 @@
           strong.bold = true;
           hr = {
             color = lightBlue;
-            format = "\n--------\n";
+            format = ''
+
+          --------
+        '';
           };
           item.block_prefix = "• ";
           enumeration.block_prefix = ". ";
@@ -162,7 +159,9 @@
           };
           definition_list = { };
           definition_term = { };
-          definition_description.block_prefix = "\n🠶 ";
+          definition_description.block_prefix = ''
+
+        🠶 '';
           html_block = { };
           html_span = { };
         };

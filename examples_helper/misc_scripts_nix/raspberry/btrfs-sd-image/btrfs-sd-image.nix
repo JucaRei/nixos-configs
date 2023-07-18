@@ -1,15 +1,9 @@
-{ pkgsPath ? <nixpkgs>
-, pkgs ? import pkgsPath { system = "aarch64-linux"; }
-,
-}:
+{ pkgsPath ? <nixpkgs>, pkgs ? import pkgsPath { system = "aarch64-linux"; }, }:
 let
   thirtythree = import (pkgs.path + "/nixos") {
     configuration = {
       nixpkgs.system = "aarch64-linux";
-      imports = [
-        ./configuration.nix
-        ./firmware.nix
-      ];
+      imports = [ ./configuration.nix ./firmware.nix ];
       boot.loader.grub.enable = false;
       boot.loader.generic-extlinux-compatible.enable = true;
     };
@@ -21,7 +15,14 @@ let
 in
 pkgs.vmTools.runInLinuxVM (pkgs.runCommand "thirtythree-sd"
 {
-  nativeBuildInputs = with pkgs; [ btrfs-progs util-linux gptfdisk nix strace e2fsprogs ];
+  nativeBuildInputs = with pkgs; [
+    btrfs-progs
+    util-linux
+    gptfdisk
+    nix
+    strace
+    e2fsprogs
+  ];
   preVM = ''
     mkdir -p $out
     ${pkgs.vmTools.qemu}/bin/qemu-img create -f qcow2 $out/thirtythree.qcow2 4G

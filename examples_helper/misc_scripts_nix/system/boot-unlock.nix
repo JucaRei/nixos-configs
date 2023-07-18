@@ -7,11 +7,7 @@
 #  6 sudo systemctl start tailscaled.service
 #
 # Then add the .state file to your machine secrets and pass its path as tailscaleStatePath.
-{ config
-, lib
-, pkgs
-, ...
-}: {
+{ config, lib, pkgs, ... }: {
   options = {
     remote-machine.boot.tailscaleUnlock = with lib; {
       enable = mkOption {
@@ -20,7 +16,8 @@
       };
 
       tailscaleStatePath = mkOption {
-        description = "Pre-initialized tailscale state file as a secret. Make sure to set it to not require re-authentication, otherwise the machine may not boot up after a few weeks.";
+        description =
+          "Pre-initialized tailscale state file as a secret. Make sure to set it to not require re-authentication, otherwise the machine may not boot up after a few weeks.";
       };
     };
   };
@@ -33,22 +30,21 @@
       # modules down in availableKernelModules; that's a bunch of work
       # (deploying to a linux machine & rebooting to see what doesn't
       # work this time), so I'm a bit too lazy for that now.
-      iptables-static = (pkgs.iptables.override { nftablesCompat = false; }).overrideAttrs (old: {
-        dontDisableStatic = true;
-        configureFlags =
-          (lib.remove "--enable-shared" old.configureFlags)
-          ++ [
-            "--enable-static"
-            "--disable-shared"
-          ];
-      });
+      iptables-static =
+        (pkgs.iptables.override { nftablesCompat = false; }).overrideAttrs (old: {
+          dontDisableStatic = true;
+          configureFlags = (lib.remove "--enable-shared" old.configureFlags)
+            ++ [ "--enable-static" "--disable-shared" ];
+        });
     in
     lib.mkIf cfg.enable {
       boot.initrd = {
         secrets = {
           "/var/lib/tailscale/tailscaled.state" = cfg.tailscaleStatePath;
-          "/etc/ssl/certs/ca-certificates.crt" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
-          "/etc/ssl/certs/ca-bundle.crt" = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+          "/etc/ssl/certs/ca-certificates.crt" =
+            "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+          "/etc/ssl/certs/ca-bundle.crt" =
+            "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
         };
         network = {
           enable = true;

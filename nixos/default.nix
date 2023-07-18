@@ -41,7 +41,8 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
 
-  ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
+  ++ lib.optional (builtins.elem hostname machines)
+    ./_mixins/hardware/gfx-intel.nix
   ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
@@ -389,14 +390,21 @@ in {
         mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
 
         # VM testing
-        nixclone = "git clone --depth=1 https://github.com/JucaRei/nixos-configs $HOME/Zero/nix-config";
+        nixclone =
+          "git clone --depth=1 https://github.com/JucaRei/nixos-configs $HOME/Zero/nix-config";
         nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
-        rebuild-all = "sudo nix-collect-garbage --delete-older-than 14d && sudo nixos-rebuild switch --flake $HOME/Zero/nix-config && home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
-        rebuild-iso-console = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
-        rebuild-iso-desktop = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
+        rebuild-all =
+          "sudo nix-collect-garbage --delete-older-than 14d && sudo nixos-rebuild switch --flake $HOME/Zero/nix-config && home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-home =
+          "home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-host =
+          "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+        rebuild-lock =
+          "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
+        rebuild-iso-console =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
+        rebuild-iso-desktop =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
         nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
         #rebuild-home       = "home-manager switch -b backup --flake $HOME/.setup";
         #rebuild-host       = "sudo nixos-rebuild switch --flake $HOME/.setup";
@@ -410,7 +418,8 @@ in {
         pubip = "curl -s ifconfig.me/ip";
         #pubip = "curl -s https://api.ipify.org";
         wttr = "curl -s wttr.in && curl -s v2.wttr.in";
-        wttr-bas = "curl -s wttr.in/basingstoke && curl -s v2.wttr.in/basingstoke";
+        wttr-bas =
+          "curl -s wttr.in/basingstoke && curl -s v2.wttr.in/basingstoke";
       };
     };
     #nano.syntaxHighlight = true;

@@ -1,10 +1,6 @@
-#
 # Qemu/KVM with virt-manager
 #
-{ pkgs
-, user
-, ...
-}: {
+{ pkgs, user, ... }: {
   # Add libvirtd and kvm to userGroups
   boot.extraModprobeConfig = ''
     options kvm_intel nested=1

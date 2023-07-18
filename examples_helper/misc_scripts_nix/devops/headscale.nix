@@ -1,9 +1,7 @@
-{ config
-, lib
-, ...
-}:
+{ config, lib, ... }:
 with lib;
-with builtins; let
+with builtins;
+let
   cfg = config.sys.services;
   domain = "headscale.krutonium.ca";
   port = 8080;

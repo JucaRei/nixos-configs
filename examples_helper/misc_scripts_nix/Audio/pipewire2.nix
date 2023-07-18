@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}:
+{ pkgs, ... }:
 let
   # credits: kurnevsky
   json = pkgs.formats.json { };

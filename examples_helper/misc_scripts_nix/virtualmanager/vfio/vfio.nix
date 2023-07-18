@@ -1,25 +1,17 @@
-#My VFIO setup for a Windows 11 VM in NixOS on a Ryzen 3700x with an Nvidia 3070ti passed through to the VM
+# My VFIO setup for a Windows 11 VM in NixOS on a Ryzen 3700x with an Nvidia 3070ti passed through to the VM
 let
   iommuIds = [
     "10de:2482" # 3070 Ti Graphics
     "10de:228b" # 3070 Ti Audio
   ];
 in
-{ pkgs
-, lib
-, config
-, username
-, home-manager
-, ...
-}: {
+{ pkgs, lib, config, username, home-manager, ... }: {
   options.vfio.enable = with lib;
     mkEnableOption "Configure the machine for VFIO";
 
   config =
-    let
-      cfg = config.vfio;
-    in
-    {
+    let cfg = config.vfio;
+    in {
       boot = {
         initrd.kernelModules = [
           "vfio_pci"
@@ -33,14 +25,12 @@ in
           "nvidia_drm"
         ];
 
-        kernelParams =
-          [
-            # enable IOMMU
-            "amd_iommu=on"
-          ]
-          ++ lib.optional cfg.enable
-            # isolate the GPU
-            ("vfio-pci.ids=" + lib.concatStringsSep "," iommuIds);
+        kernelParams = [
+          # enable IOMMU
+          "amd_iommu=on"
+        ] ++ lib.optional cfg.enable
+          # isolate the GPU
+          ("vfio-pci.ids=" + lib.concatStringsSep "," iommuIds);
       };
 
       hardware.opengl.enable = true;
@@ -57,13 +47,12 @@ in
           swtpm.enable = true;
           ovmf.enable = true;
           ovmf.packages = [
-            (unstable.OVMFFull.override
-              {
-                secureBoot = true;
-                tpmSupport = true;
-                csmSupport = true;
-                httpSupport = true;
-              }).fd
+            (unstable.OVMFFull.override {
+              secureBoot = true;
+              tpmSupport = true;
+              csmSupport = true;
+              httpSupport = true;
+            }).fd
           ];
         };
       };

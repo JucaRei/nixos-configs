@@ -1,7 +1,4 @@
-{ variables
-, pkgs
-,
-}: [
+{ variables, pkgs, }: [
   {
     target = "${variables.homeDir}/.config/kitty/kitty.conf";
     source = pkgs.writeText "kitty.conf" ''

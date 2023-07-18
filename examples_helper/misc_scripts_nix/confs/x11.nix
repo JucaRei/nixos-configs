@@ -1,6 +1,4 @@
-{ pkgs
-, ...
-}: {
+{ pkgs, ... }: {
   services.xserver.enable = true;
   services.xserver.layout = "us";
   services.xserver.libinput.enable = true;
@@ -31,8 +29,5 @@
   services.picom.enable = true;
   services.printing.enable = true;
 
-  fonts.fonts = with pkgs; [
-    iosevka-bin
-    emacs-all-the-icons-fonts
-  ];
+  fonts.fonts = with pkgs; [ iosevka-bin emacs-all-the-icons-fonts ];
 }

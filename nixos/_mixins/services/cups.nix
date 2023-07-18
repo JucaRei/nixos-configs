@@ -6,9 +6,7 @@
       drivers = with pkgs;
         #[ gutenprint hplipWithPlugin ];
         [ gutenprint ];
-      cups-pdf = {
-        enable = false;
-      };
+      cups-pdf = { enable = false; };
     };
   };
 }

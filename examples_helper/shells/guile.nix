@@ -1,18 +1,8 @@
-{ mkShell
-, lib
-, guile
-, guile-hall
-,
-}:
-let
-  guileVersion = lib.versions.majorMinor guile.version;
-in
-mkShell {
+{ mkShell, lib, guile, guile-hall, }:
+let guileVersion = lib.versions.majorMinor guile.version;
+in mkShell {
   inherit guileVersion;
-  packages = [
-    guile
-    guile-hall
-  ];
+  packages = [ guile guile-hall ];
 
   # This is already properly exported through setup hooks but to make
   # intentions clearer.

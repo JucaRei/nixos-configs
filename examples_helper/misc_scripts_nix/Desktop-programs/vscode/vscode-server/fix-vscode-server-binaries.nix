@@ -1,5 +1,6 @@
 # Based on https://gist.github.com/sonowz/d70b03177c344f4bbbc674de5e5bb937
-with import <nixpkgs> { }; let
+with import <nixpkgs> { };
+let
   pname = "fix-vscode-server-binaries";
   script = pkgs.writeShellScriptBin pname ''
     set -eu -o pipefail

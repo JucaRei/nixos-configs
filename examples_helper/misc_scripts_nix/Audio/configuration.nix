@@ -1,11 +1,8 @@
-## Audio Pro
+# # Audio Pro
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   imports = [
     # Include the results of the hardware scan.
     # $ sudo nix-channel --add https://github.com/NixOS/nixos-hardware/archive/master.tar.gz nixos-hardware
@@ -59,7 +56,8 @@
   networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable =
+    true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Asia/Jakarta";
@@ -203,7 +201,9 @@
       {
         matches = [
           # Matches all sources
-          { "node.name" = "~bluez_input.*"; }
+          {
+            "node.name" = "~bluez_input.*";
+          }
           # Matches all outputs
           { "node.name" = "~bluez_output.*"; }
         ];
@@ -212,19 +212,19 @@
     # Controlling ALSA device
     # It is possible to configure various aspects of soundcards through PipeWire
     media-session.config.alsa-monitor = {
-      rules = [
-        {
-          matches = [{ "node.name" = "alsa_output.*"; }];
-          actions = {
-            update-props = {
-              "audio.format" = "S32LE";
-              "audio.rate" = 96000; # for USB soundcards it should be twice your desired rate
-              "api.alsa.period-size" = 32; # defaults to 1024, tweak by trial-and-error
-              #"api.alsa.disable-batch" = true; # generally, USB soundcards use the batch mode
-            };
+      rules = [{
+        matches = [{ "node.name" = "alsa_output.*"; }];
+        actions = {
+          update-props = {
+            "audio.format" = "S32LE";
+            "audio.rate" =
+              96000; # for USB soundcards it should be twice your desired rate
+            "api.alsa.period-size" =
+              32; # defaults to 1024, tweak by trial-and-error
+            #"api.alsa.disable-batch" = true; # generally, USB soundcards use the batch mode
           };
-        }
-      ];
+        };
+      }];
     };
   };
 
@@ -238,9 +238,7 @@
   # $ nix-channel --add https://nixos.org/channels/nixos-unstable nixos-unstable
   # $ nix-channel --update
   nixpkgs.config.packageOverrides = _pkgs: {
-    unstable = import <nixos-unstable> {
-      inherit (config.nixpkgs) config;
-    };
+    unstable = import <nixos-unstable> { inherit (config.nixpkgs) config; };
   };
   #nixpkgs.config.allowBroken = true; # Allow Broken packages
 
@@ -333,9 +331,7 @@
     XDG_BIN_HOME = "\${HOME}/.local/bin";
     XDG_DATA_HOME = "\${HOME}/.local/share";
 
-    PATH = [
-      "\${XDG_BIN_HOME}"
-    ];
+    PATH = [ "\${XDG_BIN_HOME}" ];
   };
 
   # System Packages

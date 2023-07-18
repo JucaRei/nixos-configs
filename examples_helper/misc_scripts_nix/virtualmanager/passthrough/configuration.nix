@@ -1,7 +1,8 @@
 _: {
   # IOMMU configuration
   boot.kernelParams = [ "amd_iommu=on" "pcie_aspm=off" ];
-  boot.kernelModules = [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+  boot.kernelModules =
+    [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
   boot.extraModprobeConfig = ''
     options vfio-pci ids=10de:13c2,10de:0fbb
     options kvm ignore_msrs=1

@@ -19,15 +19,10 @@ in
     privateKeyFile = "/xxxxxxx/xxxxxxx.xxxxxxx";
     allowedIPsAsRoutes = false;
     ips = [ "${tunnel.external.ip}/32" ];
-    peers = [
-      {
-        allowedIPs = [
-          "${tunnel.ip}/32"
-          "${tunnel.internal.ip}/32"
-        ];
-        publicKey = tunnel.internal.pubkey;
-      }
-    ];
+    peers = [{
+      allowedIPs = [ "${tunnel.ip}/32" "${tunnel.internal.ip}/32" ];
+      publicKey = tunnel.internal.pubkey;
+    }];
     postSetup = ''
       ip route add ${tunnel.internal.ip} dev tunnel scope link
       ip route add ${tunnel.ip} via ${tunnel.internal.ip} dev tunnel onlink

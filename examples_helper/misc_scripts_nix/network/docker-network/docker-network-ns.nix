@@ -35,12 +35,8 @@ let
 in
 {
   systemd.services.docker.serviceConfig.PrivateNetwork = true;
-  systemd.services.docker.serviceConfig.ExecStartPre = [
-    ""
-    "${dockerNsSetupScript}"
-  ];
-  systemd.services.docker.serviceConfig.ExecStopPost = [
-    ""
-    "${dockerNsTeardownScript}"
-  ];
+  systemd.services.docker.serviceConfig.ExecStartPre =
+    [ "" "${dockerNsSetupScript}" ];
+  systemd.services.docker.serviceConfig.ExecStopPost =
+    [ "" "${dockerNsTeardownScript}" ];
 }

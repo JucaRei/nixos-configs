@@ -17,7 +17,7 @@
     #resumeDevice = "/dev/disk/by-label/NIXOS";
 
     # Force kernel log in tty1, otherwise it will override greetd
-     kernelParams = [ "console=tty1" ];
+    kernelParams = [ "console=tty1" ];
 
     ##############
     ### INITRD ###
@@ -56,8 +56,7 @@
       ### Enabled filesystem ###
       ##########################
       # supportedFilesystems = [ "vfat" "zfs" ];
-      supportedFilesystems =
-        [ "btrfs" ]; # fat 32 and btrfs
+      supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
       compressor = "zstd";
       #compressorArgs = ["-19" "-T0"];
       verbose = false;
@@ -65,7 +64,6 @@
 
     #kernelPackages = pkgs.linuxPackages_zen;
     kernelPackages = pkgs.linuxPackages_5_15;
-
 
     # Allow compilation of packages ARM/ARM64 architectures via QEMU
     # e.g. nix-build -A <pkg> --argstr system aarch64-linux
@@ -300,7 +298,6 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
-
 
 #mwProCapture.enable = true;
 

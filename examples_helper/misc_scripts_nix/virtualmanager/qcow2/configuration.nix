@@ -1,10 +1,6 @@
-{ lib
-, ...
-}:
+{ lib, ... }:
 with lib; {
-  imports = [
-    <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
-  ];
+  imports = [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix> ];
 
   config = {
     fileSystems."/" = {

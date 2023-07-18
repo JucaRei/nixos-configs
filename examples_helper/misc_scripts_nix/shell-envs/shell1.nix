@@ -1,4 +1,4 @@
-### Docker images builder powered by the nixpkgs-cross-overlay
+# ## Docker images builder powered by the nixpkgs-cross-overlay
 { localSystem ? builtins.currentSystem
 , crossSystem ? {
     config = "x86_64-unknown-linux-musl";
@@ -9,7 +9,8 @@
 }:
 let
   # Fetch the nixpkgs-cross-overlay sources.
-  src = builtins.fetchTarball "https://github.com/alekseysidorov/nixpkgs-cross-overlay/tarball/main";
+  src = builtins.fetchTarball
+    "https://github.com/alekseysidorov/nixpkgs-cross-overlay/tarball/main";
   # Use the nixpkgs revision provided by the overlay.
   # This is the best way, as they are the most proven and compatible.
   nixpkgs = "${src}/utils/nixpkgs.nix";
@@ -20,8 +21,8 @@ let
       # <- You may add your extra overlays here.
     ];
   };
+  # And now, with the resulting packages, we can describe the cross-compilation shell.
 in
-# And now, with the resulting packages, we can describe the cross-compilation shell.
 pkgs.mkShell {
   # Native project dependencies like build utilities and additional routines
   # like container building, linters, etc.
@@ -34,15 +35,10 @@ pkgs.mkShell {
     # A simple script to create a docker image from the Cargo workspace member.
     (pkgs.pkgsBuildHost.writeShellApplication {
       name = "cargo-nix-docker-image";
-      runtimeInputs = with pkgs.pkgsBuildHost; [
-        nix
-        docker
-      ];
+      runtimeInputs = with pkgs.pkgsBuildHost; [ nix docker ];
       text =
-        let
-          shellFile = ./shell.nix;
-        in
-        ''
+        let shellFile = ./shell.nix;
+        in ''
           binary_name=$1
           # Compile cargo binary
           cargo build --release
@@ -55,10 +51,11 @@ pkgs.mkShell {
     })
   ];
   # Libraries essential to build the service binaries.
-  buildInputs = with pkgs; [
-    # Enable Rust cross-compilation support.
-    rustCrossHook
-  ];
+  buildInputs = with pkgs;
+    [
+      # Enable Rust cross-compilation support.
+      rustCrossHook
+    ];
   # Prettify shell prompt.
   shellHook = ''
     ${pkgs.crossBashPrompt}
@@ -70,15 +67,14 @@ pkgs.mkShell {
     echo ""
     echo "Have a nice day!"
   '';
-  /*
-     Service docker image definition
+  /* Service docker image definition
 
-    Usage:
+     Usage:
 
-    ```shell
-    cargo-nix-docker-image executable-name>
-    ```
-    */
+     ```shell
+     cargo-nix-docker-image executable-name>
+     ```
+  */
   passthru.dockerImage =
     {
       # Cargo workspace member name
@@ -97,9 +93,7 @@ pkgs.mkShell {
         (copyBinaryFromCargoBuild {
           inherit name;
           targetDir = ./.;
-          buildInputs = [
-            openssl.dev
-          ];
+          buildInputs = [ openssl.dev ];
         })
         # Utilites like ldd to help image debugging
         stdenv.cc.libc_bin

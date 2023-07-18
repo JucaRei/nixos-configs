@@ -1,6 +1,5 @@
 { lib, ... }:
-with lib.hm.gvariant;
-{
+with lib.hm.gvariant; {
   imports = [
     ../../../apps/vorta.nix
     ../../../services/keybase.nix

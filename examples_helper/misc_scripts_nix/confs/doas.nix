@@ -3,13 +3,11 @@ _: {
     sudo.enable = false;
     doas = {
       enable = true;
-      extraRules = [
-        {
-          groups = [ "wheel" ];
-          keepEnv = true;
-          persist = true;
-        }
-      ];
+      extraRules = [{
+        groups = [ "wheel" ];
+        keepEnv = true;
+        persist = true;
+      }];
     };
   };
 }

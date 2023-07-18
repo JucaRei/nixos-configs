@@ -11,7 +11,8 @@
     path = [ pkgs.pass ];
     serviceConfig = {
       Restart = "always";
-      ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
+      ExecStart =
+        "${pkgs.protonmail-bridge}/bin/protonmail-bridge --noninteractive";
     };
   };
 }

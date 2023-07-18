@@ -12,9 +12,7 @@
     })
   ];
 
-  environment.systemPackages = with pkgs; [
-    openrgb-51
-  ];
+  environment.systemPackages = with pkgs; [ openrgb-51 ];
 
   boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
 

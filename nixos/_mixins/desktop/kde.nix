@@ -1,9 +1,6 @@
 { pkgs, ... }: {
   environment = {
-    systemPackages = with pkgs.libsForQt5; [
-      packagekit-qt
-      bismuth
-    ];
+    systemPackages = with pkgs.libsForQt5; [ packagekit-qt bismuth ];
   };
 
   services = {

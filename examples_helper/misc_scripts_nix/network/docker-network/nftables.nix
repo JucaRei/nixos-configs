@@ -1,8 +1,4 @@
-{ pkgs
-, lib
-, config
-, ...
-}:
+{ pkgs, lib, config, ... }:
 let
   nftablesStartScript = pkgs.writeScript "nftables-rules" ''
     #!${pkgs.nftables}/bin/nft -f
@@ -31,6 +27,8 @@ in
   # XXX: default script is checking if ip_tables is loaded, and fails hard if it is.
   #      In our case, that's unwanted
   #      iptables and nftables work just fine together at least on >5.x kernels.
-  systemd.services.nftables.serviceConfig.ExecStart = lib.mkForce nftablesStartScript;
-  systemd.services.nftables.serviceConfig.ExecReload = lib.mkForce nftablesStartScript;
+  systemd.services.nftables.serviceConfig.ExecStart =
+    lib.mkForce nftablesStartScript;
+  systemd.services.nftables.serviceConfig.ExecReload =
+    lib.mkForce nftablesStartScript;
 }

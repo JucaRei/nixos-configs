@@ -1,5 +1,4 @@
-#
-#  Shell
+# Shell
 #
 #  flake.nix
 #   ├─ ./hosts

@@ -14,17 +14,8 @@
   ];
 
   home.file = {
-    "${config.xdg.configHome}/autostart/enable-flathub.desktop".text = "
-
-      [Desktop Entry]
-      Name=Enable Flathub
-      Comment=Enable Flathub
-      Type=Application
-      Exec=${pkgs.flatpak}/bin/flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-      Categories=
-      Terminal=false
-      NoDisplay=true
-      StartupNotify=false";
+    "${config.xdg.configHome}/autostart/enable-flathub.desktop".text =
+      "\n\n      [Desktop Entry]\n      Name=Enable Flathub\n      Comment=Enable Flathub\n      Type=Application\n      Exec=${pkgs.flatpak}/bin/flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo\n      Categories=\n      Terminal=false\n      NoDisplay=true\n      StartupNotify=false";
   };
 
   xresources.properties = {

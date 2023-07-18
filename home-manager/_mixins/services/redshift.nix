@@ -1,4 +1,4 @@
-#  Screen color temperature changer
+# Screen color temperature changer
 #
 { config, lib, ... }:
 

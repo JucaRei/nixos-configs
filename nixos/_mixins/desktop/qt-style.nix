@@ -1,8 +1,6 @@
 { lib, pkgs, ... }: {
   environment = {
-    systemPackages = with pkgs; [
-      qgnomeplatform-qt6
-    ];
+    systemPackages = with pkgs; [ qgnomeplatform-qt6 ];
 
     # Required to coerce dark theme that works with Yaru
     # TODO: Set this in the user-session

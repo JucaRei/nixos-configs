@@ -5,10 +5,7 @@
 # Default configurations:
 #  (can be used with unknown displays)
 # [ horizontal vertical common clone-largest ]
-{ config
-, pkgs
-, ...
-}:
+{ config, pkgs, ... }:
 let
   inherit (pkgs.lib) mkOption;
   inherit (pkgs.lib) types;
@@ -109,9 +106,7 @@ in
               crtc = 0;
             };
           };
-          fingerprint = {
-            "${cfg.display1.name}" = "${cfg.display1.fp}";
-          };
+          fingerprint = { "${cfg.display1.name}" = "${cfg.display1.fp}"; };
         };
       };
     };

@@ -1,11 +1,6 @@
-{ pkgs
-, lib
-, ...
-}:
+{ pkgs, lib, ... }:
 with lib; {
-  imports = [
-    <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
-  ];
+  imports = [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix> ];
 
   config = {
     fileSystems."/" = {
@@ -46,9 +41,7 @@ with lib; {
 
     users.users.root = {
       extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keys = [
-        "ssh-rsa ... "
-      ];
+      openssh.authorizedKeys.keys = [ "ssh-rsa ... " ];
     };
   };
 }

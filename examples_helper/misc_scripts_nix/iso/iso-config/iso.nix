@@ -2,8 +2,7 @@
 # or nixos-generate -f iso -c iso.nix
 # This module defines a small NixOS installation CD.  It does not
 # contain any graphical stuff.
-{ ...
-}: {
+{ ... }: {
   imports = [
     <nixpkgs/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix>
     ./iso-config.nix

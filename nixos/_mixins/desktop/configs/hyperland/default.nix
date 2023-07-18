@@ -1,9 +1,10 @@
-{hyprland, ...}: {
+{ hyprland, ... }: {
   imports = [
-    hyprland.nixosModules.default{
+    hyprland.nixosModules.default
+    {
       programs.hyprland = {
         enable = true;
-        nvidiaPatches =true;
+        nvidiaPatches = true;
         xwayland.enable = true;
       };
     }

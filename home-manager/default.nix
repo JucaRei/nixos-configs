@@ -13,15 +13,16 @@ in {
     # You can also split up your configuration and import pieces of it here:
     #./_mixins/dev
     ./_mixins/console
-  ]
-  ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
-  ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
+  ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
+  ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}"))
+    ./_mixins/users/${username};
 
   home = {
     activation.report-changes = config.lib.dag.entryAnywhere ''
       ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
     '';
-    homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+    homeDirectory =
+      if isDarwin then "/Users/${username}" else "/home/${username}";
     sessionPath = [ "$HOME/.local/bin" ];
     inherit stateVersion;
     inherit username;
@@ -65,7 +66,8 @@ in {
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {
       experimental-features = [ "nix-command" "flakes" "repl-flake" ];
-      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+        config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
       #sandbox = true;

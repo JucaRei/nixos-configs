@@ -1,7 +1,4 @@
-{ config
-, pkgs
-, ...
-}: {
+{ config, pkgs, ... }: {
   boot = {
     initrd.kernelModules = [ "amdgpu" ];
     kernelPackages = pkgs.linuxPackages_5_8;
@@ -16,11 +13,7 @@
     wireless.enable = false;
   };
 
-  environment.systemPackages = with pkgs; [
-    chromium
-    wget
-    gparted
-  ];
+  environment.systemPackages = with pkgs; [ chromium wget gparted ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;

@@ -1,7 +1,5 @@
-### Suspend and then hibernate after 60 minutes
-{ pkgs
-, ...
-}:
+# ## Suspend and then hibernate after 60 minutes
+{ pkgs, ... }:
 let
   hibernateEnvironment = {
     HIBERNATE_SECONDS = "3600";

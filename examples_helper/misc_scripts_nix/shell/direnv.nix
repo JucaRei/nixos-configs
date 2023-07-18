@@ -1,4 +1,3 @@
-#
 # Direnv
 #
 # create a shell.nix
@@ -7,11 +6,7 @@
 # add direnv package to emacs
 # add 'eval "$(direnv hook zsh)"' to .zshrc (and same for bash)
 #
-{ config
-, lib
-, pkgs
-, ...
-}: {
+{ config, lib, pkgs, ... }: {
   programs = lib.mkIf config.programs.zsh.enable {
     zsh = {
       shellInit = ''
@@ -22,9 +17,7 @@
 
   environment = {
     systemPackages = with pkgs; [ direnv nix-direnv ];
-    pathsToLink = [
-      "/share/nix-direnv"
-    ];
+    pathsToLink = [ "/share/nix-direnv" ];
   };
 
   nix.settings = {
@@ -33,6 +26,8 @@
   };
 
   nixpkgs.overlays = [
-    (_self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; })
+    (_self: super: {
+      nix-direnv = super.nix-direnv.override { enableFlakes = true; };
+    })
   ];
 }
