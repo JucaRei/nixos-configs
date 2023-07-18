@@ -1,5 +1,5 @@
-{ profilesPath, ... }: {
-  imports = [ "${profilesPath}/hosts/minimal.nix" ];
+{profilesPath, ...}: {
+  imports = ["${profilesPath}/hosts/minimal.nix"];
 
   modules = {
     lxdVm.enable = true;
@@ -19,13 +19,13 @@
     groups.user.gid = 1000;
     mutableUsers = false;
     users = {
-      root = { hashedPassword = "*"; };
+      root = {hashedPassword = "*";};
       user = {
         uid = 1000;
         description = "User";
         isNormalUser = true;
         group = "user";
-        extraGroups = [ "wheel" ];
+        extraGroups = ["wheel"];
         password = "user";
       };
     };

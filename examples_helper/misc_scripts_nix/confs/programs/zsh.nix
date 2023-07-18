@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
@@ -9,7 +14,7 @@
       path = "${config.xdg.dataHome}/zsh/history";
     };
 
-    sessionVariables = { SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh"; };
+    sessionVariables = {SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";};
 
     completionInit = ''
       autoload -Uz compinit
@@ -221,8 +226,8 @@
       l = "${lib.getExe exa} -lF --time-style=long-iso --icons";
       la = "${lib.getExe exa} -lah --tree";
       ls = "${
-          lib.getExe exa
-        } -h --git --icons --color=auto --group-directories-first -s extension";
+        lib.getExe exa
+      } -h --git --icons --color=auto --group-directories-first -s extension";
       tree = "${lib.getExe exa} --tree --icons --tree";
       ytmp3 = ''
         ${
@@ -235,13 +240,13 @@
       enable = true;
       zplugHome = "${config.xdg.configHome}/zsh/zplug";
       plugins = [
-        { name = "Aloxaf/fzf-tab"; }
-        { name = "zdharma-continuum/fast-syntax-highlighting"; }
-        { name = "zsh-users/zsh-history-substring-search"; }
-        { name = "zsh-users/zsh-completions"; }
-        { name = "zsh-users/zsh-autosuggestions"; }
-        { name = "hlissner/zsh-autopair"; }
-        { name = "chisui/zsh-nix-shell"; }
+        {name = "Aloxaf/fzf-tab";}
+        {name = "zdharma-continuum/fast-syntax-highlighting";}
+        {name = "zsh-users/zsh-history-substring-search";}
+        {name = "zsh-users/zsh-completions";}
+        {name = "zsh-users/zsh-autosuggestions";}
+        {name = "hlissner/zsh-autopair";}
+        {name = "chisui/zsh-nix-shell";}
       ];
     };
   };

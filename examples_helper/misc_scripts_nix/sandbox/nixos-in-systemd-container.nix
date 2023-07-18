@@ -1,19 +1,20 @@
-{ pkgs ? import
+{
+  pkgs ?
+    import
     (fetchTarball
       "https://github.com/NixOS/nixpkgs/archive/refs/tags/23.05.tar.gz")
-    { }
+    {},
 }:
-with pkgs;
-let
+with pkgs; let
   init = pkgs.writeScript "init.sh" ''
     #!${pkgs.runtimeShell}
     /activate
     exec /run/current-system/systemd/lib/systemd/systemd $*
   '';
 
-  config = { pkgs, ... }: {
+  config = {pkgs, ...}: {
     boot = {
-      loader.grub.devices = [ "nodev" ];
+      loader.grub.devices = ["nodev"];
       isContainer = true;
     };
     fileSystems."/".device = "nodev";
@@ -31,7 +32,7 @@ let
     services.rstudio-server = {
       enable = true;
       package = pkgs.rstudioServerWrapper.override {
-        packages = with pkgs.rPackages; [ tidyverse data_table shiny ];
+        packages = with pkgs.rPackages; [tidyverse data_table shiny];
       };
       serverWorkingDir = "/data";
       listenAddr = "0.0.0.0";
@@ -74,7 +75,7 @@ let
         /init.sh
   '';
 in
-systemd-nspawn
+  systemd-nspawn
 ## This is an example Nix derivation which creates a working systemd container with a working NixOS install inside.
 ## To launch the container you will need to run something like sudo $(nix-build nixos-in-systemd-container.nix)
 ## This example container is for setting up RStudio Server; you can customize the configuration to taste.

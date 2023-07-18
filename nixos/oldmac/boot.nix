@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   boot = {
-    blacklistedKernelModules = lib.mkDefault [ "nouveau" ];
+    blacklistedKernelModules = lib.mkDefault ["nouveau"];
     consoleLogLevel = 3;
-    extraModulePackages = with config.boot.kernelPackages; [ ];
+    extraModulePackages = with config.boot.kernelPackages; [];
     extraModprobeConfig = lib.mkDefault "";
     initrd = {
       availableKernelModules = [
@@ -15,15 +20,15 @@
         "virtio_pci"
         "xhci_pci"
       ];
-      kernelModules = [ ];
+      kernelModules = [];
       verbose = false;
     };
 
-    kernelModules = [ "vhost_vsock" ];
+    kernelModules = ["vhost_vsock"];
 
     kernelPackages = pkgs.linuxPackages_5_4;
 
-    kernelParams = [ "mitigations=off" ];
+    kernelParams = ["mitigations=off"];
     kernel.sysctl = {
       "kernel.sysrq" = 1;
       "kernel.printk" = "3 3 3 3";

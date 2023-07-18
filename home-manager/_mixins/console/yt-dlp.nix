@@ -1,7 +1,5 @@
-_:
-
-{
-  programs = { yt-dlp = { enable = true; }; };
+_: {
+  programs = {yt-dlp = {enable = true;};};
   home.file = {
     ".config/yt-dlp/config".text = ''
       --ignore-errors

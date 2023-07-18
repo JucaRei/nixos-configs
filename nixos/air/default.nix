@@ -1,4 +1,10 @@
-{ lib, inputs, config, pkgs, ... }: {
+{
+  lib,
+  inputs,
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
     inputs.nixos-hardware.nixosModules.common-pc
@@ -20,32 +26,29 @@
   ############
 
   boot = {
-
     plymouth = {
       enable = lib.mkForce true;
-
     };
 
     loader = {
-      efi = { canTouchEfiVariables = lib.mkForce false; };
+      efi = {canTouchEfiVariables = lib.mkForce false;};
       grub = {
         gfxmodeEfi = lib.mkForce "1366x788";
         efiInstallAsRemovable = true;
       };
     };
-    blacklistedKernelModules = lib.mkForce [ "nvidia" "nouveau" ];
-    extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
+    blacklistedKernelModules = lib.mkForce ["nvidia" "nouveau"];
+    extraModulePackages = with config.boot.kernelPackages; [broadcom_sta];
     extraModprobeConfig = lib.mkDefault ''
       options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 #parameters may differ
     '';
 
     initrd = {
       #systemd.enable = true; # This is needed to show the plymouth login screen to unlock luks
-      availableKernelModules =
-        [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = ["uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
       verbose = false;
       compressor = "zstd";
-      supportedFilesystems = [ "btrfs" ];
+      supportedFilesystems = ["btrfs"];
     };
 
     kernelModules = [
@@ -77,7 +80,7 @@
     };
     #kernelPackages = pkgs.linuxPackages_xanmod_latest;
     kernelPackages = pkgs.linuxPackages_zen;
-    supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
+    supportedFilesystems = ["btrfs"]; # fat 32 and btrfs
   };
 
   #environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
@@ -190,19 +193,21 @@
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-partlabel/EFI";
     fsType = "vfat";
-    options = [ "defaults" "noatime" "nodiratime" ];
+    options = ["defaults" "noatime" "nodiratime"];
     noCheck = true;
   };
 
-  swapDevices = [{
-    device = "/dev/disk/by-partlabel/SWAP";
-    ### SWAPFILE
-    #device = "/swap/swapfile";
-    #size = 2 GiB;
-    #device = "/swap/swapfile";
-    #size = (1024 * 2); # RAM size
-    #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
-  }];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-partlabel/SWAP";
+      ### SWAPFILE
+      #device = "/swap/swapfile";
+      #size = 2 GiB;
+      #device = "/swap/swapfile";
+      #size = (1024 * 2); # RAM size
+      #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
+    }
+  ];
 
   services = {
     btrfs = {
@@ -222,7 +227,7 @@
     dbus.implementation = lib.mkForce "dbus";
 
     # Virtual Filesystem Support Library
-    gvfs = { enable = true; };
+    gvfs = {enable = true;};
 
     # Hard disk protection if the laptop falls:
     hdapsd.enable = lib.mkDefault true;
@@ -232,7 +237,7 @@
     xserver = {
       #layout = lib.mkForce "us";
 
-      # Crocus driver instead of i965.  /etc/X11/xorg.conf.d/92-intel.conf 
+      # Crocus driver instead of i965.  /etc/X11/xorg.conf.d/92-intel.conf
       #deviceSection = ''
       # Section "Device"
       #       Identifier  "Intel Graphics"
@@ -243,14 +248,14 @@
 
       exportConfiguration = true;
       config = ''
-                Section "Device"
-        	            Identifier  "Intel Graphics"
-        	            Driver      "intel"
-        	            Option      "DRI" "crocus"
-                EndSection
+        Section "Device"
+             Identifier  "Intel Graphics"
+             Driver      "intel"
+             Option      "DRI" "crocus"
+        EndSection
       '';
 
-      videoDrivers = [ "intel" ];
+      videoDrivers = ["intel"];
       resolutions = [
         {
           # Default resolution
@@ -278,7 +283,7 @@
   };
 
   ### fix filesystem
-  virtualisation.docker = { storageDriver = lib.mkForce "btrfs"; };
+  virtualisation.docker = {storageDriver = lib.mkForce "btrfs";};
 
   #system = { autoUpgrade.allowReboot = true; };
 
@@ -290,7 +295,7 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [ intel-gpu-tools ];
+  environment.systemPackages = with pkgs; [intel-gpu-tools];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

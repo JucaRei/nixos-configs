@@ -1,4 +1,4 @@
-{ pkgs }: {
+{pkgs}: {
   name = "devops";
   fhs = false;
   targetPkgs = with pkgs; [

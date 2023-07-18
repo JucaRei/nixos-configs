@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.vscode = {
     enable = false;
     package = pkgs.vscodium;
@@ -26,7 +24,8 @@
         vscodevim.vim
         vspacecode.vspacecode
         vspacecode.whichkey
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      ]
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "fuzzy-search";
           publisher = "jacobdufault";

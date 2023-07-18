@@ -1,8 +1,7 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment = {
-    systemPackages = with pkgs;
-      [
-        distrobox # Terminal container manager
-      ];
+    systemPackages = with pkgs; [
+      distrobox # Terminal container manager
+    ];
   };
 }

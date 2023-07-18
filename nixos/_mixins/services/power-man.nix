@@ -1,12 +1,17 @@
-{ lib, desktop, ... }: {
-  imports = [ ]
+{
+  lib,
+  desktop,
+  ...
+}: {
+  imports =
+    []
     ++ lib.optional (builtins.isString desktop == "nitro") ./_mixins/desktop;
 
   services = {
     power-profiles-daemon.enable = true;
 
     # Automatic CPU speed and power optimizer for Linux
-    auto-cpufreq = { enable = true; };
+    auto-cpufreq = {enable = true;};
 
     # Provide Power Management Support
     upower = {

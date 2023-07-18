@@ -1,7 +1,7 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   networking = {
     firewall = {
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [22];
       allowPing = true;
     };
     networkmanager = {

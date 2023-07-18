@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   distrobox = pkgs.stdenvNoCC.mkDerivation rec {
     pname = "distrobox";
     version = "1.2.12-dev";
@@ -10,7 +9,7 @@ let
       hash = "sha256-CGeK8HtYZDnDXCh8frVb+MPcLz8UlRBi/1qUBwZ9jeQ=";
     };
 
-    phases = [ "unpackPhase" "installPhase" ];
+    phases = ["unpackPhase" "installPhase"];
     unpackPhase = "";
 
     installPhase = ''
@@ -19,9 +18,8 @@ let
       ./install -p $_
     '';
   };
-in
-{
-  environment.systemPackages = [ pkgs.xorg.xhost distrobox ];
+in {
+  environment.systemPackages = [pkgs.xorg.xhost distrobox];
   virtualisation.podman.enable = true;
   virtualisation.podman.dockerCompat = true;
   environment.shellInit = ''

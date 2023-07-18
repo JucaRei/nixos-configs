@@ -1,6 +1,11 @@
-{ config, lib, pkgs, ... }:
-with lib;
-let cfg = config.services.batteryNotifier;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.services.batteryNotifier;
 in {
   options = {
     services.batteryNotifier = {
@@ -37,7 +42,7 @@ in {
       timerConfig.OnBootSec = "1m";
       timerConfig.OnUnitInactiveSec = "1m";
       timerConfig.Unit = "lowbatt.service";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
     };
     systemd.user.services."lowbatt" = {
       description = "battery level notifier";

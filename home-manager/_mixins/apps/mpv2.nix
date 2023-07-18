@@ -1,17 +1,18 @@
-{ lib, pkgs, ... }:
-
 {
-  home.packages = with pkgs;
-    [ (python3Packages.yt-dlp.override { withAlias = true; }) ];
+  lib,
+  pkgs,
+  ...
+}: {
+  home.packages = with pkgs; [(python3Packages.yt-dlp.override {withAlias = true;})];
 
   programs.mpv = {
     enable = true;
 
     package = with pkgs;
-      if stdenv.isDarwin then
-        pkgs.mpv
+      if stdenv.isDarwin
+      then pkgs.mpv
       else
-        wrapMpv (mpv-unwrapped.override { vapoursynthSupport = true; }) {
+        wrapMpv (mpv-unwrapped.override {vapoursynthSupport = true;}) {
           extraMakeWrapperArgs = [
             "--prefix"
             "LD_LIBRARY_PATH"
@@ -25,7 +26,7 @@
       osd-level = 3;
       slang = "enUS,enGB,en,eng,ptBR,pt,por";
       alang = "ja,jpn,enUS,enGB,en,eng,ptBR,pt,por";
-      profile = [ "gpu-hq" ];
+      profile = ["gpu-hq"];
     };
 
     profiles = {
@@ -51,13 +52,14 @@
         cscale = "spline36"; # alternatively ewa_lanczossoft
       };
 
-      hwdec = { hwdec = "auto"; };
+      hwdec = {hwdec = "auto";};
     };
 
     bindings = {
       F1 = "seek -85";
       F2 = "seek 85";
-      "CTRL+i" = lib.mkIf (!pkgs.stdenv.isDarwin)
+      "CTRL+i" =
+        lib.mkIf (!pkgs.stdenv.isDarwin)
         "vf toggle vapoursynth=${./motion-based-interpolation.vpy}";
       # HQ variants
       # "CTRL+1" = ''no-osd change-list glsl-shaders set "${pkgs.anime4k}/Anime4K_Clamp_Highlights.glsl:${pkgs.anime4k}/Anime4K_Restore_CNN_VL.glsl:${pkgs.anime4k}/Anime4K_Upscale_CNN_x2_VL.glsl:${pkgs.anime4k}/Anime4K_AutoDownscalePre_x2.glsl:${pkgs.anime4k}/Anime4K_AutoDownscalePre_x4.glsl:${pkgs.anime4k}/Anime4K_Upscale_CNN_x2_M.glsl"; show-text "Anime4K: Mode A (HQ)"'';

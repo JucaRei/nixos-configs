@@ -1,4 +1,10 @@
-{ config, lib, pkgs, hostname, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  hostname,
+  ...
+}: {
   #https://nixos.wiki/wiki/Podman
 
   environment.systemPackages = with pkgs; [
@@ -17,7 +23,6 @@
 
   # podman-desktop; only if desktop defined.
   virtualisation = {
-
     ### Run Podman containers as systemd services "https://nixos.wiki/wiki/Podman"
     #oci-containers = {
     #  backend = "podman";
@@ -31,14 +36,15 @@
     #};
 
     podman = {
-      defaultNetwork.settings = { dns_enabled = true; };
+      defaultNetwork.settings = {dns_enabled = true;};
       #extraPackages = [ pkgs.zfs ];  # Using podman with ZFS
       dockerCompat = true;
       enable = true;
-      enableNvidia = lib.elem (if builtins.isString hostname != "air" then
-        "nvidia" config.services.xserver.videoDrivers
-      else
-        false);
+      enableNvidia = lib.elem (
+        if builtins.isString hostname != "air"
+        then "nvidia" config.services.xserver.videoDrivers
+        else false
+      );
     };
     containers = {
       registries.search = [
@@ -51,11 +57,11 @@
 
       # https://nixos.wiki/wiki/Podman
       containersConf.settings = {
-        engine.helper_binaries_dir = [ "${pkgs.netavark}/bin" ];
+        engine.helper_binaries_dir = ["${pkgs.netavark}/bin"];
       };
 
       containersConf.settings = {
-        containers.dns_servers = [ "8.8.8.8" "8.8.4.4" ];
+        containers.dns_servers = ["8.8.8.8" "8.8.4.4"];
       };
       ## for ZFS
       # storage = {

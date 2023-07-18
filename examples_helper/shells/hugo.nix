@@ -1,5 +1,11 @@
 # My usual toolchain for developing Hugo projects.
-{ mkShell, hugo, git, go, nodejs-16_x, }:
+{
+  mkShell,
+  hugo,
+  git,
+  go,
+  nodejs-16_x,
+}:
 mkShell {
   packages = [
     hugo # The main tool.

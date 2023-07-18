@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  imports = [ ../services/flatpak.nix ../services/sane.nix ];
+{pkgs, ...}: {
+  imports = [../services/flatpak.nix ../services/sane.nix];
 
   # Add some packages to complete the MATE desktop
   environment.systemPackages = with pkgs; [

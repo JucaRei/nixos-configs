@@ -1,12 +1,14 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 with lib;
-with builtins;
-let
+with builtins; let
   cfg = config.sys.services;
   domain = "headscale.krutonium.ca";
   port = 8080;
-in
-{
+in {
   config = mkIf cfg.headscale {
     services = {
       headscale = {
@@ -14,8 +16,8 @@ in
         address = "0.0.0.0";
         inherit port;
         serverUrl = "https://${domain}";
-        dns = { baseDomain = "krutonium.ca"; };
-        settings = { logtail.enabled = false; };
+        dns = {baseDomain = "krutonium.ca";};
+        settings = {logtail.enabled = false;};
       };
 
       nginx.virtualHosts.${domain} = {
@@ -27,6 +29,6 @@ in
         };
       };
     };
-    environment.systemPackages = [ config.services.headscale.package ];
+    environment.systemPackages = [config.services.headscale.package];
   };
 }

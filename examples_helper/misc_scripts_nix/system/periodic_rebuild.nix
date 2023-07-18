@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{lib, ...}: {
   systemd = {
     services.nixos-update-prebuild = {
       serviceConfig.Type = "oneshot";
@@ -12,8 +12,8 @@
       # todo: send notification when update would change something
     };
     timers.nixos-update-prebuild = {
-      wantedBy = [ "timers.target" ];
-      partOf = [ "nixos-update-prebuild.service" ];
+      wantedBy = ["timers.target"];
+      partOf = ["nixos-update-prebuild.service"];
       timerConfig = {
         OnCalendar = "hourly";
         Unit = "nixos-update-prebuild.service";

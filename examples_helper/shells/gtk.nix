@@ -1,13 +1,13 @@
-{ mkShell
-, desktop-file-utils
-, glib
-, appstream-glib
-, blueprint-compiler
-, libadwaita
-, libportal
-, libportal-gtk
-, gtk
-,
+{
+  mkShell,
+  desktop-file-utils,
+  glib,
+  appstream-glib,
+  blueprint-compiler,
+  libadwaita,
+  libportal,
+  libportal-gtk,
+  gtk,
 }:
 mkShell {
   packages = [
@@ -22,5 +22,5 @@ mkShell {
     libportal-gtk
   ];
 
-  inputsFrom = [ gtk ];
+  inputsFrom = [gtk];
 }

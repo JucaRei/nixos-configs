@@ -1,9 +1,9 @@
-{ lib
-, stdenvNoCC
-, fantasque-sans-ligatures
-, nerd-font-patcher
-, python3Packages
-,
+{
+  lib,
+  stdenvNoCC,
+  fantasque-sans-ligatures,
+  nerd-font-patcher,
+  python3Packages,
 }:
 stdenvNoCC.mkDerivation rec {
   pname = "fantasque-sans-ligatures-nerd";
@@ -11,8 +11,9 @@ stdenvNoCC.mkDerivation rec {
 
   src = fantasque-sans-ligatures;
 
-  nativeBuildInputs = [ nerd-font-patcher ]
-    ++ (with python3Packages; [ python fontforge ]);
+  nativeBuildInputs =
+    [nerd-font-patcher]
+    ++ (with python3Packages; [python fontforge]);
 
   buildPhase = ''
     runHook preBuild
@@ -56,8 +57,7 @@ stdenvNoCC.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://github.com/ryanoasis/nerd-fonts";
-    description =
-      "Ligature-less Fantasque Sans Mono patched with Nerd Fonts icons";
+    description = "Ligature-less Fantasque Sans Mono patched with Nerd Fonts icons";
     license = licenses.ofl;
     platforms = platforms.all;
   };

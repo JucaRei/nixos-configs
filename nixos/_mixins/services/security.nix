@@ -1,6 +1,5 @@
-{ username, ... }: {
+{username, ...}: {
   security = {
-
     sudo = {
       enable = true;
       # Stops sudo from timing out.

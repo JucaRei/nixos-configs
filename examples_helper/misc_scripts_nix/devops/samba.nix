@@ -1,11 +1,15 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 with lib;
-with builtins;
-let cfg = config.sys.services;
+with builtins; let
+  cfg = config.sys.services;
 in {
   config = mkIf cfg.samba {
-    networking.firewall.allowedTCPPorts = [ 139 445 2049 ];
-    networking.firewall.allowedUDPPorts = [ 137 138 ];
+    networking.firewall.allowedTCPPorts = [139 445 2049];
+    networking.firewall.allowedUDPPorts = [137 138];
     services.samba = {
       enable = true;
       openFirewall = true;

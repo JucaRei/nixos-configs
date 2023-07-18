@@ -1,1 +1,1 @@
-{ ... }: { imports = [ ./protonmail-bridge.nix ]; }
+{...}: {imports = [./protonmail-bridge.nix];}

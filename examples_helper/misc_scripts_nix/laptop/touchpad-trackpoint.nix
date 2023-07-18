@@ -1,9 +1,6 @@
-{ pkgs, ... }:
-let
-  fixTrackpointAccelCli =
-    "${pkgs.xorg.xinput}/bin/xinput --set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.7";
-in
-{
+{pkgs, ...}: let
+  fixTrackpointAccelCli = "${pkgs.xorg.xinput}/bin/xinput --set-prop 'TPPS/2 Elan TrackPoint' 'libinput Accel Speed' 0.7";
+in {
   # NOTE: libinput changes require a reboot
   services.xserver.libinput = {
     enable = true;

@@ -1,19 +1,25 @@
-{ pkgs, lib, desktop, ... }: {
-  imports = [
-    #../../desktop/apps/video-editing/obs-studio.nix
-    #../../virt/quickemu.nix
-    #../../virt/virt-manager.nix
-    #../../desktop/apps/browsers/brave.nix
-    #../../desktop/apps/browsers/firefox.nix
-    #../../desktop/evolution.nix
-    #../../desktop/apps/browsers/google-chrome.nix
-    #../../desktop/apps/browsers/microsoft-edge.nix
-    #../../desktop/apps/browsers/opera.nix
-    #../../desktop/apps/terminals/tilix.nix
-    #../../desktop/vivaldi.nix
-
-  ] ++ lib.optional (builtins.pathExists (../.. + "/desktop/${desktop}-apps.nix")) ../../desktop/${desktop}-apps.nix
-  ++ lib.optional (builtins.isString desktop) (../.. + "/desktop/apps/browsers/firefox.nix");
+{
+  pkgs,
+  lib,
+  desktop,
+  ...
+}: {
+  imports =
+    [
+      #../../desktop/apps/video-editing/obs-studio.nix
+      #../../virt/quickemu.nix
+      #../../virt/virt-manager.nix
+      #../../desktop/apps/browsers/brave.nix
+      #../../desktop/apps/browsers/firefox.nix
+      #../../desktop/evolution.nix
+      #../../desktop/apps/browsers/google-chrome.nix
+      #../../desktop/apps/browsers/microsoft-edge.nix
+      #../../desktop/apps/browsers/opera.nix
+      #../../desktop/apps/terminals/tilix.nix
+      #../../desktop/vivaldi.nix
+    ]
+    ++ lib.optional (builtins.pathExists (../.. + "/desktop/${desktop}-apps.nix")) ../../desktop/${desktop}-apps.nix
+    ++ lib.optional (builtins.isString desktop) (../.. + "/desktop/apps/browsers/firefox.nix");
 
   environment.systemPackages = with pkgs; [
     #audio-recorder

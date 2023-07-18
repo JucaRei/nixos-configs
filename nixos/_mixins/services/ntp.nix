@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{lib, ...}: {
   services.ntp.enable = false;
 
   services.timesyncd = {

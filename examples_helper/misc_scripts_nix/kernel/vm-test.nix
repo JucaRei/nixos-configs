@@ -1,13 +1,11 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   #bcachefs-tools = (pkgs.callPackage ./ {doCheck = false;});
   kernel = pkgs.callPackage ./ktest/kernel_install.nix {
     src = ./bcachefs;
     srcBuildRoot = ./ktest/ktest-out/kernel_build.x86_64;
   };
-in
-{
-  boot.kernelParams = [ "quiet" "noexec=off" "oops=panic" ];
+in {
+  boot.kernelParams = ["quiet" "noexec=off" "oops=panic"];
 
   boot.kernelPackages = pkgs.linuxPackagesFor kernel;
   boot.initrd.includeDefaultModules = false;

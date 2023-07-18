@@ -1,18 +1,14 @@
 # Usefull functions used everywhere :)
 #
-# From: 
+# From:
 # - https://github.com/ners/NixOS/blob/master/profiles/lib/modules.nix
 # - https://github.com/ners/NixOS/blob/master/profiles/lib/attrsets.nix
 # - https://github.com/ners/NixOS/blob/master/profiles/lib/lists.nix
 # - https://github.com/ners/NixOS/blob/master/profiles/lib/strings.nix
 # - https://github.com/ners/NixOS/blob/master/profiles/lib/trivial.nix
-
-{ lib, ... }:
-
+{lib, ...}:
 with builtins;
-with lib;
-
-rec {
+with lib; rec {
   ###########
   # MODULES #
   ###########
@@ -26,23 +22,32 @@ rec {
       readDir
       attrsToList
       (foldr
-        ({ name, value }:
-          acc:
-          let
-            fullPath = dir + "/${name}";
-            isNixModule = value == "regular" && hasSuffix ".nix" name && name
-              != "default.nix";
-            isDir = value == "directory";
-            isDirModule = isDir && readDir fullPath ? "default.nix";
-            module = nameValuePair (removeSuffix ".nix" name)
-              (if isNixModule || isDirModule then
-                fullPath
-              else if isDir then
-                findModules fullPath
-              else
-                { });
-          in
-          if module.value == { } then acc else append module acc) [ ])
+        ({
+          name,
+          value,
+        }: acc: let
+          fullPath = dir + "/${name}";
+          isNixModule =
+            value
+            == "regular"
+            && hasSuffix ".nix" name
+            && name
+            != "default.nix";
+          isDir = value == "directory";
+          isDirModule = isDir && readDir fullPath ? "default.nix";
+          module =
+            nameValuePair (removeSuffix ".nix" name)
+            (
+              if isNixModule || isDirModule
+              then fullPath
+              else if isDir
+              then findModules fullPath
+              else {}
+            );
+        in
+          if module.value == {}
+          then acc
+          else append module acc) [])
       listToAttrs
     ];
 
@@ -55,15 +60,16 @@ rec {
   attrsToList = mapAttrsToList nameValuePair;
 
   # Convert a single {name, value} pair to a corresponding attrset
-  nameValuePairToAttrs = pipef [ singleton listToAttrs ];
+  nameValuePairToAttrs = pipef [singleton listToAttrs];
 
   # Modify the name field of an attrset by mapping it through a function.
   mapName = f: attrs:
     assert assertMsg (isFunction f) f;
     assert assertMsg (isAttrs attrs) attrs;
-    attrs // {
-      name = f attrs.name;
-    };
+      attrs
+      // {
+        name = f attrs.name;
+      };
 
   # Flatten an attrset by bringing all the leaves to the top level.
   # As there is no singular name flattening strategy, the result is a list of
@@ -80,12 +86,13 @@ rec {
     pipef [
       (mapAttrsToList (name: nameValuePair (singleton name)))
       (foldr
-        (p@{ name, value }:
-          acc:
-          if isAttrs value && cond value then
-            acc ++ pipe value [ flattenAttrs (map (mapName (n: name ++ n))) ]
-          else
-            append p acc) [ ])
+        (p @ {
+          name,
+          value,
+        }: acc:
+          if isAttrs value && cond value
+          then acc ++ pipe value [flattenAttrs (map (mapName (n: name ++ n)))]
+          else append p acc) [])
     ];
 
   # Applies the merge function to the output of flattenAttrs, producing an attrset.
@@ -94,8 +101,8 @@ rec {
   flattenAttrsWith = merge:
     pipef [
       flattenAttrs
-      (map (pipef [ merge nameValuePairToAttrs ]))
-      (foldr recursiveUpdate { })
+      (map (pipef [merge nameValuePairToAttrs]))
+      (foldr recursiveUpdate {})
     ];
 
   #########
@@ -103,10 +110,10 @@ rec {
   #########
 
   # Prepend a value to a list
-  prepend = x: xs: [ x ] ++ xs;
+  prepend = x: xs: [x] ++ xs;
 
   # Append a value to a list
-  append = x: xs: xs ++ [ x ];
+  append = x: xs: xs ++ [x];
 
   # Return true if function `pred` returns false for all elements of `xs`.
   none = pred: xs: !(any pred xs);
@@ -122,7 +129,7 @@ rec {
   unlines = concatStringsSep "\n";
 
   # Read the list of files and concatenate their contents by the given separator
-  concatFilesSep = sep: pipef [ (map readFile) (concatStringsSep sep) ];
+  concatFilesSep = sep: pipef [(map readFile) (concatStringsSep sep)];
 
   #########
   # UTILS #

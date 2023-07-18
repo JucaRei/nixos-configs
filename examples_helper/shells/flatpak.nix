@@ -1,14 +1,14 @@
 # My custom shell for developing Flatpak manifests.
 # This is not suitable outside of NixOS, unfortunately.
-{ mkShell
-, diffoscope
-, desktop-file-utils
-, flatpak-builder
-, editorconfig-checker
-, editorconfig-core-c
-, git
-, dasel
-,
+{
+  mkShell,
+  diffoscope,
+  desktop-file-utils,
+  flatpak-builder,
+  editorconfig-checker,
+  editorconfig-core-c,
+  git,
+  dasel,
 }:
 mkShell {
   packages = [

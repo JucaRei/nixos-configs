@@ -1,4 +1,9 @@
-{ hostname, pkgs, username, ... }: {
+{
+  hostname,
+  pkgs,
+  username,
+  ...
+}: {
   services.syncthing = {
     enable = true;
     extraOptions = [

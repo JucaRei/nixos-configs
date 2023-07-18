@@ -5,10 +5,14 @@
 # or nixos-generate -f vm -c vm.nix --run
 # nixos-generate --help
 # nixos-generate --list
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
-  imports =
-    [ <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix> ./vm-config.nix ];
+  imports = [<nixpkgs/nixos/modules/installer/cd-dvd/channel.nix> ./vm-config.nix];
 
   system.build.qemuvmImage = import <nixpkgs/nixos/lib/make-disk-image.nix> {
     inherit lib config;

@@ -1,4 +1,4 @@
-{ pkgs }: ''
+{pkgs}: ''
 
   (defalias web (cmd-button "${pkgs.bash}/bin/bash ${pkgs.brave}/bin/brave"))
   (defalias ed (cmd-button "${pkgs.bash}/bin/bash ${pkgs.sublime4}/bin/subl"))

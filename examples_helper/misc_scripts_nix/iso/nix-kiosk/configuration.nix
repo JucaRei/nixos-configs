@@ -1,5 +1,10 @@
 # Bootable NixOS USB stick for kiosk or demo usage
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 with lib; {
   imports = [
     # ISO image
@@ -11,8 +16,7 @@ with lib; {
   ];
 
   # ISO image configuration
-  isoImage.isoName =
-    "NixOS-${config.system.nixosLabel}-${pkgs.stdenv.system}.iso";
+  isoImage.isoName = "NixOS-${config.system.nixosLabel}-${pkgs.stdenv.system}.iso";
   isoImage.volumeID = substring 0 11 "NIXOS_ISO";
   isoImage.makeEfiBootable = true;
   isoImage.makeUsbBootable = true;
@@ -33,7 +37,7 @@ with lib; {
     isNormalUser = true;
     description = "User";
     home = "/home/user";
-    extraGroups = [ "audio" "input" "networkmanager" "video" ];
+    extraGroups = ["audio" "input" "networkmanager" "video"];
     uid = 1000;
   };
   security.sudo.enable = false;

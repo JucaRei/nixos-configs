@@ -1,17 +1,18 @@
 {
-  inputs = { mrkuz.url = "github:mrkuz/nixos"; };
-  outputs = { mrkuz, nixpkgs, }:
-    let
-      name = "lxd-vm";
-      system = "x86_64-linux";
-      nixos = nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs.profilesPath = "${mrkuz}/profiles";
-        modules = mrkuz.utils.mkNixOSModules {
-          inherit name system;
-          extraModules = [ ./configuration.nix ];
-        };
+  inputs = {mrkuz.url = "github:mrkuz/nixos";};
+  outputs = {
+    mrkuz,
+    nixpkgs,
+  }: let
+    name = "lxd-vm";
+    system = "x86_64-linux";
+    nixos = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs.profilesPath = "${mrkuz}/profiles";
+      modules = mrkuz.utils.mkNixOSModules {
+        inherit name system;
+        extraModules = [./configuration.nix];
       };
-    in
-    { packages."${system}".default = nixos.config.system.build.lxdImport; };
+    };
+  in {packages."${system}".default = nixos.config.system.build.lxdImport;};
 }

@@ -1,14 +1,19 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 # A temporary hack to `loginctl enable-linger $somebody` (for
 # multiplexer sessions to last), until this one is unresolved:
 # https://github.com/NixOS/nixpkgs/issues/3702
 #
 # Usage: `users.extraUsers.somebody.linger = true` or slt.
-with lib;
-let
+with lib; let
   dataDir = "/var/lib/systemd/linger";
 
-  lingeringUsers = map (u: u.name)
+  lingeringUsers =
+    map (u: u.name)
     (attrValues (flip filterAttrs config.users.users (_n: u: u.linger)));
 
   lingeringUsersFile = builtins.toFile "lingering-users" (concatStrings (map
@@ -25,16 +30,15 @@ let
     fi
   '';
 
-  userOptions = { options.linger = mkEnableOption "Lingering for the user"; };
-in
-{
+  userOptions = {options.linger = mkEnableOption "Lingering for the user";};
+in {
   options = {
     users.users =
-      mkOption { type = with types; attrsOf (submodule userOptions); };
+      mkOption {type = with types; attrsOf (submodule userOptions);};
   };
 
   config = {
     system.activationScripts.update-lingering =
-      stringAfter [ "users" ] updateLingering;
+      stringAfter ["users"] updateLingering;
   };
 }

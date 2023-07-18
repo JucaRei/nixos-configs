@@ -1,15 +1,15 @@
 # ## Docker images builder powered by the nixpkgs-cross-overlay
-{ localSystem ? builtins.currentSystem
-, crossSystem ? {
+{
+  localSystem ? builtins.currentSystem,
+  crossSystem ? {
     config = "x86_64-unknown-linux-musl";
     isStatic = true;
     useLLVM = true;
-  }
-,
-}:
-let
+  },
+}: let
   # Fetch the nixpkgs-cross-overlay sources.
-  src = builtins.fetchTarball
+  src =
+    builtins.fetchTarball
     "https://github.com/alekseysidorov/nixpkgs-cross-overlay/tarball/main";
   # Use the nixpkgs revision provided by the overlay.
   # This is the best way, as they are the most proven and compatible.
@@ -23,21 +23,21 @@ let
   };
   # And now, with the resulting packages, we can describe the cross-compilation shell.
 in
-pkgs.mkShell {
-  # Native project dependencies like build utilities and additional routines
-  # like container building, linters, etc.
-  nativeBuildInputs = [
-    pkgs.pkgsBuildHost.rust-bin.stable.latest.default
-    # Will add some dependencies like libiconv.
-    pkgs.pkgsBuildHost.rustBuildHostDependencies
-    # Crates dependencies.
-    pkgs.cargoDeps.openssl-sys
-    # A simple script to create a docker image from the Cargo workspace member.
-    (pkgs.pkgsBuildHost.writeShellApplication {
-      name = "cargo-nix-docker-image";
-      runtimeInputs = with pkgs.pkgsBuildHost; [ nix docker ];
-      text =
-        let shellFile = ./shell.nix;
+  pkgs.mkShell {
+    # Native project dependencies like build utilities and additional routines
+    # like container building, linters, etc.
+    nativeBuildInputs = [
+      pkgs.pkgsBuildHost.rust-bin.stable.latest.default
+      # Will add some dependencies like libiconv.
+      pkgs.pkgsBuildHost.rustBuildHostDependencies
+      # Crates dependencies.
+      pkgs.cargoDeps.openssl-sys
+      # A simple script to create a docker image from the Cargo workspace member.
+      (pkgs.pkgsBuildHost.writeShellApplication {
+        name = "cargo-nix-docker-image";
+        runtimeInputs = with pkgs.pkgsBuildHost; [nix docker];
+        text = let
+          shellFile = ./shell.nix;
         in ''
           binary_name=$1
           # Compile cargo binary
@@ -48,64 +48,62 @@ pkgs.mkShell {
           image_archive=$(nix-build ./target/shell.nix -A dockerImage --argstr name "$binary_name")
           docker load <"$image_archive"
         '';
-    })
-  ];
-  # Libraries essential to build the service binaries.
-  buildInputs = with pkgs;
-    [
+      })
+    ];
+    # Libraries essential to build the service binaries.
+    buildInputs = with pkgs; [
       # Enable Rust cross-compilation support.
       rustCrossHook
     ];
-  # Prettify shell prompt.
-  shellHook = ''
-    ${pkgs.crossBashPrompt}
-    echo "Welcome to the Cargo docker images builder demo shell!"
-    echo ""
-    echo "Usage:"
-    echo ""
-    echo "$ cargo-nix-docker-image <executable-name>"
-    echo ""
-    echo "Have a nice day!"
-  '';
-  /* Service docker image definition
+    # Prettify shell prompt.
+    shellHook = ''
+      ${pkgs.crossBashPrompt}
+      echo "Welcome to the Cargo docker images builder demo shell!"
+      echo ""
+      echo "Usage:"
+      echo ""
+      echo "$ cargo-nix-docker-image <executable-name>"
+      echo ""
+      echo "Have a nice day!"
+    '';
+    /*
+    Service docker image definition
 
-     Usage:
+    Usage:
 
-     ```shell
-     cargo-nix-docker-image executable-name>
-     ```
-  */
-  passthru.dockerImage =
-    {
+    ```shell
+    cargo-nix-docker-image executable-name>
+    ```
+    */
+    passthru.dockerImage = {
       # Cargo workspace member name
-      name
-    , tag ? "latest"
-    ,
+      name,
+      tag ? "latest",
     }:
-    pkgs.pkgsBuildHost.dockerTools.buildLayeredImage {
-      inherit tag name;
+      pkgs.pkgsBuildHost.dockerTools.buildLayeredImage {
+        inherit tag name;
 
-      contents = with pkgs; [
-        coreutils
-        bashInteractive
-        dockerTools.caCertificates
-        # Actual service binary compiled by Cargo
-        (copyBinaryFromCargoBuild {
-          inherit name;
-          targetDir = ./.;
-          buildInputs = [ openssl.dev ];
-        })
-        # Utilites like ldd to help image debugging
-        stdenv.cc.libc_bin
-      ];
+        contents = with pkgs; [
+          coreutils
+          bashInteractive
+          dockerTools.caCertificates
+          # Actual service binary compiled by Cargo
+          (copyBinaryFromCargoBuild {
+            inherit name;
+            targetDir = ./.;
+            buildInputs = [openssl.dev];
+          })
+          # Utilites like ldd to help image debugging
+          stdenv.cc.libc_bin
+        ];
 
-      config = {
-        Cmd = [ name ];
-        WorkingDir = "/";
-        Expose = 8080;
+        config = {
+          Cmd = [name];
+          WorkingDir = "/";
+          Expose = 8080;
+        };
       };
-    };
-}
+  }
 #Don't forget to enable the binary cache.
 ## nix-shell -p cachix --run "cachix use nixpkgs-cross-overlay"
 

@@ -1,5 +1,9 @@
-{ pkgs, username, ... }: {
-  environment.systemPackages = with pkgs; [ polychromatic ];
+{
+  pkgs,
+  username,
+  ...
+}: {
+  environment.systemPackages = with pkgs; [polychromatic];
 
   hardware = {
     openrazer = {
@@ -8,7 +12,7 @@
       keyStatistics = true;
       mouseBatteryNotifier = true;
       syncEffectsEnabled = true;
-      users = [ "${username}" ];
+      users = ["${username}"];
     };
   };
 }

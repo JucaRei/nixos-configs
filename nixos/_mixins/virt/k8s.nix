@@ -1,1 +1,1 @@
-{ pkgs, ... }: { environment.systemPackages = with pkgs; [ kubectl minikube ]; }
+{pkgs, ...}: {environment.systemPackages = with pkgs; [kubectl minikube];}

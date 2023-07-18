@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.skim = rec {
     enable = true;
     defaultCommand = "fd --type f --hidden --exclude '.git'";
@@ -12,19 +12,19 @@
     fileWidgetOptions = [
       "--preview 'bat --color always {} 2> /dev/null | head -200; highlight -O ansi -l {} ^ /dev/null | head -200 || cat {} ^ /dev/null | head -200'"
     ];
-    historyWidgetOptions = [ "--tac" ];
+    historyWidgetOptions = ["--tac"];
   };
 
   # Use skim as a drop-in replacement for fzf
-  home.packages = with pkgs;
-    [
-      (writeShellApplication {
-        name = "fzf";
-        runtimeInputs = [ skim ];
-        text = # shell
-          ''
-            ${pkgs.skim}/bin/sk "$@"
-          '';
-      })
-    ];
+  home.packages = with pkgs; [
+    (writeShellApplication {
+      name = "fzf";
+      runtimeInputs = [skim];
+      text =
+        # shell
+        ''
+          ${pkgs.skim}/bin/sk "$@"
+        '';
+    })
+  ];
 }

@@ -1,4 +1,4 @@
-{ hyprland, ... }: {
+{hyprland, ...}: {
   imports = [
     hyprland.nixosModules.default
     {

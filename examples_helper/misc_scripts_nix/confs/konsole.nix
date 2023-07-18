@@ -1,4 +1,7 @@
-{ variables, pkgs, }: [
+{
+  variables,
+  pkgs,
+}: [
   {
     target = "${variables.homeDir}/.config/konsolerc";
     source = pkgs.writeText "konsolerc" ''

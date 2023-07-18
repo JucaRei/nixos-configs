@@ -1,18 +1,22 @@
-{ pkgs, profilesPath, ... }: {
-  imports = [ "${profilesPath}/hosts/minimal.nix" ];
+{
+  pkgs,
+  profilesPath,
+  ...
+}: {
+  imports = ["${profilesPath}/hosts/minimal.nix"];
 
-  modules = { crosvmGuest.enable = true; };
+  modules = {crosvmGuest.enable = true;};
 
   networking.dhcpcd.enable = false;
   systemd.network = {
     enable = true;
     networks = {
       "nat" = {
-        matchConfig = { Name = "enp*"; };
-        address = [ "192.168.77.2/24" ];
+        matchConfig = {Name = "enp*";};
+        address = ["192.168.77.2/24"];
         DHCP = "no";
-        gateway = [ "192.168.77.1" ];
-        dns = [ "8.8.8.8" ];
+        gateway = ["192.168.77.1"];
+        dns = ["8.8.8.8"];
       };
     };
   };
@@ -30,13 +34,13 @@
     groups.user.gid = 1000;
     mutableUsers = false;
     users = {
-      root = { password = "root"; };
+      root = {password = "root";};
       user = {
         uid = 1000;
         description = "User";
         isNormalUser = true;
         group = "user";
-        extraGroups = [ "wheel" ];
+        extraGroups = ["wheel"];
         password = "user";
       };
     };

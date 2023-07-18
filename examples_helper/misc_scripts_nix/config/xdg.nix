@@ -1,14 +1,10 @@
 # Functions to create overlays with the right xdgs
 #
-# From: 
+# From:
 # - https://github.com/ners/NixOS/blob/master/profiles/lib/xdg.nix
-
-{ lib, ... }:
-
+{lib, ...}:
 with builtins;
-with lib;
-
-{
+with lib; {
   # Given a package, find all the desktop files it contains
   desktopFiles = with lib;
     pipef [
@@ -36,24 +32,24 @@ with lib;
   };
 
   # Given a package, find all its application desktop files and generate applications from them
-  applications = with lib; pipef [ desktopFiles (map application) ];
+  applications = with lib; pipef [desktopFiles (map application)];
 
   # Reverse the given application -> mimetypes pair to an attrset of the form mimetype -> application
   mimeApp = with lib;
     pipef [
       (app:
         map
-          (mimeType: {
-            name = mimeType;
-            value = app.desktop;
-          })
-          app.mimeTypes)
+        (mimeType: {
+          name = mimeType;
+          value = app.desktop;
+        })
+        app.mimeTypes)
       listToAttrs
     ];
 
   # Given a package, generate mimetype -> application pairs for each application in it
-  mimePkg = with lib; pipef [ applications (map mimeApp) zipAttrs ];
+  mimePkg = with lib; pipef [applications (map mimeApp) zipAttrs];
 
   # Given a list of packages, generate mimeApps for each, then combine them into a single attrset
-  mimePkgs = with lib; pipef [ (map mimePkg) (zipAttrsWith (_: concatLists)) ];
+  mimePkgs = with lib; pipef [(map mimePkg) (zipAttrsWith (_: concatLists))];
 }

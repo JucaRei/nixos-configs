@@ -1,9 +1,6 @@
 # Generated via dconf2nix: https://github.com/gvolpe/dconf2nix
-{ lib, ... }:
-
-with lib.hm.gvariant;
-
-{
+{lib, ...}:
+with lib.hm.gvariant; {
   dconf.settings = {
     "com/gexperts/Tilix" = {
       app-title = "\${appName}: \${directory}";
@@ -18,11 +15,11 @@ with lib.hm.gvariant;
       window-style = "normal";
     };
 
-    "com/gexperts/Tilix/keybindings" = { win-view-sidebar = "<Primary>F12"; };
+    "com/gexperts/Tilix/keybindings" = {win-view-sidebar = "<Primary>F12";};
 
     "com/gexperts/Tilix/profiles" = {
       default = "d1def387-a465-4497-81bc-b8b2de782b2d";
-      list = [ "d1def387-a465-4497-81bc-b8b2de782b2d" ];
+      list = ["d1def387-a465-4497-81bc-b8b2de782b2d"];
     };
 
     "com/gexperts/Tilix/profiles/d1def387-a465-4497-81bc-b8b2de782b2d" = {
@@ -85,21 +82,19 @@ with lib.hm.gvariant;
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
       ];
-      terminal = [ "" ];
+      terminal = [""];
     };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
-      {
-        binding = "<Super>t";
-        command = "tilix";
-        name = "tilix";
-      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Super>t";
+      command = "tilix";
+      name = "tilix";
+    };
 
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
-      {
-        binding = "<Primary><Alt>t";
-        command = "tilix";
-        name = "tilix";
-      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+      binding = "<Primary><Alt>t";
+      command = "tilix";
+      name = "tilix";
+    };
   };
 }

@@ -1,8 +1,13 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   boot = {
-    blacklistedKernelModules = [ ];
+    blacklistedKernelModules = [];
     consoleLogLevel = 3;
-    extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback];
     extraModprobeConfig = lib.mkDefault ''
       options v4l2loopback devices=1 video_nr=13 card_label="OBS Virtual Camera" exclusive_caps=1
     '';
@@ -18,12 +23,12 @@
         "usb_storage"
         "xhci_pci"
       ];
-      kernelModules = [ "amdgpu" ];
+      kernelModules = ["amdgpu"];
     };
 
-    kernelModules = [ "kvm-amd" "vhost_vsock" ];
+    kernelModules = ["kvm-amd" "vhost_vsock"];
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "mitigations=off" ];
+    kernelParams = ["mitigations=off"];
     kernel.sysctl = {
       "kernel.sysrq" = 1;
       "kernel.printk" = "3 3 3 3";

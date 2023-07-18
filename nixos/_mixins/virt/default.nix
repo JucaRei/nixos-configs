@@ -1,14 +1,23 @@
-{ desktop, lib, hostname, ... }: {
-  imports = [
-    ./podman.nix
-    ./distrobox.nix
-    # ./docker.nix
-  ] ++ lib.optional (builtins.isString desktop) ./distrobox-desktop.nix
-  ++ lib.optional
-    (builtins.isString desktop && builtins.isString hostname != "vm") ./lxd.nix
-  ++ lib.optional
+{
+  desktop,
+  lib,
+  hostname,
+  ...
+}: {
+  imports =
+    [
+      ./podman.nix
+      ./distrobox.nix
+      # ./docker.nix
+    ]
+    ++ lib.optional (builtins.isString desktop) ./distrobox-desktop.nix
+    ++ lib.optional
     (builtins.isString desktop && builtins.isString hostname != "vm")
-    ./quickemu.nix ++ lib.optional
+    ./lxd.nix
+    ++ lib.optional
+    (builtins.isString desktop && builtins.isString hostname != "vm")
+    ./quickemu.nix
+    ++ lib.optional
     (builtins.isString desktop && builtins.isString hostname != "vm")
     ./virt-manager.nix;
 }

@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{lib, ...}: {
   programs.starship = {
     enable = true;
     settings = {
@@ -51,7 +51,7 @@
 
       palettes.cyberpunk-neon = {
         dark-blue = "17";
-        # blue = 
+        # blue =
         light-blue = "25";
         cyan = "44";
         pink = "201";
@@ -97,7 +97,7 @@
       # "Important Documents" = "  "
       # will not be replaced, because "Documents" was already substituted before.
       # So either put "Important Documents" before "Documents" or use the substituted version:
-      # "Important  " = "  
+      # "Important  " = " 
       git_branch = {
         symbol = "";
         style = "fg:green bg:purple";

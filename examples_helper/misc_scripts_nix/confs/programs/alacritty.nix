@@ -3,7 +3,7 @@
     enable = true;
 
     settings = {
-      env = { TERM = "xterm-256color"; };
+      env = {TERM = "xterm-256color";};
 
       window = {
         padding = {

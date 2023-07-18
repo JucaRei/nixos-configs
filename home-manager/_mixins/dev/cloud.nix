@@ -1,7 +1,6 @@
-{ pkgs, ... }: {
-  home.packages = with pkgs;
-    [
-      terraform
-      #docker-compose
-    ];
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    terraform
+    #docker-compose
+  ];
 }

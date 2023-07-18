@@ -1,7 +1,10 @@
-{ config, lib, ... }:
-let
-  browser = [ "firefox.desktop" ];
-  archiveManager = [ "org.gnome.FileRoller.desktop" ];
+{
+  config,
+  lib,
+  ...
+}: let
+  browser = ["firefox.desktop"];
+  archiveManager = ["org.gnome.FileRoller.desktop"];
 
   # XDG MIME types
   associations = {
@@ -19,14 +22,14 @@ let
     "x-scheme-handler/https" = browser;
     "x-scheme-handler/unknown" = browser;
 
-    "audio/*" = [ "mpv.desktop" ];
-    "video/*" = [ "mpv.dekstop" ];
+    "audio/*" = ["mpv.desktop"];
+    "video/*" = ["mpv.dekstop"];
     #"image/*" = ["feh.desktop"];
-    "image/*" = [ "imv.desktop" ];
+    "image/*" = ["imv.desktop"];
 
     "application/json" = browser;
 
-    "application/pdf" = [ "org.pwmt.zathura.desktop.desktop" ];
+    "application/pdf" = ["org.pwmt.zathura.desktop.desktop"];
 
     # Archives / compressed files
     "application/x-7z-compressed" = archiveManager;
@@ -52,8 +55,7 @@ let
     "application/bzip2" = archiveManager;
     "application/vnd.rar" = archiveManager;
   };
-in
-{
+in {
   xdg = {
     enable = true;
     mimeApps = {
@@ -72,8 +74,7 @@ in
       templates = "${config.home.homeDirectory}/Templates";
       videos = "${config.home.homeDirectory}/Videos";
       extraConfig = {
-        XDG_SCREENSHOTS_DIR =
-          "${config.home.homeDirectory}/Pictures/screenshots";
+        XDG_SCREENSHOTS_DIR = "${config.home.homeDirectory}/Pictures/screenshots";
         XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/Pictures/wallpapers";
         XDG_CONTAINERS_DIR = "${config.home.homeDirectory}/containers-data";
         XDG_WORKSPACE_DIR = "${config.home.homeDirectory}/workspace";

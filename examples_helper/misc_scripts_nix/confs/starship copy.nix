@@ -1,13 +1,18 @@
-{ variables, pkgs, }: [{
-  target = "${variables.homeDir}/.config/starship.toml";
-  source = pkgs.writeText "starship" ''
-    command_timeout = 1000
+{
+  variables,
+  pkgs,
+}: [
+  {
+    target = "${variables.homeDir}/.config/starship.toml";
+    source = pkgs.writeText "starship" ''
+      command_timeout = 1000
 
-    [aws]
-    disabled = true
+      [aws]
+      disabled = true
 
-    [character]
-    success_symbol = "[❯](bold green) "
-    error_symbol = "[✗](bold red) "
-  '';
-}]
+      [character]
+      success_symbol = "[❯](bold green) "
+      error_symbol = "[✗](bold red) "
+    '';
+  }
+]

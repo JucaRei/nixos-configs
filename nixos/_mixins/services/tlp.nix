@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   services = {
     tlp = {
       enable = true;
@@ -9,10 +9,10 @@
         PLATFORM_PROFILE_ON_AC = "performance";
         PLATFORM_PROFILE_ON_BAT = "low-power";
 
-        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = [ "bluetooth" "wifi" ];
-        DEVICES_TO_ENABLE_ON_AC = [ "bluetooth" "wifi" ];
+        DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = ["bluetooth" "wifi"];
+        DEVICES_TO_ENABLE_ON_AC = ["bluetooth" "wifi"];
 
-        DISK_IOSCHED = [ "none" ];
+        DISK_IOSCHED = ["none"];
 
         #START_CHARGE_THRESH_BAT0 = 70;
         #STOP_CHARGE_THRESH_BAT0 = 80;
@@ -30,10 +30,10 @@
     tor.enable = pkgs.lib.mkForce false;
 
     ## Powertop
-    environment.systemPackages = with pkgs; [ powertop ];
+    environment.systemPackages = with pkgs; [powertop];
 
     boot = {
-      kernelParams = [ "pcie_aspm.policy=powersave" ];
+      kernelParams = ["pcie_aspm.policy=powersave"];
       extraModprobeConfig = ''
         options snd_hda_intel power_save=1
         options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0

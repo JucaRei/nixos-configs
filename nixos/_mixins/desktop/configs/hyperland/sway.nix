@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   sway-run = pkgs.writeShellScriptBin "sway-run" ''
     export XDG_SESSION_TYPE="wayland"
     export XDG_SESSION_DESKTOP="sway"
@@ -10,8 +13,7 @@ let
 
     ${pkgs.sway}/bin/swaymsg exit
   '';
-in
-{
+in {
   imports = [
     (import ./tiling-common.nix {
       inherit lib pkgs;
@@ -23,7 +25,7 @@ in
     portal = {
       enable = true;
       wlr.enable = true;
-      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+      extraPortals = with pkgs; [xdg-desktop-portal-gtk];
     };
   };
 }

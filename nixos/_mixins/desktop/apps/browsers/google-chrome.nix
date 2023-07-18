@@ -1,3 +1,3 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs.unstable; [ google-chrome ];
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs.unstable; [google-chrome];
 }

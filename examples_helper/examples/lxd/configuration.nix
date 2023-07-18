@@ -1,5 +1,5 @@
-{ profilesPath, ... }: {
-  imports = [ "${profilesPath}/hosts/minimal.nix" ];
+{profilesPath, ...}: {
+  imports = ["${profilesPath}/hosts/minimal.nix"];
 
   modules = {
     lxdContainer.enable = true;
@@ -9,6 +9,6 @@
   users = {
     groups.user.gid = 1000;
     mutableUsers = false;
-    users = { root = { password = "root"; }; };
+    users = {root = {password = "root";};};
   };
 }

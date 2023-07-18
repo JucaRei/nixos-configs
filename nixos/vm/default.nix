@@ -1,5 +1,9 @@
-{ lib, pkgs, modulesPath, ... }: {
-
+{
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
   imports = [
     #inputs.nixos-hardware.nixosModules.common-pc
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -18,7 +22,7 @@
     #resumeDevice = "/dev/disk/by-label/NIXOS";
 
     # Force kernel log in tty1, otherwise it will override greetd
-    kernelParams = [ "console=tty1" ];
+    kernelParams = ["console=tty1"];
 
     ##############
     ### INITRD ###
@@ -44,7 +48,6 @@
         #"kvm-intel"
         #"v4l2loopback" # Virtual Camera
         #"snd-aloop" # Virtual Microphone, built-in
-
       ];
       checkJournalingFS = false; # for vm
 
@@ -52,7 +55,7 @@
       ### Enabled filesystem ###
       ##########################
       # supportedFilesystems = [ "vfat" "zfs" ];
-      supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
+      supportedFilesystems = ["btrfs"]; # fat 32 and btrfs
       compressor = "zstd";
       #compressorArgs = ["-19" "-T0"];
       verbose = false;
@@ -259,19 +262,21 @@
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
-    options = [ "defaults" "noatime" "nodiratime" ];
+    options = ["defaults" "noatime" "nodiratime"];
     noCheck = true;
   };
 
-  swapDevices = [{
-    device = "/dev/disk/by-label/SWAP";
-    ### SWAPFILE
-    #device = "/swap/swapfile";
-    #size = 2 GiB;
-    #device = "/swap/swapfile";
-    #size = (1024 * 2); # RAM size
-    #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
-  }];
+  swapDevices = [
+    {
+      device = "/dev/disk/by-label/SWAP";
+      ### SWAPFILE
+      #device = "/swap/swapfile";
+      #size = 2 GiB;
+      #device = "/swap/swapfile";
+      #size = (1024 * 2); # RAM size
+      #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
+    }
+  ];
 
   ### Swapfile
   #systemd.services = {
@@ -289,18 +294,15 @@
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
-    defaultNetwork.settings = { dns_enabled = true; };
+    defaultNetwork.settings = {dns_enabled = true;};
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
-
 #mwProCapture.enable = true;
-
 ##############
 ### Nvidia ###
 ##############
-
 #nvidia = {
 #  prime = {
 #    #amdgpuBusId = "PCI:3:0:0";
@@ -322,11 +324,9 @@
 #  package = config.boot.kernelPackages.nvidiaPackages.stable; # nvidiaPackages.legacy_340
 #  nvidiaSettings = false;
 #};
-
 ######################
 ### OpenGL drivers ###
 ######################
-
 # opengl = {
 #   enable = true;
 #   driSupport = true;
@@ -343,12 +343,10 @@
 #};
 #xone.enable = true;
 # };
-
 ###############################
 ### High-resolution display ###
 ###############################
 #video.hidpi.enable = lib.mkDefault true;
-
 ###########
 ### CPU ###
 ###########
@@ -359,3 +357,4 @@
 #  };
 #};
 # virtualisation.virtualbox.guest.enable = true;     #currently disabled because package is broken
+

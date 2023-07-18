@@ -1,1 +1,1 @@
-{ pkgs, ... }: { environment.systemPackages = with pkgs.unstable; [ brave ]; }
+{pkgs, ...}: {environment.systemPackages = with pkgs.unstable; [brave];}

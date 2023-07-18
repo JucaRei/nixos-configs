@@ -1,6 +1,9 @@
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   services.logind = {
     lidSwitch = "suspend-then-hibernate";
     lidSwitchExternalPower = "suspend-then-hibernate";
@@ -12,24 +15,22 @@
   };
   services.tlp = {
     enable = true;
-    settings = { USB_AUTOSUSPEND = 0; };
+    settings = {USB_AUTOSUSPEND = 0;};
   };
   powerManagement.powertop.enable = true;
   systemd.sleep.extraConfig = "HibernateDelaySec=2h";
 
   # Reload ddcci module on monitor hotplug
-  services.udev.extraRules =
-    let
-      reloadScript = pkgs.writeShellScriptBin "reload-ddcci" ''
-        ${pkgs.kmod}/bin/modprobe -r ddcci && ${pkgs.kmod}/bin/modprobe ddcci
-      '';
-    in
-    ''
-      KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="change", RUN+="${reloadScript}/bin/reload-ddcci"
+  services.udev.extraRules = let
+    reloadScript = pkgs.writeShellScriptBin "reload-ddcci" ''
+      ${pkgs.kmod}/bin/modprobe -r ddcci && ${pkgs.kmod}/bin/modprobe ddcci
     '';
+  in ''
+    KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="change", RUN+="${reloadScript}/bin/reload-ddcci"
+  '';
 
   home-manager.users."${config.vars.username}" = {
-    home.packages = with pkgs; [ powertop ];
+    home.packages = with pkgs; [powertop];
 
     services.kanshi = {
       enable = true;
@@ -46,14 +47,17 @@
     ];
 
     wayland.windowManager.sway.config = {
-      startup = [{
-        command = "systemctl restart --user kanshi";
-        always = true;
-      }];
+      startup = [
+        {
+          command = "systemctl restart --user kanshi";
+          always = true;
+        }
+      ];
 
-      workspaceOutputAssign =
-        let secondaryOutputs = "DP-1 DP-2 DP-3 DP-4 HDMI-A-1 HDMI-A-2";
-        in lib.mkForce [
+      workspaceOutputAssign = let
+        secondaryOutputs = "DP-1 DP-2 DP-3 DP-4 HDMI-A-1 HDMI-A-2";
+      in
+        lib.mkForce [
           {
             output = secondaryOutputs;
             workspace = "1:a";

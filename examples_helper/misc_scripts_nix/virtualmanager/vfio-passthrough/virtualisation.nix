@@ -1,13 +1,15 @@
-{ lib, config, ... }:
-with lib;
-let
+{
+  lib,
+  config,
+  ...
+}:
+with lib; let
   cfg = config.virtualisation;
   tmpfileEntry = name: f: "f /dev/shm/${name} ${f.mode} ${f.user} ${f.group} -";
-in
-{
+in {
   options.virtualisation = {
     sharedMemoryFiles = mkOption {
-      type = types.attrsOf (types.submodule ({ name, ... }: {
+      type = types.attrsOf (types.submodule ({name, ...}: {
         options = {
           name = mkOption {
             visible = false;
@@ -31,7 +33,7 @@ in
           };
         };
       }));
-      default = { };
+      default = {};
     };
     hugepages = {
       enable = mkEnableOption "Hugepages";
@@ -39,14 +41,12 @@ in
       defaultPageSize = mkOption {
         type = types.strMatching "[0-9]*[kKmMgG]";
         default = "1M";
-        description =
-          "Default size of huge pages. You can use suffixes K, M, and G to specify KB, MB, and GB.";
+        description = "Default size of huge pages. You can use suffixes K, M, and G to specify KB, MB, and GB.";
       };
       pageSize = mkOption {
         type = types.strMatching "[0-9]*[kKmMgG]";
         default = "1M";
-        description =
-          "Size of huge pages that are allocated at boot. You can use suffixes K, M, and G to specify KB, MB, and GB.";
+        description = "Size of huge pages that are allocated at boot. You can use suffixes K, M, and G to specify KB, MB, and GB.";
       };
       numPages = mkOption {
         type = types.ints.positive;

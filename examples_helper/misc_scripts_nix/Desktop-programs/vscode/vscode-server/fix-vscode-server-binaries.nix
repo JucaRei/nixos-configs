@@ -1,6 +1,5 @@
 # Based on https://gist.github.com/sonowz/d70b03177c344f4bbbc674de5e5bb937
-with import <nixpkgs> { };
-let
+with import <nixpkgs> {}; let
   pname = "fix-vscode-server-binaries";
   script = pkgs.writeShellScriptBin pname ''
     set -eu -o pipefail
@@ -24,16 +23,16 @@ let
     done
   '';
 in
-_:
-stdenv.mkDerivation rec {
-  name = pname;
-  nodePackage = nodejs-16_x;
-  src = ./.;
-  installPhase = ''
-    mkdir -p $out/bin
-    cp ${script}/bin/${pname} $out/bin/${pname}
-    cp ${nodePackage}/bin/node $out/bin/node
-    chmod +x $out/bin/${pname}
-  '';
-  buildInputs = [ script nodePackage ];
-}
+  _:
+    stdenv.mkDerivation rec {
+      name = pname;
+      nodePackage = nodejs-16_x;
+      src = ./.;
+      installPhase = ''
+        mkdir -p $out/bin
+        cp ${script}/bin/${pname} $out/bin/${pname}
+        cp ${nodePackage}/bin/node $out/bin/node
+        chmod +x $out/bin/${pname}
+      '';
+      buildInputs = [script nodePackage];
+    }

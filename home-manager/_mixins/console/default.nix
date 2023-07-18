@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     ./fish.nix
     ./bat.nix
@@ -145,7 +145,7 @@
         };
         disk_filter = {
           is_list_ignored = true;
-          list = [ "/dev/loop" ];
+          list = ["/dev/loop"];
           regex = true;
           case_sensitive = false;
           whole_word = false;
@@ -171,13 +171,13 @@
     direnv = {
       enable = true;
       enableBashIntegration = true;
-      nix-direnv = { enable = true; };
+      nix-direnv = {enable = true;};
     };
     exa = {
       enable = true;
       enableAliases = true;
       icons = true;
-      extraOptions = [ "--group-directories-first" "--color=always" ];
+      extraOptions = ["--group-directories-first" "--color=always"];
     };
     home-manager.enable = true;
     info.enable = true;

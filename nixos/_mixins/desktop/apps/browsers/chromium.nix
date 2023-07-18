@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs.unstable; [ chromium ];
+{pkgs, ...}: {
+  environment.systemPackages = with pkgs.unstable; [chromium];
 
   programs = {
     chromium = {
@@ -21,7 +21,7 @@
         "ReportDeviceCrashReportInfo" = false;
         "PasswordManagerEnabled" = false;
         "SpellcheckEnabled" = true;
-        "SpellcheckLanguage" = [ "pt-BR" "en-GB" "en-US" ];
+        "SpellcheckLanguage" = ["pt-BR" "en-GB" "en-US"];
         "VoiceInteractionHotwordEnabled" = false;
       };
     };

@@ -1,11 +1,15 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   system.build.uboot = pkgs.buildUBoot rec {
     defconfig = "nanopi-m4-rk3399_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     enableParallelBuilding = true;
     BL31 = "${pkgs.armTrustedFirmwareRK3399}/bl31.elf";
-    filesToInstall = [ "u-boot-rockchip.bin" ".config" ];
-    patches = [ ./hax.patch ];
+    filesToInstall = ["u-boot-rockchip.bin" ".config"];
+    patches = [./hax.patch];
     extraConfig = ''
       CONFIG_FS_BTRFS=y
       CONFIG_CMD_BTRFS=y
@@ -21,5 +25,5 @@
       CONFIG_LOG_ERROR_RETURN=y
     '';
   };
-  hardware.firmware = [ config.system.build.uboot ];
+  hardware.firmware = [config.system.build.uboot];
 }

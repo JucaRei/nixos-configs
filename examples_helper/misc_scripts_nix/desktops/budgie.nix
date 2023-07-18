@@ -1,7 +1,11 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 with lib;
-with builtins;
-let cfg = config.sys.desktop;
+with builtins; let
+  cfg = config.sys.desktop;
 in {
   config = mkIf (cfg.desktop == "budgie") {
     services = {
@@ -14,11 +18,11 @@ in {
             inherit (cfg) autoSuspend;
           };
         };
-        desktopManager = { budgie = { enable = true; }; };
+        desktopManager = {budgie = {enable = true;};};
       };
     };
-    hardware = { opengl = { enable = true; }; };
-    programs = { xwayland = { enable = true; }; };
-    security = { rtkit = { enable = true; }; };
+    hardware = {opengl = {enable = true;};};
+    programs = {xwayland = {enable = true;};};
+    security = {rtkit = {enable = true;};};
   };
 }

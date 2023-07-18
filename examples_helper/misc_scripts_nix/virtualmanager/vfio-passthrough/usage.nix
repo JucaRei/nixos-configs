@@ -7,8 +7,8 @@
       ExecStart = "${pkgs.scream}/bin/scream-ivshmem-pulse /dev/shm/scream";
       Restart = "always";
     };
-    wantedBy = [ "multi-user.target" ];
-    requires = [ "pulseaudio.service" ];
+    wantedBy = ["multi-user.target"];
+    requires = ["pulseaudio.service"];
   };
 
   virtualisation = {
@@ -49,7 +49,7 @@
     vfio = {
       enable = true;
       IOMMUType = "amd";
-      devices = [ "10de:1b80" "10de:10f0" ];
+      devices = ["10de:1b80" "10de:10f0"];
       blacklistNvidia = true;
       disableEFIfb = false;
       ignoreMSRs = true;

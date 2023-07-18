@@ -1,6 +1,10 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 with lib; {
-  imports = [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix> ];
+  imports = [<nixpkgs/nixos/modules/profiles/qemu-guest.nix>];
 
   config = {
     fileSystems."/" = {
@@ -13,7 +17,7 @@ with lib; {
     virtualisation.diskSize = 1024 * 2048;
 
     boot.growPartition = true;
-    boot.kernelParams = [ "console=ttyS0" ];
+    boot.kernelParams = ["console=ttyS0"];
     boot.loader.grub.device = "/dev/vda";
     boot.loader.timeout = 0;
 
@@ -40,8 +44,8 @@ with lib; {
     users.mutableUsers = false;
 
     users.users.root = {
-      extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keys = [ "ssh-rsa ... " ];
+      extraGroups = ["wheel"];
+      openssh.authorizedKeys.keys = ["ssh-rsa ... "];
     };
   };
 }

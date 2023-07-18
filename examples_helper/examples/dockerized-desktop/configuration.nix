@@ -1,10 +1,10 @@
-{ profilesPath, ... }: {
-  imports = [ "${profilesPath}/hosts/minimal.nix" ];
+{profilesPath, ...}: {
+  imports = ["${profilesPath}/hosts/minimal.nix"];
 
-  modules = { dockerContainer.enable = true; };
+  modules = {dockerContainer.enable = true;};
 
   networking = {
-    nameservers = [ "8.8.8.8" ];
+    nameservers = ["8.8.8.8"];
     useDHCP = false;
   };
 
@@ -25,13 +25,13 @@
     groups.user.gid = 1000;
     mutableUsers = false;
     users = {
-      root = { hashedPassword = "*"; };
+      root = {hashedPassword = "*";};
       user = {
         uid = 1000;
         description = "User";
         isNormalUser = true;
         group = "user";
-        extraGroups = [ "wheel" ];
+        extraGroups = ["wheel"];
         password = "user";
       };
     };

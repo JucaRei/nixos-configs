@@ -1,6 +1,5 @@
-{ pkgs, ... }:
-
-let inherit (pkgs) nixpkgs-fmt rnix-lsp rust-analyzer;
+{pkgs, ...}: let
+  inherit (pkgs) nixpkgs-fmt rnix-lsp rust-analyzer;
 in {
   programs.vscode = {
     enable = true;
@@ -9,7 +8,7 @@ in {
       "update.mode" = "none";
       "editor.formatOnSave" = false;
       "editor.linkedEditing" = true;
-      "editor.rulers" = [ 80 120 ];
+      "editor.rulers" = [80 120];
       "workbench.tree.indent" = 15;
 
       "workbench.colorTheme" = "Monokai";
@@ -18,7 +17,7 @@ in {
       "terminal.integrated.tabs.enabled" = true;
       "window.titleBarStyle" = "custom";
       "window.zoomLevel" = 0;
-      "[html]" = { "editor.defaultFormatter" = "esbenp.prettier-vscode"; };
+      "[html]" = {"editor.defaultFormatter" = "esbenp.prettier-vscode";};
 
       # Nix
       "nix" = {
@@ -75,5 +74,5 @@ in {
   };
 
   programs.vscode.userSettings.editor.fontFamily = "Jetbrains Mono";
-  home.packages = with pkgs; [ jetbrains-mono ];
+  home.packages = with pkgs; [jetbrains-mono];
 }

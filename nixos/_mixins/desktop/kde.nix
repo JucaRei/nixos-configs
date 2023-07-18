@@ -1,13 +1,13 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment = {
-    systemPackages = with pkgs.libsForQt5; [ packagekit-qt bismuth ];
+    systemPackages = with pkgs.libsForQt5; [packagekit-qt bismuth];
   };
 
   services = {
     xserver = {
       enable = true;
 
-      modules = [ pkgs.xf86_input_wacon ];
+      modules = [pkgs.xf86_input_wacon];
       wacom.enable = true;
       libinput = {
         enable = true;

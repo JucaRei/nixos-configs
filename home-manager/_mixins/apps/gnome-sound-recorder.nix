@@ -1,4 +1,8 @@
-{ lib, username, ... }:
+{
+  lib,
+  username,
+  ...
+}:
 with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/SoundRecorder" = {

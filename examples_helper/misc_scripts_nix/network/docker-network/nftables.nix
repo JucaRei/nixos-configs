@@ -1,12 +1,15 @@
-{ pkgs, lib, config, ... }:
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   nftablesStartScript = pkgs.writeScript "nftables-rules" ''
     #!${pkgs.nftables}/bin/nft -f
     flush ruleset
     include "${config.networking.nftables.rulesetFile}"
   '';
-in
-{
+in {
   networking.nftables.enable = true;
   networking.nftables.ruleset = ''
     table ip nat {

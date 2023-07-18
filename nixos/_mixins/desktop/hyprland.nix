@@ -1,5 +1,8 @@
-{ pkgs, lib, ... }:
-let
+{
+  pkgs,
+  lib,
+  ...
+}: let
   hypr-run = pkgs.writeShellScriptBin "hypr-run" ''
     export XDG_SESSION_TYPE="wayland"
     export XDG_SESSION_DESKTOP="Hyprland"
@@ -10,8 +13,7 @@ let
 
     ${pkgs.hyprland}/bin/hyperctl dispatch exit
   '';
-in
-{
+in {
   imports = [
     (import ./configs/hyperland/tiling-common.nix {
       inherit lib pkgs;

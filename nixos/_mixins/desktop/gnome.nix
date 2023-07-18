@@ -1,5 +1,4 @@
-{ pkgs, ... }: {
-
+{pkgs, ...}: {
   imports = [
     #./qt-style.nix
     ./apps/browsers/firefox.nix
@@ -26,7 +25,7 @@
         enable = true; # Window Manager
       };
     };
-    udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+    udev.packages = with pkgs; [gnome.gnome-settings-daemon];
   };
 
   environment = {
@@ -37,24 +36,25 @@
       gnome.adwaita-icon-theme
       tilix
     ];
-    gnome.excludePackages = (with pkgs;
-      [
+    gnome.excludePackages =
+      (with pkgs; [
         # Gnome ignored packages
         gnome-tour
-      ]) ++ (with pkgs.gnome; [
-      gedit # text editor
-      epiphany # web-browser
-      geary # email client
-      gnome-characters
-      totem # video player
-      tali
-      iagno
-      hitori
-      atomix
-      yelp
-      gnome-contacts
-      gnome-initial-setup
-      gnome.gnome-terminal # remove default terminal
-    ]);
+      ])
+      ++ (with pkgs.gnome; [
+        gedit # text editor
+        epiphany # web-browser
+        geary # email client
+        gnome-characters
+        totem # video player
+        tali
+        iagno
+        hitori
+        atomix
+        yelp
+        gnome-contacts
+        gnome-initial-setup
+        gnome.gnome-terminal # remove default terminal
+      ]);
   };
 }

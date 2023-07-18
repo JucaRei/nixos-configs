@@ -5,54 +5,54 @@
 # Default configurations:
 #  (can be used with unknown displays)
 # [ horizontal vertical common clone-largest ]
-{ config, pkgs, ... }:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   inherit (pkgs.lib) mkOption;
   inherit (pkgs.lib) types;
   cfg = config.my-autorandr;
-in
-{
-  options =
-    let
-      xrandr-display = types.enum [
-        "eDP-1"
-        "DP-1"
-        "HDMI-1"
-        "HDMI-1-0"
-        "DP-2"
-        "HDMI-2"
-        "DP-3"
-        "HDMI-3"
-        "DP-1-4"
-        "DP-1-5"
-        "DP-1-6"
-        "eDP-1-2"
-      ];
-      displayOptions = {
-        options = {
-          name = mkOption {
-            description = "xrandr name for the display";
-            type = xrandr-display;
-          };
-          fp = mkOption {
-            description = "value from 'autorandr --fingerprint'";
-            type = types.str;
-          };
+in {
+  options = let
+    xrandr-display = types.enum [
+      "eDP-1"
+      "DP-1"
+      "HDMI-1"
+      "HDMI-1-0"
+      "DP-2"
+      "HDMI-2"
+      "DP-3"
+      "HDMI-3"
+      "DP-1-4"
+      "DP-1-5"
+      "DP-1-6"
+      "eDP-1-2"
+    ];
+    displayOptions = {
+      options = {
+        name = mkOption {
+          description = "xrandr name for the display";
+          type = xrandr-display;
         };
-      };
-    in
-    {
-      my-autorandr = {
-        display1 = mkOption {
-          description = "main display for custom layouts";
-          type = types.submodule displayOptions;
-        };
-        display2 = mkOption {
-          description = "secondary display for custom layouts";
-          type = types.submodule displayOptions;
+        fp = mkOption {
+          description = "value from 'autorandr --fingerprint'";
+          type = types.str;
         };
       };
     };
+  in {
+    my-autorandr = {
+      display1 = mkOption {
+        description = "main display for custom layouts";
+        type = types.submodule displayOptions;
+      };
+      display2 = mkOption {
+        description = "secondary display for custom layouts";
+        type = types.submodule displayOptions;
+      };
+    };
+  };
   config = {
     programs.autorandr = {
       profiles = {
@@ -106,7 +106,7 @@ in
               crtc = 0;
             };
           };
-          fingerprint = { "${cfg.display1.name}" = "${cfg.display1.fp}"; };
+          fingerprint = {"${cfg.display1.name}" = "${cfg.display1.fp}";};
         };
       };
     };

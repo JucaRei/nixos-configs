@@ -1,12 +1,18 @@
 # Taken from Colemickens
 # https://github.com/colemickens/nixcfg/blob/93e3d13b42e2a0a651ec3fbe26f3b98ddfdd7ab9/mixins/gfx-intel.nix
-{ pkgs, lib, hostname, ... }: {
+{
+  pkgs,
+  lib,
+  hostname,
+  ...
+}: {
   config = {
-    environment.systemPackages = with pkgs; [ libva-utils ];
+    environment.systemPackages = with pkgs; [libva-utils];
     hardware = {
       opengl = {
         driSupport = true;
-        extraPackages = [ ]
+        extraPackages =
+          []
           ++ lib.optionals (pkgs.system == "x86_64-linux" && hostname != "vm")
           (with pkgs; [
             intel-media-driver # LIBVA_DRIVER_NAME=iHD
@@ -26,7 +32,7 @@
     };
 
     nixpkgs.config.packageOverrides = pkgs: {
-      vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+      vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
     };
   };
 }

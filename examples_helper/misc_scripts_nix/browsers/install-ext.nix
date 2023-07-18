@@ -1,5 +1,4 @@
-{ baseDir }:
-let
+{baseDir}: let
   extDir = "${baseDir}/External Extensions/";
 
   x = import ./extensions.nix;
@@ -7,8 +6,7 @@ let
   ext = builtins.toJSON {
     external_update_url = "https://clients2.google.com/service/update2/crx";
   };
-in
-{
+in {
   # see brave.browser.enabled_labs_experiments for more flags
   #xdg.configFile."${baseDir}/Local State".source = ./local-state.json;
 

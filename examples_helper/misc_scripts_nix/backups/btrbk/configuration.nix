@@ -1,5 +1,5 @@
 {
-  imports = [ ./btrbk.nix ];
+  imports = [./btrbk.nix];
 
   # ... rest of the config
 
@@ -18,7 +18,7 @@
     volume = {
       "/home" = {
         snapshot_dir = "snapshots";
-        subvolume = { "." = { }; };
+        subvolume = {"." = {};};
         target = "ssh://nas/backup/nixos";
       };
     };

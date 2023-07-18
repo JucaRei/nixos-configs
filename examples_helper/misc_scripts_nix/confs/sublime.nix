@@ -1,7 +1,9 @@
-{ variables, pkgs, }: [
+{
+  variables,
+  pkgs,
+}: [
   {
-    target =
-      "${variables.homeDir}/.config/sublime-text-3/Packages/User/Preferences.sublime-settings";
+    target = "${variables.homeDir}/.config/sublime-text-3/Packages/User/Preferences.sublime-settings";
     source = pkgs.writeText "sublime-settings.json" ''
       {
           "always_show_minimap_viewport": true,
@@ -53,8 +55,7 @@
     '';
   }
   {
-    target =
-      "${variables.homeDir}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap";
+    target = "${variables.homeDir}/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap";
     source = pkgs.writeText "sublime-keymap.json" ''
       [
           { "keys": ["ctrl+0"], "command": "focus_neighboring_group" },
@@ -85,8 +86,7 @@
     '';
   }
   {
-    target =
-      "${variables.homeDir}/.config/sublime-text-3/Packages/User/delete_subword.sublime-macro";
+    target = "${variables.homeDir}/.config/sublime-text-3/Packages/User/delete_subword.sublime-macro";
     source = pkgs.writeText "delete_subword.json" ''
       [
          {
@@ -106,8 +106,7 @@
     '';
   }
   {
-    target =
-      "${variables.homeDir}/.config/sublime-text-3/Packages/User/delete_subword_forward.sublime-macro";
+    target = "${variables.homeDir}/.config/sublime-text-3/Packages/User/delete_subword_forward.sublime-macro";
     source = pkgs.writeText "delete_subword_forward.json" ''
       [
          {

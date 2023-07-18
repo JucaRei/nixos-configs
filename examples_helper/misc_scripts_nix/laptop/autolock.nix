@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   caffeine = pkgs.writeScriptBin "caffeine" ''
     #!${pkgs.runtimeShell}
     set -xe
@@ -13,8 +12,7 @@ let
     ${pkgs.xautolock}/bin/xautolock -enable
     ${pkgs.cowsay}/bin/cowsay "Autolock re-activated."
   '';
-in
-{
+in {
   services.xserver.xautolock = {
     enable = true;
     time = 5; # mins

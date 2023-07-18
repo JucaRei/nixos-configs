@@ -1,5 +1,11 @@
-{ lib, hostname, username, ... }: {
-  imports = [ ]
+{
+  lib,
+  hostname,
+  username,
+  ...
+}: {
+  imports =
+    []
     ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix")) ./hosts/${hostname}.nix;
 
   home = {
@@ -21,8 +27,7 @@
     file.".face".source = ./face.jpg;
     #file."Development/debian/.envrc".text = "export DEB_VENDOR=Debian";
     #file."Development/ubuntu/.envrc".text = "export DEB_VENDOR=Ubuntu";
-    file.".ssh/config".text =
-      "\n      Host github.com\n        HostName github.com\n        User git\n\n    #  Host man\n    #    HostName man.wimpress.io\n\n    #  Host yor\n    #    HostName yor.wimpress.io\n\n    #  Host man.ubuntu-mate.net\n    #    HostName man.ubuntu-mate.net\n    #    User matey\n    #    IdentityFile ~/.ssh/id_rsa_semaphore\n\n    #  Host yor.ubuntu-mate.net\n    #    HostName yor.ubuntu-mate.net\n    #    User matey\n    #    IdentityFile ~/.ssh/id_rsa_semaphore\n\n    #  Host bazaar.launchpad.net\n    #    User flexiondotorg\n\n    #  Host git.launchpad.net\n    #    User flexiondotorg\n\n    #  Host ubuntu.com\n    #    HostName people.ubuntu.com\n    #    User flexiondotorg\n\n    #  Host people.ubuntu.com\n    #    User flexiondotorg\n\n    #  Host ubuntupodcast.org\n    #    HostName live.ubuntupodcast.org\n    #";
+    file.".ssh/config".text = "\n      Host github.com\n        HostName github.com\n        User git\n\n    #  Host man\n    #    HostName man.wimpress.io\n\n    #  Host yor\n    #    HostName yor.wimpress.io\n\n    #  Host man.ubuntu-mate.net\n    #    HostName man.ubuntu-mate.net\n    #    User matey\n    #    IdentityFile ~/.ssh/id_rsa_semaphore\n\n    #  Host yor.ubuntu-mate.net\n    #    HostName yor.ubuntu-mate.net\n    #    User matey\n    #    IdentityFile ~/.ssh/id_rsa_semaphore\n\n    #  Host bazaar.launchpad.net\n    #    User flexiondotorg\n\n    #  Host git.launchpad.net\n    #    User flexiondotorg\n\n    #  Host ubuntu.com\n    #    HostName people.ubuntu.com\n    #    User flexiondotorg\n\n    #  Host people.ubuntu.com\n    #    User flexiondotorg\n\n    #  Host ubuntupodcast.org\n    #    HostName live.ubuntupodcast.org\n    #";
     file."Quickemu/nixos-desktop.conf".text = ''
       #!/run/current-system/sw/bin/quickemu --vm
       guest_os="linux"
@@ -72,4 +77,3 @@
     "d /home/${username}/Backups/vorta 0755 ${username} users - -"
   ];
 }
-

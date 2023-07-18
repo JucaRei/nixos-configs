@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   home.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
     MOZ_DISABLE_RDD_SANDBOX = "1";
@@ -43,7 +43,8 @@
           @import "${pkgs.firefox-gnome-theme}/share/firefox-gnome-theme/userContent.css";
         '';
 
-        extraConfig = builtins.readFile
+        extraConfig =
+          builtins.readFile
           "${pkgs.firefox-gnome-theme}/share/firefox-gnome-theme/configuration/user.js";
       };
     };

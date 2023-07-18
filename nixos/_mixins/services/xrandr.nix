@@ -1,6 +1,6 @@
 _: {
   services.xserver = {
-    videoDrivers = [ "nvidia" "intel" "amdgpu" ];
+    videoDrivers = ["nvidia" "intel" "amdgpu"];
 
     xrandrHeads = [
       {

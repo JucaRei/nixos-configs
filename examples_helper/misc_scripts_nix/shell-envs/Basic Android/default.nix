@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { } }:
+{pkgs ? import <nixpkgs> {}}:
 pkgs.mkShell {
   shellHook = ''
     echo -e "Hello world from the android nix-shell"

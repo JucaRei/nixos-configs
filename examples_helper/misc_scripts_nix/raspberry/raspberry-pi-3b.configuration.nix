@@ -1,18 +1,16 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   user = "guest";
   password = "guest";
   SSID = "mywifi";
   SSIDpassword = "mypassword";
   interface = "wlan0";
   hostname = "myhostname";
-in
-{
+in {
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
-      options = [ "noatime" ];
+      options = ["noatime"];
     };
   };
 
@@ -21,13 +19,13 @@ in
     wireless = {
       enable = true;
       networks."${SSID}".psk = SSIDpassword;
-      interfaces = [ interface ];
+      interfaces = [interface];
     };
   };
 
   # https://github.com/martiert/nixos-config/blob/main/machines/rpi3.nix
   boot = {
-    kernelModules = [ "bcm2835-v4l2" ];
+    kernelModules = ["bcm2835-v4l2"];
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
@@ -35,7 +33,7 @@ in
   };
   hardware.enableRedistributableFirmware = true;
 
-  environment.systemPackages = with pkgs; [ vim ];
+  environment.systemPackages = with pkgs; [vim];
 
   services.openssh.enable = true;
 
@@ -44,7 +42,7 @@ in
     users."${user}" = {
       isNormalUser = true;
       inherit password;
-      extraGroups = [ "wheel" ];
+      extraGroups = ["wheel"];
     };
   };
 

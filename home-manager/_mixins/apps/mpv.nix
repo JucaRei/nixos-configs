@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 with lib.hm.gvariant; {
   programs.mpv.enable = true;
 

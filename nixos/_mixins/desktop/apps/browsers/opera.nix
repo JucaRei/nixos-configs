@@ -1,1 +1,1 @@
-{ pkgs, ... }: { environment.systemPackages = with pkgs.unstable; [ opera ]; }
+{pkgs, ...}: {environment.systemPackages = with pkgs.unstable; [opera];}

@@ -1,6 +1,6 @@
-{ lib, ... }:
+{lib, ...}:
 with lib; {
-  imports = [ <nixpkgs/nixos/modules/profiles/qemu-guest.nix> ];
+  imports = [<nixpkgs/nixos/modules/profiles/qemu-guest.nix>];
 
   config = {
     fileSystems."/" = {
@@ -10,7 +10,7 @@ with lib; {
     };
 
     boot.growPartition = true;
-    boot.kernelParams = [ "console=ttyS0" ];
+    boot.kernelParams = ["console=ttyS0"];
     boot.loader.grub.device = "/dev/vda";
     boot.loader.timeout = 0;
 

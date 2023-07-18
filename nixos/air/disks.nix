@@ -1,7 +1,6 @@
 # { disks ? [ "/dev/sda1" "/dev/sda4" "/dev/sda5" ], ... }:
 # { disks ? [ "/dev/sda1" "/dev/sda4" ], ... }:
-{ disks ? [ "/dev/sda4" ], ... }:
-let
+{disks ? ["/dev/sda4"], ...}: let
   memory = "4G";
   defaultBtrfsOpts = [
     "rw"
@@ -14,8 +13,7 @@ let
     "autodefrag"
     "discard=async"
   ];
-in
-{
+in {
   disko.devices = {
     disk = {
       ### Dual boot mac, dont format mac EFI
@@ -66,7 +64,7 @@ in
         size = "100%";
         content = {
           type = "btrfs";
-          extraArgs = [ "-f" ]; # Override existing partition
+          extraArgs = ["-f"]; # Override existing partition
           subvolumes = {
             # Subvolume name is different from mountpoint
             "/rootfs" = {
@@ -74,12 +72,12 @@ in
               #mountOptions = defaultBtrfsOpts;
             };
             # Mountpoints inferred from subvolume name
-            "/home" = { mountOptions = defaultBtrfsOpts; };
-            "/nix" = { mountOptions = defaultBtrfsOpts; };
-            "/snaphots" = { mountOptions = defaultBtrfsOpts; };
-            "/tmp" = { mountOptions = defaultBtrfsOpts; };
+            "/home" = {mountOptions = defaultBtrfsOpts;};
+            "/nix" = {mountOptions = defaultBtrfsOpts;};
+            "/snaphots" = {mountOptions = defaultBtrfsOpts;};
+            "/tmp" = {mountOptions = defaultBtrfsOpts;};
             "/swap" = {
-              mountOptions = [ "noatime" ];
+              mountOptions = ["noatime"];
               #mount -t btrfs /dev/mapper/crypted /mnt
               postCreateHook = ''
                 btrfs filesystem mkswapfile --size ${memory} /mnt/swap/swapfile

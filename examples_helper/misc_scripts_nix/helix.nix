@@ -1,6 +1,4 @@
-_:
-
-{
+_: {
   programs.helix = {
     enable = true;
 
@@ -8,8 +6,8 @@ _:
       theme = "onedark";
 
       editor.statusline = {
-        left = [ "mode" "spinner" ];
-        center = [ "file-name" ];
+        left = ["mode" "spinner"];
+        center = ["file-name"];
         right = [
           "diagnostics"
           "selections"
@@ -34,14 +32,14 @@ _:
           C-l = "select_next_sibling";
 
           # Muscle memory
-          "{" = [ "goto_prev_paragraph" "collapse_selection" ];
-          "}" = [ "goto_next_paragraph" "collapse_selection" ];
+          "{" = ["goto_prev_paragraph" "collapse_selection"];
+          "}" = ["goto_next_paragraph" "collapse_selection"];
           "0" = "goto_line_start";
           "$" = "goto_line_end";
           "^" = "goto_first_nonwhitespace";
           G = "goto_file_end";
           "%" = "match_brackets";
-          V = [ "select_mode" "extend_to_line_bounds" ];
+          V = ["select_mode" "extend_to_line_bounds"];
           C = [
             "extend_to_line_end"
             "yank_main_selection_to_clipboard"
@@ -57,8 +55,8 @@ _:
 
           # Clipboards over registers ye ye
           x = "delete_selection";
-          p = [ "paste_clipboard_after" "collapse_selection" ];
-          P = [ "paste_clipboard_before" "collapse_selection" ];
+          p = ["paste_clipboard_after" "collapse_selection"];
+          P = ["paste_clipboard_before" "collapse_selection"];
           Y = [
             "extend_to_line_end"
             "yank_main_selection_to_clipboard"
@@ -66,22 +64,22 @@ _:
           ];
 
           # Uncanny valley stuff this makes w and b behave as they do Vim
-          w = [ "move_next_word_start" "move_char_right" "collapse_selection" ];
+          w = ["move_next_word_start" "move_char_right" "collapse_selection"];
           W = [
             "move_next_long_word_start"
             "move_char_right"
             "collapse_selection"
           ];
-          e = [ "move_next_word_end" "collapse_selection" ];
-          E = [ "move_next_long_word_end" "collapse_selection" ];
-          b = [ "move_prev_word_start" "collapse_selection" ];
-          B = [ "move_prev_long_word_start" "collapse_selection" ];
+          e = ["move_next_word_end" "collapse_selection"];
+          E = ["move_next_long_word_end" "collapse_selection"];
+          b = ["move_prev_word_start" "collapse_selection"];
+          B = ["move_prev_long_word_start" "collapse_selection"];
 
           # Undoing the 'd' + motion commands restores the selection which is annoying
-          u = [ "undo" "collapse_selection" ];
+          u = ["undo" "collapse_selection"];
 
           # Escape the madness! No more fighting with the cursor! Or with multiple cursors!
-          esc = [ "collapse_selection" "keep_primary_selection" ];
+          esc = ["collapse_selection" "keep_primary_selection"];
 
           # Search for word under cursor
           "*" = [
@@ -105,10 +103,10 @@ _:
               "yank_main_selection_to_clipboard"
               "delete_selection"
             ];
-            t = [ "extend_till_char" ];
-            s = [ "surround_delete" ];
-            i = [ "select_textobject_inner" ];
-            a = [ "select_textobject_around" ];
+            t = ["extend_till_char"];
+            s = ["surround_delete"];
+            i = ["select_textobject_inner"];
+            a = ["select_textobject_around"];
             j = [
               "select_mode"
               "extend_to_line_bounds"
@@ -245,37 +243,37 @@ _:
             };
           };
         };
-        insert = { esc = [ "collapse_selection" "normal_mode" ]; };
+        insert = {esc = ["collapse_selection" "normal_mode"];};
         select = {
           # Muscle memory
-          "{" = [ "extend_to_line_bounds" "goto_prev_paragraph" ];
-          "}" = [ "extend_to_line_bounds" "goto_next_paragraph" ];
+          "{" = ["extend_to_line_bounds" "goto_prev_paragraph"];
+          "}" = ["extend_to_line_bounds" "goto_next_paragraph"];
           "0" = "goto_line_start";
           "$" = "goto_line_end";
           "^" = "goto_first_nonwhitespace";
           G = "goto_file_end";
-          D = [ "extend_to_line_bounds" "delete_selection" "normal_mode" ];
-          C = [ "goto_line_start" "extend_to_line_bounds" "change_selection" ];
+          D = ["extend_to_line_bounds" "delete_selection" "normal_mode"];
+          C = ["goto_line_start" "extend_to_line_bounds" "change_selection"];
           "%" = "match_brackets";
           S = "surround_add";
-          u = [ "switch_to_lowercase" "collapse_selection" "normal_mode" ];
-          U = [ "switch_to_uppercase" "collapse_selection" "normal_mode" ];
+          u = ["switch_to_lowercase" "collapse_selection" "normal_mode"];
+          U = ["switch_to_uppercase" "collapse_selection" "normal_mode"];
 
           # Visual-mode specific muscle memory
           i = "select_textobject_inner";
           a = "select_textobject_around";
 
           # Some extra binds to allow us to insert/append in select mode because it's nice with multiple cursors
-          tab = [ "insert_mode" "collapse_selection" ];
-          C-a = [ "append_mode" "collapse_selection" ];
+          tab = ["insert_mode" "collapse_selection"];
+          C-a = ["append_mode" "collapse_selection"];
 
           # Make selecting lines in visual mode behave sensibly
-          k = [ "extend_line_up" "extend_to_line_bounds" ];
-          j = [ "extend_line_down" "extend_to_line_bounds" ];
+          k = ["extend_line_up" "extend_to_line_bounds"];
+          j = ["extend_line_down" "extend_to_line_bounds"];
 
           # Clipboards over registers ye ye
-          d = [ "yank_main_selection_to_clipboard" "delete_selection" ];
-          x = [ "yank_main_selection_to_clipboard" "delete_selection" ];
+          d = ["yank_main_selection_to_clipboard" "delete_selection"];
+          x = ["yank_main_selection_to_clipboard" "delete_selection"];
           y = [
             "yank_main_selection_to_clipboard"
             "normal_mode"
@@ -293,7 +291,7 @@ _:
           P = "paste_clipboard_before";
 
           # Escape the madness! No more fighting with the cursor! Or with multiple cursors!
-          esc = [ "collapse_selection" "keep_primary_selection" "normal_mode" ];
+          esc = ["collapse_selection" "keep_primary_selection" "normal_mode"];
         };
       };
     };

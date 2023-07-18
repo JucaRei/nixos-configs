@@ -1,9 +1,13 @@
 # Docker
 #
-{ pkgs, user, ... }: {
-  virtualisation = { docker.enable = true; };
+{
+  pkgs,
+  user,
+  ...
+}: {
+  virtualisation = {docker.enable = true;};
 
-  users.groups.docker.members = [ "${user}" ];
+  users.groups.docker.members = ["${user}"];
 
   #environment = {
   #  interactiveShellInit = ''
@@ -11,5 +15,5 @@
   #  '';                                                           # Alias to easily start container
   #};
 
-  environment.systemPackages = with pkgs; [ docker-compose ];
+  environment.systemPackages = with pkgs; [docker-compose];
 }

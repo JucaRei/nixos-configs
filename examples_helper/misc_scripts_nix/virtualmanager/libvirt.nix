@@ -1,7 +1,7 @@
 # Basic NixOS configuration for desktop libvirt virtualization
 # This file should be sourced in your /etc/nixos/configuration.nix
 # imports declaration.
-{ pkgs, ... }: {
+{pkgs, ...}: {
   environment = {
     systemPackages = with pkgs; [
       libguestfs-with-appliance
@@ -11,5 +11,5 @@
     ];
   };
 
-  virtualisation = { libvirtd.enable = true; };
+  virtualisation = {libvirtd.enable = true;};
 }

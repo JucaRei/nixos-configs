@@ -1,12 +1,13 @@
-{ config, lib, ... }:
-
 {
-  imports = [ ./btrfs.nix ];
+  config,
+  lib,
+  ...
+}: {
+  imports = [./btrfs.nix];
 
   options.nixos.system.enable = lib.mkDefaultOption "system config";
 
   config = lib.mkIf config.nixos.system.enable {
-
     boot = {
       initrd.systemd.enable = lib.mkDefault true;
 
@@ -21,7 +22,7 @@
       };
 
       # Enable NTFS support
-      supportedFilesystems = [ "ntfs" ];
+      supportedFilesystems = ["ntfs"];
 
       tmp = {
         # Mount /tmp using tmpfs for performance
@@ -32,12 +33,14 @@
     };
 
     # Increase file handler limit
-    security.pam.loginLimits = [{
-      domain = "*";
-      type = "-";
-      item = "nofile";
-      value = "524288";
-    }];
+    security.pam.loginLimits = [
+      {
+        domain = "*";
+        type = "-";
+        item = "nofile";
+        value = "524288";
+      }
+    ];
 
     # Enable firmware-linux-nonfree
     hardware.enableRedistributableFirmware = true;

@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   hardware.video.hidpi.enable = true;
   services.xserver.dpi = 170;
   services.xserver.displayManager.sessionCommands = ''

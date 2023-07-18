@@ -10,8 +10,7 @@ _: {
   # systemd.services.kubelet.path = [ pkgs.zfs ];
 
   virtualisation.docker.enable = true;
-  virtualisation.docker.extraOptions =
-    "-H 0.0.0.0:2376 --tlsverify --tlscacert /run/keys/docker/ca.pem --tlscert /run/keys/docker/server-cert.pem --tlskey /run/keys/docker/server-key.pem";
+  virtualisation.docker.extraOptions = "-H 0.0.0.0:2376 --tlsverify --tlscacert /run/keys/docker/ca.pem --tlscert /run/keys/docker/server-cert.pem --tlskey /run/keys/docker/server-key.pem";
   virtualisation.docker.storageDriver = "zfs";
   virtualisation.docker.liveRestore = false; # FIXME: required for swarm :/
 }

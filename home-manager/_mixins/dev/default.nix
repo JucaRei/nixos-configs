@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     #./charm-tools.nix
     #./cloud.nix

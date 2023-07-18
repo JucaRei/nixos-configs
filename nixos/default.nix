@@ -1,53 +1,54 @@
-{ config
-, desktop
-, hostname
-#, hostid
-, inputs
-, lib
-, modulesPath
-, outputs
-, pkgs
-, stateVersion
-, username
-, ...
-}:
-let machines = [ "nitro" "air" ];
+{
+  config,
+  desktop,
+  hostname,
+  #, hostid
+  inputs,
+  lib,
+  modulesPath,
+  outputs,
+  pkgs,
+  stateVersion,
+  username,
+  ...
+}: let
+  machines = ["nitro" "air"];
 in {
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
-  imports = [
-    #(./. + "/${hostname}/disks.nix")
-    #(./. + "/${hostname}/hardware.nix")
-    #(./. + "/${hostname}/boot.nix")
+  imports =
+    [
+      #(./. + "/${hostname}/disks.nix")
+      #(./. + "/${hostname}/hardware.nix")
+      #(./. + "/${hostname}/boot.nix")
 
-    #inputs.disko.nixosModules.disko    
-    (modulesPath + "/installer/scan/not-detected.nix")
-    (./. + "/${hostname}")
-    ./_mixins/services/kmscon.nix
-    ./_mixins/services/openssh.nix
-    ./_mixins/services/firewall.nix
-    ./_mixins/services/flatpak.nix
-    ./_mixins/services/fwupd.nix
-    ./_mixins/services/ntp.nix
-    ./_mixins/services/bluetooth.nix
-    ./_mixins/services/security.nix
-    ./_mixins/users/root
-    #../services/tailscale.nix
-    #../services/zerotier.nix
-    ./_mixins/users/${username}
-  ]
-  #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
-  #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
-  #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
-
-  ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
-  ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
+      #inputs.disko.nixosModules.disko
+      (modulesPath + "/installer/scan/not-detected.nix")
+      (./. + "/${hostname}")
+      ./_mixins/services/kmscon.nix
+      ./_mixins/services/openssh.nix
+      ./_mixins/services/firewall.nix
+      ./_mixins/services/flatpak.nix
+      ./_mixins/services/fwupd.nix
+      ./_mixins/services/ntp.nix
+      ./_mixins/services/bluetooth.nix
+      ./_mixins/services/security.nix
+      ./_mixins/users/root
+      #../services/tailscale.nix
+      #../services/zerotier.nix
+      ./_mixins/users/${username}
+    ]
+    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
+    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
+    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
+    ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
+    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
-    initrd = { verbose = false; };
+    initrd = {verbose = false;};
     consoleLogLevel = 0;
-    kernelModules = [ "vhost_vsock" ];
+    kernelModules = ["vhost_vsock"];
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
       "quiet"
@@ -75,10 +76,13 @@ in {
   };
 
   console = {
-    keyMap = if (builtins.isString == "nitro") then "br-abnt2" else "us";
+    keyMap =
+      if (builtins.isString == "nitro")
+      then "br-abnt2"
+      else "us";
     earlySetup = true;
     font = "${pkgs.tamzen}/share/consolefonts/TamzenForPowerline10x20.psf";
-    packages = with pkgs; [ tamzen ];
+    packages = with pkgs; [tamzen];
   };
 
   i18n = {
@@ -97,36 +101,36 @@ in {
       #LC_COLLATE = "pt_BR.utf8";
       #LC_MESSAGES = "pt_BR.utf8";
     };
-    supportedLocales = [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
+    supportedLocales = ["en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8"];
   };
 
   services = {
-    xserver = 
-
-    ################
-    ### Keyboard ###
-    ################
-      if (builtins.isString == "nitro" && "vm") then {
+    xserver =
+      ################
+      ### Keyboard ###
+      ################
+      if (builtins.isString == "nitro" && "vm")
+      then {
         layout = "br,gb,us";
         xkbVariant = "pc105";
         xkbModel = "pc105";
         xkbOptions = "grp:alt_shift_toggle";
-      } else {
+      }
+      else {
         layout = "us";
         xkbVariant = "mac";
         xkbModel = "pc105";
         xkbOptions = ''
           "altwin:ctrl_win"
           "altwin:ctrl_alt_win"
-          "caps:super" 
-          "terminate:ctrl_alt_bksp" 
+          "caps:super"
+          "terminate:ctrl_alt_bksp"
         '';
         #"caps:ctrl_modifier"
         #"lv3:alt_switch"
         #"lv3:switch,compose:lwin”
         enable = true;
       };
-      
 
     ##################
     ### More Stuff ###
@@ -166,7 +170,6 @@ in {
         HandlePowerKey=suspend-then-hibernate
       '';
     };
-
   };
   time.timeZone = lib.mkDefault "America/Sao_Paulo";
   #location = {
@@ -186,8 +189,8 @@ in {
   environment = {
     # Eject nano and perl from the system
     defaultPackages = with pkgs;
-      lib.mkForce [ gitMinimal home-manager micro rsync ];
-    systemPackages = with pkgs; [ pciutils psmisc unzip usbutils duf htop ];
+      lib.mkForce [gitMinimal home-manager micro rsync];
+    systemPackages = with pkgs; [pciutils psmisc unzip usbutils duf htop];
     variables = {
       EDITOR = "micro";
       SYSTEMD_EDITOR = "micro";
@@ -199,7 +202,7 @@ in {
     fontDir.enable = true;
     fonts = with pkgs; [
       (nerdfonts.override {
-        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
+        fonts = ["FiraCode" "SourceCodePro" "UbuntuMono"];
       })
       fira
       fira-go
@@ -217,10 +220,10 @@ in {
     fontconfig = {
       antialias = true;
       defaultFonts = {
-        serif = [ "Source Serif" ];
-        sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
-        monospace = [ "FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono" ];
-        emoji = [ "Joypixels" "Noto Color Emoji" ];
+        serif = ["Source Serif"];
+        sansSerif = ["Work Sans" "Fira Sans" "FiraGO"];
+        monospace = ["FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono"];
+        emoji = ["Joypixels" "Noto Color Emoji"];
       };
       enable = true;
       hinting = {
@@ -254,7 +257,6 @@ in {
   ###################
 
   nixpkgs = {
-
     # You can add overlays here
     overlays = [
       # if you also want support for flakes
@@ -285,7 +287,7 @@ in {
       # Disable if you don't want unfree packages
       allowUnfree = true;
 
-      ### Allow old broken electron 
+      ### Allow old broken electron
       permittedInsecurePackages = lib.singleton "electron-12.2.3";
 
       ### Android
@@ -301,7 +303,6 @@ in {
   #####################
 
   nix = {
-
     gc = {
       automatic = true;
       options = "--delete-older-than 5d";
@@ -323,7 +324,7 @@ in {
 
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -331,7 +332,7 @@ in {
 
     optimise = {
       automatic = true;
-      dates = [ "00:00" "05:00" "12:00" "21:00" ];
+      dates = ["00:00" "05:00" "12:00" "21:00"];
     };
     package = pkgs.unstable.nix;
     #package = pkgs.nixFlakes;
@@ -339,7 +340,7 @@ in {
       sandbox = "relaxed";
       auto-optimise-store = true;
       warn-dirty = false;
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
 
       # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
       keep-going = false;
@@ -457,7 +458,6 @@ in {
     #};
   };
   system = {
-
     autoUpgrade.allowReboot = true;
 
     activationScripts.diff = {

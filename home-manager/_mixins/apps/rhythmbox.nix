@@ -1,4 +1,8 @@
-{ lib, username, ... }:
+{
+  lib,
+  username,
+  ...
+}:
 with lib.hm.gvariant; {
   dconf.settings = {
     "org/gnome/rhythmbox/plugins" = {
@@ -13,10 +17,10 @@ with lib.hm.gvariant; {
       ];
     };
 
-    "org/gnome/rhythmbox/podcast" = { download-interval = "manual"; };
+    "org/gnome/rhythmbox/podcast" = {download-interval = "manual";};
 
     "org/gnome/rhythmbox/rhythmdb" = {
-      locations = [ "file:///home/${username}/Music" ];
+      locations = ["file:///home/${username}/Music"];
       monitor-library = true;
     };
 

@@ -1,9 +1,8 @@
 _: {
-
   boot = {
     #tmp = {
-      #useTmpfs = true;
-      #cleanOnBoot = true;
+    #useTmpfs = true;
+    #cleanOnBoot = true;
     #};
     loader = {
       efi = {
@@ -29,7 +28,7 @@ _: {
 
         ## If using zfs filesystem
         # zfsSupport = true;                        # enable zfs
-        # copyKernels = true; 
+        # copyKernels = true;
 
         useOSProber = false;
         fsIdentifier = "label";
@@ -49,4 +48,3 @@ _: {
     };
   };
 }
-

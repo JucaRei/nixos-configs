@@ -1,4 +1,4 @@
-{ config, ... }: {
+{config, ...}: {
   home.sessionVariables.STARSHIP_CACHE = "${config.xdg.cacheHome}/starship";
 
   programs.starship = {
@@ -10,8 +10,7 @@
       add_newline = true;
       line_break.disabled = true;
 
-      format =
-        "$directory$git_branch$git_metrics$git_commit$git_state$git_status$all";
+      format = "$directory$git_branch$git_metrics$git_commit$git_state$git_status$all";
 
       character = {
         success_symbol = "[λ](green)";

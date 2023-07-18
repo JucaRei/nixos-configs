@@ -1,7 +1,5 @@
-{ pkgs, ... }:
-
-{
-  home.packages = with pkgs; [ ripgrep ];
+{pkgs, ...}: {
+  home.packages = with pkgs; [ripgrep];
 
   programs.neovim = {
     enable = true;
@@ -86,7 +84,7 @@
     # To install non-packaged plugins, use
     # pkgs.vimUtils.buildVimPluginFrom2Nix { }
     plugins = with pkgs;
-      with vimPlugins;
+    with vimPlugins;
       [
         {
           # FIXME: dummy plugin since there is no way currently to set a config
@@ -459,7 +457,8 @@
         vim-repeat
         vim-sleuth
         vim-surround
-      ] ++ lib.optionals (!pkgs.stdenv.isDarwin) [
+      ]
+      ++ lib.optionals (!pkgs.stdenv.isDarwin) [
         # give [?] icons in macOS
         nvim-web-devicons
       ];

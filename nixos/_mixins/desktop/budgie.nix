@@ -1,11 +1,15 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./qt-style.nix
     ./apps/browsers/firefox.nix
     ../services/networkmanager.nix
   ];
 
-  environment.budgie.excludePackages = with pkgs; [ mate.mate-terminal ];
+  environment.budgie.excludePackages = with pkgs; [mate.mate-terminal];
 
   environment.systemPackages = [
     #inputs.nix-software-center.packages.${system}.nix-software-center
@@ -42,16 +46,14 @@
       desktopManager = {
         budgie = {
           enable = lib.mkForce true;
-          sessionPath = [ ];
+          sessionPath = [];
           extraGSettingsOverrides = "";
-          extraGSettingsOverridePackages = [ ];
-          extraPlugins = with pkgs;
-            [ budgiePlugins.budgie-analogue-clock-applet ];
+          extraGSettingsOverridePackages = [];
+          extraPlugins = with pkgs; [budgiePlugins.budgie-analogue-clock-applet];
         };
       };
     };
   };
-  xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gnome ];
-  security.pam.services = { budgie-screensaver.allowNullPassword = true; };
-
+  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-gnome];
+  security.pam.services = {budgie-screensaver.allowNullPassword = true;};
 }

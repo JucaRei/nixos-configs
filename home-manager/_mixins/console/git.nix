@@ -1,8 +1,8 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs = {
     gh = {
       enable = true;
-      extensions = with pkgs; [ gh-markdown-preview ];
+      extensions = with pkgs; [gh-markdown-preview];
       settings = {
         editor = "micro";
         git_protocol = "ssh";
@@ -35,7 +35,7 @@
             file-decoration-style = "none";
             hunk-header-decoration-style = "cyan box ul";
           };
-          delta = { navigate = true; };
+          delta = {navigate = true;};
           line-numbers = {
             line-numbers-left-style = "cyan";
             line-numbers-right-style = "cyan";
@@ -46,8 +46,7 @@
       };
 
       aliases = {
-        lg =
-          "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+        lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
         branch-default = ''
           !git symbolic-ref --short refs/remotes/origin/HEAD | sed "s|^origin/||"
         '';
@@ -64,11 +63,9 @@
         pushf = "push --force-with-lease";
         logs = "log --show-signature";
         # Show the diff between the latest commit and the current state.
-        d =
-          "!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat";
+        d = "!git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat";
         # `git di $number` shows the diff between the state `$number` revisions ago and the current state.
-        di =
-          "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d";
+        di = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d";
         # Pull in remote changes for the current repository and all its submodules.
         p = "pull --recurse-submodules";
         # Clone a repository including all submodules.
@@ -104,8 +101,7 @@
         rebn = "!r() { git rebase -i HEAD~$1 --autosquash; }; r";
 
         # Remove the old tag with this name and tag the latest commit with it.
-        retag =
-          "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r";
+        retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r";
 
         # List contributors with number of commits.
         contributors = "shortlog --summary --numbered";
@@ -119,22 +115,22 @@
           default = "matching";
           autoSetupRemote = true;
         };
-        pull = { rebase = true; };
-        rebase = { autoStash = true; };
-        branch = { sort = "-committerdate"; };
-        color = { ui = true; };
-        init = { defaultBranch = "main"; };
+        pull = {rebase = true;};
+        rebase = {autoStash = true;};
+        branch = {sort = "-committerdate";};
+        color = {ui = true;};
+        init = {defaultBranch = "main";};
         core = {
           editor = "nvim";
           whitespace = "trailing-space,space-before-tab,indent-with-non-tab";
         };
-        checkout = { defaultRemote = "origin"; };
+        checkout = {defaultRemote = "origin";};
         merge = {
           conflictstyle = "diff3";
           tool = "nvim -d";
         };
-        github = { user = "Reinaldo"; };
-        commit = { verbose = true; };
+        github = {user = "Reinaldo";};
+        commit = {verbose = true;};
         url = {
           "https://github.com/".insteadOf = "gh:";
           "https://gitlab.com/".insteadOf = "gl:";
@@ -162,7 +158,7 @@
         "dumb.rdb"
         "Thumbs.db"
       ];
-      includes = [{ path = "~/.config/git/local"; }];
+      includes = [{path = "~/.config/git/local";}];
     };
   };
 }

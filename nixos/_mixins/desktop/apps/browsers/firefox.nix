@@ -1,8 +1,8 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs = {
     firefox = {
       enable = true;
-      languagePacks = [ "en-GB" "pt-BR" ];
+      languagePacks = ["en-GB" "pt-BR"];
       package = pkgs.unstable.firefox;
       policies = {
         DisableTelemetry = true;

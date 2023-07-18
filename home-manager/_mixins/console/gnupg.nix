@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   programs.gpg = {
     enable = true;
     #dirmngr.enable = false;
@@ -90,5 +94,5 @@
   #   # Each time I need to add new key, I just type keychain path/to/key.
   # };
 
-  home.packages = [ pkgs.gnupg ];
+  home.packages = [pkgs.gnupg];
 }

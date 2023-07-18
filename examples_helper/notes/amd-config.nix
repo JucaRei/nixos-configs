@@ -1,33 +1,37 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   boot = {
-    initrd.kernelModules = [ "amdgpu" ];
+    initrd.kernelModules = ["amdgpu"];
     kernelPackages = pkgs.linuxPackages_5_8;
   };
 
   networking = {
     networkmanager = {
       enable = true;
-      packages = [ pkgs.networkmanager-openvpn ];
+      packages = [pkgs.networkmanager-openvpn];
     };
     useDHCP = false;
     wireless.enable = false;
   };
 
-  environment.systemPackages = with pkgs; [ chromium wget gparted ];
+  environment.systemPackages = with pkgs; [chromium wget gparted];
 
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   services = {
-    dbus.packages = [ pkgs.dconf ];
-    udev.packages = [ pkgs.gnome3.gnome-settings-daemon ];
+    dbus.packages = [pkgs.dconf];
+    udev.packages = [pkgs.gnome3.gnome-settings-daemon];
     openssh.enable = true;
 
     xserver = {
       enable = true;
       layout = "us";
       libinput.enable = true;
-      videoDrivers = [ "amdgpu" ];
+      videoDrivers = ["amdgpu"];
 
       displayManager.gdm.enable = true;
       displayManager.gdm.wayland = true;
@@ -38,7 +42,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.gvolpe = {
     isNormalUser = true;
-    extraGroups = [ "docker" "networkmanager" "wheel" ]; # wheel for ‘sudo’.
+    extraGroups = ["docker" "networkmanager" "wheel"]; # wheel for ‘sudo’.
     shell = pkgs.fish;
   };
 

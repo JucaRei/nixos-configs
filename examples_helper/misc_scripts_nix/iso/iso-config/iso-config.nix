@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 with lib; {
   config = {
     i18n.defaultLocale = "de_DE.UTF-8";
@@ -24,16 +28,18 @@ with lib; {
     users.mutableUsers = false;
 
     users.users.root = {
-      extraGroups = [ "wheel" ];
-      openssh.authorizedKeys.keys = [ "ssh-rsa ... " ];
+      extraGroups = ["wheel"];
+      openssh.authorizedKeys.keys = ["ssh-rsa ... "];
     };
 
     # to keep usbstick booting, see https://github.com/NixOS/nixpkgs/issues/7132
     #isoImage.volumeID = lib.mkDefault "NIXOS_ISO  ";
 
-    isoImage.contents = [{
-      source = /home/me/kubrick;
-      target = "/kubrick";
-    }];
+    isoImage.contents = [
+      {
+        source = /home/me/kubrick;
+        target = "/kubrick";
+      }
+    ];
   };
 }

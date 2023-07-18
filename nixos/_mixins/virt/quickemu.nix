@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   #https://nixos.wiki/wiki/Podman
 
-  environment.systemPackages = with pkgs; [ unstable.quickemu ];
+  environment.systemPackages = with pkgs; [unstable.quickemu];
 }

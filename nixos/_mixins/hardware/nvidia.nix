@@ -1,5 +1,9 @@
-{ pkgs, config, lib, ... }:
-let
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}: let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -10,9 +14,8 @@ let
 
   intelBusId = "PCI:0:2:0";
   nvidiaBusId = "PCI:1:0:0";
-in
-{
-  services.xserver.videoDrivers = [ "nvidia" ];
+in {
+  services.xserver.videoDrivers = ["nvidia"];
   hardware = {
     nvidia = {
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
@@ -69,5 +72,5 @@ in
   #   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   # };
 
-  boot.blacklistedKernelModules = lib.mkForce [ "nouveau" ];
+  boot.blacklistedKernelModules = lib.mkForce ["nouveau"];
 }

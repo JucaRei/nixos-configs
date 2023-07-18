@@ -1,6 +1,9 @@
-{ config, pkgs, nixpkgs, ... }:
-
 {
+  config,
+  pkgs,
+  nixpkgs,
+  ...
+}: {
   programs.steam = {
     enable = true;
     remotePlay.openFirewall =
@@ -12,11 +15,10 @@
   # Adding missing dependencies
   nixpkgs.config.packageOverrides = pkgs: {
     steam =
-      pkgs.steam.override { extraPkgs = pkgs: with pkgs; [ libgdiplus ]; };
+      pkgs.steam.override {extraPkgs = pkgs: with pkgs; [libgdiplus];};
   };
 
   # Java
   programs.java.enable = true;
-  environment.systemPackages = with pkgs;
-    [ (steam.override { withJava = true; }) ];
+  environment.systemPackages = with pkgs; [(steam.override {withJava = true;})];
 }

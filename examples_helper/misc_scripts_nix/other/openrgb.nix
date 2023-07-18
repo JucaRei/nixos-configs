@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   nixpkgs.overlays = [
     (self: _super: {
       openrgb-51 = self.pkgs.openrgb.overrideAttrs (_oldAttrs: rec {
@@ -12,9 +12,9 @@
     })
   ];
 
-  environment.systemPackages = with pkgs; [ openrgb-51 ];
+  environment.systemPackages = with pkgs; [openrgb-51];
 
-  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+  boot.kernelModules = ["i2c-dev" "i2c-piix4"];
 
   services.udev.extraRules = ''
     SUBSYSTEMS=="usb", ATTR{idVendor}=="26CE", ATTR{idProduct}=="01A2", TAG+="uaccess"
