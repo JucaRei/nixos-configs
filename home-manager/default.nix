@@ -13,9 +13,9 @@ in {
     # You can also split up your configuration and import pieces of it here:
     #./_mixins/dev
     ./_mixins/console
-  ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
-  ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}"))
-    ./_mixins/users/${username};
+  ] 
+  ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
+  ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
 
   home = {
     activation.report-changes = config.lib.dag.entryAnywhere ''
