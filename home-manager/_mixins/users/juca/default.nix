@@ -106,6 +106,7 @@
     "d /home/${username}/quickemu/nixos-console 0755 ${username} users - -"
     "d /home/${username}/syncthing 0755 ${username} users - -"
     "d /home/${username}/Zero 0755 ${username} users - -"
+    "d /home/${username}/Backups/vorta 0755 ${username} users - -"
   ];
 }
 

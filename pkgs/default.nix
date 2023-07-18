@@ -4,4 +4,5 @@
   # example = pkgs.callPackage ./example { };
   nvchad = pkgs.callPackage ./nvchad { };
   firefox-csshacks = pkgs.callPackage ./firefox-csshacks { };
+  tidal-dl = pkgs.python3Packages.callPackage ./tidal-dl { };
 }
