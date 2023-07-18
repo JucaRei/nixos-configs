@@ -36,8 +36,7 @@
       | |      | | | (_| | |   <  |  __/ \\__ \\
       |_|      |_|  \__,_| |_|\_\  \___| |___/
           "
-          "
-            export PS1="[\e[0;34m(Flakes)\$\e[m:\w]\$ "
+      export PS1="[\e[0;34m(Flakes)\$\e[m:\w]\$
       PATH=${
         pkgs.writeShellScriptBin "nix" ''
           ${pkgs.nixFlakes}/bin/nix --experimental-features "nix-command flakes repl-flake" "$@"
