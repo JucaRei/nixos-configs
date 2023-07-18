@@ -12,7 +12,7 @@
   };
 
   environment.systemPackages = with pkgs; [
-    xorg
+    xorg.xorgserver
     wmctrl # Terminal X11 automation
     xdotool # Terminal X11 automation
     ydotool # Terminal *all-the-things* automation

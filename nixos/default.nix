@@ -101,6 +101,7 @@ in {
   };
 
   services = {
+    enable = true;
     ################
     ### Keyboard ###
     ################
