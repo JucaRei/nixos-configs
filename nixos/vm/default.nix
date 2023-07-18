@@ -1,7 +1,8 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, modulesPath, ... }: {
 
   imports = [
     #inputs.nixos-hardware.nixosModules.common-pc
+    (modulesPath + "/profiles/qemu-guest.nix")
     ../_mixins/services/pipewire.nix
     ../_mixins/hardware/grub-efi.nix
   ];
@@ -26,14 +27,9 @@
     initrd = {
       ###  kernel modules in the initial ramdisk used during the boot process ###
       availableKernelModules = [
-        "ata_piix"
         "ahci"
         "xhci_pci"
-        "ehci_pci"
-        "ohci_pci"
         "virtio_pci"
-        "usbhid"
-        "sd_mod"
         "sr_mod"
         "virtio_blk"
       ];
@@ -169,7 +165,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:10"
+      "compress-force=zstd:15"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -187,7 +183,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:10"
+      "compress-force=zstd:15"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -205,7 +201,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:10"
+      "compress-force=zstd:15"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -223,7 +219,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:10"
+      "compress-force=zstd:15"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -241,7 +237,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:10"
+      "compress-force=zstd:15"
       "space_cache=v2"
       "commit=120"
       "autodefrag"

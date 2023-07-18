@@ -279,7 +279,7 @@ in {
     # Configure your nixpkgs instance
     config = {
       # Allow unsupported packages to be built
-      allowUnsupportedSystem = false;
+      allowUnsupportedSystem = true;
       # Disable broken package
       allowBroken = false;
       # Disable if you don't want unfree packages

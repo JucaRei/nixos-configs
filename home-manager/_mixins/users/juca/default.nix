@@ -1,7 +1,6 @@
 { lib, hostname, username, ... }: {
   imports = [ ]
-    ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix"))
-    ./hosts/${hostname}.nix;
+    ++ lib.optional (builtins.pathExists (./. + "/hosts/${hostname}.nix")) ./hosts/${hostname}.nix;
 
   home = {
     #file.".bazaar/authentication.conf".text = "
@@ -65,10 +64,10 @@
     "d /home/${username}/Documents/workspace/bitbucket 0755 ${username} users - -"
     "d /home/${username}/Documents/workspace/gitlab 0755 ${username} users - -"
     "d /home/${username}/Documents/workspace/scripts/ 0755 ${username} users - -"
-    "d /home/${username}/games 0755 ${username} users - -"
-    "d /home/${username}/quickemu/nixos-desktop 0755 ${username} users - -"
-    "d /home/${username}/quickemu/nixos-console 0755 ${username} users - -"
-    "d /home/${username}/syncthing 0755 ${username} users - -"
+    "d /home/${username}/Games 0755 ${username} users - -"
+    "d /home/${username}/Quickemu/nixos-desktop 0755 ${username} users - -"
+    "d /home/${username}/Quickemu/nixos-console 0755 ${username} users - -"
+    "d /home/${username}/Syncthing 0755 ${username} users - -"
     "d /home/${username}/Zero 0755 ${username} users - -"
     "d /home/${username}/Backups/vorta 0755 ${username} users - -"
   ];
