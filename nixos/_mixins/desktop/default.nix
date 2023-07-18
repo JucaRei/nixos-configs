@@ -21,7 +21,8 @@
 
   # Disable xterm
   services.xserver = {
-    excludePackages = [ pkgs.xterm ];
-    desktopManager.xterm.enable = false;
+    enable = true;
+    #excludePackages = [ pkgs.xterm ];
+    #desktopManager.xterm.enable = false;
   };
 }
