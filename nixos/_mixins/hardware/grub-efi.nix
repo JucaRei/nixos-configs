@@ -1,10 +1,10 @@
 _: {
 
   boot = {
-    tmp = {
-      useTmpfs = true;
+    #tmp = {
+      #useTmpfs = true;
       #cleanOnBoot = true;
-    };
+    #};
     loader = {
       efi = {
         #canTouchEfiVariables = true;

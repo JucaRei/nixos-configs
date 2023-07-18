@@ -1,9 +1,10 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, desktop, ... }: {
 
   imports = [
     #inputs.nixos-hardware.nixosModules.common-pc
     ../_mixins/services/pipewire.nix
     ../_mixins/hardware/grub-efi.nix
+    ../_mixins/desktop/${desktop}.nix
   ];
 
   ####################
