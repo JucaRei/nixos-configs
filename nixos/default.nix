@@ -41,8 +41,7 @@ in {
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
   #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
 
-  ++ lib.optional (builtins.elem hostname machines)
-    ./_mixins/hardware/gfx-intel.nix
+  ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
   ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
