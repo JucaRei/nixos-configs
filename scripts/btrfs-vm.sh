@@ -28,7 +28,7 @@ mkfs.btrfs /dev/$ROOT_PARTITION -f -L "NIXOS"
 BTRFS_OPTS="rw,noatime,ssd,compress-force=zstd:5,space_cache=v2,nodatacow,commit=120,autodefrag,discard=async"
 # BTRFS_OPTS="rw,noatime,ssd,compress-force=zstd:15,space_cache=v2,commit=120,discard=async"
 mount -o $BTRFS_OPTS /dev/$ROOT_PARTITION /mnt
-btrfs su cr /mnt/@root
+btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
 btrfs su cr /mnt/@nix
 btrfs su cr /mnt/@snapshots
@@ -37,7 +37,7 @@ btrfs su cr /mnt/@tmp
 umount -R /mnt
 
 # mount -o $BTRFS_OPTS,subvol=@root /dev/vda2 /mnt
-mount -o $BTRFS_OPTS,subvol="@root" /dev/disk/by-label/NIXOS /mnt
+mount -o $BTRFS_OPTS,subvol="@" /dev/disk/by-label/NIXOS /mnt
 # mount -o $BTRFS_OPTS,subvol="@root" /dev/disk/by-partlabel/NIXOS /mnt
 mkdir -pv /mnt/{boot/efi,home,.snapshots,var/tmp,nix}
 mount -o $BTRFS_OPTS,subvol="@home" /dev/disk/by-label/NIXOS /mnt/home

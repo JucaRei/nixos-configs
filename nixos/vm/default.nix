@@ -163,7 +163,7 @@
     device = "/dev/disk/by-label/NIXOS";
     fsType = "btrfs";
     options = [
-      "subvol=@root"
+      "subvol=@"
       "rw"
       "noatime"
       "nodiratime"
@@ -260,7 +260,7 @@
   #  ]; # Note these options effect the entire BTRFS filesystem and not just this volume, with the exception of `"subvol=swap"`, the other options are repeated in my other `fileSystem` mounts
   #};
 
-  fileSystems."/boot" = {
+  fileSystems."/boot/efi" = {
     device = "/dev/disk/by-label/EFI";
     fsType = "vfat";
     options = [ "defaults" "noatime" "nodiratime" ];
