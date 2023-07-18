@@ -161,14 +161,14 @@
         iso-console = libx.mkHost {
           hostname = "iso-console";
           username = "nixos";
-          hostid = "0145d780";
+          #hostid = "0145d780";
           installer = nixpkgs
             + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix";
         };
         iso-desktop = libx.mkHost {
           hostname = "iso-desktop";
           username = "nixos";
-          hostid = "0145d783";
+          #hostid = "0145d783";
           installer = nixpkgs
             + "/nixos/modules/installer/cd-dvd/installation-cd-graphical-calamares.nix";
           desktop = "pantheon";
@@ -180,7 +180,7 @@
         air = libx.mkHost {
           hostname = "air";
           username = "juca";
-          hostid = "b28460d8";
+          #hostid = "b28460d8";
           desktop = "mate";
         };
         #oldmac          = libx.mkHost {  hostname = "oldmac";          username = "juca";  hostid = "be4cb578"; desktop = "pantheon"; };
@@ -188,7 +188,7 @@
         vm = libx.mkHost {
           hostname = "vm";
           username = "juca";
-          hostid = "8c0b93a0";
+          #hostid = "8c0b93a0";
           desktop = "pantheon";
         };
         #vm-mini        = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };

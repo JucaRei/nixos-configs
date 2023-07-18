@@ -11,10 +11,12 @@
 
   # Helper function for generating host configs
   mkHost =
-    { hostname, username, desktop ? null, hostid ? null, installer ? null }:
+    #{ hostname, username, desktop ? null, hostid ? null, installer ? null }:
+    { hostname, username, desktop ? null, installer ? null }:
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
-        inherit inputs outputs desktop hostname username hostid stateVersion;
+        #inherit inputs outputs desktop hostname username hostid stateVersion;
+        inherit inputs outputs desktop hostname username stateVersion;
       };
       modules = [ ../nixos ]
         ++ (inputs.nixpkgs.lib.optionals (installer != null) [ installer ]);

@@ -1,7 +1,7 @@
 { config
 , desktop
 , hostname
-, hostid
+#, hostid
 , inputs
 , lib
 , modulesPath
@@ -245,7 +245,7 @@ in {
       192.168.1.76  oldmac
     '';
     hostName = hostname;
-    hostId = hostid;
+    #hostId = hostid;
     useDHCP = lib.mkDefault true;
   };
 
