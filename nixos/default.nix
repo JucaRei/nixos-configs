@@ -101,12 +101,11 @@ in {
   };
 
   services = {
-    enable = true;
+    xserver = 
+
     ################
     ### Keyboard ###
     ################
-
-    xserver =
       if (builtins.isString == "nitro" && "vm") then {
         layout = "br,gb,us";
         xkbVariant = "pc105";
@@ -125,7 +124,9 @@ in {
         #"caps:ctrl_modifier"
         #"lv3:alt_switch"
         #"lv3:switch,compose:lwin”
+        enable = true;
       };
+      
 
     ##################
     ### More Stuff ###
