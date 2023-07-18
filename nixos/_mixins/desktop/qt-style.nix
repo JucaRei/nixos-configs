@@ -14,6 +14,6 @@
     enable = true;
     platformTheme = "gnome";
     #style = "adwaita";
-    style = "adwaita-dark";
+    style = lib.mkDefault "adwaita-dark";
   };
 }
