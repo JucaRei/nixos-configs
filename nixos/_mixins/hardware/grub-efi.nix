@@ -3,11 +3,11 @@ _: {
   boot = {
     tmp = {
       useTmpfs = true;
-      cleanOnBoot = true;
+      #cleanOnBoot = true;
     };
     loader = {
       efi = {
-        canTouchEfiVariables = true;
+        #canTouchEfiVariables = true;
         efiSysMountPoint = "/boot/efi";
       };
       grub = {
