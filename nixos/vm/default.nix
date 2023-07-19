@@ -23,7 +23,7 @@
     #resumeDevice = "/dev/disk/by-label/NIXOS";
 
     # Force kernel log in tty1, otherwise it will override greetd
-    #kernelParams = ["console=tty1"];
+    kernelParams = ["console=tty1"];
 
     ##############
     ### INITRD ###
@@ -58,7 +58,7 @@
       # supportedFilesystems = [ "vfat" "zfs" ];
       supportedFilesystems = ["btrfs"]; # fat 32 and btrfs
       compressor = "zstd";
-      #compressorArgs = ["-19" "-T0"];
+      compressorArgs = ["-19" "-T0"];
       verbose = false;
     };
 
@@ -315,7 +315,6 @@
         y = 1200;
       }
     ];
-    tty = 1;
     dpi = 96;
     logFile = "/var/log/Xorg.0.log";
     #xrandrHeads = "" ;
