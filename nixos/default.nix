@@ -337,7 +337,7 @@ in {
     package = pkgs.unstable.nix;
     #package = pkgs.nixFlakes;
     settings = {
-      sandbox = "false"; #"relaxed"
+      #sandbox = "false"; #"relaxed"
       auto-optimise-store = true;
       warn-dirty = false;
       experimental-features = ["nix-command" "flakes" "repl-flake"];
