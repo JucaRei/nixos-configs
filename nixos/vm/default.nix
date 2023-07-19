@@ -299,6 +299,7 @@
   };
 
   services.xserver = {
+    layout = lib.mkForce "br";
     exportConfiguration = true;
     virtualScreen = {
       x = 1920;
