@@ -48,7 +48,7 @@ _: {
   };
   # https://github.com/numtide/srvos/blob/main/nixos/common/networking.nix
   systemd.services = {
-    systemd-networkd.stopIfChanged = false;
-    systemd-resolved.stopIfChanged = false;
+    #systemd-networkd.stopIfChanged = false;
+    #systemd-resolved.stopIfChanged = false;
   };
 }
