@@ -100,7 +100,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:15"
+      "compress-force=zstd:5"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -118,7 +118,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:15"
+      "compress-force=zstd:5"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -136,7 +136,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:15"
+      "compress-force=zstd:5"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -154,7 +154,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:15"
+      "compress-force=zstd:5"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -172,7 +172,7 @@
       "nodiratime"
       "ssd"
       "nodatacow"
-      "compress-force=zstd:15"
+      "compress-force=zstd:5"
       "space_cache=v2"
       "commit=120"
       "autodefrag"
@@ -249,6 +249,7 @@
     xserver = {
       ### Keyboard ###
       xkbModel = lib.mkForce "pc105";
+      xkbVariant = lib.mkForce "mac"; # altgr-intl
       xkbOptions = lib.mkForce ''
         "altwin:ctrl_win"
         "altwin:ctrl_alt_win"

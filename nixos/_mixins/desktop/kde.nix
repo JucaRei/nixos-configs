@@ -11,7 +11,10 @@
       wacom.enable = true;
       libinput = {
         enable = true;
-        touchpad.tapping = true;
+        touchpad = {
+          tapping = true;
+          scrollMethod = "twofinger";
+        };
         disableWhileTyping = true;
       };
 
