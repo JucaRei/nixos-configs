@@ -3,7 +3,7 @@ with lib.hm.gvariant; {
   imports = [
     ../../../apps/vorta.nix
     #../../../services/keybase.nix
-    ../../../services/maestral.nix
+    #../../../services/maestral.nix
     ../../../services/mpris-proxy.nix
     #../../services/syncthing.nix
   ];
