@@ -34,7 +34,7 @@
     #irccloud
     #inkscape
     libreoffice
-    keybase-gui
+    #keybase-gui
     #maestral-gui
     #netflix
     #meld

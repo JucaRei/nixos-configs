@@ -3,10 +3,6 @@
 {pkgs, ...}: {
   imports = [
     ./configs/qt-style.nix
-    ./pantheon-apps.nix
-    ../services/networkmanager.nix
-    #./apps/browsers/firefox.nix
-    #../services/systemd-networkd.nix
   ];
 
   # Exclude the Epiphany browser

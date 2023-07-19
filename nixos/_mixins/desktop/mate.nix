@@ -76,8 +76,12 @@
         };
       };
 
-      desktopManager = {mate.enable = true;};
+      desktopManager = {
+        mate.enable = true;
+      };
     };
   };
-  xdg.portal.extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = [
+    pkgs.xdg-desktop-portal-gtk
+  ];
 }

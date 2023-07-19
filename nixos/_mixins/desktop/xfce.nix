@@ -1,8 +1,6 @@
 {pkgs, ...}: {
   imports = [
     ./configs/qt-style.nix
-    ./apps/browsers/firefox.nix
-    ../services/networkmanager.nix
   ];
 
   environment = {
@@ -49,7 +47,6 @@
     system-config-printer.enable = true;
     xserver = {
       enable = true;
-      excludePackages = with pkgs; [xterm];
       displayManager = {
         defaultSession = "xfce";
         lightdm = {
@@ -76,5 +73,7 @@
     #enable = true;
     mediaKeys.enable = true;
   };
-  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-gtk];
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk
+  ];
 }
