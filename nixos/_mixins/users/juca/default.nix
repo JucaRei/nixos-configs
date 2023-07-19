@@ -35,8 +35,7 @@ in {
     homeMode = "0755";
     isNormalUser = true;
     createHome = true;
-    autoSubUidGidRange =
-      true; # Allocated range is currently always of size 65536
+    #autoSubUidGidRange = true; # Allocated range is currently always of size 65536
     uid = 1000;
     initialPassword = "pass"; # remember of changing the password when log in.
     openssh.authorizedKeys.keys = [

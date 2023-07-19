@@ -8,7 +8,6 @@
     ../services/kmscon.nix
     ../services/openssh.nix
     ../services/firewall.nix
-    #../services/flatpak.nix
     ../services/fwupd.nix
     #../services/ntp.nix
     ../services/pipewire.nix
