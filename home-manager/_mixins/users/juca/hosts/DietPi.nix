@@ -4,5 +4,5 @@ with lib.hm.gvariant; {
     #../../../services/mpris-proxy.nix
     #../../../services/syncthing.nix
   ];
-  services.kbfs.enable = lib.mkForce false;
+  services.kbfs.enable = lib.mkForce true;
 }
