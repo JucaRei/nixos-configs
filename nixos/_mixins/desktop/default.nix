@@ -8,7 +8,6 @@
     [
       ../services/cups.nix
       ../services/sane.nix
-      #../services/dynamic-timezone.nix
     ]
     ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
 

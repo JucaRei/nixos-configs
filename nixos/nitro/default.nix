@@ -16,7 +16,6 @@
     ../_mixins/hardware/nvidia.nix
     ../_mixins/hardware/gfx-intel.nix
     ../_mixins/services/dual-boot.nix
-    ../_mixins/services/cups.nix
     #../_mixins/hardware/grub-efi.nix
     #../_mixins/hardware/tpm.nix
     ../_mixins/virt

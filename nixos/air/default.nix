@@ -13,7 +13,6 @@
     #../_mixins/hardware/refind.nix
     ../_mixins/services/power-man.nix
     ../_mixins/services/tlp.nix
-    ../_mixins/services/cups.nix
     ../_mixins/services/networkmanager.nix
     ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
