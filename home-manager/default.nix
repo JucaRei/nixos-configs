@@ -83,7 +83,7 @@ in {
         config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
-      sandbox = "relaxed";
+      sandbox = false;
       #trusted-users = [ "@nixbld" "@wheel" ];
     };
     extraOptions = ''

@@ -180,6 +180,7 @@
       # Laptop
       #  - sudo nixos-rebuild switch --flake $HOME/Zero/nix-config
       #  - nix build .#nixosConfigurations.vm.config.system.build.toplevel
+      #sudo nix build .#nixosConfigurations.vm.config.system.build.toplevel --extra-experimental-features nix-command --extra-experimental-features flakes
       #nitro           = libx.mkHost {  hostname = "nitro";           username = "juca";  hostid = "0145d776"; desktop = "pantheon"; };
       air = libx.mkHost {
         hostname = "air";
