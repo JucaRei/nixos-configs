@@ -3,6 +3,7 @@ _: {
     enable = true;
     powerOnBoot = true;
     disabledPlugins = ["sap"];
+    hsphfpd.enable = true;
     settings = {
       General = {
         JustWorksRepairing = "always";
