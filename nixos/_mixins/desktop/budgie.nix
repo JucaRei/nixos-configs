@@ -35,11 +35,13 @@
         #  enable = true;
         #  wayland = true;
         #};
-        lightdm.greeters.slick.enable = true;
-        autoLogin = {
-          enable = false;
-          #enable = true;
-          #user = "${username}";
+        lightdm = {
+          greeters.slick.enable = true;
+          autoLogin = {
+            enable = false;
+            #enable = true;
+            #user = "${username}";
+          };
         };
       };
 

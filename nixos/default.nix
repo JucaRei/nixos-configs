@@ -1,19 +1,20 @@
+{ config
+, desktop
+, hostname
+, #, hostid
+  inputs
+, lib
+, modulesPath
+, outputs
+, pkgs
+, stateVersion
+, username
+, ...
+}:
+let
+  machines = [ "nitro" "air" ];
+in
 {
-  config,
-  desktop,
-  hostname,
-  #, hostid
-  inputs,
-  lib,
-  modulesPath,
-  outputs,
-  pkgs,
-  stateVersion,
-  username,
-  ...
-}: let
-  machines = ["nitro" "air"];
-in {
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
@@ -46,9 +47,9 @@ in {
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   boot = {
-    initrd = {verbose = false;};
+    initrd = { verbose = false; };
     consoleLogLevel = 0;
-    kernelModules = ["vhost_vsock"];
+    kernelModules = [ "vhost_vsock" ];
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
       "quiet"
@@ -82,7 +83,7 @@ in {
       else "us";
     earlySetup = true;
     font = "${pkgs.tamzen}/share/consolefonts/TamzenForPowerline10x20.psf";
-    packages = with pkgs; [tamzen];
+    packages = with pkgs; [ tamzen ];
   };
 
   i18n = {
@@ -101,7 +102,7 @@ in {
       #LC_COLLATE = "pt_BR.utf8";
       #LC_MESSAGES = "pt_BR.utf8";
     };
-    supportedLocales = ["en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8"];
+    supportedLocales = [ "en_US.UTF-8/UTF-8" "pt_BR.UTF-8/UTF-8" ];
   };
 
   services = {
@@ -111,7 +112,7 @@ in {
       ################
       if (builtins.isString == "nitro" && "vm")
       then {
-        layout = "br,gb,us";
+        layout = "br";
         xkbVariant = "pc105";
         xkbModel = "pc105";
         xkbOptions = "grp:alt_shift_toggle";
@@ -129,7 +130,6 @@ in {
         #"caps:ctrl_modifier"
         #"lv3:alt_switch"
         #"lv3:switch,compose:lwin”
-        enable = true;
       };
 
     ##################
@@ -189,8 +189,8 @@ in {
   environment = {
     # Eject nano and perl from the system
     defaultPackages = with pkgs;
-      lib.mkForce [gitMinimal home-manager micro rsync];
-    systemPackages = with pkgs; [pciutils psmisc unzip usbutils duf htop];
+      lib.mkForce [ gitMinimal home-manager micro rsync ];
+    systemPackages = with pkgs; [ pciutils psmisc unzip usbutils duf htop ];
     variables = {
       EDITOR = "micro";
       SYSTEMD_EDITOR = "micro";
@@ -202,7 +202,7 @@ in {
     fontDir.enable = true;
     fonts = with pkgs; [
       (nerdfonts.override {
-        fonts = ["FiraCode" "SourceCodePro" "UbuntuMono"];
+        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
       })
       fira
       fira-go
@@ -220,10 +220,10 @@ in {
     fontconfig = {
       antialias = true;
       defaultFonts = {
-        serif = ["Source Serif"];
-        sansSerif = ["Work Sans" "Fira Sans" "FiraGO"];
-        monospace = ["FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono"];
-        emoji = ["Joypixels" "Noto Color Emoji"];
+        serif = [ "Source Serif" ];
+        sansSerif = [ "Work Sans" "Fira Sans" "FiraGO" ];
+        monospace = [ "FiraCode Nerd Font Mono" "SauceCodePro Nerd Font Mono" ];
+        emoji = [ "Joypixels" "Noto Color Emoji" ];
       };
       enable = true;
       hinting = {
@@ -303,6 +303,14 @@ in {
   #####################
 
   nix = {
+    checkConfig = true;
+    checkAllErrors = true;
+
+    # Reduce disk usage
+    daemonIOSchedClass = "idle";
+    # Leave nix builds as a background task
+    daemonCPUSchedPolicy = "idle";
+
     gc = {
       automatic = true;
       options = "--delete-older-than 5d";
@@ -324,7 +332,7 @@ in {
 
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -332,15 +340,16 @@ in {
 
     optimise = {
       automatic = true;
-      dates = ["00:00" "05:00" "12:00" "21:00"];
+      dates = [ "00:00" "05:00" "12:00" "21:00" ];
     };
     package = pkgs.unstable.nix;
     #package = pkgs.nixFlakes;
     settings = {
-      #sandbox = "false"; #"relaxed"
+      sandbox = false; 
+      #sandbox = relaxed;
       auto-optimise-store = true;
       warn-dirty = false;
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
 
       # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
       keep-going = false;

@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [vorta];
+  home.packages = with pkgs; [
+    borgbackup
+    vorta
+  ];
 
   systemd.user.services = {
     vorta = {

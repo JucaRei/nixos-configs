@@ -11,21 +11,27 @@
     # Enable experimental features without having to specify the argument
     NIX_CONFIG = "experimental-features = nix-command flakes repl-flake";
     nativeBuildInputs = with pkgs; [
+      ### some packages
       home-manager
       git
       duf
       htop
       tree
       jq
-      nix
-      nil
+      
+      ### lsp
       #rnix-lsp
+      #nil
+      nixd
+
+      ### formatters
       #nixpkgs-fmt
       #nixfmt
       alejandra
+
       nix-direnv
-      #direnv
       neofetch
+
       #nitch
     ];
     shellHook = ''
