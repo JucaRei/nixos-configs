@@ -13,5 +13,5 @@ with lib.hm.gvariant; {
   #    picture-uri = "file:///home/juca/Pictures/Determinate/DeterminateColorway-1280x720.png";
   #  };
   #};
-  services.kbfs.enable = lib.mkForce false;
+  services.kbfs.enable = lib.mkForce true;
 }
