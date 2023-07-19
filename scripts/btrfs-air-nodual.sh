@@ -23,7 +23,7 @@ mkfs.vfat -F32 /dev/$BOOT_PARTITION -n "EFI"
 mkswap -L "SWAP" /dev/$SWAP_PARTITION
 mkfs.btrfs /dev/$ROOT_PARTITION -f -L "NIXOS"
 
-BTRFS_OPTS="rw,noatime,ssd,compress-force=zstd:15,space_cache=v2,nodatacow,commit=120,autodefrag,discard=async"
+BTRFS_OPTS="rw,noatime,ssd,compress-force=zstd:5,space_cache=v2,nodatacow,commit=120,autodefrag,discard=async"
 # BTRFS_OPTS="rw,noatime,ssd,compress-force=zstd:15,space_cache=v2,commit=120,discard=async"
 mount -o $BTRFS_OPTS /dev/$ROOT_PARTITION /mnt
 btrfs su cr /mnt/@
