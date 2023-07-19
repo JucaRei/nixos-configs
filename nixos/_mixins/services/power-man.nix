@@ -8,7 +8,7 @@
     ++ lib.optional (builtins.isString desktop == "nitro") ./_mixins/desktop;
 
   services = {
-    power-profiles-daemon.enable = true;
+    #power-profiles-daemon.enable = true;
 
     # Automatic CPU speed and power optimizer for Linux
     auto-cpufreq = {
