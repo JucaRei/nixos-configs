@@ -9,7 +9,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ../_mixins/services/pipewire.nix
     ../_mixins/hardware/grub-efi.nix
-    ../_mixins/services/systemd-networkd.nix
+    ../_mixins/services/networkmanager.nix
   ];
 
   ####################
@@ -23,7 +23,7 @@
     #resumeDevice = "/dev/disk/by-label/NIXOS";
 
     # Force kernel log in tty1, otherwise it will override greetd
-    kernelParams = ["console=tty1"];
+    #kernelParams = ["console=tty1"];
 
     ##############
     ### INITRD ###
@@ -296,6 +296,29 @@
     enable = true;
     dockerCompat = true;
     defaultNetwork.settings = {dns_enabled = true;};
+  };
+
+  services.xserver = {
+    exportConfiguration = true;
+    virtualScreen = {
+      x = 1920;
+      y = 1080;
+    };
+    resolutions = [
+      {
+        x = 1920;
+        y = 1080;
+        #y = 1200
+      }
+      {
+        x = 1600;
+        y = 1200;
+      }
+    ];
+    tty = 1;
+    dpi = 96;
+    logFile = "/var/log/Xorg.0.log";
+    #xrandrHeads = "" ;
   };
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
