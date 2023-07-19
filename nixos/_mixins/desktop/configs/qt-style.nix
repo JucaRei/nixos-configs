@@ -16,7 +16,7 @@
 
   qt = {
     enable = true;
-    #platformTheme = "gnome";
+    platformTheme = "gnome";
     #style = "adwaita";
     style = lib.mkDefault "adwaita-dark";
   };
