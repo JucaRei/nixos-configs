@@ -6,7 +6,9 @@
 }:
 with lib.hm.gvariant; {
   dconf.settings = {
-    "org/gnome/charmap" = {font = "Work Sans 22";};
+    "org/gnome/charmap" = {
+      font = "Work Sans 22";
+    };
 
     "org/gnome/desktop/interface" = {
       cursor-theme = "Yaru";
@@ -77,15 +79,13 @@ with lib.hm.gvariant; {
       font-name = "Work Sans 12";
       gtk-decoration-layout = ":minimize,maximize,close";
       gtk-theme = "Yaru-magenta-dark";
-      gtk-color-scheme = ''
-        tooltip_fg_color:#ffffff
-        tooltip_bg_color:#343434'';
+      gtk-color-scheme = "tooltip_fg_color:#ffffff\ntooltip_bg_color:#343434";
       icon-theme = "Yaru-magenta-dark";
       monospace-font-name = "FiraCode Nerd Font Medium 13";
     };
 
     "org/mate/desktop/peripherals/keyboard/kbd" = {
-      options = ["terminate	terminate:ctrl_alt_bksp" "caps	caps:none"];
+      options = ["terminate\tterminate:ctrl_alt_bksp" "caps\tcaps:none"];
     };
 
     "org/mate/desktop/peripherals/mouse" = {
@@ -153,7 +153,7 @@ with lib.hm.gvariant; {
 
     "org/mate/marco/keybinding-commands" = {
       command-1 = "mate-screensaver-command --lock";
-      command-2 = ''/bin/sh -c "sleep 0.1; mate-screenshot --area"'';
+      command-2 = "/bin/sh -c \"sleep 0.1; mate-screenshot --area\"";
       command-3 = "caja";
       command-4 = "mate-terminal --window";
       command-5 = "mate-control-center";

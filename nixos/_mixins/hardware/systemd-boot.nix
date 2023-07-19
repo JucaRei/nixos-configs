@@ -9,7 +9,7 @@ _: {
         enable = true;
         editor = true;
         configurationLimit = 4;
-        consoleMode = "max";
+        #consoleMode = "max";
         memtest86.enable = true;
       };
       timeout = 5;

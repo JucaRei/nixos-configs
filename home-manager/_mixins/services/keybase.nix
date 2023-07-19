@@ -3,7 +3,11 @@
   lib,
   ...
 }: {
-  imports = [] ++ lib.optionals (desktop != null) [../desktop/keybase.nix];
+  imports =
+    []
+    ++ lib.optionals (desktop != null) [
+      ../desktop/keybase.nix
+    ];
 
   services = {
     kbfs = {

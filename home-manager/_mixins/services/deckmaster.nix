@@ -4,11 +4,18 @@
   ...
 }: {
   # https://github.com/muesli/deckmaster
-  home.packages = with pkgs; [deckmaster unstable.obs-cli hueadm playerctl];
+  home.packages = with pkgs; [
+    deckmaster
+    hueadm
+    unstable.obs-cli
+    playerctl
+  ];
 
   systemd.user.services = {
     deckmaster-mini = {
-      Unit = {Description = "Deckmaster Mini";};
+      Unit = {
+        Description = "Deckmaster Mini";
+      };
       Service = {
         ConditionPathIsSymbolicLink = "/dev/streamdeck-mini";
         ConditionPathExist = "/home/${username}/Studio/StreamDeck/Deckmaster-mini/main.deck";
@@ -16,10 +23,14 @@
         Restart = "on-failure";
         ExecReload = "kill -HUP $MAINPID";
       };
-      Install = {WantedBy = ["default.target"];};
+      Install = {
+        WantedBy = ["default.target"];
+      };
     };
     deckmaster = {
-      Unit = {Description = "Deckmaster";};
+      Unit = {
+        Description = "Deckmaster";
+      };
       Service = {
         ConditionPathIsSymbolicLink = "/dev/streamdeck";
         ConditionPathExist = "/home/${username}/Studio/StreamDeck/Deckmaster/main.deck";
@@ -27,10 +38,14 @@
         Restart = "on-failure";
         ExecReload = "kill -HUP $MAINPID";
       };
-      Install = {WantedBy = ["default.target"];};
+      Install = {
+        WantedBy = ["default.target"];
+      };
     };
     deckmaster-xl = {
-      Unit = {Description = "Deckmaster XL";};
+      Unit = {
+        Description = "Deckmaster XL";
+      };
       Service = {
         ConditionPathIsSymbolicLink = "/dev/streamdeck-xl";
         ConditionPathExist = "/home/${username}/Studio/StreamDeck/Deckmaster-xl/main.deck";
@@ -38,7 +53,9 @@
         Restart = "on-failure";
         ExecReload = "kill -HUP $MAINPID";
       };
-      Install = {WantedBy = ["default.target"];};
+      Install = {
+        WantedBy = ["default.target"];
+      };
     };
   };
 }

@@ -17,8 +17,8 @@
     plymouth.enable = true;
   };
 
+  # X11 automation
   environment.systemPackages = with pkgs; [
-    xorg.xorgserver
     wmctrl # Terminal X11 automation
     xdotool # Terminal X11 automation
     ydotool # Terminal *all-the-things* automation

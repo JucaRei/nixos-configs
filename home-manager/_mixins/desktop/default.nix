@@ -11,7 +11,7 @@
     ../apps/emote.nix
     #../apps/gitkraken.nix
     #../apps/gnome-sound-recorder.nix
-    #../apps/meld.nix
+    ../apps/meld.nix
     ../apps/rhythmbox.nix
     #../apps/tilix.nix
     #../apps/samba.nix

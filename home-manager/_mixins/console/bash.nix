@@ -52,9 +52,6 @@
           export PS1="($env) $PS1"
         fi
 
-        if [ -n "$IN_NIX_SHELL" ]; then
-         export PS1="(nix-shell) $PS1"
-        fi
 
         if [ ! -z "$WSL_DISTRO_NAME" -a -d ~/.nix-profile/etc/profile.d ]; then
           for f in ~/.nix-profile/etc/profile.d/* ; do

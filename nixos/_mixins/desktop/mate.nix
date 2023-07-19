@@ -3,7 +3,6 @@
     ./qt-style.nix
     #./apps/browsers/firefox.nix
     ../services/networkmanager.nix
-    ./mate-apps.nix
   ];
 
   # Exclude MATE themes. Yaru will be used instead.

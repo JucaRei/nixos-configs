@@ -1,5 +1,8 @@
 {pkgs, ...}: {
-  imports = [../services/flatpak.nix];
+  imports = [
+    ../services/flatpak.nix
+    ../services/sane.nix
+  ];
 
   environment = {
     # Add some elementary additional apps and include Yaru for syntax highlighting

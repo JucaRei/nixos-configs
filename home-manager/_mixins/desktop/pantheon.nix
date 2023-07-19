@@ -213,8 +213,7 @@ with lib.hm.gvariant; {
   };
 
   home.file = {
-    "${config.xdg.configHome}/autostart/enable-appcenter.desktop".text = ''
-
+    "${config.xdg.configHome}/autostart/enable-appcenter.desktop".text = "
       [Desktop Entry]
       Name=Enable AppCenter
       Comment=Enable AppCenter
@@ -223,10 +222,9 @@ with lib.hm.gvariant; {
       Categories=
       Terminal=false
       NoDisplay=true
-      StartupNotify=false'';
+      StartupNotify=false";
 
-    "${config.xdg.configHome}/autostart/ibus-daemon.desktop".text = ''
-
+    "${config.xdg.configHome}/autostart/ibus-daemon.desktop".text = "
       [Desktop Entry]
       Name=IBus Daemon
       Comment=IBus Daemon
@@ -235,10 +233,9 @@ with lib.hm.gvariant; {
       Categories=
       Terminal=false
       NoDisplay=true
-      StartupNotify=false'';
+      StartupNotify=false";
 
-    "${config.xdg.configHome}/autostart/monitor.desktop".text = ''
-
+    "${config.xdg.configHome}/autostart/monitor.desktop".text = "
       [Desktop Entry]
       Name=Monitor Indicators
       Comment=Monitor Indicators
@@ -247,6 +244,6 @@ with lib.hm.gvariant; {
       Icon=com.github.stsdc.monitor
       Categories=
       Terminal=false
-      StartupNotify=false'';
+      StartupNotify=false";
   };
 }
