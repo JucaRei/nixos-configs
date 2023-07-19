@@ -2,7 +2,7 @@
 with lib.hm.gvariant; {
   imports = [
     ../../../apps/vorta.nix
-    ../../../services/keybase.nix
+    #../../../services/keybase.nix
     ../../../services/maestral.nix
     ../../../services/mpris-proxy.nix
     #../../services/syncthing.nix
@@ -13,5 +13,5 @@ with lib.hm.gvariant; {
   #    picture-uri = "file:///home/juca/Pictures/Determinate/DeterminateColorway-1280x720.png";
   #  };
   #};
-  services.kbfs.enable = lib.mkForce true;
+  services.kbfs.enable = lib.mkForce false;
 }
