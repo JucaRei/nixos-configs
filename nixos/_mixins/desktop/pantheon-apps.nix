@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./apps/terminals/tilix.nix
     ../services/flatpak.nix
     ../services/sane.nix
   ];
