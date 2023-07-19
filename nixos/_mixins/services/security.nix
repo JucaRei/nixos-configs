@@ -22,5 +22,11 @@
     polkit.enable = true;
     # tpm2.enable = true;
     # unprivilegedUsernsClone = true;
+
+    apparmor = {
+      enable = false;
+      enableCache = false;
+    };
   };
+  services.dbus.apparmor = "enabled";
 }

@@ -109,7 +109,6 @@
 
     dbus = {
       implementation = lib.mkDefault "broker";
-      apparmor = false;
     };
 
     resolved = {
