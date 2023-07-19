@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./qt-style.nix
+    ./configs/qt-style.nix
     ./apps/browsers/firefox.nix
     ../services/networkmanager.nix
   ];

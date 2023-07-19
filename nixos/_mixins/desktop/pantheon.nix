@@ -2,8 +2,7 @@
 # For actuall installs pantheon-apps.nix is also included
 {pkgs, ...}: {
   imports = [
-    #./apps/style/qt-style.nix
-    ./qt-style.nix
+    ./configs/qt-style.nix
     ./pantheon-apps.nix
     ../services/networkmanager.nix
     #./apps/browsers/firefox.nix
