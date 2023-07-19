@@ -11,9 +11,11 @@
   stateVersion,
   username,
   ...
-}: let
-  machines = ["nitro" "air"];
-in {
+}:
+#let
+#machines = ["nitro" "air"];
+#in
+{
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
@@ -31,7 +33,7 @@ in {
     #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
     #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
     #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
-    ++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
+    #++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   # Only install the docs I use

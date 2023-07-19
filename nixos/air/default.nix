@@ -16,6 +16,7 @@
     ../_mixins/services/networkmanager.nix
     ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
+    ../_mixins/hardware/gfx-intel.nix
     ../_mixins/virt/docker.nix
     ../_mixins/hardware/grub-efi.nix
     #../_mixins/services/tailscale.nix
