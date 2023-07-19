@@ -18,7 +18,7 @@ _: {
 
   # Combining my ethernet and wireless network interfaces.
   systemd.network = {
-    enable = false;
+    enable = true;
     netdevs."40-bond1" = {
       netdevConfig = {
         Name = "bond1";

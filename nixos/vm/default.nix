@@ -9,6 +9,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
     ../_mixins/services/pipewire.nix
     ../_mixins/hardware/grub-efi.nix
+    ../_mixins/services/systemd-networkd.nix
   ];
 
   ####################

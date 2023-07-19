@@ -18,11 +18,11 @@
       htop
       tree
       jq
-      
+
       ### lsp
       #rnix-lsp
-      #nil
-      nixd
+      nil
+      #nixd
 
       ### formatters
       #nixpkgs-fmt
@@ -30,6 +30,9 @@
       alejandra
 
       nix-direnv
+      nix-bash-completions
+      nix-du
+
       neofetch
 
       #nitch

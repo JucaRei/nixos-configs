@@ -188,7 +188,12 @@
         #hostid = "b28460d8";
         desktop = "mate";
       };
-      #oldmac          = libx.mkHost {  hostname = "oldmac";          username = "juca";  hostid = "be4cb578"; desktop = "pantheon"; };
+      #oldmac = libx.mkHost {
+      #  hostname = "oldmac";
+      #  username = "juca";
+      #  hostid = "be4cb578";
+      #  desktop = "pantheon";
+      #};
       # Servers
       vm = libx.mkHost {
         hostname = "vm";
@@ -196,9 +201,22 @@
         #hostid = "8c0b93a0";
         desktop = "pantheon";
       };
-      #vm-mini        = libx.mkHost {  hostname = "vm-mini";         username = "juca";  hostid = "8c0b93a9"; };
-      #pi              = libx.mkHost {  hostname = "rpi3";            username = "juca";  hostid = "8c0b93a2"; desktop = "pantheon"; };
-      #pi-mini        = libx.mkHost {  hostname = "rpi3-mini";       username = "juca";  hostid = "8c0b93a5"; };
+      #vm-mini = libx.mkHost {
+      #  hostname = "vm-mini";
+      #  username = "juca";
+      #  hostid = "8c0b93a9";
+      #};
+      #pi = libx.mkHost {
+      #  hostname = "rpi3";
+      #  username = "juca";
+      #  hostid = "8c0b93a2";
+      #  desktop = "pantheon";
+      #};
+      #pi-mini = libx.mkHost {
+      #  hostname = "rpi3-mini";
+      #  username = "juca";
+      #  hostid = "8c0b93a5";
+      #};
     };
 
     # Devshell for bootstrapping; acessible via 'nix develop' or 'nix-shell' (legacy)

@@ -15,6 +15,8 @@
     ../_mixins/services/power-man.nix
     ../_mixins/hardware/nvidia.nix
     ../_mixins/hardware/gfx-intel.nix
+    ../_mixins/services/dual-boot.nix
+    ../_mixins/services/cups.nix
     #../_mixins/hardware/grub-efi.nix
     #../_mixins/hardware/tpm.nix
     ../_mixins/virt
@@ -33,6 +35,8 @@
       kernelModules = ["kvm-intel" "nvidia"];
       verbose = false;
     };
+
+    supportedFilesystems = ["ntfs"];
 
     kernelModules = ["kvm-intel" "nvidia" "vhost_vsock"];
 
@@ -101,5 +105,16 @@
     };
 
     hostPlatform = lib.mkDefault "x86_64-linux";
+  };
+
+  services.xserver = {
+    #######################
+    ### Xserver configs ###
+    #######################
+
+    layout = lib.mkForce "br";
+    # xkbVariant = "pc105";
+    xkbModel = lib.mkForce "pc105";
+    xkbOptions = "grp:alt_shift_toggle";
   };
 }

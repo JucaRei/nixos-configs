@@ -11,8 +11,10 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     #../_mixins/hardware/systemd-boot.nix
     #../_mixins/hardware/refind.nix
-    ../_mixins/services/pipewire.nix
     ../_mixins/services/power-man.nix
+    ../_mixins/services/tlp.nix
+    ../_mixins/services/cups.nix
+    ../_mixins/services/networkmanager.nix
     ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
@@ -210,6 +212,10 @@
   ];
 
   services = {
+    #############
+    ### Btrfs ###
+    #############
+
     btrfs = {
       autoScrub = {
         enable = true;
@@ -217,6 +223,9 @@
       };
     };
 
+    ################################
+    ### Device specific services ###
+    ################################
     mbpfan = {
       enable = true;
       aggressive = true;
@@ -234,8 +243,23 @@
 
     kmscon.extraOptions = lib.mkForce "--xkb-layout=us";
 
+    #######################
+    ### Xserver configs ###
+    #######################
+
     xserver = {
-      #layout = lib.mkForce "us";
+      ### Keyboard ###
+      xkbModel = lib.mkForce "pc105";
+      xkbOptions = lib.mkForce ''
+        "altwin:ctrl_win"
+        "altwin:ctrl_alt_win"
+        "caps:super"
+        "terminate:ctrl_alt_bksp"
+
+        #"caps:ctrl_modifier"
+        #"lv3:alt_switch"
+        #"lv3:switch,compose:lwin”
+      '';
 
       # Crocus driver instead of i965.  /etc/X11/xorg.conf.d/92-intel.conf
       #deviceSection = ''
@@ -246,6 +270,7 @@
       # EndSection
       #'';
 
+      ### Driver Intel ###
       exportConfiguration = true;
       config = ''
         Section "Device"
@@ -255,7 +280,12 @@
         EndSection
       '';
 
-      videoDrivers = ["intel"];
+      videoDrivers = lib.mkDefault ["intel"];
+
+      ###########################
+      ### Xserver Resolutions ###
+      ###########################
+
       resolutions = [
         {
           # Default resolution
