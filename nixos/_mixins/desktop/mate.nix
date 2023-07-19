@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./configs/qt-style.nix
     #./apps/browsers/firefox.nix
@@ -42,9 +46,9 @@
           cursorTheme.name = "Yaru";
           cursorTheme.package = pkgs.yaru-theme;
           cursorTheme.size = 32;
-          iconTheme.name = "Yaru-magenta-dark";
+          iconTheme.name = lib.mkDefault "Yaru-magenta-dark";
           iconTheme.package = pkgs.yaru-theme;
-          theme.name = "Yaru-magenta-dark";
+          theme.name = lib.mkDefault "Yaru-magenta-dark";
           theme.package = pkgs.yaru-theme;
           indicators = [
             "~session"
