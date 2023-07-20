@@ -39,7 +39,7 @@
         efiInstallAsRemovable = true;
       };
     };
-    blacklistedKernelModules = lib.mkForce ["nvidia" "nouveau"];
+    blacklistedKernelModules = lib.mkForce ["nvidia"];
     extraModulePackages = with config.boot.kernelPackages; [broadcom_sta];
     extraModprobeConfig = lib.mkDefault ''
       options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 #parameters may differ
