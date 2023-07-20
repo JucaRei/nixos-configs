@@ -416,11 +416,11 @@
   ### cache nix folder ###
   ########################
 
-  services.nix-daemon = {
-    environment = { TMPDIR = "/var/cache/nix"; };
-    serviceConfig = {
-      CacheDirectory = "nix";
-      Nice = 19;
-    };
-  };
+  #services.nix-daemon = {
+  #  environment = { TMPDIR = "/var/cache/nix"; };
+  #  serviceConfig = {
+  #    CacheDirectory = "nix";
+  #    Nice = 19;
+  #  };
+  #};
 }
