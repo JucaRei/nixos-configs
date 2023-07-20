@@ -1,7 +1,6 @@
 { config, desktop, hostname,
 #, hostid
-inputs, lib, modulesPath, outputs, pkgs, stateVersion, home-manager, username
-, ... }:
+inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ... }:
 #let
 #machines = ["nitro" "air"];
 #in
@@ -16,7 +15,6 @@ inputs, lib, modulesPath, outputs, pkgs, stateVersion, home-manager, username
 
     #inputs.disko.nixosModules.disko
     (modulesPath + "/installer/scan/not-detected.nix")
-    home-manager.nixosModules.home-manager
     (./. + "/${hostname}")
     ./_mixins/common
   ]
