@@ -73,10 +73,6 @@ in {
       #trusted-users = [ "@nixbld" "@wheel" ];
     };
 
-    # 🍑 smooth rebuilds
-    daemonCPUSchedPolicy = "idle";
-    daemonIOSchedPriority = 2; # 7 max
-
     extraOptions = ''
       keep-outputs          = true
       keep-derivations      = false

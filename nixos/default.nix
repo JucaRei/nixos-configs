@@ -93,10 +93,12 @@ inputs, lib, modulesPath, outputs, pkgs, nixpkgs, home-manager, stateVersion
     checkConfig = true;
     checkAllErrors = true;
 
+    # 🍑 smooth rebuilds
     # Reduce disk usage
     daemonIOSchedClass = "idle";
     # Leave nix builds as a background task
     daemonCPUSchedPolicy = "idle";
+    #daemonIOSchedPriority = 2; # 7 max
 
     gc = {
       automatic = true;
