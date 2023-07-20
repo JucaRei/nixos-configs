@@ -40,6 +40,7 @@
     xserver = {
       enable = true;
       displayManager = {
+        defaultSession = "mate";
         lightdm.enable = true;
         lightdm.greeters.gtk = {
           enable = true;
