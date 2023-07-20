@@ -28,5 +28,5 @@
       vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
     };
   };
-  service.xserver.videoDrivers = [ "intel" ];
+  services.xserver.videoDrivers = [ "intel" ];
 }
