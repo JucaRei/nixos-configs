@@ -385,18 +385,6 @@
       DefaultTimeoutStopSec=15s
       DefaultTimeoutAbortSec=5s
     '';
-
-    ########################
-    ### cache nix folder ###
-    ########################
-
-    services.nix-daemon = {
-      environment = { TMPDIR = "/var/cache/nix"; };
-      serviceConfig = {
-        CacheDirectory = "nix";
-        Nice = 19;
-      };
-    };
   };
   system = {
     autoUpgrade.allowReboot = true;
@@ -421,6 +409,18 @@
       enable = lib.mkDefault true;
       enableSystemSlice = true;
       enableUserServices = true;
+    };
+  };
+
+  ########################
+  ### cache nix folder ###
+  ########################
+
+  services.nix-daemon = {
+    environment = { TMPDIR = "/var/cache/nix"; };
+    serviceConfig = {
+      CacheDirectory = "nix";
+      Nice = 19;
     };
   };
 }
