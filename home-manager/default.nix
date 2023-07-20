@@ -1,4 +1,4 @@
-{ config, desktop, lib, outputs, pkgs, stateVersion, username, inputs, ... }:
+{ config, desktop, lib, pkgs, stateVersion, username, ... }:
 let inherit (pkgs.stdenv) isDarwin;
 in {
   # Only import desktop configuration if the host is desktop enabled
@@ -26,8 +26,6 @@ in {
     sessionPath = [ "$HOME/.local/bin" ];
     inherit stateVersion;
     inherit username;
-    inherit inputs;
-    inherit outputs;
   };
 
   nixpkgs = {
