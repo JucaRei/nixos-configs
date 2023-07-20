@@ -9,9 +9,11 @@
     ../_mixins/services/power-man.nix
     ../_mixins/services/tlp.nix
     ../_mixins/services/networkmanager.nix
+    ../_mixins/services/networkmanager.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
     ../_mixins/hardware/grub-efi.nix
+    ../_mixins/hardware/intel-gpu-nitro.nix
     #../_mixins/services/tailscale.nix
     #../_mixins/services/zerotier.nix
   ];
@@ -282,8 +284,6 @@
              Option      "DRI" "crocus"
         EndSection
       '';
-
-      videoDrivers = lib.mkDefault [ "intel" ];
 
       ###########################
       ### Xserver Resolutions ###
