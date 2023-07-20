@@ -240,7 +240,7 @@
     gvfs = {enable = true;};
 
     # Hard disk protection if the laptop falls:
-    hdapsd.enable = lib.mkDefault true;
+    #hdapsd.enable = lib.mkDefault true;
 
     kmscon.extraOptions = lib.mkForce "--xkb-layout=us";
 

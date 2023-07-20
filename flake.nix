@@ -125,7 +125,7 @@
       "juca@air" = libx.mkHome {
         hostname = "air";
         username = "juca";
-        desktop = "mate";
+        desktop = "pantheon";
       };
       "juca@oldmac" = libx.mkHome {
         hostname = "oldmac";
@@ -187,7 +187,7 @@
         hostname = "air";
         username = "juca";
         #hostid = "b28460d8";
-        desktop = "mate";
+        desktop = "pantheon";
       };
       #oldmac = libx.mkHost {
       #  hostname = "oldmac";
