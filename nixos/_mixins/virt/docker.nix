@@ -9,28 +9,26 @@
     docker = {
       enable = true;
       enableOnBoot = lib.mkDefault false;
-      enableNvidia =
-        if hostname == "air"
-        then false
-        else true;
-      rootless = {
-        enable = true;
-        package = pkgs.docker;
-      };
-      autoPrune = {
-        enable = true;
-        dates = "monthly";
-      };
+      enableNvidia = {
+        rootless = {
+          enable = true;
+          package = pkgs.docker;
+        };
+        autoPrune = {
+          enable = true;
+          dates = "monthly";
+        };
 
-      # https://docs.docker.com/build/buildkit/
-      #daemon.settings = { "features" = { "buildkit" = true; }; };
-      storageDriver = "overlay2";
+        # https://docs.docker.com/build/buildkit/
+        #daemon.settings = { "features" = { "buildkit" = true; }; };
+        storageDriver = "overlay2";
+      };
     };
-  };
 
-  environment.systemPackages = with pkgs; [
-    docker-machine
-    docker-compose
-    lazydocker
-  ];
+    environment.systemPackages = with pkgs; [
+      docker-machine
+      docker-compose
+      lazydocker
+    ];
+  };
 }
