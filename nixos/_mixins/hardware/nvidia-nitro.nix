@@ -1,9 +1,5 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}: let
+{ pkgs, config, lib, ... }:
+let
   nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
@@ -15,9 +11,10 @@
   intelBusId = "PCI:0:2:0";
   nvidiaBusId = "PCI:1:0:0";
 in {
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware = {
     nvidia = {
+
       # package = config.boot.kernelPackages.nvidiaPackages.beta;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
       # package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
@@ -50,7 +47,7 @@ in {
         false; # Configure X to allow external NVIDIA GPUs when using Prime [Reverse] sync optimus.
 
       # Useful for when NixOS has issues finding the primary display
-      modesetting.enable = true;
+      modesetting.enable = true; # Required for wayland
       powerManagement = {
         enable = true;
         finegrained = true;
@@ -63,6 +60,9 @@ in {
     vulkan-loader
     vulkan-validation-layers
     vulkan-tools
+    nvitop
+    nvtop-nvidia
+
   ];
   # sessionVariables.NIXOS_OZONE_WL = "1"; # Fix for electron apps with wayland
   # Wayland
@@ -72,5 +72,24 @@ in {
   #   __GLX_VENDOR_LIBRARY_NAME = "nvidia";
   # };
 
-  boot.blacklistedKernelModules = lib.mkForce ["nouveau"];
+  boot = {
+    blacklistedKernelModules = lib.mkForce [ "nouveau" ];
+    kernelParams = [
+      "clearcpuid=514" # Fixes certain wine games crash on launch
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia-uvm"
+      "nvidia_drm"
+
+    ];
+    kernel.sysctl = { "vm.max_map_count" = 2147483642; };
+  };
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+
+    #  # maybe causes firefox crashed?
+    #  GBM_BACKEND = "nvidia-drm";
+    #  __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    #  WLR_NO_HARDWARE_CURSORS = "1";
+  };
 }

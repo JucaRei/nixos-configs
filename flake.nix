@@ -132,7 +132,8 @@
         "juca@vm" = libx.mkHome {
           hostname = "vm";
           username = "juca";
-          desktop = "pantheon";
+          #desktop = "pantheon";
+          desktop = "mate";
         };
         "juca@vm-mini" = libx.mkHome {
           hostname = "vm-mini";
@@ -194,7 +195,8 @@
           hostname = "vm";
           username = "juca";
           #hostid = "8c0b93a0";
-          desktop = "pantheon";
+          #desktop = "pantheon";
+          desktop = "mate";
         };
         #vm-mini = libx.mkHost {
         #  hostname = "vm-mini";
