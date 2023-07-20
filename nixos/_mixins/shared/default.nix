@@ -18,7 +18,7 @@
   boot = {
     initrd = { verbose = false; };
     consoleLogLevel = 0;
-    kernelModules = [ "vhost_vsock" "kvm-intel" ];
+    kernelModules = [ "vhost_vsock" "kvm-intel" "tcp_bbr" ];
     kernelParams = [
       # The 'splash' arg is included by the plymouth option
       "quiet"
@@ -36,8 +36,11 @@
         "dev.i915.perf_stream_paranoid" = 0;
 
         ### Improve networking
+        # https://www.kernel.org/doc/html/latest/admin-guide/sysrq.html
+        "kernel.sysrq" = 1;
         "net.ipv4.tcp_congestion_control" = "bbr";
-        "net.core.default_qdisc" = "fq";
+        "net.core.default_qdisc" = "cake";
+        #"net.core.default_qdisc" = "fq";
 
         # Bypass hotspot restrictions for certain ISPs
         "net.ipv4.ip_default_ttl" = 65;
@@ -45,12 +48,70 @@
     };
   };
 
+  ###################
+  ### Console tty ###
+  ###################
+
   console = {
     keyMap = if (builtins.isString == "nitro") then "br-abnt2" else "us";
     earlySetup = true;
     font = "${pkgs.tamzen}/share/consolefonts/TamzenForPowerline10x20.psf";
+    colors = [
+      "1b161f"
+      "ff5555"
+      "54c6b5"
+      "d5aa2a"
+      "bd93f9"
+      "ff79c6"
+      "8be9fd"
+      "bfbfbf"
+
+      "1b161f"
+      "ff6e67"
+      "5af78e"
+      "ffce50"
+      "caa9fa"
+      "ff92d0"
+      "9aedfe"
+      "e6e6e6"
+    ];
     packages = with pkgs; [ tamzen ];
   };
+
+  services.getty.greetingLine = lib.mkForce "\\l";
+  services.getty.helpLine = lib.mkForce ''
+    Type `i' to print system information.
+
+    .     .       .  .   . .   .   . .    +  .
+      .     .  :     .    .. :. .___---------___.
+           .  .   .    .  :.:. _".^ .^ ^.  '.. :"-_. .
+        .  :       .  .  .:../:            . .^  :.:\.
+            .   . :: +. :.:/: .   .    .        . . .:\
+     .  :    .     . _ :::/:               .  ^ .  . .:\
+      .. . .   . - : :.:./.                        .  .:\
+      .      .     . :..|:                    .  .  ^. .:|
+        .       . : : ..||        .                . . !:|
+      .     . . . ::. ::\(                           . :)/
+     .   .     : . : .:.|. ######              .#######::|
+      :.. .  :-  : .:  ::|.#######           ..########:|
+     .  .  .  ..  .  .. :\ ########          :######## :/
+      .        .+ :: : -.:\ ########       . ########.:/
+        .  .+   . . . . :.:\. #######       #######..:/
+          :: . . . . ::.:..:.\           .   .   ..:/
+       .   .   .  .. :  -::::.\.       | |     . .:/
+          .  :  .  .  .-:.":.::.\             ..:/
+     .      -.   . . . .: .:::.:.\.           .:/
+    .   .   .  :      : ....::_:..:\   ___.  :/
+       .   .  .   .:. .. .  .: :.:.:\       :/
+         +   .   .   : . ::. :.:. .:.|\  .:/|
+         .         +   .  .  ...:: ..|  --.:|
+    .      . . .   .  .  . ... :..:.."(  ..)"
+     .   .       .      :  .   .: ::/  .  .::\
+  '';
+
+  #######################
+  ### Default Locales ###
+  #######################
 
   i18n = {
     defaultLocale = "en_US.utf8";
@@ -132,20 +193,33 @@
   #  longitude = -46.652530;
   #};
 
+  #############
+  ### Fonts ###
+  #############
+
   fonts = {
     fontDir.enable = true;
     fonts = with pkgs; [
       (nerdfonts.override {
-        fonts = [ "FiraCode" "SourceCodePro" "UbuntuMono" ];
+        fonts =
+          # https://github.com/NixOS/nixpkgs/blob/master/pkgs/data/fonts/nerdfonts/shas.nix
+          [ "FiraCode" "SourceCodePro" "UbuntuMono" "Iosevka" "IBMPlexMono" ];
       })
       fira
       fira-go
       joypixels
       liberation_ttf
-      noto-fonts-emoji
+      noto-fonts-emoji # emoji
       source-serif
       ubuntu_font_family
       work-sans
+      siji # https://github.com/stark/siji
+      ipafont # display jap symbols like シートベルツ in polybar
+      source-code-pro
+      terminus_font
+      source-sans-pro
+      roboto
+      cozette
     ];
 
     # Enable a basic set of fonts providing several font styles and families and reasonable coverage of Unicode.
@@ -279,7 +353,15 @@
     # Eject nano and perl from the system
     defaultPackages = with pkgs;
       lib.mkForce [ gitMinimal home-manager micro rsync ];
-    systemPackages = with pkgs; [ pciutils psmisc unzip usbutils duf htop ];
+    systemPackages = with pkgs; [
+      pciutils
+      psmisc
+      unzip
+      usbutils
+      duf
+      htop
+      font-manager
+    ];
     variables = {
       EDITOR = "micro";
       SYSTEMD_EDITOR = "micro";
@@ -304,13 +386,17 @@
       DefaultTimeoutAbortSec=5s
     '';
 
-    #services.nix-daemon = {
-    #  environment = { TMPDIR = "/var/cache/nix"; };
-    #  serviceConfig = {
-    #    CacheDirectory = "nix";
-    #    Nice = 19;
-    #  };
-    #};
+    ########################
+    ### cache nix folder ###
+    ########################
+
+    services.nix-daemon = {
+      environment = { TMPDIR = "/var/cache/nix"; };
+      serviceConfig = {
+        CacheDirectory = "nix";
+        Nice = 19;
+      };
+    };
   };
   system = {
     autoUpgrade.allowReboot = true;
@@ -322,11 +408,11 @@
       '';
 
       # systemd's out-of-memory daemon
-      #oomd = {
-      #  enable = lib.mkDefault true;
-      #  enableSystemSlice = true;
-      #  enableUserServices = true;
-      #};
+      oomd = {
+        enable = lib.mkDefault true;
+        enableSystemSlice = true;
+        enableUserServices = true;
+      };
     };
   };
 

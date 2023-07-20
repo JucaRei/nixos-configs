@@ -1,6 +1,7 @@
 { config, desktop, hostname,
 #, hostid
-inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ... }:
+inputs, lib, modulesPath, outputs, pkgs, nixpkgs, home-manager, stateVersion
+, username, ... }:
 #let
 #machines = ["nitro" "air"];
 #in
@@ -114,6 +115,8 @@ inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ... }:
       #min-free = 1073741824 # 1GiB
       #max-free = 4294967296 # 4GiB
       #builders-use-substitutes = true
+
+      connect-timeout = 5
     '';
 
     # This will add each flake input as a registry
@@ -147,4 +150,5 @@ inputs, lib, modulesPath, outputs, pkgs, stateVersion, username, ... }:
   };
 
   system.stateVersion = stateVersion;
+
 }

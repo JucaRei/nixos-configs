@@ -13,7 +13,7 @@ _: {
         enable = true;
         device = "nodev"; # "nodev" for efi only
         efiSupport = true;
-        efiInstallAsRemovable = true;
+        efiInstallAsRemovable = false;
         configurationLimit = 4;
         forceInstall = true;
         #splashMode = "stretch";

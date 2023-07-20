@@ -1,44 +1,33 @@
-{
-  config,
-  desktop,
-  lib,
-  outputs,
-  pkgs,
-  stateVersion,
-  username,
-  inputs,
-  ...
-}: let
-  inherit (pkgs.stdenv) isDarwin;
+{ config, desktop, lib, outputs, pkgs, stateVersion, username, inputs, ... }:
+let inherit (pkgs.stdenv) isDarwin;
 in {
   # Only import desktop configuration if the host is desktop enabled
   # Only import user specific configuration if they have bespoke settings
-  imports =
-    [
-      # If you want to use modules your own flake exports (from modules/home-manager):
-      # outputs.homeManagerModules.example
+  imports = [
+    # If you want to use modules your own flake exports (from modules/home-manager):
+    # outputs.homeManagerModules.example
 
-      # Or modules exported from other flakes (such as nix-colors):
-      # inputs.nix-colors.homeManagerModules.default
+    # Or modules exported from other flakes (such as nix-colors):
+    # inputs.nix-colors.homeManagerModules.default
 
-      # You can also split up your configuration and import pieces of it here:
-      #./_mixins/dev
-      ./_mixins/console
-    ]
-    ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
-    ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}")) ./_mixins/users/${username};
+    # You can also split up your configuration and import pieces of it here:
+    #./_mixins/dev
+    ./_mixins/console
+  ] ++ lib.optional (builtins.isString desktop) ./_mixins/desktop
+    ++ lib.optional (builtins.isPath (./. + "/_mixins/users/${username}"))
+    ./_mixins/users/${username};
 
   home = {
     activation.report-changes = config.lib.dag.entryAnywhere ''
       ${pkgs.nvd}/bin/nvd diff $oldGenPath $newGenPath
     '';
     homeDirectory =
-      if isDarwin
-      then "/Users/${username}"
-      else "/home/${username}";
-    sessionPath = ["$HOME/.local/bin"];
+      if isDarwin then "/Users/${username}" else "/home/${username}";
+    sessionPath = [ "$HOME/.local/bin" ];
     inherit stateVersion;
     inherit username;
+    inherit inputs;
+    inherit outputs;
   };
 
   nixpkgs = {
@@ -75,17 +64,21 @@ in {
     settings.keep-going = false;
 
     package = lib.mkDefault pkgs.unstable.nix;
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     settings = {
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
-      nix-path =
-        lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      nix-path = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
         config.nix.registry;
       warn-dirty = false;
       max-jobs = "auto";
-      sandbox = false;
+      sandbox = true;
       #trusted-users = [ "@nixbld" "@wheel" ];
     };
+
+    # 🍑 smooth rebuilds
+    daemonCPUSchedPolicy = "idle";
+    daemonIOSchedPriority = 2; # 7 max
+
     extraOptions = ''
       keep-outputs          = true
       keep-derivations      = false
@@ -93,6 +86,8 @@ in {
       # Free up to 1GiB whenever there is less than 100MiB left.
       min-free = ${toString (100 * 1024 * 1024)}
       max-free = ${toString (1024 * 1024 * 1024)}
+
+      connect-timeout = 5
     '';
   };
 

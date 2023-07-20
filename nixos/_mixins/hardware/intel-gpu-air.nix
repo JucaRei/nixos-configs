@@ -24,5 +24,4 @@
       enableRedistributableFirmware = true;
     };
   };
-  service.xserver.videoDrivers = [ "intel" ];
 }

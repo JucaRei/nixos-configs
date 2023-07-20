@@ -13,7 +13,7 @@
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
     ../_mixins/hardware/grub-efi.nix
-    ../_mixins/hardware/intel-gpu-nitro.nix
+    ../_mixins/hardware/intel-gpu-air.nix
     #../_mixins/services/tailscale.nix
     #../_mixins/services/zerotier.nix
   ];
@@ -23,7 +23,7 @@
   ############
 
   boot = {
-    isContainer = false;
+    #isContainer = false;
 
     #plymouth = {
     #  enable = lib.mkForce true;
@@ -31,10 +31,10 @@
     #};
 
     loader = {
-      efi = { canTouchEfiVariables = lib.mkForce false; };
+      efi = { canTouchEfiVariables = true; };
       grub = {
         gfxmodeEfi = lib.mkForce "1366x788";
-        efiInstallAsRemovable = true;
+        efiInstallAsRemovable = lib.mkForce false;
       };
     };
     blacklistedKernelModules = lib.mkForce [ "nvidia" ];
@@ -49,7 +49,7 @@
         [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       verbose = false;
       compressor = "zstd";
-      supportedFilesystems = [ "btrfs" ];
+      supportedFilesystems = [ "vfat" "btrfs" "ntfs" ];
     };
 
     kernelModules = [
@@ -58,7 +58,7 @@
       "kvm-intel"
       "wl"
       "z3fold"
-      "hdapsd"
+      #"hdapsd"
       "crc32c-intel"
       "lz4hc"
       "lz4hc_compress"
@@ -84,11 +84,6 @@
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     #kernelPackages = pkgs.linuxPackages_zen;
     supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
-  };
-
-  plymouth = {
-    theme = "breeze";
-    enable = true;
   };
 
   #environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
