@@ -1,17 +1,7 @@
-{
-  config,
-  desktop,
-  hostname,
-  #, hostid
-  inputs,
-  lib,
-  modulesPath,
-  outputs,
-  pkgs,
-  stateVersion,
-  username,
-  ...
-}:
+{ config, desktop, hostname,
+#, hostid
+inputs, lib, modulesPath, outputs, pkgs, stateVersion, home-manager, username
+, ... }:
 #let
 #machines = ["nitro" "air"];
 #in
@@ -19,21 +9,21 @@
   # Import host specific boot and hardware configurations.
   # Only include desktop components if one is supplied.
   # - https://nixos.wiki/wiki/Nix_Language:_Tips_%26_Tricks#Coercing_a_relative_path_with_interpolated_variables_to_an_absolute_path_.28for_imports.29
-  imports =
-    [
-      #(./. + "/${hostname}/disks.nix")
-      #(./. + "/${hostname}/hardware.nix")
-      #(./. + "/${hostname}/boot.nix")
+  imports = [
+    #(./. + "/${hostname}/disks.nix")
+    #(./. + "/${hostname}/hardware.nix")
+    #(./. + "/${hostname}/boot.nix")
 
-      #inputs.disko.nixosModules.disko
-      (modulesPath + "/installer/scan/not-detected.nix")
-      (./. + "/${hostname}")
-      ./_mixins/common
-    ]
-    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
-    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
-    #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
-    #++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
+    #inputs.disko.nixosModules.disko
+    (modulesPath + "/installer/scan/not-detected.nix")
+    home-manager.nixosModules.home-manager
+    (./. + "/${hostname}")
+    ./_mixins/common
+  ]
+  #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) ./${hostname}/disks.nix
+  #++ lib.optional (builtins.pathExists (./. + "/${hostname}/disks.nix")) (import ./${hostname}/disks.nix { })
+  #++ lib.optional (builtins.pathExists (./. + "/${hostname}/extra.nix")) (import ./${hostname}/extra.nix { })
+  #++ lib.optional (builtins.elem hostname machines) ./_mixins/hardware/gfx-intel.nix
     ++ lib.optional (builtins.isString desktop) ./_mixins/desktop;
 
   # Only install the docs I use
@@ -48,8 +38,8 @@
   environment = {
     # Eject nano and perl from the system
     defaultPackages = with pkgs;
-      lib.mkForce [gitMinimal home-manager micro rsync];
-    systemPackages = with pkgs; [pciutils psmisc unzip usbutils duf htop];
+      lib.mkForce [ gitMinimal home-manager micro rsync ];
+    systemPackages = with pkgs; [ pciutils psmisc unzip usbutils duf htop ];
     variables = {
       EDITOR = "micro";
       SYSTEMD_EDITOR = "micro";
@@ -144,15 +134,16 @@
 
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
-    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
+    nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}")
+      config.nix.registry;
 
     optimise = {
       automatic = true;
-      dates = ["00:00" "05:00" "12:00" "21:00"];
+      dates = [ "00:00" "05:00" "12:00" "21:00" ];
     };
     package = pkgs.unstable.nix;
     #package = pkgs.nixFlakes;
@@ -161,7 +152,7 @@
       #sandbox = relaxed;
       auto-optimise-store = true;
       warn-dirty = false;
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
 
       # https://nixos.org/manual/nix/unstable/command-ref/conf-file.html
       keep-going = false;
@@ -212,15 +203,22 @@
         mkhostid = "head -c4 /dev/urandom | od -A none -t x4";
 
         # VM testing
-        nixclone = "git clone --depth=1 https://github.com/JucaRei/nixos-configs $HOME/Zero/nix-config";
+        nixclone =
+          "git clone --depth=1 https://github.com/JucaRei/nixos-configs $HOME/Zero/nix-config";
         nix-gc = "sudo nix-collect-garbage --delete-older-than 5d";
         #rebuild-all = "sudo nix-collect-garbage --delete-older-than 14d && sudo nixos-rebuild switch --flake $HOME/Zero/nix-config && home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-all = "sudo nix-collect-garbage --delete-older-than 5d && sudo nixos-rebuild boot --flake $HOME/Zero/nix-config && home-manager switch -b backup --flake $HOME/Zero/nix-config && sudo reboot";
-        rebuild-home = "home-manager switch -b backup --flake $HOME/Zero/nix-config";
-        rebuild-host = "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
-        rebuild-lock = "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
-        rebuild-iso-console = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
-        rebuild-iso-desktop = "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
+        rebuild-all =
+          "sudo nix-collect-garbage --delete-older-than 5d && sudo nixos-rebuild boot --flake $HOME/Zero/nix-config && home-manager switch -b backup --flake $HOME/Zero/nix-config && sudo reboot";
+        rebuild-home =
+          "home-manager switch -b backup --flake $HOME/Zero/nix-config";
+        rebuild-host =
+          "sudo nixos-rebuild switch --flake $HOME/Zero/nix-config";
+        rebuild-lock =
+          "pushd $HOME/Zero/nix-config && nix flake lock --recreate-lock-file && popd";
+        rebuild-iso-console =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-console.config.system.build.isoImage && popd";
+        rebuild-iso-desktop =
+          "pushd $HOME/Zero/nix-config && nix build .#nixosConfigurations.iso-desktop.config.system.build.isoImage && popd";
         nix-hash-sha256 = "nix-hash --flat --base32 --type sha256";
         #rebuild-home = "home-manager switch -b backup --flake $HOME/.setup";
         #rebuild-host = "sudo nixos-rebuild switch --flake $HOME/.setup";
@@ -234,7 +232,8 @@
         pubip = "curl -s ifconfig.me/ip";
         #pubip = "curl -s https://api.ipify.org";
         wttr = "curl -s wttr.in && curl -s v2.wttr.in";
-        wttr-bas = "curl -s wttr.in/basingstoke && curl -s v2.wttr.in/basingstoke";
+        wttr-bas =
+          "curl -s wttr.in/basingstoke && curl -s v2.wttr.in/basingstoke";
       };
     };
     #nano.syntaxHighlight = true;
