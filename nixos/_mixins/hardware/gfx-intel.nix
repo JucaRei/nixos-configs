@@ -13,7 +13,7 @@
         driSupport = true;
         extraPackages =
           []
-          ++ lib.optionals (pkgs.system == "x86_64-linux" && hostname != "vm")
+          ++ lib.optionals (pkgs.system == "x86_64-linux")
           (with pkgs; [
             intel-media-driver # LIBVA_DRIVER_NAME=iHD
             vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
