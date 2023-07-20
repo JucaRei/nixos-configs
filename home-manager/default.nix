@@ -1,4 +1,4 @@
-{ config, desktop, lib, pkgs, stateVersion, username, ... }:
+{ config, desktop, lib, outputs, pkgs, stateVersion, username, ... }:
 let inherit (pkgs.stdenv) isDarwin;
 in {
   # Only import desktop configuration if the host is desktop enabled
