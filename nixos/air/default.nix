@@ -1,12 +1,7 @@
-{
-  lib,
-  inputs,
-  config,
-  pkgs,
-  ...
-}: {
+{ lib, inputs, config, pkgs, ... }: {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
+    #inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
+    inputs.nixos-hardware.nixosModules.apple-macbook-air-4
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     #../_mixins/hardware/systemd-boot.nix
     #../_mixins/hardware/refind.nix
@@ -28,31 +23,31 @@
   boot = {
     isContainer = false;
 
-    plymouth = {
-      enable = lib.mkForce true;
-    };
+    #plymouth = {
+    #  enable = lib.mkForce true;
+    #  theme = "breeze";
+    #};
 
     loader = {
-      efi = {
-        canTouchEfiVariables = lib.mkForce false;
-      };
+      efi = { canTouchEfiVariables = lib.mkForce false; };
       grub = {
         gfxmodeEfi = lib.mkForce "1366x788";
         efiInstallAsRemovable = true;
       };
     };
-    blacklistedKernelModules = lib.mkForce ["nvidia"];
-    extraModulePackages = with config.boot.kernelPackages; [broadcom_sta];
+    blacklistedKernelModules = lib.mkForce [ "nvidia" ];
+    extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     extraModprobeConfig = lib.mkDefault ''
       options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 #parameters may differ
     '';
 
     initrd = {
       #systemd.enable = true; # This is needed to show the plymouth login screen to unlock luks
-      availableKernelModules = ["uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+      availableKernelModules =
+        [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       verbose = false;
       compressor = "zstd";
-      supportedFilesystems = ["btrfs"];
+      supportedFilesystems = [ "btrfs" ];
     };
 
     kernelModules = [
@@ -67,6 +62,8 @@
       "lz4hc_compress"
     ];
     kernelParams = [
+      "hid_apple.swap_opt_cmd=1" # This will switch the left Alt and Cmd key as well as the right Alt/AltGr and Cmd key.
+      "i915.force_probe=0116" # Force enable my intel graphics
       "zswap.enabled=1"
       "zswap.compressor=lz4hc"
       "zswap.max_pool_percent=20"
@@ -84,7 +81,7 @@
     };
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     #kernelPackages = pkgs.linuxPackages_zen;
-    supportedFilesystems = ["btrfs"]; # fat 32 and btrfs
+    supportedFilesystems = [ "btrfs" ]; # fat 32 and btrfs
   };
 
   plymouth = {
@@ -202,21 +199,19 @@
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-partlabel/EFI";
     fsType = "vfat";
-    options = ["defaults" "noatime" "nodiratime"];
+    options = [ "defaults" "noatime" "nodiratime" ];
     noCheck = true;
   };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-partlabel/SWAP";
-      ### SWAPFILE
-      #device = "/swap/swapfile";
-      #size = 2 GiB;
-      #device = "/swap/swapfile";
-      #size = (1024 * 2); # RAM size
-      #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
-    }
-  ];
+  swapDevices = [{
+    device = "/dev/disk/by-partlabel/SWAP";
+    ### SWAPFILE
+    #device = "/swap/swapfile";
+    #size = 2 GiB;
+    #device = "/swap/swapfile";
+    #size = (1024 * 2); # RAM size
+    #size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
+  }];
 
   services = {
     #############
@@ -243,7 +238,7 @@
     dbus.implementation = lib.mkForce "dbus";
 
     # Virtual Filesystem Support Library
-    gvfs = {enable = true;};
+    gvfs = { enable = true; };
 
     # Hard disk protection if the laptop falls:
     #hdapsd.enable = lib.mkDefault true;
@@ -288,7 +283,7 @@
         EndSection
       '';
 
-      videoDrivers = lib.mkDefault ["intel"];
+      videoDrivers = lib.mkDefault [ "intel" ];
 
       ###########################
       ### Xserver Resolutions ###
@@ -321,25 +316,25 @@
   };
 
   ### fix filesystem
-  virtualisation.docker = {
-    storageDriver = lib.mkForce "btrfs";
-  };
+  virtualisation.docker = { storageDriver = lib.mkForce "btrfs"; };
 
   #system = { autoUpgrade.allowReboot = true; };
 
   hardware.opengl = {
     driSupport = true;
     extraPackages = lib.mkForce [
+      #pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
       pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       pkgs.vaapiVdpau
       pkgs.libvdpau-va-gl
     ];
   };
-  nixpkgs.config.packageOverrides.vaapiIntel.enableHybridCodec = lib.mkForce false;
+  nixpkgs.config.packageOverrides.vaapiIntel.enableHybridCodec =
+    lib.mkForce false;
 
   virtualisation.docker.enableNvidia = lib.mkForce false;
 
-  environment.systemPackages = with pkgs; [intel-gpu-tools libva-utils];
+  environment.systemPackages = with pkgs; [ intel-gpu-tools libva-utils ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

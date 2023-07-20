@@ -1,19 +1,14 @@
-{
-  desktop,
-  pkgs,
-  lib,
-  ...
-}: {
-  imports =
-    [
-      ../services/cups.nix
-      ../services/sane.nix
-    ]
-    ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix")) ./${desktop}.nix;
+{ desktop, pkgs, lib, ... }: {
+  imports = [ ../services/cups.nix ../services/sane.nix ]
+    ++ lib.optional (builtins.pathExists (./. + "/${desktop}.nix"))
+    ./${desktop}.nix;
 
   boot = {
-    kernelParams = ["quiet" "vt.global_cursor_default=0" "mitigations=off"];
-    plymouth.enable = true;
+    kernelParams = [ "quiet" "vt.global_cursor_default=0" "mitigations=off" ];
+    plymouth = {
+      enable = true;
+      theme = "breeze";
+    };
   };
 
   # X11 automation
@@ -27,7 +22,7 @@
 
   # Disable xterm
   services.xserver = {
-    excludePackages = [pkgs.xterm];
+    excludePackages = [ pkgs.xterm ];
     desktopManager.xterm.enable = false;
   };
 }
