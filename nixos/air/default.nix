@@ -15,7 +15,7 @@
     ../_mixins/services/tlp.nix
     ../_mixins/services/networkmanager.nix
     ../_mixins/hardware/backlight.nix
-    ../_mixins/hardware/gfx-intel.nix
+    ../_mixins/hardware/old_intel.nix
     ../_mixins/virt/docker.nix
     ../_mixins/hardware/grub-efi.nix
     #../_mixins/services/tailscale.nix
