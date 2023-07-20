@@ -1,13 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   services.flatpak.enable = true;
-  xdg.portal = {
-    #xdgOpenUsePortal = true;
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-      #xdg-desktop-portal-gnome
-      #xdg-desktop-portal-kde
-      #pantheon.xdg-desktop-portal-pantheon
-    ];
+  systemd.services.configure-flathub-repo = {
+    wantedBy = [ "multi-user.target" ];
+    path = [ pkgs.flatpak ];
+    script = ''
+      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    '';
   };
 }
