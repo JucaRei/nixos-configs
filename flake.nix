@@ -84,18 +84,18 @@
     #};
   };
 
-  outputs = {
+  outputs = inputs @ {
     self,
     nix-formatter-pack,
     nixpkgs,
     home-manager,
     ...
-  } @ inputs: let
+  }: let
     inherit (self) outputs;
     # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
     stateVersion = "23.05";
     libx = import ./lib {
-      inherit inputs outputs nixpkgs home-manager stateVersion;
+      inherit self inputs outputs nixpkgs home-manager stateVersion;
     };
   in {
     ### Home Manager config

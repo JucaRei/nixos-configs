@@ -15,7 +15,6 @@
     ../_mixins/services/tlp.nix
     ../_mixins/services/networkmanager.nix
     ../_mixins/hardware/backlight.nix
-    ../_mixins/hardware/old_intel.nix
     ../_mixins/virt/docker.nix
     ../_mixins/hardware/grub-efi.nix
     #../_mixins/services/tailscale.nix
@@ -86,6 +85,11 @@
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     #kernelPackages = pkgs.linuxPackages_zen;
     supportedFilesystems = ["btrfs"]; # fat 32 and btrfs
+  };
+
+  plymouth = {
+    theme = "breeze";
+    enable = true;
   };
 
   #environment.systemPackages = { variables = { LIBVA_DRIVER_NAME = "i965"; }; };
@@ -317,21 +321,25 @@
   };
 
   ### fix filesystem
-  virtualisation.docker = {storageDriver = lib.mkForce "btrfs";};
+  virtualisation.docker = {
+    storageDriver = lib.mkForce "btrfs";
+  };
 
   #system = { autoUpgrade.allowReboot = true; };
 
   hardware.opengl = {
+    driSupport = true;
     extraPackages = lib.mkForce [
       pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
       pkgs.vaapiVdpau
       pkgs.libvdpau-va-gl
     ];
   };
+  nixpkgs.config.packageOverrides.vaapiIntel.enableHybridCodec = lib.mkForce false;
 
   virtualisation.docker.enableNvidia = lib.mkForce false;
 
-  environment.systemPackages = with pkgs; [intel-gpu-tools];
+  environment.systemPackages = with pkgs; [intel-gpu-tools libva-utils];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
