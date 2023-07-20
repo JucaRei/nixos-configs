@@ -32,16 +32,16 @@
 
   boot = {
     #kernelParams = ["pcie_aspm.policy=powersave"];
-    extraModprobeConfig = ''
-      options snd_hda_intel power_save=1
-      options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0
-      options iwldvm force_cam=0
-      options i915 enable_guc=2 enable_fbc=1 enable_psr=1 enable_rc6=1 fastboot=1
-    '';
-    kernel.sysctl = {
-      "kernel.nmi_watchdog" = 0;
-      "vm.dirty_writeback_centisecs" = 6000;
-      "vm.laptop_mode" = 5;
-    };
+    #extraModprobeConfig = ''
+    #  options snd_hda_intel power_save=1
+    #  options iwlwifi power_save=1 d0i3_disable=0 uapsd_disable=0
+    #  options iwldvm force_cam=0
+    #  options i915 enable_guc=2 enable_fbc=1 enable_psr=1 enable_rc6=1 fastboot=1
+    #'';
+    #kernel.sysctl = {
+    #  "kernel.nmi_watchdog" = 0;
+    #  "vm.dirty_writeback_centisecs" = 6000;
+    #  "vm.laptop_mode" = 5;
+    #};
   };
 }
