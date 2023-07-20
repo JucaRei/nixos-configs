@@ -24,11 +24,10 @@
         storageDriver = "overlay2";
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      docker-machine
-      docker-compose
-      lazydocker
-    ];
   };
+  environment.systemPackages = with pkgs; [
+    docker-machine
+    docker-compose
+    lazydocker
+  ];
 }
