@@ -3,10 +3,6 @@
   desktop,
   ...
 }: {
-  imports =
-    []
-    ++ lib.optional (builtins.isString desktop == "nitro") ./_mixins/desktop;
-
   services = {
     #power-profiles-daemon.enable = true;
 

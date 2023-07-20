@@ -7,14 +7,13 @@
 }: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
-    inputs.nixos-hardware.nixosModules.common-pc
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     #../_mixins/hardware/systemd-boot.nix
     #../_mixins/hardware/refind.nix
+    #../_mixins/services/dynamic-timezone.nix
     ../_mixins/services/power-man.nix
     ../_mixins/services/tlp.nix
     ../_mixins/services/networkmanager.nix
-    ../_mixins/services/dynamic-timezone.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/hardware/gfx-intel.nix
     ../_mixins/virt/docker.nix
@@ -28,6 +27,8 @@
   ############
 
   boot = {
+    isContainer = false;
+
     plymouth = {
       enable = lib.mkForce true;
     };
