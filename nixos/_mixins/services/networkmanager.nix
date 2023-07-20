@@ -8,11 +8,11 @@
       enable = true;
       wifi = {
         backend = "iwd";
-        #macAddress = "random";
+        macAddress = "random";
         #scanRandMacAddress = true;
       };
       ethernet = {
-        #macAddress = "random";
+        macAddress = "random";
       };
       plugins = with pkgs; [
         networkmanager-openvpn

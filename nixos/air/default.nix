@@ -34,7 +34,9 @@
     };
 
     loader = {
-      efi = {canTouchEfiVariables = lib.mkForce false;};
+      efi = {
+        canTouchEfiVariables = lib.mkForce false;
+      };
       grub = {
         gfxmodeEfi = lib.mkForce "1366x788";
         efiInstallAsRemovable = true;
@@ -55,8 +57,8 @@
     };
 
     kernelModules = [
-      #"i965"
-      "i915"
+      "i965"
+      #"i915"
       "kvm-intel"
       "wl"
       "z3fold"
@@ -81,8 +83,8 @@
       "vm.dirty_background_ratio" = 1;
       "vm.dirty_ratio" = 50;
     };
-    #kernelPackages = pkgs.linuxPackages_xanmod_latest;
-    kernelPackages = pkgs.linuxPackages_zen;
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    #kernelPackages = pkgs.linuxPackages_zen;
     supportedFilesystems = ["btrfs"]; # fat 32 and btrfs
   };
 
@@ -253,7 +255,7 @@
       xkbModel = lib.mkForce "pc105";
       xkbVariant = lib.mkForce "mac"; # altgr-intl
       xkbOptions = lib.mkForce ''
-        "altwin:ctrl_win"
+        #q"altwin:ctrl_win"
         "altwin:ctrl_alt_win"
         "caps:super"
         "terminate:ctrl_alt_bksp"
