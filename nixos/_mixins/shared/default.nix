@@ -407,17 +407,20 @@
         ${pkgs.nvd}/bin/nvd --nix-bin-dir=${pkgs.nix}/bin diff /run/current-system "$systemConfig"
       '';
     };
+
+  };
+
+  systemd = {
+    services = {
+      # Workaround https://github.com/NixOS/nixpkgs/issues/180175
+      NetworkManager-wait-online.enable = false;
+      #systemd-udevd.restartIfChanged = false;
+    };
     ##systemd's out-of-memory daemon
     oomd = {
       enable = lib.mkDefault true;
       enableSystemSlice = true;
       enableUserServices = true;
     };
-  };
-
-  systemd.services = {
-    # Workaround https://github.com/NixOS/nixpkgs/issues/180175
-    NetworkManager-wait-online.enable = false;
-    #systemd-udevd.restartIfChanged = false;
   };
 }
