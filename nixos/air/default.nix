@@ -325,10 +325,7 @@
         pkgs.libvdpau-va-gl
       ];
     };
-    enableRedistributableFirmware = true;
   };
-  nixpkgs.config.packageOverrides.vaapiIntel.enableHybridCodec =
-    lib.mkForce false;
 
   virtualisation.docker.enableNvidia = lib.mkForce false;
 

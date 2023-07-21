@@ -21,7 +21,7 @@
         #  libva
         #];
       };
+      enableRedistributableFirmware = true;
     };
   };
-  #enableRedistributableFirmware = true;
 }
