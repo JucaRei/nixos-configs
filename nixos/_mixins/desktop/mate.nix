@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{ pkgs, lib, ... }: {
   imports = [
     ./configs/qt-style.nix
     #./apps/browsers/firefox.nix
@@ -23,7 +19,7 @@
     ];
 
     # Add some packages to complete the MATE desktop
-    systemPackages = with pkgs; [networkmanagerapplet];
+    systemPackages = with pkgs; [ networkmanagerapplet ];
   };
 
   # Enable some programs to provide a complete desktop
@@ -40,7 +36,7 @@
     xserver = {
       enable = true;
       displayManager = {
-        defaultSession = "mate";
+        defaultSession = "none+mate";
         lightdm.enable = true;
         lightdm.greeters.gtk = {
           enable = true;
@@ -81,12 +77,8 @@
         };
       };
 
-      desktopManager = {
-        mate.enable = true;
-      };
+      desktopManager = { mate.enable = true; };
     };
   };
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-gtk
-  ];
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 }
