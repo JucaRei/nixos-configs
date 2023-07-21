@@ -67,7 +67,7 @@
       "hid_apple.swap_opt_cmd=1" # This will switch the left Alt and Cmd key as well as the right Alt/AltGr and Cmd key.
       "i915.force_probe=0116" # Force enable my intel graphics
       #"video=efifb:off" # Disable efifb driver, which crashes Xavier AGX/NX
-      "video=efifb"
+      #"video=efifb"
       "zswap.enabled=1"
       "zswap.compressor=lz4hc"
       "zswap.max_pool_percent=20"
