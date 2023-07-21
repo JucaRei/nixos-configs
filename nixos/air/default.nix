@@ -315,14 +315,17 @@
 
   #system = { autoUpgrade.allowReboot = true; };
 
-  hardware.opengl = {
-    driSupport = true;
-    extraPackages = lib.mkForce [
-      #pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
-      pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-      pkgs.vaapiVdpau
-      pkgs.libvdpau-va-gl
-    ];
+  hardware = {
+    opengl = {
+      driSupport = true;
+      extraPackages = lib.mkForce [
+        #pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
+        pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+        pkgs.vaapiVdpau
+        pkgs.libvdpau-va-gl
+      ];
+    };
+    enableRedistributableFirmware = true;
   };
   nixpkgs.config.packageOverrides.vaapiIntel.enableHybridCodec =
     lib.mkForce false;
