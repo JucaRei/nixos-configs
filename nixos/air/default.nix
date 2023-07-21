@@ -253,8 +253,8 @@
       xkbModel = lib.mkForce "pc105";
       xkbVariant = lib.mkForce "mac"; # altgr-intl
       xkbOptions = lib.mkForce ''
-        #q"altwin:ctrl_win"
-        "altwin:ctrl_alt_win"
+        #"altwin:ctrl_win"
+        #"altwin:ctrl_alt_win"
         "caps:super"
         "terminate:ctrl_alt_bksp"
 
@@ -328,6 +328,11 @@
       ];
     };
   };
+
+  services.xserver.enable = lib.mkForce true;
+  services.xserver.desktopManager.pantheon.enable = lib.mkForce true;
+  services.xserver.displayManager.lightdm.greeters.pantheon.enable =
+    lib.mkForce true;
 
   virtualisation.docker.enableNvidia = lib.mkForce false;
 

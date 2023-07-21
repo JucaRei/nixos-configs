@@ -12,16 +12,20 @@
           vaapiVdpau
           libvdpau-va-gl
         ];
-        #driSupport32Bit = true;
-        #extraPackages32 = with pkgs.pkgsi686Linux; [
-        #  intel-media-driver
-        #  vaapiIntel
-        #  vaapiVdpau
-        #  libvdpau-va-gl
-        #  libva
-        #];
+        driSupport32Bit = true;
+        extraPackages32 = with pkgs.pkgsi686Linux;
+          [
+            #  intel-media-driver
+            vaapiIntel
+            #  vaapiVdpau
+            #  libvdpau-va-gl
+            #  libva
+          ];
       };
       enableRedistributableFirmware = true;
     };
+  };
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 }
