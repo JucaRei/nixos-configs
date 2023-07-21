@@ -27,7 +27,7 @@
         #defaultSession = "xfce+bspwm";
         #defaultSession = "none+bspwm";
         lightdm = {
-          enable = true;
+          #enable = true;
           greeters = { pantheon.enable = true; };
         };
       };
