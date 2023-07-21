@@ -1,6 +1,6 @@
 # NOTE: This is the minimum Pantheon, included in the live .iso image
 # For actuall installs pantheon-apps.nix is also included
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
   imports = [ ./configs/qt-style.nix ];
 
   # Exclude the Epiphany browser
@@ -23,15 +23,12 @@
     xserver = {
       enable = true;
       displayManager = {
-        defaultSession = "pantheon";
+        defaultSession = lib.mkForce "pantheon";
         #defaultSession = "xfce+bspwm";
         #defaultSession = "none+bspwm";
         lightdm = {
           enable = true;
-          greeters = {
-            enable = true;
-            pantheon.enable = true;
-          };
+          greeters = { pantheon.enable = true; };
         };
       };
       desktopManager = {
