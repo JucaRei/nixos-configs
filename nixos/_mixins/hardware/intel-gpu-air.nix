@@ -1,6 +1,6 @@
 # Taken from Colemickens
 # https://github.com/colemickens/nixcfg/blob/93e3d13b42e2a0a651ec3fbe26f3b98ddfdd7ab9/mixins/gfx-intel.nix
-{ pkgs, lib, hostname, config, ... }: {
+{ pkgs, lib, hostname, config, self, ... }: {
   config = {
     environment.systemPackages = with pkgs; [ libva-utils ];
     hardware = {
@@ -12,15 +12,15 @@
           vaapiVdpau
           libvdpau-va-gl
         ];
-        driSupport32Bit = true;
-        extraPackages32 = with pkgs.pkgsi686Linux;
-          [
-            #  intel-media-driver
-            vaapiIntel
-            #  vaapiVdpau
-            #  libvdpau-va-gl
-            #  libva
-          ];
+        #driSupport32Bit = true;
+        #extraPackages32 = with pkgs.pkgsi686Linux;
+        # [
+        #  intel-media-driver
+        #    vaapiIntel
+        #  vaapiVdpau
+        #  libvdpau-va-gl
+        #  libva
+        # ];
       };
       enableRedistributableFirmware = true;
     };
