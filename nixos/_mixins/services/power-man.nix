@@ -1,15 +1,9 @@
-{
-  lib,
-  desktop,
-  ...
-}: {
+{ lib, desktop, ... }: {
   services = {
     #power-profiles-daemon.enable = true;
 
     # Automatic CPU speed and power optimizer for Linux
-    auto-cpufreq = {
-      enable = true;
-    };
+    auto-cpufreq = { enable = true; };
 
     # Provide Power Management Support
     upower = {
@@ -25,8 +19,8 @@
   };
   powerManagement.powertop.enable = true;
   # FIXME always coredumps on boot
-  systemd.services.powertop.serviceConfig = {
-    Restart = "on-failure";
-    RestartSec = "2s";
-  };
+  #systemd.services.powertop.serviceConfig = {
+  #  Restart = "on-failure";
+  #  RestartSec = "2s";
+  #};
 }

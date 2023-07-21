@@ -9,7 +9,6 @@
     ../_mixins/services/power-man.nix
     ../_mixins/services/tlp.nix
     ../_mixins/services/networkmanager.nix
-    ../_mixins/services/networkmanager.nix
     ../_mixins/hardware/backlight.nix
     ../_mixins/virt/docker.nix
     ../_mixins/hardware/grub-efi.nix
@@ -33,13 +32,13 @@
     loader = {
       efi = { canTouchEfiVariables = true; };
       grub = {
-        gfxmodeEfi = lib.mkForce "1366x788";
+        #gfxmodeEfi = lib.mkForce "1366x788";
         efiInstallAsRemovable = lib.mkForce false;
       };
     };
     #blacklistedKernelModules = lib.mkForce [ "nvidia" ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
-    extraModprobeConfig = lib.mkDefault ''
+    extraModprobeConfig = ''
       options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 #parameters may differ
     '';
 
@@ -237,7 +236,7 @@
     dbus.implementation = lib.mkForce "dbus";
 
     # Virtual Filesystem Support Library
-    gvfs = { enable = true; };
+    #gvfs = { enable = true; };
 
     # Hard disk protection if the laptop falls:
     #hdapsd.enable = lib.mkDefault true;
@@ -250,13 +249,13 @@
 
     xserver = {
       ### Keyboard ###
-      xkbModel = lib.mkForce "pc105";
+      xkbModel = lib.mkForce "pc104";
       xkbVariant = lib.mkForce "mac"; # altgr-intl
       xkbOptions = lib.mkForce ''
         #"altwin:ctrl_win"
         #"altwin:ctrl_alt_win"
-        "caps:super"
-        "terminate:ctrl_alt_bksp"
+        #"caps:super"
+        #"terminate:ctrl_alt_bksp"
 
         #"caps:ctrl_modifier"
         #"lv3:alt_switch"
@@ -273,42 +272,42 @@
       #'';
 
       ### Driver Intel ###
-      exportConfiguration = true;
-      config = ''
-        Section "Device"
-             Identifier  "Intel Graphics"
-             Driver      "intel"
-             Option      "DRI" "crocus"
-        EndSection
-      '';
+      #exportConfiguration = true;
+      #config = ''
+      #  Section "Device"
+      #       Identifier  "Intel Graphics"
+      #       Driver      "intel"
+      #       Option      "DRI" "crocus"
+      #  EndSection
+      #'';
 
       ###########################
       ### Xserver Resolutions ###
       ###########################
 
-      resolutions = [
-        {
-          # Default resolution
-          x = 1366;
-          y = 788;
-        }
-        {
-          x = 1280;
-          y = 720;
-        }
-        {
-          x = 1600;
-          y = 900;
-        }
-        {
-          x = 1920;
-          y = 1080;
-        }
-        {
-          x = 3840;
-          y = 2160;
-        }
-      ];
+      #resolutions = [
+      #  {
+      #    # Default resolution
+      #    x = 1366;
+      #    y = 788;
+      #  }
+      #  {
+      #    x = 1280;
+      #    y = 720;
+      #  }
+      #  {
+      #    x = 1600;
+      #    y = 900;
+      #  }
+      #  {
+      #    x = 1920;
+      #    y = 1080;
+      #  }
+      #  {
+      #    x = 3840;
+      #    y = 2160;
+      #  }
+      #];
     };
   };
 
@@ -317,22 +316,25 @@
 
   #system = { autoUpgrade.allowReboot = true; };
 
-  hardware = {
-    opengl = {
-      driSupport = true;
-      extraPackages = lib.mkForce [
-        #pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-        pkgs.vaapiVdpau
-        pkgs.libvdpau-va-gl
-      ];
-    };
-  };
+  #hardware = {
+  #  opengl = {
+  #    driSupport = true;
+  #    extraPackages = lib.mkForce [
+  #      #pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD
+  #      pkgs.vaapiIntel # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+  #      pkgs.vaapiVdpau
+  #      pkgs.libvdpau-va-gl
+  #    ];
+  #  };
+  #};
 
   services.xserver.enable = lib.mkForce true;
   services.xserver.desktopManager.pantheon.enable = lib.mkForce true;
   services.xserver.displayManager.lightdm.greeters.pantheon.enable =
     lib.mkForce true;
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
 
   virtualisation.docker.enableNvidia = lib.mkForce false;
 
