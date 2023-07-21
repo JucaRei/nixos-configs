@@ -77,8 +77,8 @@
     kernel.sysctl = {
       #"kernel.sysrq" = 1;
       #"kernel.printk" = "3 3 3 3";
-      "vm.vfs_cache_pressure" = 300;
-      "vm.swappiness" = 25;
+      "vm.vfs_cache_pressure" = 400;
+      "vm.swappiness" = 20;
       "vm.dirty_background_ratio" = 1;
       "vm.dirty_ratio" = 50;
     };
@@ -233,7 +233,7 @@
 
     # ddccontrol.enable = true;
 
-    dbus.implementation = lib.mkForce "dbus";
+    #dbus.implementation = lib.mkForce "dbus";
 
     # Virtual Filesystem Support Library
     #gvfs = { enable = true; };
