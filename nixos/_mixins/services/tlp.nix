@@ -1,9 +1,4 @@
-{
-  pkgs,
-  config,
-  lib,
-  ...
-}: {
+{ pkgs, config, lib, ... }: {
   # services = {
   #   tlp = {
   #     enable = true;
@@ -50,7 +45,7 @@
   #};
   #};
 
-  environment.systemPackages = [config.boot.kernelPackages.x86_energy_perf_policy];
+  #environment.systemPackages = [config.boot.kernelPackages.x86_energy_perf_policy];
 
   services.power-profiles-daemon.enable = lib.mkForce false;
   services.tlp = {

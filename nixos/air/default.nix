@@ -1,8 +1,8 @@
 { lib, inputs, config, pkgs, ... }: {
   imports = [
     #inputs.nixos-hardware.nixosModules.common-cpu-intel-sandy-bridge
-    inputs.nixos-hardware.nixosModules.apple-macbook-air-4
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    #inputs.nixos-hardware.nixosModules.apple-macbook-air-4
+    #inputs.nixos-hardware.nixosModules.common-pc-ssd
     #../_mixins/hardware/systemd-boot.nix
     #../_mixins/hardware/refind.nix
     #../_mixins/services/dynamic-timezone.nix
@@ -37,7 +37,7 @@
         efiInstallAsRemovable = lib.mkForce false;
       };
     };
-    blacklistedKernelModules = lib.mkForce [ "nvidia" ];
+    #blacklistedKernelModules = lib.mkForce [ "nvidia" ];
     extraModulePackages = with config.boot.kernelPackages; [ broadcom_sta ];
     extraModprobeConfig = lib.mkDefault ''
       options i915 enable_guc=2 enable_dc=4 enable_hangcheck=0 error_capture=0 enable_dp_mst=0 fastboot=1 #parameters may differ
@@ -46,7 +46,7 @@
     initrd = {
       #systemd.enable = true; # This is needed to show the plymouth login screen to unlock luks
       availableKernelModules =
-        [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+        [ "uhci_hcd" "ehci_pci" "ahci" "usbhid" "sd_mod" ];
       verbose = false;
       compressor = "zstd";
       supportedFilesystems = [ "vfat" "btrfs" "ntfs" ];
@@ -334,4 +334,6 @@
   environment.systemPackages = with pkgs; [ intel-gpu-tools libva-utils ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode =
+    lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
